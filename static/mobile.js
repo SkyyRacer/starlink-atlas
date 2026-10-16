@@ -28,5 +28,12 @@
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}
     }
   });
+  const compactCard=matchMedia('(max-width: 1400px), (max-height: 850px)');
+  compactCard.addEventListener('change',e=>{
+    if(!e.matches)return;
+    const card=document.getElementById('detail'),button=document.getElementById('detail-toggle');
+    card.dataset.expanded='false';
+    if(button){button.setAttribute('aria-expanded','false');button.textContent='Afficher les informations';}
+  });
   small.addEventListener('change',()=>setOpen(false,false));setOpen(false,false);
 })();
