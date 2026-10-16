@@ -1,0 +1,74 @@
+name: Publier Atlas et actualiser les données
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */2 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+            web-core/target
+          key: rust-atlas-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+      - uses: actions/cache/restore@v4
+        id: collection
+        with:
+          path: data-runtime
+          key: atlas-collection-${{ github.run_id }}
+          restore-keys: atlas-collection-
+      - name: Préparer le cache public de collecte
+        run: |
+          mkdir -p data-runtime
+          if [ ! -f data-runtime/satcat.json ]; then cp data-seed/*.* data-runtime/; fi
+      - name: Installer Rust et la cible navigateur
+        run: rustup toolchain install 1.87.0 --profile minimal --target wasm32-unknown-unknown
+      - name: Vérifier et compiler le serveur et le moteur navigateur
+        run: |
+          cargo +1.87.0 test --locked
+          cargo +1.87.0 build --locked --release
+          cargo +1.87.0 build --manifest-path web-core/Cargo.toml --locked --target wasm32-unknown-unknown --release
+      - name: Collecter les données publiques si le cycle est échu
+        env:
+          DATA_DIR: data-runtime
+          HISTORY_DIR: data-seed/history
+        run: |
+          target/release/starlink-atlas --collect-once
+          for file in data-runtime/*stopped.txt; do
+            if [ -f "$file" ]; then echo "::warning::Une source a interrompu sa collecte : $file. Le cache validé reste publié."; fi
+          done
+      - name: Construire le site autonome
+        run: python3 scripts/build_static.py --output public --data-dir data-runtime --history-dir data-seed/history --compact-cache --remote-history "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_SHA}/data-seed/history/"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: data-runtime
+          key: atlas-collection-${{ github.run_id }}
+      - name: Vérifier le moteur WASM
+        run: node tests/wasm.cjs public
+      - name: Publier la branche GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          previous=$(git ls-remote --heads origin gh-pages | cut -f1)
+          git worktree add --detach /tmp/atlas-pages HEAD
+          git -C /tmp/atlas-pages checkout --orphan "publication-${GITHUB_RUN_ID}"
+          rsync -a --delete --exclude=.git --exclude=.atlas-generated public/ /tmp/atlas-pages/
+          git -C /tmp/atlas-pages add -A
+          git -C /tmp/atlas-pages commit -m "Données et site actualisés le $(date -u +%FT%TZ)"
+          git -C /tmp/atlas-pages push origin HEAD:gh-pages --force-with-lease="refs/heads/gh-pages:${previous}"

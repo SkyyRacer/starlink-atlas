@@ -1,0 +1,9 @@
+/target/
+/web-core/target/
+/data/
+/data-runtime/
+/public/
+.DS_Store
+__pycache__/
+*.pyc
+.env

@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict');const time=require('../static/time.js');
+process.env.TZ='Europe/Paris';
+assert.equal(time.input(Date.parse('2026-06-12T13:21:00Z')),'2026-06-12T15:21');
+assert.equal(time.parseInput('2026-06-12T15:21').time,Date.parse('2026-06-12T13:21:00Z'));
+assert.equal(time.zoneLabel('2026-06-12T13:21:00Z'),'UTC+02:00');assert.equal(time.zoneLabel('2026-01-12T13:21:00Z'),'UTC+01:00');
+assert.ok(Number.isNaN(time.parseInput('2026-03-29T02:30').time),'DST missing hour must not shift silently');assert.equal(time.parseInput('2026-10-25T02:30').ambiguous,true);
+assert.equal(time.instant('2026-06-12T13:21:00'),time.instant('2026-06-12T13:21:00Z'),'archive timestamps without suffix are UTC');
+const utcDay=time.event('2025-05-04');assert.ok(utcDay.includes('heure non fournie'));
+process.env.TZ='America/New_York';assert.equal(time.input(Date.parse('2026-06-12T01:00:00Z')),'2026-06-11T21:00');assert.equal(time.event('2025-05-04'),utcDay,'unknown launch hour must not invent a shifted day');
+process.env.TZ='Asia/Kathmandu';assert.equal(time.zoneLabel('2026-06-12T13:21:00Z'),'UTC+05:45');
+process.env.TZ='UTC';assert.equal(time.zoneLabel(Date.now()),'UTC');
+console.log('Fuseaux navigateur, été/hiver, passage de jour et précision des sources : OK');

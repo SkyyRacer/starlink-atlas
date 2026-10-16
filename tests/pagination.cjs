@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('static/app.js','utf8');const elements=new Map();
+const context={showSearchAlternative:()=>{},selected:null,catalog:Array.from({length:205},(_,i)=>({id:i,name:`SAT-${i}`})),matches:()=>true,esc:String,state:()=> 'orbit',$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);}};
+vm.createContext(context);vm.runInContext(source.slice(source.indexOf('let resultsPage='),source.indexOf('\nfunction updateDetail')),context);
+const count=()=> (elements.get('results').innerHTML.match(/data-id=/g)||[]).length;
+vm.runInContext('list()',context);assert.equal(count(),100);assert.equal(elements.get('results-prev').disabled,true);assert.equal(elements.get('results-page').textContent,'Page 1 / 3');
+vm.runInContext('resultsPage=1;list()',context);assert.equal(count(),100);assert.ok(elements.get('results').innerHTML.includes('data-id="100"'));assert.ok(!elements.get('results').innerHTML.includes('data-id="0"'));
+vm.runInContext('resultsPage=2;list()',context);assert.equal(count(),5);assert.equal(elements.get('results-next').disabled,true);
+context.catalog=context.catalog.slice(0,1);vm.runInContext('list()',context);assert.equal(count(),1);assert.equal(elements.get('results-page').textContent,'Page 1 / 1');
+context.catalog=[];vm.runInContext('list()',context);assert.equal(count(),0);assert.equal(elements.get('results-next').disabled,true);assert.equal(elements.get('results-prev').disabled,true);
+console.log('Pagination 100 résultats, dernière page et filtres : OK');

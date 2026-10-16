@@ -1,0 +1,18 @@
+[package]
+name = "atlas-web-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+license = "MIT"
+[lib]
+crate-type = ["cdylib", "rlib"]
+[dependencies]
+sgp4 = "2.4"
+chrono = { version = "0.4", default-features = false, features = ["std", "serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+panic = "abort"

@@ -1,0 +1,91 @@
+/* Visual theme only. Layout, controls and interaction contracts live in style.css. */
+:root{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#f5f5f5;background:#000;--accent:#fff;--muted:#979b9f;color-scheme:dark}
+body{background:#000;-webkit-font-smoothing:antialiased}
+body>header{background:#000;border-color:#262626}
+.brand{font-weight:600;letter-spacing:3.5px}.brand b{font-weight:300;color:#fff}.brand small{color:#888;letter-spacing:3px}.logo{color:#fff}
+h1{font-weight:600;letter-spacing:-.9px;line-height:1.08;text-transform:uppercase}
+aside{background:#050505;border-color:#282828}aside h1{font-weight:600;font-size:21px}
+.intro,.hint,details p{color:#999}.eyebrow{color:#a2a2a2;letter-spacing:2px}.live{color:#fff;font-weight:500}
+.stats{border-color:#303030}.stats strong{color:#fff;font-weight:500;letter-spacing:-.8px}.stats small{color:#888;letter-spacing:1.8px}
+label{color:#b9b9b9}aside>label,.satellite-results>label{letter-spacing:.6px}
+button,input,select,summary{transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease}
+button{border-color:#484848;border-radius:2px;background:#0c0c0c;color:#f5f5f5;font-weight:500}
+button:hover:not(:disabled){background:#fff;color:#050505;border-color:#fff}
+button:active:not(:disabled){background:#d4d4d4}
+button:disabled{cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px}
+input,select{background:#0c0c0c;color:#f5f5f5;border-color:#3b3b3b;border-radius:2px}
+input::placeholder{color:#7d7d7d}input[type=checkbox]{accent-color:#fff}
+#refresh,#now,#play{font-size:11px;letter-spacing:.6px}
+.view,.globe-stage,#map,.leaflet-container{background:#000}
+.leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) saturate(.15) brightness(.65)}
+.leaflet-control-attribution{background:#000d!important;color:#999!important}.leaflet-control-attribution a{color:#ddd}
+.leaflet-bar{border:1px solid #555!important;border-radius:2px!important;box-shadow:none!important}.leaflet-bar a{background:#080808;color:#fff;border-color:#454545}.leaflet-bar a:hover{background:#fff;color:#000}.leaflet-bar a.leaflet-disabled{background:#151515;color:#666}
+.view-switch{background:#050505e8;border-color:#555;border-radius:2px;padding:3px;gap:3px}.view-switch button{border-radius:0;letter-spacing:.6px}.view-switch button[aria-pressed=true]{background:#fff;color:#000}
+.notice{color:#b5b5b5;text-shadow:0 1px 4px #000}
+.timeline{background:#080808f5;border-color:#353535;border-radius:3px;box-shadow:0 14px 40px #0007}
+time{font-weight:500;letter-spacing:-.35px}.timeline p{color:#909090}
+.date-field{border-color:#444;border-radius:2px;background:#101010}.date-field:focus-within{border-color:#fff;box-shadow:0 0 0 1px #fff2}
+#date-open{color:#fff;border-color:#444;border-radius:0}#date-open[aria-expanded=true]{background:#fff;color:#000}#date-open:hover{background:#fff;color:#000}
+.date-popover{background:#0b0b0b;border-color:#575757;border-radius:4px;box-shadow:0 18px 60px #000b}
+.date-popover header{background:transparent}.date-popover select{color:#fff}.date-popover option{background:#111;color:#fff}
+.date-popover button:hover:not(:disabled){background:#252525;color:#fff;border-color:#777}
+.date-days button{border-radius:2px}.date-days button[aria-pressed=true]{background:#fff;color:#000}.date-days .today{border-color:#777}.date-days .outside{color:#747474}.date-week,.date-zone{color:#999}
+.date-popover .date-bottom{border-color:#333}.date-popover .date-apply{background:#fff;color:#000;border-radius:2px;letter-spacing:.5px}.date-popover .date-apply:hover{background:#ddd;color:#000}
+.date-error{color:#eebc95}
+.multi-filter{background:#0b0b0b;color:#f2f2f2;border-color:#3b3b3b;border-radius:2px}.multi-filter summary:hover{background:#151515}.multi-actions button:disabled{border-color:#444}.multi-options input{accent-color:#fff}.multi-options label:hover{background:#ffffff08}.multi-actions{border-top:1px solid #282828}
+.launch-year-heading{background:#181818;border-color:#383838}.launch-year-heading strong{color:#fff;letter-spacing:1px}.launch-year-heading small{color:#999}
+.results-heading h2{font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:17px}.results-heading span{color:#999}.results-pages span{color:#aaa}
+#results .satellite-result{background:#0a0a0a;border-color:#303030;border-radius:2px;box-shadow:none}
+#results .satellite-result:hover{background:#171717;border-color:#888;color:#fff}
+#results .satellite-result strong{font-weight:500;letter-spacing:.4px;color:#eee}
+#results .satellite-result span{color:#aaa}#results .satellite-result em{color:#eee}
+#results .satellite-result.is-decayed{background:#080808;border-color:#282828}
+#results .satellite-result.is-decayed strong,#results .satellite-result.is-decayed span{color:#787878}
+#results .satellite-result.is-decayed em{color:#c8a37f}
+#results .satellite-result[aria-pressed=true]{border-color:#fff;background:#191919;box-shadow:inset 3px 0 #fff}
+.search-box{background:#0b0b0b;border-radius:2px}#search-ghost{color:#777}
+.search-alternative{background:#111;border-color:#888;border-radius:2px}.search-alternative strong{color:#fff}
+#detail{background:#080808f5;border-color:#555;border-radius:3px;box-shadow:0 18px 45px #0009}
+#detail h2{color:#fff;letter-spacing:.5px;font-weight:600}#detail dt{color:#999}#detail dd{color:#eee}
+.field-help{background:#191919;border-color:#777;border-radius:2px;color:#eee;box-shadow:0 8px 30px #000a}
+#show-launch-train[aria-pressed=true],#globe-follow[aria-pressed=true]{background:#fff;color:#000;border-color:#fff}
+.compass{background:#080808e8;border-color:#444;border-radius:3px}.compass-dial{border-color:#777}.compass-dial .north,.compass-dial i{color:#fff}.compass small{color:#bbb}
+.recenter-control{background:#fff;color:#000;border-color:#fff;border-radius:2px;font-weight:600;box-shadow:0 2px 14px #0006}.recenter-control:hover{background:#d9d9d9;color:#000;box-shadow:0 2px 14px #0008}
+.globe-tools{background:#080808ed;border-color:#444;border-radius:3px}#follow-state{color:#999}.globe-help{color:#bbb}.globe-help small{color:#888}
+.globe-zoom{border:1px solid #555;border-radius:2px}.globe-zoom button{background:#080808;color:#fff}.globe-zoom button+button{border-color:#555}.globe-zoom button:hover{background:#fff;color:#000}
+.globe-joystick{background:#080808ed;border-color:#777;box-shadow:0 3px 16px #0008}.globe-joystick button{color:#fff}.globe-joystick .globe-stick{background:#333;border-color:#aaa}.globe-joystick button:hover{background:#444;color:#fff;border-radius:50%}
+footer{background:#000;border-top:1px solid #262626;color:#777}a{color:#d5d5d5;text-underline-offset:3px}a:hover{color:#fff}.divider{background:#303030}
+*{scrollbar-color:#555 #0b0b0b;scrollbar-width:thin}::-webkit-scrollbar{width:7px;height:7px}::-webkit-scrollbar-track{background:#0b0b0b}::-webkit-scrollbar-thumb{background:#454545;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#666}
+@media(max-width:640px){aside h1{font-size:25px}.brand{letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){button,input,select,summary,.compass-dial,.field-help{transition:none!important}}
+
+aside .observation-title{font-size:18px;line-height:1.35;letter-spacing:.7px;font-weight:500;text-transform:uppercase;margin:4px 0 18px}aside .observation-title span{display:block;font-weight:600;letter-spacing:3px;font-size:25px;margin-top:3px}
+
+body>header .brand{height:100%;min-width:0}body>header .atlas-logo{display:block;width:210px;height:76px;max-width:100%;object-fit:contain;object-position:left center}@media(max-width:640px){body>header .atlas-logo{width:175px;height:62px}}
+
+/* Match the 3D imagery: preserve OSM land/ocean colors instead of inversion. */
+#map .leaflet-tile-pane{filter:saturate(.35) brightness(.65) contrast(1.2)}
+#map .leaflet-control-attribution{background:#000d!important}
+
+.earth-overview{filter:saturate(.55) brightness(.68) contrast(1.08);image-rendering:auto}
+
+/* Filter individual tiles, never the entire wide map pane (GPU clipping). */
+#map .leaflet-tile-pane{filter:none!important}
+#map .leaflet-tile{filter:grayscale(1) brightness(.65) contrast(1.2)}
+.earth-overview{filter:none}
+
+.globe-tools{left:24px}
+.recenter-control:disabled,.recenter-control:disabled:hover{background:#242424;color:#858585;border-color:#3c3c3c;box-shadow:none;cursor:default}
+@media(max-width:640px){.globe-tools{left:12px;right:auto}}
+/* Keep the left controls clear of the compass in short viewports. */
+.globe-stage{container-type:size}
+@container(max-height:480px){.globe-tools{bottom:50px;max-height:calc(100% - 302px);overflow:auto}.globe-help{bottom:8px}}
+
+.globe-help .creator-credit{margin-top:7px;font-size:10px;font-weight:400;color:#909090;letter-spacing:.15px}
+
+/* Anchor the lower-left block closer to the chronology. */
+.globe-tools{bottom:58px}
+.globe-help{bottom:6px}
+@container(max-height:480px){.globe-tools{bottom:52px;max-height:calc(100% - 304px)}.globe-help{bottom:4px}}
+@container(max-height:480px){.globe-tools{padding:6px}.globe-buttons button{padding:5px 8px}#globe-follow{padding:6px 9px;margin-top:6px}#follow-state{font-size:9px;line-height:12px;margin-top:4px}}

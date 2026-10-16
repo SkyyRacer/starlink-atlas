@@ -1,0 +1,10 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');const source=fs.readFileSync('static/app.js','utf8');
+const fields={status:{value:''},search:{value:''}};const ctx={revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
+const test=d=>ctx.matches({designator:d,name:'STARLINK',id:1});assert.ok(test('2023-001A'));
+vm.runInContext("chosenYears.add('2026');chosenYears.add('2024')",ctx);assert.ok(test('2026-001A'));assert.ok(test('2024-001A'));assert.ok(!test('2025-001A'));
+vm.runInContext("chosenLaunches.add('2024-001');chosenLaunches.add('2026-002')",ctx);assert.ok(test('2024-001A'));assert.ok(test('2026-002A'));assert.ok(!test('2026-001A'));
+vm.runInContext('chosenYears.clear();chosenLaunches.clear()',ctx);assert.ok(test('2023-001A'));console.log('Filtres multiples : union, combinaison et réinitialisation OK');
+vm.runInContext(source.slice(source.indexOf('function launchGroups('),source.indexOf('\nfunction renderMultiFilters')),ctx);
+const grouped=ctx.launchGroups(['2026-219','2025-304','2026-225','2028-001','2027-002']);
+assert.deepEqual(JSON.parse(JSON.stringify(grouped)),[['2028',['2028-001']],['2027',['2027-002']],['2026',['2026-225','2026-219']],['2025',['2025-304']]]);
+console.log('Groupes annuels dynamiques et tri des nouveaux millésimes OK');
