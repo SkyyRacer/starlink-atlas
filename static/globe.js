@@ -173,7 +173,7 @@ window.AtlasGlobe={
         lastSelection=data.selected;container.dataset.points=String([...items.values()].filter(p=>p.show).length);container.dataset.altitudeScale='1';viewer.scene.requestRender();
       },
       setActive(value){if(!value){stopJoystick();pendingX=0;pendingY=0;globeDrag=null;releaseFollow();}active=value;viewer.useDefaultRenderLoop=value;if(value){viewer.resize();viewer.scene.requestRender();}},
-      resize(){if(active){viewer.resize();viewer.scene.requestRender();}},
+      resize(){if(active){const atHome=resetButton.disabled&&!returningHome;viewer.resize();if(atHome){viewer.camera.setView(homeView());rememberHome();updateHomeState();}viewer.scene.requestRender();}},
       home,
       north(){pendingX=0;pendingY=0;viewer.camera.cancelFlight();const angle=northAngle();if(angle!==null)viewer.camera.twistRight(angle);updateCompass();viewer.scene.requestRender();},
       zoom(direction){const height=viewer.camera.positionCartographic.height;const distance=Math.max(0,Math.min(Math.max(10000,height*.12),direction>0?height-150000:80000000-height));direction>0?viewer.camera.zoomIn(distance):viewer.camera.zoomOut(distance);viewer.scene.requestRender();}

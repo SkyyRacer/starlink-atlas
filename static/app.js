@@ -7,8 +7,8 @@ function constrainWorld(initial=false){const wasOverview=initial||map.getZoom()<
 constrainWorld(true);map.on('resize',()=>constrainWorld());
 map.getContainer().addEventListener('wheel',()=>{map.options.wheelPxPerZoomLevel=180+Math.min(12,Math.max(0,map.getZoom()-map.getMinZoom()))*30;},{capture:true,passive:true});
 const timelineElement=document.querySelector('.timeline');
-function sizeMap(){const bottom=timelineElement.offsetHeight+48;const element=map.getContainer();element.closest('.view').style.setProperty('--timeline-space',bottom+'px');if(element.style.bottom!==bottom+'px'){element.style.bottom=bottom+'px';map.invalidateSize({pan:false});}if($('globe'))$('globe').style.bottom=bottom+'px';if(globeController)globeController.resize();}
-if(typeof ResizeObserver!=='undefined')new ResizeObserver(sizeMap).observe(timelineElement);else window.addEventListener('resize',sizeMap);
+function sizeMap(){const bottom=timelineElement.offsetHeight+parseFloat(getComputedStyle(timelineElement).bottom)+12;const element=map.getContainer();element.closest('.view').style.setProperty('--timeline-space',bottom+'px');if(element.style.bottom!==bottom+'px'){element.style.bottom=bottom+'px';map.invalidateSize({pan:false});}if($('globe'))$('globe').style.bottom=bottom+'px';if(globeController)globeController.resize();}
+if(typeof ResizeObserver!=='undefined')new ResizeObserver(sizeMap).observe(timelineElement);window.addEventListener('resize',sizeMap);
 sizeMap();
 L.control.zoom({position:'topright'}).addTo(map);
 let tiles=null;
@@ -75,8 +75,9 @@ function updateDetail(){
  ['Date de référence des données orbitales',p?AtlasTime.instant(p.epoch):'Indisponible','Instant auquel les données décrivent l’orbite. L’application part de cette référence pour calculer la position à l’heure de la carte. Ce n’est pas l’heure de réception ou de téléchargement.']];
  const detail=$('detail');detail.hidden=false;
  if(detail.dataset.satellite!==String(selected)){
-  detail.dataset.satellite=String(selected);
-  detail.innerHTML=`<button class="close" id="close" aria-label="Fermer">×</button><div class="eyebrow">FICHE SATELLITE</div><h2>${esc(s.name)}</h2><dl>${fields.map(([k,v,help],i)=>`<div class="detail-field" tabindex="0" aria-describedby="field-help-${i}"><dt>${esc(k)}</dt><dd>${esc(v)}</dd><span class="field-help" role="tooltip" id="field-help-${i}">${esc(help)}</span></div>`).join('')}</dl><p class="hint position-hint"></p><button id="show-launch-train">Voir le train de ce lancement</button><p class="hint">Historique des pannes et fin d’activité : non disponibles.</p>`;
+  detail.dataset.satellite=String(selected);detail.dataset.expanded='false';
+  detail.innerHTML=`<button class="close" id="close" aria-label="Fermer">×</button><div class="eyebrow">FICHE SATELLITE</div><h2>${esc(s.name)}</h2><button id="detail-toggle" class="mobile-only" aria-expanded="false">Afficher les informations</button><dl>${fields.map(([k,v,help],i)=>`<div class="detail-field" tabindex="0" aria-describedby="field-help-${i}"><dt>${esc(k)}</dt><dd>${esc(v)}</dd><span class="field-help" role="tooltip" id="field-help-${i}">${esc(help)}</span></div>`).join('')}</dl><p class="hint position-hint"></p><button id="show-launch-train">Voir le train de ce lancement</button><p class="hint">Historique des pannes et fin d’activité : non disponibles.</p>`;
+  $('detail-toggle').onclick=()=>{const expanded=detail.dataset.expanded!=='true';detail.dataset.expanded=String(expanded);$('detail-toggle').setAttribute('aria-expanded',String(expanded));$('detail-toggle').textContent=expanded?'Réduire la fiche':'Afficher les informations';};
   $('show-launch-train').onclick=()=>{
    const launch=(s.designator||'').slice(0,8);if(!launch)return;
    const removing=chosenLaunches.has(launch);
