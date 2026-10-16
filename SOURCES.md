@@ -54,3 +54,5 @@ Collecte SupGP toutes les deux heures au maximum, GCAT une fois par jour ; fichi
 Limite vérifiée : aucune observation historique pour NORAD 100753 le 21 septembre 2026 dans le cache disponible. L’ajout des sources actuelles ne comble pas ce trou. La fiche explique désormais ce manque plutôt que de laisser croire que la date de lancement suffit.
 
 Fond mondial à faible zoom : Natural Earth II, textures locales distribuées avec Cesium, domaine public. https://www.naturalearthdata.com/about/terms-of-use/ . Reprojection en Web Mercator au chargement ; OSM conservé aux niveaux de détail supérieurs.
+
+Moteur navigateur : même code orbital Rust que le serveur, compilé en WebAssembly. Les archives historiques initiales sont accessibles à la demande depuis le dépôt GitHub public à une révision immuable. Les observations collectées ultérieurement conservent leur source et leurs limites de validité, avec échantillonnage quotidien.

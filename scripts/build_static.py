@@ -48,4 +48,4 @@ for file in out.glob('*.js'):
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js"></script><script src="./app.js');index.write_text(text)
 size=sum(f.stat().st_size for f in out.rglob('*') if f.is_file())
 if size>950_000_000:raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
-print(json.dumps({'output':str(out),'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(rows)},indent=2))
+print(json.dumps({'output':str(out),'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))

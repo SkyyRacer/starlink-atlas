@@ -134,3 +134,8 @@ Recherche sous le titre Satellites et le compteur : un préfixe de STARLINK affi
 Au lancement, le serveur charge également les caches CelesTrak SupGP / SpaceX et GCAT / Jonathan McDowell, puis les actualise automatiquement (2 h / 24 h). Aucun compte requis. La fiche donne la source orbitale et les heures de lancement recoupées ; Sources & fiabilité indique les collectes et erreurs. Les données actuelles ne remplacent pas les archives historiques manquantes. Détails et attributions dans SOURCES.md.
 
 En cas d’erreur, examiner data/supgp-stopped.txt ou data/gcat-stopped.txt ; corriger la cause avant de supprimer le fichier concerné. OFFLINE=1 conserve uniquement les caches. L’API /api/sources donne l’état des nouvelles sources.
+
+
+### Version publique gratuite
+
+Déploiement GitHub Pages sans carte bancaire, moteur Rust/WebAssembly dans chaque navigateur et collecte planifiée indépendante du Mac : voir [DEPLOIEMENT.md](DEPLOIEMENT.md). Les filtres ne sont jamais enregistrés ; une visite garde son édition des données jusqu’au rechargement.

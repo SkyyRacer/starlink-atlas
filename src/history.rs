@@ -12,7 +12,11 @@ use tokio::sync::Mutex;
 type Orbits = Arc<BTreeMap<u64, Vec<Orbit>>>;
 static CACHE: OnceLock<Mutex<Option<(String, Orbits)>>> = OnceLock::new();
 fn directory() -> PathBuf {
-    std::env::var("HISTORY_DIR").map(PathBuf::from).unwrap_or_else(|_|PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())).join("history"))
+    std::env::var("HISTORY_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|_| {
+            PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())).join("history")
+        })
 }
 pub fn info() -> Option<Value> {
     std::fs::read(directory().join("manifest.json"))

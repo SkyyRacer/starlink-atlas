@@ -94,7 +94,9 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
         .unwrap();
     loop {
         if shared.read().await.catalog.is_empty() {
-            if once { return; }
+            if once {
+                return;
+            }
             tokio::time::sleep(std::time::Duration::from_secs(60)).await;
             continue;
         }
@@ -131,7 +133,9 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
                 let _ = std::fs::write(dir.join(format!("{key}-stopped.txt")), e);
             }
         }
-        if once { return; }
+        if once {
+            return;
+        }
         tokio::time::sleep(std::time::Duration::from_secs(60)).await;
     }
 }

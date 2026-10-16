@@ -3,8 +3,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      rearm_sources:
+        description: Réautoriser une source arrêtée après correction de la cause
+        type: boolean
+        default: false
   schedule:
-    - cron: '23 */2 * * *'
+    - cron: '23,53 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -34,6 +39,9 @@ jobs:
         run: |
           mkdir -p data-runtime
           if [ ! -f data-runtime/satcat.json ]; then cp data-seed/*.* data-runtime/; fi
+      - name: Réarmer une source uniquement sur demande explicite
+        if: github.event_name == 'workflow_dispatch' && inputs.rearm_sources
+        run: find data-runtime -maxdepth 1 -name '*stopped.txt' -delete
       - name: Installer Rust et la cible navigateur
         run: rustup toolchain install 1.87.0 --profile minimal --target wasm32-unknown-unknown
       - name: Vérifier et compiler le serveur et le moteur navigateur

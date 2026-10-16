@@ -183,3 +183,5 @@ Licences déclarées par les paquets Rust du fichier Cargo.lock (y compris dépe
 GCAT — Jonathan C. McDowell, General Catalog of Artificial Space Objects, CC BY 4.0 : https://planet4589.org/space/gcat/. Source des noms et heures de lancement recoupés. CelesTrak SupGP / SpaceX : données opérateur transformées par CelesTrak, politique https://celestrak.org/usage-policy.php ; provenance conservée.
 
 Fond mondial à faible zoom : Natural Earth II, textures locales distribuées avec Cesium, domaine public. https://www.naturalearthdata.com/about/terms-of-use/ . Reprojection en Web Mercator au chargement ; OSM conservé aux niveaux de détail supérieurs.
+
+Moteur navigateur : même code orbital Rust que le serveur, compilé en WebAssembly. Les archives historiques initiales sont accessibles à la demande depuis le dépôt GitHub public à une révision immuable. Les observations collectées ultérieurement conservent leur source et leurs limites de validité, avec échantillonnage quotidien.

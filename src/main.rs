@@ -1,8 +1,7 @@
 mod history;
-mod sources;
-mod snapshots;
 mod orbit_math;
-use orbit_math::*;
+mod snapshots;
+mod sources;
 use axum::{
     extract::{Query, State},
     http::StatusCode,
@@ -10,6 +9,7 @@ use axum::{
     Json, Router,
 };
 use chrono::{DateTime, Utc};
+use orbit_math::*;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::{collections::BTreeMap, path::PathBuf, sync::Arc};
@@ -128,7 +128,12 @@ fn query_time(q: &Q) -> Result<DateTime<Utc>, (StatusCode, String)> {
 }
 async fn catalog(State(s): State<Shared>) -> Result<Json<Value>, (StatusCode, String)> {
     let (snapshot, db) = snapshots::capture(&*s.read().await);
-    if db.catalog.is_empty() && db.orbits.is_empty() { return Err((StatusCode::SERVICE_UNAVAILABLE, "Première collecte en cours".into())); }
+    if db.catalog.is_empty() && db.orbits.is_empty() {
+        return Err((
+            StatusCode::SERVICE_UNAVAILABLE,
+            "Première collecte en cours".into(),
+        ));
+    }
     Ok(Json(catalog_document(&db, &snapshot)))
 }
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
@@ -275,7 +280,9 @@ async fn refresh(s: Shared, dir: PathBuf, once: bool) {
             .and_then(|s| s.parse::<i64>().ok())
             .unwrap_or(0);
         if now - last < 7200 {
-            if once { return; }
+            if once {
+                return;
+            }
             tokio::time::sleep(std::time::Duration::from_secs((7200 - (now - last)) as u64)).await;
             continue;
         }
@@ -317,7 +324,9 @@ async fn refresh(s: Shared, dir: PathBuf, once: bool) {
             s.write().await.message = e;
             return;
         }
-        if once { return; }
+        if once {
+            return;
+        }
     }
 }
 async fn config() -> Json<Value> {
@@ -417,17 +426,26 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
-    if args.len()==3 && args[1]=="--export-web" {
-        let target=PathBuf::from(&args[2]);std::fs::create_dir_all(&target)?;
-        let rows:Vec<_>=db.orbits.values().flat_map(|rows|rows.iter().map(|o|json!({"elements":o.el,"source":o.source}))).collect();
-        let bundle=json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0});
-        std::fs::write(target.join("bundle.json"),serde_json::to_vec(&bundle)?)?;
-        println!("Export navigateur : {} satellites",db.catalog.len());return Ok(());
+    if args.len() == 3 && args[1] == "--export-web" {
+        let target = PathBuf::from(&args[2]);
+        std::fs::create_dir_all(&target)?;
+        let rows: Vec<_> = db
+            .orbits
+            .values()
+            .flat_map(|rows| {
+                rows.iter()
+                    .map(|o| json!({"elements":o.el,"source":o.source}))
+            })
+            .collect();
+        let bundle = json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0});
+        std::fs::write(target.join("bundle.json"), serde_json::to_vec(&bundle)?)?;
+        println!("Export navigateur : {} satellites", db.catalog.len());
+        return Ok(());
     }
     let shared = Arc::new(RwLock::new(db));
-    if args.len()==2 && args[1]=="--collect-once" {
-        refresh(shared.clone(),dir.clone(),true).await;
-        sources::collect(shared,dir,true).await;
+    if args.len() == 2 && args[1] == "--collect-once" {
+        refresh(shared.clone(), dir.clone(), true).await;
+        sources::collect(shared, dir, true).await;
         return Ok(());
     }
     if std::env::var("OFFLINE").as_deref() != Ok("1") {
