@@ -9,7 +9,7 @@ function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=en
 }
 async function loadHistory(at){const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,10);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
  for(let offset=-3;offset<=3;offset++){const day=new Date(+date+offset*86400000).toISOString().slice(0,10);if(!manifest?.days?.[day])continue;windowDays.push(day);}
- const rows=await Promise.all(windowDays.map(async day=>{if(!days.has(day)){let values=[];if(manifest.remote_base&&manifest.remote_days.includes(day))values=await jsonFile(manifest.remote_base+day+'.json.gz',true);if(!manifest.remote_base||manifest.local_days.includes(day))values=values.concat(await jsonFile(`data/history/${day}.json.gz`,true));days.set(day,values);}return days.get(day);}));
+ const rows=await Promise.all(windowDays.map(async day=>{if(!days.has(day)){let values=[];if(manifest.remote_base&&manifest.remote_days.includes(day))values=await jsonFile(manifest.remote_base+day+'.json.gz',true);else if(!manifest.remote_base&&manifest.remote_days?.includes(day))values=await jsonFile(`data/history/${day}.json.gz`,true);if(manifest.local_days?.includes(day))values=values.concat(await jsonFile(manifest.local_files?.[day]||`data/history/${day}.json.gz`,true));days.set(day,values);}return days.get(day);}));
  compute({op:'history',rows:rows.flat()});historyKey=key;
  for(const day of days.keys())if(!windowDays.includes(day))days.delete(day);
 }
