@@ -1,6 +1,6 @@
 /* The same sidebar becomes a dismissible panel on small screens. No saved state. */
 (()=>{
-  const small=matchMedia('(max-width: 760px)'),panel=document.getElementById('satellite-panel'),
+  const small=matchMedia('(max-width: 900px)'),panel=document.getElementById('satellite-panel'),
     toggle=document.getElementById('mobile-menu'),close=document.getElementById('mobile-close'),
     backdrop=document.getElementById('mobile-backdrop'),view=document.querySelector('.view');
   function setOpen(open,restoreFocus=true){
