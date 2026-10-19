@@ -3107,6 +3107,24 @@
     "frame_radius": 7500000
   },
   {
+    "id": "lares-2",
+    "label": "LARES-2",
+    "description": "Géodésie et tests de relativité générale",
+    "category": "experimental",
+    "keywords": "LARES-2 italie asi laser relativite geodesie satellites expérimental technologie",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [
+      "LARES-2",
+      "LARES 2"
+    ],
+    "contains": [],
+    "ids": [
+      53105
+    ],
+    "frame_radius": 15000000
+  },
+  {
     "id": "meteosat",
     "label": "Meteosat",
     "description": "Observation météorologique européenne",
@@ -3219,6 +3237,40 @@
       65159
     ],
     "frame_radius": 7500000
+  },
+  {
+    "id": "mev-1",
+    "label": "MEV-1",
+    "description": "Prolongation de missions satellitaires",
+    "category": "experimental",
+    "keywords": "MEV-1 northrop grumman etats unis maintenance mission extension vehicle satellites expérimental technologie",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [
+      "MEV-1"
+    ],
+    "contains": [],
+    "ids": [
+      44625
+    ],
+    "frame_radius": 48000000
+  },
+  {
+    "id": "mev-2",
+    "label": "MEV-2",
+    "description": "Maintenance et prolongation de missions satellitaires",
+    "category": "experimental",
+    "keywords": "MEV-2 northrop grumman etats unis maintenance mission extension vehicle intelsat 10-02 satellites expérimental technologie",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [
+      "MEV-2"
+    ],
+    "contains": [],
+    "ids": [
+      46113
+    ],
+    "frame_radius": 48000000
   },
   {
     "id": "navic",
@@ -4841,6 +4893,41 @@
     ],
     "frame_radius": 7500000,
     "category": "observation"
+  },
+  {
+    "id": "proba-2",
+    "label": "Proba-2",
+    "description": "Observation solaire et démonstrations technologiques",
+    "category": "experimental",
+    "keywords": "Proba-2 esa europe soleil solaire satellites expérimental technologie",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [
+      "PROBA-2"
+    ],
+    "contains": [],
+    "ids": [
+      36037
+    ],
+    "frame_radius": 7500000
+  },
+  {
+    "id": "proba-3",
+    "label": "Proba-3",
+    "description": "Vol en formation et couronne solaire",
+    "category": "experimental",
+    "keywords": "Proba-3 esa europe formation soleil coronographe occulteur satellites expérimental technologie",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [
+      "PROBA-3"
+    ],
+    "contains": [],
+    "ids": [
+      62256,
+      62258
+    ],
+    "frame_radius": 75000000
   },
   {
     "id": "qzss",

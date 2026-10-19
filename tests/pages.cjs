@@ -24,6 +24,6 @@ for(const query of ['GPS','NAVSTAR','Global Positioning System'])assert.deepEqua
 for(const row of pages.definitions){assert.equal(pages.mode('/'+row.id),row.id);assert.equal(pages.mode('/'+row.id+'/'),row.id);assert.equal(pages.url(row.id),'/'+row.id);assert.ok(pages.search(row.label).some(r=>r.mode===row.id),row.label);}
 assert.deepEqual(pages.search('pleiades neo').map(x=>x.mode),['pleiades-neo']);assert.deepEqual(pages.search('copernicus').map(x=>x.mode),['sentinel','sentinel-5p','sentinel-6']);
 assert.deepEqual(pages.definitions,JSON.parse(fs.readFileSync('resources/constellations.json')));
-console.log('92 familles : documents, labels, synonymes et registre commun cohérents OK');
+console.log('97 familles : documents, labels, synonymes et registre commun cohérents OK');
 
 assert.deepEqual(pages.search('débris').map(x=>x.mode),['debris']);

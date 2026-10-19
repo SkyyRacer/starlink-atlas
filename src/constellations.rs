@@ -7,7 +7,7 @@ pub fn load_cache(db: &mut Database, dir: &std::path::Path) {
     for row in added() { if let Ok(bytes)=std::fs::read(dir.join(format!("{}-catalog.json",row.id))) { if let Err(error)=load_cat(db,&bytes) { eprintln!("{} : {error}",row.label); } } }
 }
 fn filtered_catalog(def: &collections::Definition, rows: &[Value]) -> Vec<Value> {
-    rows.iter().filter(|row|row["OBJECT_TYPE"]=="PAY" && row["ORBIT_CENTER"].as_str().is_none_or(|center|center=="EA") && collections::belongs(row["NORAD_CAT_ID"].as_u64().unwrap_or(0),row["OBJECT_NAME"].as_str().unwrap_or(""),&def.id)).cloned().collect()
+    rows.iter().filter(|row|row["OBJECT_TYPE"]=="PAY" && (row["ORBIT_CENTER"].as_str().is_none_or(|center|center=="EA") || (row["ORBIT_TYPE"]=="DOC" && def.ids.contains(&row["NORAD_CAT_ID"].as_u64().unwrap_or(0)))) && collections::belongs(row["NORAD_CAT_ID"].as_u64().unwrap_or(0),row["OBJECT_NAME"].as_str().unwrap_or(""),&def.id)).cloned().collect()
 }
 fn filtered_orbits(def: &collections::Definition, rows: &[Value], catalog: &[Value]) -> Result<Vec<u8>,String> {
     let identities: BTreeMap<_,_>=catalog.iter().filter_map(|r|r["NORAD_CAT_ID"].as_u64().map(|id|(id,r))).collect();
@@ -79,6 +79,15 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn experimental_catalogues_include_docked_mev_and_both_proba_spacecraft() {
+        for (collection, ids) in [("proba-2",vec![36037]),("proba-3",vec![62256,62258]),("mev-1",vec![44625]),("mev-2",vec![46113]),("lares-2",vec![53105])] {
+            let def=collections::definition(collection).unwrap();
+            let rows:Vec<_>=ids.iter().map(|id|json!({"NORAD_CAT_ID":id,"OBJECT_NAME":def.label,"OBJECT_TYPE":"PAY","ORBIT_CENTER":if collection=="mev-2"{"28358"}else{"EA"},"ORBIT_TYPE":if collection=="mev-2"{"DOC"}else{"ORB"}})).collect();
+            assert_eq!(filtered_catalog(def,&rows).len(),ids.len());
+            for id in ids {assert_eq!(collections::family(id,""),Some(collection));}
+        }
+    }
     #[test]
     fn all_eleven_feeds_have_real_valid_orbits() {
         let samples:BTreeMap<String,Value>=serde_json::from_str(include_str!("../resources/constellation-examples.json")).unwrap();assert_eq!(samples.len(),11);
