@@ -62,7 +62,9 @@ pub fn catalog(db: &Database, collection: &str) -> Bytes {
     let (id, edition) = store.capture(db);
     let key = (id.clone(), collection.to_owned());
     store.documents.entry(key).or_insert_with(|| {
-        Bytes::from(serde_json::to_vec(&super::catalog_for(&edition, &id, collection)).expect("serializable catalogue"))
+        let mut document = super::catalog_for(&edition, &id, collection);
+        for row in document["satellites"].as_array_mut().unwrap() { row.as_object_mut().unwrap().remove("verification"); }
+        Bytes::from(serde_json::to_vec(&document).expect("serializable catalogue"))
     }).clone()
 }
 #[cfg(test)]

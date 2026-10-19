@@ -43,7 +43,10 @@ with tempfile.TemporaryDirectory() as tmp:
  encoded=json.dumps(bundle,separators=(',',':'),ensure_ascii=False).encode();stamp=hashlib.sha256(encoded).hexdigest()[:20];bundle['catalog_response']['snapshot']=stamp
  encoded=json.dumps(bundle,separators=(',',':'),ensure_ascii=False).encode()
  (out/'data').mkdir();filename=f'data/edition-{stamp}.json.gz';(out/filename).write_bytes(gzip.compress(encoded,mtime=0))
- (out/'edition.json').write_text(json.dumps({'bundle':filename,'edition':stamp}))
+ from web_payloads import build_resources
+ import datetime as dt
+ resources,collections=build_resources(out,bundle,history,updates,dt.datetime.now(dt.timezone.utc))
+ (out/'edition.json').write_text(json.dumps({'bundle':filename,'edition':stamp,'resources':resources,'collections':collections}))
 if history.exists() and not a.remote_history:shutil.copytree(history,out/'data/history')
 (out/'data/observations').mkdir(exist_ok=True)
 for file in versions.glob('*.json.gz'):
@@ -51,6 +54,9 @@ for file in versions.glob('*.json.gz'):
  else:shutil.copyfile(file,out/'data/observations'/file.name)
 for file in (ROOT/'browser').glob('*.js'):shutil.copyfile(file,out/file.name)
 shutil.copyfile(wasm,out/'atlas_web_core.wasm')
+# A new asset release invalidates only reusable rendering caches, never page data.
+asset_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static').rglob('*')) if f.is_file() and f.name!='asset-sw.js')+wasm.read_bytes()).hexdigest()[:16]
+sw=out/'asset-sw.js';sw.write_text(sw.read_text().replace('atlas-rendering-v1','atlas-rendering-'+asset_version))
 worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text().replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
 transport_file=out/'transport.js';transport_file.write_text(transport_file.read_text().replace("'browser-worker.js'","'browser-worker.js?v="+hashlib.sha256(worker_file.read_bytes()).hexdigest()[:12]+"'"))
 # Project Pages are under /repository/. Keep every local resource relative to that path.

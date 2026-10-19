@@ -36,3 +36,16 @@ Documentation : https://docs.github.com/en/pages/getting-started-with-github-pag
 Depuis le dossier source local, exécuter `bash scripts/publish_github.sh`. Le script vérifie la connexion GitHub, le dépôt cible et son état propre, synchronise les sources vers le checkout de publication existant, inclut les caches publics ISS / missions / EVA, crée un commit et pousse `main`. Il configure Pages en mode GitHub Actions. Il ne copie pas les fichiers `.env`, les exécutables compilés ou les archives ZIP. La préparation du script ne publie rien : seul son lancement explicite effectue ces actions.
 
 Les documents `/atlas/`, `/iss/` et `/starlink/` de l’export statique restent sous le sous-chemin du dépôt. La page racine affiche Atlas. Les fichiers partagés utilisent une base relative, y compris les drapeaux, le modèle ISS et les données des missions et EVA. La signature de Quentin Jaros figure en bas à gauche dans les deux vues.
+
+
+## Chargement progressif et ressources partagées
+
+Chaque nouvelle visite charge `edition.json` sans réutiliser une ancienne édition. Cet index référence des fichiers compressés, nommés selon leur contenu, distincts pour ISS, Starlink et Atlas. Le catalogue et la configuration restent disponibles sans attendre le moteur orbital. Les missions ISS, EVA et compléments GCAT des fiches sont chargés seulement lorsqu’ils sont utiles ; les métadonnées restent attachées à l’édition de la visite.
+
+Le navigateur reçoit une table d’éléments orbitaux sans répétition des noms de champs. Leurs valeurs et leur précision sont conservées. Pour la journée de publication, l’export prépare les mêmes observations que l’ancienne fenêtre de sept jours ; les candidats à égalité à la seconde sont conservés dans leur ordre initial. En dehors de cette fenêtre sûre, ou si aucune position n’est disponible, le moteur charge les observations et archives nécessaires à la date demandée. Il ne remplace pas un calcul par une position figée.
+
+`asset-cache.js` et `asset-sw.js` partagent le téléchargement du moteur Cesium, de Leaflet, du WASM, des styles et images entre les trois documents. Les pages, réponses API, fichiers de données et index d’édition sont exclus de ce cache. Les tuiles de carte lisibles par CORS sont conservées dans la limite de 128 et selon leur expiration ; les images opaques et les réponses en erreur ne sont pas stockées. Les fichiers de rendu sont limités à 256 entrées et les anciens caches d’une version publiée sont nettoyés. Sans Service Worker disponible, l’application utilise le cache HTTP normal.
+
+Le cache persistant fonctionne sur HTTPS et sur localhost. Une navigation entre de vrais documents réinitialise toujours JavaScript et la scène WebGL : ce cache évite les transferts répétés, il ne maintient pas une scène 3D unique en mémoire.
+
+Vérifications de l’export : `node tests/static-pages.cjs CHEMIN_EXPORT URL_LOCALE`, `node tests/static-transport.cjs CHEMIN_EXPORT URL_LOCALE`, `node tests/asset-cache.cjs` et `node tests/wasm.cjs CHEMIN_EXPORT`. Les deux premiers tests nécessitent un serveur HTTP local sous `/starlink-atlas/`.

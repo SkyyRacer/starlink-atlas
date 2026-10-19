@@ -37,6 +37,8 @@ use orbit_math::*;
 struct Engine {
     db: Database,
     history: BTreeMap<u64, Vec<Orbit>>,
+    live: BTreeMap<u64, Vec<Orbit>>,
+    live_window: Option<(DateTime<Utc>, DateTime<Utc>)>,
 }
 fn add(
     rows: &[Value],
@@ -49,6 +51,7 @@ fn add(
             Some("CelesTrak SupGP / SpaceX") => "CelesTrak SupGP / SpaceX",
             Some("Archive importée / GP") => "Archive importée / GP",
             Some("CelesTrak GP / Space-Track") => "CelesTrak GP / Space-Track",
+            Some("Archive publique Julien Simon / Space-Track") => "Archive publique Julien Simon / Space-Track",
             _ => default_source,
         };
         let el: sgp4::Elements =
@@ -71,17 +74,38 @@ fn add(
     }
     Ok(())
 }
+fn add_packed(data: &Value, key: &str, dest: &mut BTreeMap<u64, Vec<Orbit>>) -> Result<(), String> {
+    let fields = data["orbit_fields"].as_array().ok_or("Missing orbit fields")?;
+    let sources = data["orbit_sources"].as_array().ok_or("Missing orbit sources")?;
+    for values in data[key].as_array().ok_or("Missing packed orbits")? {
+        let values = values.as_array().ok_or("Invalid orbit row")?;
+        if values.len() != fields.len() + 1 { return Err("Invalid orbit field count".into()); }
+        let index = values[0].as_u64().ok_or("Invalid source index")? as usize;
+        let source = sources.get(index).ok_or("Unknown orbit source")?;
+        let mut elements = serde_json::Map::new();
+        for (field, value) in fields.iter().zip(values.iter().skip(1)) {
+            if !value.is_null() { elements.insert(field.as_str().ok_or("Invalid orbit field")?.to_owned(), value.clone()); }
+        }
+        add(&[json!({"elements":elements,"source":source})], dest, "CelesTrak GP / Space-Track")?;
+    }
+    Ok(())
+}
 impl Engine {
     fn dispatch(&mut self, q: Value) -> Result<Value, String> {
         match q["op"].as_str().unwrap_or("") {
             "init" => {
                 let data = &q["data"];
                 let mut db = Database::default();
-                add(
-                    data["orbits"].as_array().ok_or("Missing orbits")?,
-                    &mut db.orbits,
-                    "CelesTrak GP / Space-Track",
-                )?;
+                self.live.clear(); self.live_window = None;
+                if data.get("packed_orbits").is_some() {
+                    add_packed(data, "packed_orbits", &mut db.orbits)?;
+                    add_packed(data, "packed_live", &mut self.live)?;
+                    if let (Some(from), Some(until)) = (data["live_window"]["from"].as_str(), data["live_window"]["until"].as_str()) {
+                        self.live_window = Some((DateTime::parse_from_rfc3339(from).map_err(|e|e.to_string())?.with_timezone(&Utc), DateTime::parse_from_rfc3339(until).map_err(|e|e.to_string())?.with_timezone(&Utc)));
+                    }
+                } else {
+                    add(data["orbits"].as_array().ok_or("Missing orbits")?, &mut db.orbits, "CelesTrak GP / Space-Track")?;
+                }
                 for row in data["raw_catalog"].as_array().ok_or("Missing catalogue")? {
                     if let Some(id) = row["NORAD_CAT_ID"].as_u64() {
                         db.catalog.insert(id, row.clone());
@@ -91,6 +115,12 @@ impl Engine {
                 self.db.gcat =
                     serde_json::from_value(data["gcat"].clone()).map_err(|e| e.to_string())?;
                 self.history.clear();
+                Ok(json!({"ready":true}))
+            }
+            "current" => {
+                let mut rows = BTreeMap::new();
+                add_packed(&q["data"], "packed_orbits", &mut rows)?;
+                self.db.orbits = rows;
                 Ok(json!({"ready":true}))
             }
             "history" => {
@@ -120,17 +150,19 @@ impl Engine {
         let mut points = Vec::new();
         let mut missing = 0;
         let db = &self.db;
-        let ids: BTreeSet<_> = db
-            .orbits
+        let is_live = !q["use_history"].as_bool().unwrap_or(false) && self.live_window.is_some_and(|(from, until)| at >= from && at < until);
+        let current = if is_live { &self.live } else { &db.orbits };
+        let history = if is_live { None } else { Some(&self.history) };
+        let ids: BTreeSet<_> = current
             .keys()
-            .chain(self.history.keys())
+            .chain(history.into_iter().flat_map(|rows| rows.keys()))
             .copied()
             .collect();
         for id in &ids {
             if !exists_in_db(db, *id, at) {
                 continue;
             }
-            match select_sources(db.orbits.get(id), self.history.get(id), at)
+            match select_sources(current.get(id), history.and_then(|rows| rows.get(id)), at)
                 .and_then(|o| position(o, at))
             {
                 Some(p) => points.push(p),
@@ -148,7 +180,7 @@ impl Engine {
         let mut future3 = Vec::new();
         if let Some(id) = q["id"].as_u64() {
             if exists_in_db(db, id, at) {
-                if let Some(o) = select_sources(db.orbits.get(&id), self.history.get(&id), at) {
+                if let Some(o) = select_sources(current.get(&id), history.and_then(|rows| rows.get(&id)), at) {
                     let period = (1440. / o.el.mean_motion * 60.) as i64;
                     for i in 0..=120 {
                         let t = at - chrono::Duration::seconds(period * (120 - i) / 120);

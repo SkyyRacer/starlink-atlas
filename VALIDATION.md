@@ -237,3 +237,13 @@ Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Work
 - Recherche de pages : ISS / Starlink et synonymes, casse et accents normalisés, clic sur résultats ; Entrée et Tab sur résultat unique, flèches puis Entrée sur plusieurs résultats, Échap pour fermer. Navigation complète conservée et aucune préférence sauvegardée.
 - Vérifications : 20 tests Rust réussis ; tests Node pages, recherche interactive, taille ISS, réponses périmées, collections, navigation, sélection carte et interpolation réussis. Contrôle HTTP des trois documents et du catalogue/positions ISS avec édition de visite. Compilation release réussie.
 - Aucune publication GitHub. Serveur local relancé sur le port 3002. Contrôles fonctionnels et de données réalisés ; pas de capture de rendu navigateur disponible pendant cette validation.
+
+
+## Découpage des données en ligne et cache commun — 19 octobre 2026
+
+- Export testé sous `/starlink-atlas/`, sans mise en ligne. Ancien démarrage : 5 258 841 octets de données compressées (bloc commun et archives des 16–19 octobre). Nouveau démarrage : 1 265 976 octets pour Atlas, 1 265 819 pour Starlink (environ −76 %), 1 429 pour ISS. Ces volumes excluent moteur 3D, WASM, styles, images et tuiles ; ce ne sont pas des mesures de temps de chargement complet.
+- Fichiers orbitaux par page, tableaux de valeurs sans perte de précision, catalogue simplifié, GCAT par groupes d’identifiants au clic, missions / EVA hors du démarrage du moteur orbital. Configuration et catalogue disponibles même si l’initialisation WASM n’est pas terminée.
+- Comparaisons strictes avec le parcours précédent : toutes les positions et les quatre trajectoires (2D/3D, passée/prédite), pour les trois collections, le 19 octobre dans la fenêtre courante et le 18 octobre dans les archives. Aucune tolérance numérique ajoutée. Les candidats d’époque quasi identique restent dans l’ordre initial pour conserver le choix SGP4 à la seconde.
+- Cache Service Worker limité aux ressources de rendu réutilisables et aux tuiles CORS avec expiration. Tests : téléchargement partagé, mise à jour par version d’asset, exclusion des données / pages, limites de stockage, exclusion des images opaques, nettoyage des versions précédentes.
+- Tests d’export HTTP et moteur WASM réel, tests transport sans moteur prêt, tests cache simulé, 20 tests Rust et tests de sélection / suivi / recherche / interpolation réussis. Métadonnées natives comparées avec l’édition de départ. Compilation native et WASM release réussie.
+- Serveur natif sur `http://127.0.0.1:3002/atlas`. Prévisualisation de l’export destiné à GitHub Pages sur `http://127.0.0.1:3004/starlink-atlas/atlas/`. Pas de validation visuelle ni de mesure sur téléphone pendant cette session.

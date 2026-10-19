@@ -153,7 +153,13 @@ function closeSatellite(){
  else{constrainWorld(true);updateMapReset();scheduleDraw();}
 }
 function focusPlanisphere(p){if(planarFocusMode==='close')map.setView([p.lat,p.lon],Math.max(map.getZoom(),5),{animate:false});else constrainWorld(true);}
-function choose(id,focus=true,mode='overview'){selectionRequest++;selected=id;focusSelected=focus;planarFocusMode=mode;list();if(focus&&displayMode==='2d'){const p=points.find(p=>p.id===id);if(p){planarMotion.set(points,performance.now(),false);focusPlanisphere(p);}}track=[];futureTrack=[];track3d=[];future3d=[];draw();loadPositions(true);}
+const loadedDetails=new Set(),pendingDetails=new Set();
+async function loadSatelliteDetails(id){
+ if(loadedDetails.has(id)||pendingDetails.has(id)||!dataSnapshot)return;
+ const edition=dataSnapshot;pendingDetails.add(id);
+ try{const data=await get('/api/satellite?id='+id+'&snapshot='+encodeURIComponent(edition));if(edition!==dataSnapshot)return;const satellite=byId.get(id);if(satellite){Object.assign(satellite,data);loadedDetails.add(id);if(selected===id)updateDetail();}}catch{/* The map and base profile stay usable if additional facts are unavailable. */}finally{pendingDetails.delete(id);}
+}
+function choose(id,focus=true,mode='overview'){selectionRequest++;selected=id;focusSelected=focus;planarFocusMode=mode;list();if(focus&&displayMode==='2d'){const p=points.find(p=>p.id===id);if(p){planarMotion.set(points,performance.now(),false);focusPlanisphere(p);}}track=[];futureTrack=[];track3d=[];future3d=[];draw();loadPositions(true);loadSatelliteDetails(id);}
 function satelliteAtMapClick(e){let best=null,dist=12;for(const h of hit){const d=Math.hypot(h.x-e.containerPoint.x,h.y-e.containerPoint.y);if(d<(h.radius||dist)&&(!best||d<dist)){best=h.id;dist=d;}}return best;}
 map.on('click',e=>{if(moving)return;const id=satelliteAtMapClick(e);if(id!==null)choose(id,false);else if(!worldBounds.contains(e.latlng))closeSatellite();});
 map.on('dblclick',e=>{if(moving)return;const id=satelliteAtMapClick(e);if(id!==null)choose(id,true,'close');});map.on('movestart zoomstart',()=>{moving=true;});map.on('moveend zoomend',()=>{moving=false;scheduleDraw();});map.on('resize',scheduleDraw);

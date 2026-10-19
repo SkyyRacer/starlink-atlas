@@ -149,6 +149,14 @@ async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> R
     let document = snapshots::catalog(&db, q.collection.as_deref().unwrap_or("all"));
     Ok(([(axum::http::header::CONTENT_TYPE, "application/json")], document))
 }
+async fn satellite_detail(State(s): State<Shared>, Query(q): Query<Q>) -> Result<Json<Value>, (StatusCode, String)> {
+    let id = q.id.ok_or((StatusCode::BAD_REQUEST, "Identifiant requis".into()))?;
+    let db = match q.snapshot.as_deref() {
+        Some(key) => snapshots::get(key).ok_or((StatusCode::GONE, "Édition expirée : rechargez la page".into()))?,
+        None => snapshots::capture(&*s.read().await).1,
+    };
+    Ok(Json(json!({"verification":db.gcat.get(&id)})))
+}
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
     catalog_for(db, snapshot, "all")
 }
@@ -514,6 +522,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/api/iss-evas", get(iss_evas::endpoint))
         .route("/api/sources", get(sources::status))
         .route("/api/catalog", get(catalog))
+        .route("/api/satellite", get(satellite_detail))
         .route("/api/positions", get(positions))
         .with_state(shared)
         .fallback_service(ServeDir::new("static"))

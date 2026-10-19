@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('static/app.js','utf8');
 let views=0,loads=0,overviews=0;
-const ctx={selectionRequest:0,points:[{id:1,lat:20,lon:30}],displayMode:'2d',performance:{now:()=>0},planarMotion:{set(){}},map:{getZoom:()=>2,setView:()=>views++},constrainWorld:()=>overviews++,list(){},draw(){},loadPositions:()=>loads++};
+const ctx={dataSnapshot:null,selectionRequest:0,points:[{id:1,lat:20,lon:30}],displayMode:'2d',performance:{now:()=>0},planarMotion:{set(){}},map:{getZoom:()=>2,setView:()=>views++},constrainWorld:()=>overviews++,list(){},draw(){},loadSatelliteDetails(){},loadPositions:()=>loads++};
 vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('function focusPlanisphere('),source.indexOf('function satelliteAtMapClick')),ctx);
 ctx.choose(1,false);assert.equal(views,0);assert.equal(ctx.focusSelected,false);assert.equal(ctx.selected,1);
 ctx.choose(1,true,'close');assert.equal(views,1);assert.equal(ctx.focusSelected,true);
