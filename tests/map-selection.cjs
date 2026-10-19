@@ -1,11 +1,11 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('static/app.js','utf8');
 let views=0,loads=0,overviews=0;
-const ctx={points:[{id:1,lat:20,lon:30}],displayMode:'2d',performance:{now:()=>0},planarMotion:{set(){}},map:{getZoom:()=>2,setView:()=>views++},constrainWorld:()=>overviews++,list(){},draw(){},loadPositions:()=>loads++};
+const ctx={selectionRequest:0,points:[{id:1,lat:20,lon:30}],displayMode:'2d',performance:{now:()=>0},planarMotion:{set(){}},map:{getZoom:()=>2,setView:()=>views++},constrainWorld:()=>overviews++,list(){},draw(){},loadPositions:()=>loads++};
 vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('function focusPlanisphere('),source.indexOf('function satelliteAtMapClick')),ctx);
 ctx.choose(1,false);assert.equal(views,0);assert.equal(ctx.focusSelected,false);assert.equal(ctx.selected,1);
 ctx.choose(1,true,'close');assert.equal(views,1);assert.equal(ctx.focusSelected,true);
-ctx.choose(1);assert.equal(views,1);assert.equal(overviews,1);assert.equal(loads,3);
+ctx.choose(1);assert.equal(views,1);assert.equal(overviews,1);assert.equal(loads,3);assert.equal(ctx.selectionRequest,3,'every click requests automatic follow, including the same satellite');
 assert.ok(source.includes("choose(id,false)"));assert.ok(source.includes("map.on('dblclick'"));assert.ok(source.includes('doubleClickZoom:false'));
 console.log('Planisphère : clic sans déplacement, double-clic et liste avec centrage : OK');
 
