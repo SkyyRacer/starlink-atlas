@@ -1,0 +1,12 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('static/app.js','utf8');
+const fields={status:{value:''},search:{value:''}};
+const ctx={collectionMode:'starlink',atlasGroups:new Set(['iss','starlink']),revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};
+vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
+const station={id:25544,name:'ISS (ZARYA)',designator:'1998-067A'},starlink={id:56910,name:'STARLINK-1',designator:'2023-083A'};
+assert.equal(ctx.matches(station),false);assert.equal(ctx.matches(starlink),true);
+ctx.collectionMode='iss';fields.search.value='unrelated';assert.equal(ctx.matches(station),true);assert.equal(ctx.matches(starlink),false);
+ctx.collectionMode='all';assert.equal(ctx.matches(station),true);assert.equal(ctx.matches(starlink),true);
+ctx.atlasGroups.delete('iss');assert.equal(ctx.matches(station),false);assert.equal(ctx.matches(starlink),true);
+ctx.atlasGroups.clear();assert.equal(ctx.matches(starlink),false);
+console.log('Collections ISS / Starlink / Atlas : isolation et sélection multiple OK');

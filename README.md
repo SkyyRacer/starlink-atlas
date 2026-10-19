@@ -139,3 +139,8 @@ En cas d’erreur, examiner data/supgp-stopped.txt ou data/gcat-stopped.txt ; co
 ### Version publique gratuite
 
 Déploiement GitHub Pages sans carte bancaire, moteur Rust/WebAssembly dans chaque navigateur et collecte planifiée indépendante du Mac : voir [DEPLOIEMENT.md](DEPLOIEMENT.md). Les filtres ne sont jamais enregistrés ; une visite garde son édition des données jusqu’au rechargement.
+
+
+### Collections Atlas, ISS et Starlink
+
+Le bouton à droite du titre ouvre le sélecteur, avec « Tous les satellites », puis ISS et Starlink par ordre alphabétique. Starlink conserve ses filtres et sa liste. ISS dispose d’une vue dédiée épurée, d’un modèle blanc cliquable en 3D et d’un dessin sur le planisphère. La vue Atlas propose la sélection combinée des familles intégrées et des fiches simplifiées. Toutes les vues partagent la chronologie, le calcul SGP4 et les commandes de caméra. Les choix sont réinitialisés au rechargement. Voir `SOURCES.md` pour la couverture historique ISS et le caractère illustratif du modèle.

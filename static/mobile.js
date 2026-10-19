@@ -12,6 +12,7 @@
     else{panel.removeAttribute('role');panel.removeAttribute('aria-modal');if(restoreFocus&&small.matches)toggle.focus({preventScroll:true});}
   }
   toggle.addEventListener('click',()=>setOpen(toggle.getAttribute('aria-expanded')!=='true'));
+  document.getElementById('collection-select').addEventListener('change',()=>{if(small.matches)setOpen(false);});
   close.addEventListener('click',()=>setOpen(false));backdrop.addEventListener('click',()=>setOpen(false));
   document.getElementById('results').addEventListener('click',e=>{if(e.target.closest('.satellite-result')&&small.matches)setOpen(false);});
   document.getElementById('search').addEventListener('keydown',e=>{

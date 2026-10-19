@@ -80,7 +80,7 @@ pub fn load_gcat(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
     db.revision += 1;
     Ok(count)
 }
-fn atomic(dir: &Path, file: &str, bytes: &[u8]) -> Result<(), String> {
+pub(crate) fn atomic(dir: &Path, file: &str, bytes: &[u8]) -> Result<(), String> {
     let temp = dir.join(format!("{file}.tmp"));
     std::fs::write(&temp, bytes).map_err(|e| e.to_string())?;
     std::fs::rename(temp, dir.join(file)).map_err(|e| e.to_string())

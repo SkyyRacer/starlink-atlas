@@ -1,4 +1,5 @@
 mod history;
+mod iss;
 mod orbit_math;
 mod snapshots;
 mod sources;
@@ -59,11 +60,12 @@ fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Resu
     let els: Vec<sgp4::Elements> = serde_json::from_slice(bytes).map_err(|e| e.to_string())?;
     let mut parsed = Vec::new();
     for el in els {
-        if !el
-            .object_name
-            .as_deref()
-            .unwrap_or("")
-            .starts_with("STARLINK")
+        if el.norad_id != 25544
+            && !el
+                .object_name
+                .as_deref()
+                .unwrap_or("")
+                .starts_with("STARLINK")
         {
             continue;
         }
@@ -75,7 +77,7 @@ fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Resu
         });
     }
     if parsed.is_empty() {
-        return Err("Aucun élément Starlink valide".into());
+        return Err("Aucun élément orbital pris en charge".into());
     }
     let count = parsed.len();
     for orbit in parsed {
@@ -96,10 +98,11 @@ fn load_cat(db: &mut Database, bytes: &[u8]) -> Result<(), String> {
     let rows: Vec<_> = rows
         .into_iter()
         .filter(|v| {
-            v["OBJECT_NAME"]
-                .as_str()
-                .unwrap_or("")
-                .starts_with("STARLINK")
+            (v["NORAD_CAT_ID"].as_u64() == Some(25544))
+                || v["OBJECT_NAME"]
+                    .as_str()
+                    .unwrap_or("")
+                    .starts_with("STARLINK")
         })
         .collect();
     if rows.is_empty() {
@@ -425,6 +428,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             eprintln!("GCAT ignoré : {e}");
         }
     }
+    iss::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
@@ -445,12 +449,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let shared = Arc::new(RwLock::new(db));
     if args.len() == 2 && args[1] == "--collect-once" {
         refresh(shared.clone(), dir.clone(), true).await;
+        iss::collect(shared.clone(), dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
         return Ok(());
     }
     if std::env::var("OFFLINE").as_deref() != Ok("1") {
         tokio::spawn(refresh(shared.clone(), dir.clone(), false));
-        tokio::spawn(sources::collect(shared.clone(), dir, false));
+        tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(iss::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();
     }

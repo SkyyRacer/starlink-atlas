@@ -236,3 +236,12 @@ body>header .brand{height:100%;min-width:0}body>header .atlas-logo{display:block
 @media(max-width:900px) and (max-height:540px) and (orientation:landscape){
   .globe-tools{top:calc(100% + 6px);bottom:auto;max-width:calc(40vw - 28px)}
 }
+.collection-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.collection-heading .observation-title{margin:0;min-width:0}
+#collection-select{width:44px;min-width:44px;max-width:44px;height:38px;padding:8px;color:transparent;cursor:pointer;border-color:#555;background:#111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") center/22px no-repeat;appearance:none}
+#collection-select option{color:#fff;background:#111}
+#collection-select:focus-visible{outline:2px solid #fff}
+#atlas-controls .multi-options{padding:8px;max-height:none}#atlas-controls label{min-height:36px}
+#starlink-controls .stats{margin-top:14px}
+body[data-collection=iss] #satellite-panel>details{margin-top:24px}
+@media(max-width:900px){#collection-select{height:44px;min-height:44px;font-size:16px}.collection-heading{margin-bottom:20px}}

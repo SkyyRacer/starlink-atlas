@@ -39,6 +39,9 @@ jobs:
         run: |
           mkdir -p data-runtime
           if [ ! -f data-runtime/satcat.json ]; then cp data-seed/*.* data-runtime/; fi
+          for file in gp-iss.json iss-catalog.json; do
+            if [ ! -f "data-runtime/$file" ]; then cp "data-seed/$file" "data-runtime/$file"; fi
+          done
       - name: Réarmer une source uniquement sur demande explicite
         if: github.event_name == 'workflow_dispatch' && inputs.rearm_sources
         run: find data-runtime -maxdepth 1 -name '*stopped.txt' -delete

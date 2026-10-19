@@ -56,3 +56,16 @@ Limite vérifiée : aucune observation historique pour NORAD 100753 le 21 septem
 Fond mondial à faible zoom : Natural Earth II, textures locales distribuées avec Cesium, domaine public. https://www.naturalearthdata.com/about/terms-of-use/ . Reprojection en Web Mercator au chargement ; OSM conservé aux niveaux de détail supérieurs.
 
 Moteur navigateur : même code orbital Rust que le serveur, compilé en WebAssembly. Les archives historiques initiales sont accessibles à la demande depuis le dépôt GitHub public à une révision immuable. Les observations collectées ultérieurement conservent leur source et leurs limites de validité, avec échantillonnage quotidien.
+
+
+## ISS · Station spatiale internationale
+
+L’objet NORAD **25544**, identifiant international **1998-067A**, est récupéré via [CelesTrak GP JSON](https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=JSON), avec les métadonnées [SATCAT](https://celestrak.org/satcat/records.php?CATNR=25544&FORMAT=JSON). Le jour de lancement correspond au premier module Zarya, et non à une station assemblée en un seul vol. Aucun horaire absent n’est inventé.
+
+Collecte indépendante toutes les deux heures au minimum ; métadonnées au plus une fois par jour. Une erreur conserve les caches validés et bloque la source jusqu’à intervention, comme les autres sources. La source n’est pas interrogée par chaque visiteur : le calcul Rust/SGP4 utilise l’édition chargée à l’ouverture.
+
+Les archives ISS quotidiennes commencent avec cette intégration. Les archives Starlink préexistantes ne contiennent pas l’ISS. Les positions ne sont calculées que dans la fenêtre de validité des éléments disponibles (±72 h pour GP), sans recréer les années manquantes. Ce seuil ne garantit pas la précision ; les rehaussements d’orbite peuvent produire des écarts.
+
+Le dessin 2D et le modèle GLB blanc sont des créations schématiques originales du projet, sous sa licence MIT, générées par `scripts/build_iss_model.py`. Taille amplifiée à l’écran, orientation illustrative : ce modèle ne représente pas une attitude mesurée, ni une configuration précise des véhicules amarrés. Aucun modèle NASA tiers n’est incorporé.
+
+« Tous les satellites » désigne les familles actuellement intégrées à Atlas : **ISS et Starlink**, et non l’intégralité des objets du catalogue NORAD.

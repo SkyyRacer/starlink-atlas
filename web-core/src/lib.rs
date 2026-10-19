@@ -53,11 +53,12 @@ fn add(
         };
         let el: sgp4::Elements =
             serde_json::from_value(wrapped.clone()).map_err(|e| e.to_string())?;
-        if !el
-            .object_name
-            .as_deref()
-            .unwrap_or("")
-            .starts_with("STARLINK")
+        if el.norad_id != 25544
+            && !el
+                .object_name
+                .as_deref()
+                .unwrap_or("")
+                .starts_with("STARLINK")
         {
             continue;
         }
