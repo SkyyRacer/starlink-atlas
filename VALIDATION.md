@@ -247,3 +247,12 @@ Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Work
 - Cache Service Worker limité aux ressources de rendu réutilisables et aux tuiles CORS avec expiration. Tests : téléchargement partagé, mise à jour par version d’asset, exclusion des données / pages, limites de stockage, exclusion des images opaques, nettoyage des versions précédentes.
 - Tests d’export HTTP et moteur WASM réel, tests transport sans moteur prêt, tests cache simulé, 20 tests Rust et tests de sélection / suivi / recherche / interpolation réussis. Métadonnées natives comparées avec l’édition de départ. Compilation native et WASM release réussie.
 - Serveur natif sur `http://127.0.0.1:3002/atlas`. Prévisualisation de l’export destiné à GitHub Pages sur `http://127.0.0.1:3004/starlink-atlas/atlas/`. Pas de validation visuelle ni de mesure sur téléphone pendant cette session.
+
+
+## Vue ISS au repos et face nocturne — 19 octobre 2026
+
+- Éclairage nocturne légèrement relevé au dézoom : ombres ambiantes et atténuation du contraste jour/nuit progressives entre 5 000 et 15 000 km de hauteur caméra. Paramètres initiaux conservés sous 5 000 km ; pas de nouvelle passe de rendu.
+- Page ISS / vue 3D : après dix secondes sans activité, centrage global sur l’ISS, transition de 0,8 seconde et suivi de la position interpolée en conservant la Terre entière. Aucune fiche ouverte automatiquement. Le bouton affiche « Libérer la caméra » pendant le suivi au repos.
+- Un clic gauche sur le globe libère la caméra ; le clic de sortie sur le modèle ne relance pas immédiatement sa sélection. Le comportement de fermeture sur le vide reste présent. Les commandes explicites de caméra libèrent aussi ce mode. Un nouveau délai de dix secondes permet de le réactiver.
+- Suivi inactif sur les autres pages, en planisphère, dans un onglet masqué / sans focus, pendant un geste maintenu ou avant l’ouverture d’une boîte de dialogue. Le passage de vue / perte de focus libère le suivi.
+- Tests Node : politique d’inactivité (limite des dix secondes, activité, arrêt et réarmement), éclairage progressif, sélection / suivi manuel, fermeture de fiche et taille du modèle ISS réussis. Export statique reconstruit pour la prévisualisation locale. Pas de validation visuelle disponible pendant cette session ; aucune publication GitHub.
