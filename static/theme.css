@@ -245,3 +245,80 @@ body>header .brand{height:100%;min-width:0}body>header .atlas-logo{display:block
 #starlink-controls .stats{margin-top:14px}
 body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 @media(max-width:900px){#collection-select{height:44px;min-height:44px;font-size:16px}.collection-heading{margin-bottom:20px}}
+/* ISS history uses the same quiet monochrome surfaces as the orbital controls. */
+#iss-controls h2{font-size:15px;letter-spacing:.07em;text-transform:uppercase;margin:22px 0 10px}
+#iss-controls .hint{line-height:1.6;font-size:11px;color:#999}
+#iss-flight-years{max-height:36vh;min-height:160px;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;border-top:1px solid #292929;border-bottom:1px solid #292929}
+.iss-flight-year{margin:0;border-bottom:1px solid #222}
+.iss-flight-year>summary{padding:12px 4px;cursor:pointer;color:#ddd;font-size:13px}
+.iss-flight{width:100%;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:10px 12px;margin:0;border:0;border-top:1px solid #1c1c1c;background:#0a0a0a;line-height:1.4}
+.iss-flight:hover,.iss-flight:focus-visible{background:#202020;color:#fff}.iss-flight small{display:block;font-size:10px;color:#999;margin-top:3px}
+.iss-crew-section{margin-top:24px}.iss-person{padding:11px 0;border-bottom:1px solid #252525;display:flex;flex-direction:column;gap:5px;line-height:1.4}
+.iss-person strong{font-size:13px;font-weight:500}.iss-person small{font-size:11px;color:#999}.iss-stay{font-size:12px;color:#d0dce4;font-variant-numeric:tabular-nums}
+#iss-mission-dialog{color:#eee;background:#090909;border:1px solid #555;border-radius:3px;width:min(660px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:0;box-sizing:border-box;box-shadow:0 20px 100px #000b;overflow:auto;overscroll-behavior:contain}
+#iss-mission-dialog::backdrop{background:#0009;backdrop-filter:blur(4px)}
+#iss-mission-dialog>header{position:sticky;top:0;background:#0c0c0c;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #333;height:auto}
+#iss-mission-dialog header small{font-size:10px;letter-spacing:.2em;color:#999}#iss-mission-dialog h2{font-size:23px;margin:8px 0 0}#iss-mission-close{min-width:40px;min-height:40px;margin-left:12px;font-size:22px}
+#iss-mission-body{padding:0 24px 24px}#iss-mission-body h3{font-size:14px;margin-top:25px}#iss-mission-body a{display:block;font-size:12px;margin-top:24px;color:#b5d3e8}#iss-mission-body .hint{font-size:11px;color:#999;line-height:1.6}
+.iss-mission-state{font-size:12px;color:#b5d3e8;margin:20px 0}.iss-fact{display:grid;grid-template-columns:38% 1fr;gap:20px;padding:12px 0;border-bottom:1px solid #252525;font-size:13px;line-height:1.5}.iss-fact dt{color:#999}.iss-fact dd{margin:0;overflow-wrap:anywhere}
+@media(max-width:600px){#iss-mission-dialog{width:calc(100vw - 20px);max-height:calc(100dvh - 24px)}#iss-mission-dialog>header{padding:16px}#iss-mission-body{padding:0 16px 20px}.iss-fact{gap:12px;font-size:12px}#iss-flight-years{max-height:32vh}.iss-flight{min-height:48px}}
+/* ISS: current crew first, one compact year menu and a shared fact search. */
+#iss-controls>.iss-crew-section{margin-top:0}
+.iss-search-section{margin:24px 0 20px;padding-top:18px;border-top:1px solid #292929}
+.iss-search-section label{display:block;margin-bottom:8px;font-size:12px;color:#aaa;line-height:1.5}
+#iss-search{width:100%;box-sizing:border-box;min-height:40px;font-size:13px}
+#iss-search-status{margin:8px 0}
+#iss-search-results{max-height:32vh;overflow:auto;overscroll-behavior:contain;border:1px solid #333}
+.iss-search-result{display:flex;flex-direction:column;width:100%;text-align:left;padding:11px 10px;gap:5px;border:0;border-bottom:1px solid #292929;line-height:1.4;background:#0b0b0b}
+.iss-search-result:hover,.iss-search-result:focus-visible{background:#222}.iss-search-result small{font-size:10px;color:#aaa}
+#iss-years-menu{margin:8px 0 20px}#iss-years-menu>summary{padding:12px;font-size:13px}
+#iss-years-menu #iss-flight-years{border-bottom:0;min-height:0;max-height:40vh}
+#iss-expedition{font-variant-numeric:tabular-nums}
+@media(max-width:900px){#iss-search{min-height:44px;font-size:16px}.iss-search-result{min-height:48px}}
+.iss-evas{margin-top:28px;border-top:1px solid #333}
+.iss-eva-notice{font-size:12px;color:#c2ced7;line-height:1.6;border-left:2px solid #718393;padding-left:12px}
+.iss-eva-event{padding:16px 0;border-top:1px solid #333}.iss-eva-event h4{font-size:13px;margin:0 0 10px;font-weight:500}.iss-eva-event dl{margin:0}.iss-eva-event .iss-fact{font-size:12px;padding:8px 0}#iss-mission-body .iss-eva-event a{margin-top:12px}
+.iss-eva-list{margin-top:24px}
+.iss-person-button{width:100%;box-sizing:border-box;text-align:left;background:transparent;color:inherit;border:0;border-bottom:1px solid #252525;border-radius:0;cursor:pointer;padding:11px 8px;margin:0;transition:background .16s ease,border-color .16s ease}
+.iss-person-button:hover{background:#191919}.iss-person-button:focus-visible{outline:1px solid #b5d3e8;outline-offset:-1px;background:#191919}
+@media(prefers-reduced-motion:reduce){.iss-person-button{transition:none}}
+.iss-person strong{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.iss-flag{display:inline-block;width:20px;height:15px;object-fit:cover;vertical-align:-2px;flex:none;border:1px solid #ffffff25;box-sizing:content-box;border-radius:1px}
+.iss-nationality{display:flex;align-items:center;gap:8px;margin-bottom:5px}.iss-nationality:last-child{margin-bottom:0}
+.iss-aboard-status{display:flex;align-items:center;gap:8px;color:#96d7a9;font-size:12px;font-weight:400;line-height:1.4;margin:12px 0 0}
+.iss-aboard-status::before{content:'';width:7px;height:7px;border-radius:50%;background:#70cf91;box-shadow:0 0 0 3px #70cf9112;flex:none}
+.iss-aboard-status.is-stale{color:#d6b67c}.iss-aboard-status.is-stale::before{background:#d6b67c;box-shadow:none}
+.iss-aboard-status[hidden]{display:none}
+/* On-board status follows the restrained rectangular controls, without a light/dot. */
+.iss-aboard-status{display:inline-block;width:fit-content;margin-top:12px;padding:5px 8px;border:1px solid #4a5c50;border-radius:0;background:transparent;color:#c8d6cc;font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase}
+.iss-aboard-status::before{display:none;content:none}
+.iss-aboard-status.is-stale{border-color:#605846;color:#c4baa6}
+/* Explicit page navigation and Atlas categories. */
+.collection-heading{display:block}.collection-navigation{margin-top:16px}.collection-navigation>label{display:block;font-size:11px;color:#aaa;margin-bottom:7px}
+#collection-select{width:100%;min-width:0;max-width:none;height:44px;color:#eee;padding:10px 38px 10px 12px;background-position:right 10px center;background-color:#101010;font-size:13px;border:1px solid #666;border-radius:0}
+#collection-select:hover{border-color:#aaa;background-color:#191919}
+.atlas-family-list{display:grid;gap:10px}.atlas-family-card{display:flex;align-items:center;gap:12px;border:1px solid #333;padding:12px;background:#090909}
+.atlas-family-card>label{display:flex;gap:9px;align-items:center;flex:1;min-width:0;cursor:pointer;margin:0}.atlas-family-card strong{font-size:13px;font-weight:500}.atlas-family-card small{display:block;margin-top:6px;font-size:11px;color:#999;font-variant-numeric:tabular-nums}
+.atlas-family-card input[type=color]{width:34px;min-width:34px;height:32px;padding:3px;border:1px solid #666;background:#111;cursor:pointer;border-radius:0}.atlas-family-card input[type=color]::-webkit-color-swatch-wrapper{padding:0}.atlas-family-card input[type=color]::-webkit-color-swatch{border:0}
+.atlas-family-card:has(input[type=checkbox]:not(:checked))>label{color:#888}
+.iss-aboard-status{color:#8ad6aa;border-color:#426d53}.iss-aboard-status.is-stale{color:#d6b67c;border-color:#605846}
+@media(max-width:900px){#collection-select{font-size:16px}.atlas-family-card input[type=color]{width:44px;min-width:44px;height:40px}}
+#atlas-controls>label{display:block;min-height:0;margin:0 0 8px}
+/* Prominent observation navigation; native color picker kept on every platform. */
+.collection-navigation{padding:13px 12px 11px;border:1px solid #395365;border-left:2px solid #8fb9d1;background:#0b151c}
+.collection-navigation>label{color:#c0d9e9;font-size:12px;font-weight:500;line-height:1.5;margin-bottom:9px}
+.collection-navigation #collection-select{border-color:#7895a8;background-color:#13212b;color:#f3f8fc;font-weight:500}
+.collection-navigation #collection-select:hover{border-color:#b1d4e8;background-color:#1a2c39}
+.collection-navigation-help{margin:9px 0 0;color:#96aebd;font-size:10px;line-height:1.5}
+.atlas-color-control{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;width:66px}
+.atlas-color-control>label{color:#aaa;font-size:10px;text-align:center;line-height:1.35;cursor:pointer;margin:0;min-height:0!important}
+.atlas-color-control input[type=color]{flex:none}
+@media(max-width:900px){.collection-navigation{padding:14px 12px}.atlas-color-control>label{font-size:11px}}
+.atlas-actions{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 13px}
+.atlas-actions button{font-size:11px;line-height:1.3;padding:7px 9px;min-height:30px;border:1px solid #444;background:#101010;color:#ccc;border-radius:0}
+.atlas-actions button:hover:not(:disabled){background:#1c1c1c;border-color:#888;color:#fff}.atlas-actions button:disabled{opacity:.4;cursor:default}
+@media(max-width:900px){.atlas-actions button{min-height:38px;font-size:12px}}
+.collection-description{margin:10px 0 0;color:#a6afb5;font-size:12px;line-height:1.6;font-weight:400;letter-spacing:0;text-transform:none}
+@media(max-width:900px){.collection-description{font-size:13px}}
+
+.map-creator{bottom:calc(var(--timeline-space,180px) + 6px)!important;z-index:550;pointer-events:none}

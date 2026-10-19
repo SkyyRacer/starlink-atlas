@@ -1,5 +1,7 @@
 mod history;
 mod iss;
+mod iss_missions;
+mod iss_evas;
 mod orbit_math;
 mod snapshots;
 mod sources;
@@ -337,6 +339,17 @@ async fn config() -> Json<Value> {
         json!({"tile_url":std::env::var("TILE_URL").unwrap_or("https://tile.openstreetmap.org/{z}/{x}/{y}.png".into()),"tile_attribution":std::env::var("TILE_ATTRIBUTION").unwrap_or("© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors · ODbL".into())}),
     )
 }
+async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<String>, StatusCode> {
+    let (mode, title) = match uri.path() {
+        "/atlas" => ("all", "Atlas — Tous les satellites"),
+        "/iss" => ("iss", "ISS — Station spatiale internationale"),
+        _ => ("starlink", "Starlink — Observatoire orbital"),
+    };
+    let html = tokio::fs::read_to_string("static/index.html").await.map_err(|_|StatusCode::INTERNAL_SERVER_ERROR)?;
+    Ok(axum::response::Html(html.replace("<title>Starlink Atlas — Observatoire orbital</title>", &format!("<title>{title}</title>"))
+        .replace("<body>", &format!("<body data-collection=\"{mode}\">"))))
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dir = PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into()));
@@ -428,6 +441,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             eprintln!("GCAT ignoré : {e}");
         }
     }
+    if args.len() == 3 && args[1] == "--import-iss-evas" {
+        iss_evas::import(&dir, std::path::Path::new(&args[2])).map_err(std::io::Error::other)?;
+        return Ok(());
+    }
+    if args.len() == 3 && args[1] == "--import-iss-missions" {
+        iss_missions::import(&dir, std::path::Path::new(&args[2]))
+            .map_err(std::io::Error::other)?;
+        return Ok(());
+    }
     iss::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
     if args.len() == 3 && args[1] == "--export-web" {
@@ -450,18 +472,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if args.len() == 2 && args[1] == "--collect-once" {
         refresh(shared.clone(), dir.clone(), true).await;
         iss::collect(shared.clone(), dir.clone(), true).await;
+        iss_missions::collect(dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
         return Ok(());
     }
     if std::env::var("OFFLINE").as_deref() != Ok("1") {
         tokio::spawn(refresh(shared.clone(), dir.clone(), false));
         tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(iss_missions::collect(dir.clone(), false));
         tokio::spawn(iss::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();
     }
     let app = Router::new()
+        .route("/", get(|| async { axum::response::Redirect::temporary("/atlas") }))
+        .route("/atlas", get(observation_page))
+        .route("/iss", get(observation_page))
+        .route("/starlink", get(observation_page))
+        .route("/atlas/", get(|| async { axum::response::Redirect::permanent("/atlas") }))
+        .route("/iss/", get(|| async { axum::response::Redirect::permanent("/iss") }))
+        .route("/starlink/", get(|| async { axum::response::Redirect::permanent("/starlink") }))
         .route("/api/config", get(config))
+        .route("/api/iss-missions", get(iss_missions::endpoint))
+        .route("/api/iss-evas", get(iss_evas::endpoint))
         .route("/api/sources", get(sources::status))
         .route("/api/catalog", get(catalog))
         .route("/api/positions", get(positions))

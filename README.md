@@ -144,3 +144,17 @@ Déploiement GitHub Pages sans carte bancaire, moteur Rust/WebAssembly dans chaq
 ### Collections Atlas, ISS et Starlink
 
 Le bouton à droite du titre ouvre le sélecteur, avec « Tous les satellites », puis ISS et Starlink par ordre alphabétique. Starlink conserve ses filtres et sa liste. ISS dispose d’une vue dédiée épurée, d’un modèle blanc cliquable en 3D et d’un dessin sur le planisphère. La vue Atlas propose la sélection combinée des familles intégrées et des fiches simplifiées. Toutes les vues partagent la chronologie, le calcul SGP4 et les commandes de caméra. Les choix sont réinitialisés au rechargement. Voir `SOURCES.md` pour la couverture historique ISS et le caractère illustratif du modèle.
+
+### ISS : missions et équipage (local)
+
+Choisir **ISS** dans le menu en haut de la colonne gauche. Les vols sont regroupés par année ; cliquer sur un vol ouvre sa fiche. L’équipage actuel et le temps depuis l’arrivée à bord apparaissent sous l’historique. Le modèle est plus petit dans **Tous les satellites / Atlas**.
+
+Le serveur collecte les faits Launch Library 2 toutes les 6 heures et conserve `data/iss-missions.json`. La visite en cours ne recharge pas ce catalogue ; recharger la page pour obtenir la dernière collecte. En cas d’indisponibilité, le cache est conservé avec sa date de réception visible. Le mode `OFFLINE=1` désactive la collecte. Voir `SOURCES.md` pour la couverture et les limites. Après une mise à jour du programme, arrêter l’ancien processus avec Ctrl+C puis relancer le binaire.
+
+### Pages de l’observatoire
+
+La version locale fournit trois documents accessibles directement : `/atlas` (tous les satellites), `/iss` et `/starlink`. Le menu **Choisir les satellites à observer** effectue une navigation complète ; recherches, filtres et couleurs reviennent à leurs valeurs initiales sur une nouvelle page. `/` redirige vers `/atlas`, la page d’accueil. Les adresses sont distinctes pour permettre de mesurer séparément les consultations lors d’une future intégration de statistiques ou de publicité ; aucun outil publicitaire n’est installé dans cette version.
+
+Sur Atlas, les cartes ISS / Starlink contrôlent l’affichage des catégories et leurs couleurs, sur le globe comme sur le planisphère. La couleur ISS s’applique à son modèle et à son icône.
+
+Les couleurs Atlas se modifient en cliquant sur le carré coloré ou la mention « Modifier la couleur ». Cela ouvre le sélecteur natif du navigateur / système, dont la présentation et les options peuvent varier. Les deux cartes de catégorie remplacent la rubrique globale « Tous les éléments ».

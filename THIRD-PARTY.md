@@ -185,3 +185,7 @@ GCAT — Jonathan C. McDowell, General Catalog of Artificial Space Objects, CC B
 Fond mondial à faible zoom : Natural Earth II, textures locales distribuées avec Cesium, domaine public. https://www.naturalearthdata.com/about/terms-of-use/ . Reprojection en Web Mercator au chargement ; OSM conservé aux niveaux de détail supérieurs.
 
 Moteur navigateur : même code orbital Rust que le serveur, compilé en WebAssembly. Les archives historiques initiales sont accessibles à la demande depuis le dépôt GitHub public à une révision immuable. Les observations collectées ultérieurement conservent leur source et leurs limites de validité, avec échantillonnage quotidien.
+
+## Drapeaux SVG
+
+`static/images/flags/*.svg` : **flag-icons 7.6.0**, lipis et contributeurs, licence MIT. Source : https://github.com/lipis/flag-icons ; paquet npm `flag-icons`, intégrité SHA-512 vérifiée. Licence conservée dans `resources/flag-icons-LICENSE.txt`. Images vectorielles locales au format 4:3 ; aucun emoji ou téléchargement externe pendant une visite.

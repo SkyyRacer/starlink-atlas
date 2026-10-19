@@ -13,7 +13,8 @@ sizeMap();
 L.control.zoom({position:'topright'}).addTo(map);
 let tiles=null;
 let constellationCoverage='',issOverviewPending=false;
-let collectionMode='starlink',allCatalog=[],atlasGroups=new Set(['iss','starlink']);
+let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(['iss','starlink']);
+const atlasColors={iss:'#ffffff',starlink:'#ffffff'};
 let catalog=[],byId=new Map(),points=[],selected=null,focusSelected=false,track=[],futureTrack=[],at=Date.now(),live=true,playing=true,busy=false,pendingPosition=false,positionRevision=0,suggestedAt=null,lastTick=performance.now(),failures=0;
 let planarFocusMode='overview';let dataSnapshot=null;
 const planarMotion=new SatelliteMotion();let planarMotionAt=null,motionFrame=null;
@@ -46,14 +47,15 @@ function submitSearch(){
 }
 function sun(t){const d=t/86400000+2440587.5-2451545;const rad=Math.PI/180;const g=(357.529+.98560028*d)*rad;const l=(280.459+.98564736*d+1.915*Math.sin(g)+.020*Math.sin(2*g))*rad;const e=(23.439-.00000036*d)*rad;const dec=Math.asin(Math.sin(e)*Math.sin(l));const ra=Math.atan2(Math.cos(e)*Math.sin(l),Math.cos(l));const gmst=(280.46061837+360.98564736629*d)*rad;return {dec,lon:ra-gmst};}
 function screen(p){return map.latLngToContainerPoint([p.lat,p.lon]);}
-function updatePositionNotice(visible){if(collectionMode==='iss'){$('notice').textContent=points.some(p=>p.id===25544)?'ISS · Position estimée par SGP4 · modèle illustratif':'ISS : aucune donnée orbitale adaptée à cette date. Les archives commencent aux premières collectes ISS ; aucune position ancienne n’est inventée.';$('available').hidden=true;return;}if(!points.length)return;const available=points.filter(p=>collectionMode==='all'||(collectionMode==='iss'?p.id===25544:p.id!==25544)).length;$('notice').textContent=visible===0?'Des positions sont disponibles, mais les filtres masquent tous les satellites. Effacez la recherche ou choisissez Tous les états / Toutes les années.':`${available.toLocaleString('fr')} positions disponibles · ${visible.toLocaleString('fr')} affichées`; }
-function draw(animation=false){if(displayMode==='3d'){const visible=points.filter(p=>{const s=byId.get(p.id);return s&&AtlasGeometry.shouldRender(p.id,selected,matches(s));});$('count').textContent=visible.length.toLocaleString('fr');if(!animation)updatePositionNotice(visible.length);if(globeController){globeController.update({collection:collectionMode,points,catalog:byId,selected,at,playing,track:track3d,future:future3d,night:true,basemap:true,orbits:true,names:false,focus:focusSelected,visible:(s,id)=>AtlasGeometry.shouldRender(id,selected,matches(s))});if(issOverviewPending&&points.some(p=>p.id===25544)){issOverviewPending=false;globeController.home();}if(points.some(p=>p.id===selected))focusSelected=false;}if(!animation)updateDetail();return;}if(moving)return;
+function updateAtlasCounts(){if(collectionMode!=='all')return;let iss=0,starlink=0;for(const p of points){const s=byId.get(p.id);if(s&&matches(s)){if(p.id===25544)iss++;else starlink++;}}$('atlas-count-iss').textContent=iss+' visible';$('atlas-count-starlink').textContent=starlink.toLocaleString('fr')+' visibles';}
+function updatePositionNotice(visible){updateAtlasCounts();if(collectionMode==='iss'){$('notice').textContent=points.some(p=>p.id===25544)?'ISS · Position estimée par SGP4 · modèle illustratif':'ISS : aucune donnée orbitale adaptée à cette date. Les archives commencent aux premières collectes ISS ; aucune position ancienne n’est inventée.';$('available').hidden=true;return;}if(!points.length)return;const available=points.filter(p=>collectionMode==='all'||(collectionMode==='iss'?p.id===25544:p.id!==25544)).length;$('notice').textContent=visible===0?'Des positions sont disponibles, mais les filtres masquent tous les satellites. Effacez la recherche ou choisissez Tous les états / Toutes les années.':`${available.toLocaleString('fr')} positions disponibles · ${visible.toLocaleString('fr')} affichées`; }
+function draw(animation=false){if(displayMode==='3d'){const visible=points.filter(p=>{const s=byId.get(p.id);return s&&AtlasGeometry.shouldRender(p.id,selected,matches(s));});$('count').textContent=visible.length.toLocaleString('fr');if(!animation)updatePositionNotice(visible.length);if(globeController){globeController.update({collection:collectionMode,colors:atlasColors,points,catalog:byId,selected,at,playing,track:track3d,future:future3d,night:true,basemap:true,orbits:true,names:false,focus:focusSelected,visible:(s,id)=>AtlasGeometry.shouldRender(id,selected,matches(s))});if(issOverviewPending&&points.some(p=>p.id===25544)){issOverviewPending=false;globeController.home();}if(points.some(p=>p.id===selected))focusSelected=false;}if(!animation)updateDetail();return;}if(moving)return;
  if(planarMotion.source!==points){planarMotion.set(points,performance.now(),playing&&!focusSelected&&planarMotionAt!==null&&Math.abs(at-planarMotionAt)<150000);planarMotionAt=at;}
  const displayedPoints=planarMotion.sample(performance.now());const renderedSelected=displayedPoints.find(p=>p.id===selected);const renderedTrack=track.slice(),renderedFuture=futureTrack.slice();if(renderedSelected){if(renderedTrack.length)renderedTrack[renderedTrack.length-1]=[renderedSelected.lat,renderedSelected.lon];if(renderedFuture.length)renderedFuture[0]=[renderedSelected.lat,renderedSelected.lon];}const size=map.getSize(),dpr=devicePixelRatio||1;canvas.width=(size.x+2*overscan)*dpr;canvas.height=(size.y+2*overscan)*dpr;canvas.style.width=(size.x+2*overscan)+'px';canvas.style.height=(size.y+2*overscan)+'px';L.DomUtil.setPosition(canvas,map.containerPointToLayerPoint([-overscan,-overscan]));ctx.scale(dpr,dpr);ctx.translate(overscan,overscan);hit=[];const nw=screen({lat:85.05112878,lon:-180}),se=screen({lat:-85.05112878,lon:180});ctx.save();ctx.beginPath();ctx.rect(nw.x,nw.y,se.x-nw.x,se.y-nw.y);ctx.clip();
  if(true){const solar=sun(at);ctx.fillStyle='rgba(8,18,32,.25)';ctx.beginPath();AtlasGeometry.nightPolygon(solar.dec,solar.lon).forEach(([lat,lon],i)=>{const p=screen({lat,lon});if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});ctx.closePath();ctx.fill();}
  if(track.length){ctx.strokeStyle='#e0e0e0';ctx.lineWidth=1.4;ctx.beginPath();for(const segment of AtlasGeometry.splitTrack(renderedTrack)){segment.forEach(([lat,lon],i)=>{const p=screen({lat,lon});if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});}ctx.stroke();const start=screen({lat:track[0][0],lon:track[0][1]});ctx.beginPath();ctx.arc(start.x,start.y,4,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#e0e0e0';ctx.font='11px system-ui';ctx.fillText('−1 tour',start.x+8,start.y-5);}
  if(futureTrack.length){ctx.strokeStyle='#a9c5df';ctx.lineWidth=1.8;ctx.setLineDash([6,4]);ctx.beginPath();for(const segment of AtlasGeometry.splitTrack(renderedFuture)){segment.forEach(([lat,lon],i)=>{const p=screen({lat,lon});if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});}ctx.stroke();ctx.setLineDash([]);const end=screen({lat:futureTrack.at(-1)[0],lon:futureTrack.at(-1)[1]});ctx.fillStyle='#a9c5df';ctx.font='11px system-ui';ctx.fillText('Futur estimé · ≤1 tour',end.x+8,end.y-5);}
- const markerRadius=Math.max(.85,Math.min(2.1,.7+map.getZoom()*.3));let n=0;for(const p of displayedPoints){const s=byId.get(p.id);if(!s||!AtlasGeometry.shouldRender(p.id,selected,matches(s)))continue;n++;const xy=screen(p);if(xy.x< -overscan||xy.y< -overscan||xy.x>size.x+overscan||xy.y>size.y+overscan)continue;if(p.id===25544){AtlasISS.draw2D(ctx,xy.x,xy.y,p.id===selected?52:42);hit.push({x:xy.x,y:xy.y,id:p.id,radius:28});continue;}ctx.fillStyle=p.id===selected?'#fff':'rgba(245,248,252,.95)';ctx.beginPath();ctx.arc(xy.x,xy.y,p.id===selected?5:markerRadius,0,Math.PI*2);ctx.strokeStyle='rgba(10,24,38,.85)';ctx.lineWidth=p.id===selected?2:1;ctx.stroke();ctx.fill();hit.push({x:xy.x,y:xy.y,id:p.id});}
+ const markerRadius=Math.max(.85,Math.min(2.1,.7+map.getZoom()*.3));let n=0;for(const p of displayedPoints){const s=byId.get(p.id);if(!s||!AtlasGeometry.shouldRender(p.id,selected,matches(s)))continue;n++;const xy=screen(p);if(xy.x< -overscan||xy.y< -overscan||xy.x>size.x+overscan||xy.y>size.y+overscan)continue;if(p.id===25544){AtlasISS.draw2D(ctx,xy.x,xy.y,collectionMode==='all'?(p.id===selected?28:22):(p.id===selected?52:42),collectionMode==='all'?atlasColors.iss:'#fff');hit.push({x:xy.x,y:xy.y,id:p.id,radius:collectionMode==='all'?16:28});continue;}ctx.fillStyle=p.id===selected?'#fff':collectionMode==='all'?atlasColors.starlink:'rgba(245,248,252,.95)';ctx.beginPath();ctx.arc(xy.x,xy.y,p.id===selected?5:markerRadius,0,Math.PI*2);ctx.strokeStyle='rgba(10,24,38,.85)';ctx.lineWidth=p.id===selected?2:1;ctx.stroke();ctx.fill();hit.push({x:xy.x,y:xy.y,id:p.id});}
  const chosen=displayedPoints.find(p=>p.id===selected);if(chosen&&chosen.id!==25544){const xy=screen(chosen);ctx.beginPath();ctx.arc(xy.x,xy.y,9,0,Math.PI*2);ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();ctx.beginPath();ctx.arc(xy.x,xy.y,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.font='12px system-ui';ctx.fillText(byId.get(selected)?.name||String(selected),xy.x+13,xy.y-9);}
  ctx.restore();$('count').textContent=n.toLocaleString('fr');if(!animation)updatePositionNotice(n);if(!animation)updateDetail();if(planarMotion.active&&motionFrame===null)motionFrame=requestAnimationFrame(()=>{motionFrame=null;draw(true);});}
 let resultsPage=0;const resultsPageSize=100;
@@ -139,7 +141,7 @@ async function loadSourceStatus(){
  try{const data=await get('/api/sources');$('source-status').textContent=data.additional_sources.map(s=>s.key.toUpperCase()+': '+(s.error?'collecte interrompue, cache conservé':s.cache?s.cache.matched.toLocaleString('fr')+' entrées recoupées · reçu '+AtlasTime.instant(s.cache.fetched):'collecte en attente')).join(' · ');}
  catch{$('source-status').textContent='État des sources supplémentaires indisponible.';}
 }
-async function loadCatalog(){loadSourceStatus();try{const data=await get('/api/catalog');allCatalog=data.satellites;catalog=allCatalog.filter(s=>collectionMode==='all'||(collectionMode==='iss'?s.id===25544:s.id!==25544));dataSnapshot=data.snapshot||null;byId=new Map(allCatalog.map(s=>[s.id,s]));$('total').textContent=catalog.length.toLocaleString('fr');renderMultiFilters();updateSearchSuggestion();
+async function loadCatalog(){loadSourceStatus();try{const data=await get('/api/catalog');allCatalog=data.satellites.map(s=>s.id===25544?{...s,name:'ISS'}:s);catalog=allCatalog.filter(s=>collectionMode==='all'||(collectionMode==='iss'?s.id===25544:s.id!==25544));dataSnapshot=data.snapshot||null;byId=new Map(allCatalog.map(s=>[s.id,s]));$('total').textContent=catalog.length.toLocaleString('fr');renderMultiFilters();updateSearchSuggestion();
  $('health').textContent=`${data.message} · dernière collecte : ${data.fetched?AtlasTime.instant(data.fetched):'aucune'}`;$('coverage').textContent=data.history?`Historique importé : ${AtlasTime.instant(data.history.first_epoch)} → ${AtlasTime.instant(data.history.last_epoch)} · ${data.history.observations.toLocaleString('fr')} observations quotidiennes · source ${data.history.source_label||'Julien Simon / Space-Track (CC BY 4.0)'}, précision réduite de certains champs.`:data.first_epoch?`Éléments archivés : ${AtlasTime.instant(data.first_epoch)} → ${AtlasTime.instant(data.last_epoch)} · couverture partielle, seuil ±72 h.`:'Aucune archive : aucune position ne sera inventée.';constellationCoverage=$('coverage').textContent;updateCollectionCoverage();list();draw();}catch(e){$('health').textContent='Catalogue indisponible : '+e.message;if(!dataSnapshot)setTimeout(async()=>{await loadCatalog();if(dataSnapshot)loadPositions(true);},3000);}}
 async function loadPositions(force=false){if(!dataSnapshot)return;if(force)positionRevision++;if(busy){if(force)pendingPosition=true;return;}busy=true;const revision=positionRevision;const requested=at;const id=selected;try{const d=await get(`/api/positions?at=${encodeURIComponent(new Date(Math.min(requested,Date.now()-1000)).toISOString())}${id!==null?'&id='+id:''}${dataSnapshot?'&snapshot='+encodeURIComponent(dataSnapshot):''}`);if(revision!==positionRevision||id!==selected||Math.abs(requested-at)>150000)return;points=d.points;if(focusSelected&&displayMode==='2d'){const p=points.find(p=>p.id===selected);if(p){focusSelected=false;focusPlanisphere(p);}}track=d.track;futureTrack=d.future_track||[];track3d=d.track_3d||[];future3d=d.future_track_3d||[];failures=0;suggestedAt=d.suggested_at;$('available').hidden=!!d.points.length||!suggestedAt;$('notice').textContent=d.points.length===0?'Aucune position disponible à cette date. Les archives orbitales nécessaires ne sont pas présentes. Utilisez une date disponible ou importez des archives historiques.':`${d.points.length.toLocaleString('fr')} positions disponibles · ${d.missing.toLocaleString('fr')} sans position exploitable à cette date`;draw();}catch(e){if(revision!==positionRevision)return;failures++;points=[];track=[];futureTrack=[];track3d=[];future3d=[];$('notice').textContent='Positions indisponibles : '+e.message;draw();}finally{busy=false;if(pendingPosition){pendingPosition=false;loadPositions();}}}
 function closeSatellite(){
@@ -160,7 +162,7 @@ map.on('moveend zoomend resize',updateMapReset);
 $('results-prev').onclick=()=>{if(resultsPage>0){resultsPage--;list();$('results').scrollTop=0;}};
 $('results-next').onclick=()=>{const count=catalog.filter(matches).length;if((resultsPage+1)*resultsPageSize<count){resultsPage++;list();$('results').scrollTop=0;}};
 function navigateSatellite(event){
- if(event.isComposing||event.ctrlKey||event.altKey||event.metaKey||event.shiftKey)return;
+ if(event.isComposing||event.ctrlKey||event.altKey||event.metaKey||event.shiftKey||event.target?.closest('dialog'))return;
  const direction=event.key==='ArrowUp'||event.code==='Numpad8'?-1:event.key==='ArrowDown'||event.code==='Numpad2'?1:0;
  if(!direction||selected===null||event.target?.closest('input,textarea,select,#date-popover,[contenteditable]:not([contenteditable="false"])'))return;
  const rows=catalog.filter(matches),index=rows.findIndex(s=>s.id===selected);
@@ -195,13 +197,13 @@ setInterval(()=>{const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(
 setInterval(()=>{if(playing)loadPositions();},1000);
 (async()=>{clock();try{const c=await get('/api/config');cartoConfig=c;tiles=L.tileLayer(c.tile_url,{attribution:c.tile_attribution,maxZoom:19,noWrap:true,bounds:worldBounds});tiles.addTo(map);AtlasOverview.attach(map,tiles,worldBounds);}catch(e){$('health').textContent='Configuration de carte indisponible : '+e.message;}await showGlobe();await loadCatalog();await loadPositions();})();
 
-function showPlanisphere(){displayMode='2d';$('globe').hidden=true;$('map').hidden=false;$('map').style.visibility='';$('map-reset').hidden=false;if(globeController)globeController.setActive(false);$('view-2d').setAttribute('aria-pressed','true');$('view-3d').setAttribute('aria-pressed','false');moving=false;map.invalidateSize({pan:false});updateMapReset();scheduleDraw();draw();}
+function showPlanisphere(){displayMode='2d';$('globe').hidden=true;$('map-creator').hidden=false;$('map').hidden=false;$('map').style.visibility='';$('map-reset').hidden=false;if(globeController)globeController.setActive(false);$('view-2d').setAttribute('aria-pressed','true');$('view-3d').setAttribute('aria-pressed','false');moving=false;map.invalidateSize({pan:false});updateMapReset();scheduleDraw();draw();}
 $('view-2d').onclick=showPlanisphere;
 async function showGlobe(){
  $('view-3d').disabled=true;$('view-2d').disabled=true;
  try{
   await AtlasGlobe.load();if(!cartoConfig)cartoConfig=await get('/api/config');
-  $('globe').hidden=false;$('map').hidden=true;$('map-reset').hidden=true;displayMode='3d';
+  $('globe').hidden=false;$('map-creator').hidden=true;$('map').hidden=true;$('map-reset').hidden=true;displayMode='3d';
   if(!globeController)globeController=await AtlasGlobe.create($('globe-canvas'),cartoConfig,choose,closeSatellite);
   globeController.setActive(true);if(collectionMode==='iss'&&selected===null)issOverviewPending=true;$('view-2d').setAttribute('aria-pressed','false');$('view-3d').setAttribute('aria-pressed','true');focusSelected=selected!==null;draw();
  }catch(e){showPlanisphere();$('notice').textContent='La vue 3D est indisponible : '+e.message;}
@@ -211,23 +213,24 @@ $('view-3d').onclick=showGlobe;
 $('map-reset').onclick=()=>{focusSelected=false;constrainWorld(true);draw();};
 
 function updateCollectionCoverage(){$('coverage').textContent=collectionMode==='iss'?'ISS · Éléments publics CelesTrak, calcul SGP4. Archives conservées depuis les premières collectes ISS ; aucun historique antérieur n’est inventé. Modèle schématique, taille amplifiée et orientation illustrative.':constellationCoverage;}
-function setCollection(mode){
- collectionMode=mode;document.title=(mode==='iss'?'ISS · ':mode==='starlink'?'Starlink · ':'')+'Atlas — Observatoire orbital';issOverviewPending=mode==='iss';updateCollectionCoverage();document.body.dataset.collection=mode;
- catalog=allCatalog.filter(s=>mode==='all'||(mode==='iss'?s.id===25544:s.id!==25544));
- $('collection-title').textContent=mode==='all'?'Atlas':mode==='iss'?'ISS':'Starlink';
- $('starlink-controls').hidden=mode!=='starlink';$('atlas-controls').hidden=mode!=='all';
- selected=null;focusSelected=false;positionRevision++;track=[];futureTrack=[];track3d=[];future3d=[];
- chosenYears.clear();chosenLaunches.clear();selectedLaunchYears.clear();$('search').value='';$('status').value='';revealedSearchId=null;resultsPage=0;
- $('total').textContent=catalog.length.toLocaleString('fr');renderMultiFilters();list();draw();
- if(displayMode==='3d')globeController?.home();else{constrainWorld(true);scheduleDraw();}
- loadPositions(true);
+$('collection-select').value=collectionMode;
+$('collection-title').textContent=collectionMode==='all'?'Atlas':collectionMode==='iss'?'ISS':'Starlink';
+$('collection-description').textContent=collectionMode==='all'?'Visualisez tous les objets suivis en orbite autour de la Terre. Pour plus d’informations, choisissez ISS ou Starlink dans le menu ci-dessous.':collectionMode==='iss'?'Station spatiale internationale':'Constellation de satellites Internet';
+document.body.dataset.collection=collectionMode;
+$('starlink-controls').hidden=collectionMode!=='starlink';$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=collectionMode!=='iss';issOverviewPending=collectionMode==='iss';updateCollectionCoverage();
+$('collection-select').addEventListener('change',e=>{if(e.target.value!==collectionMode)location.assign(AtlasPages.url(e.target.value));});
+for(const family of ['iss','starlink']){
+ $('atlas-color-'+family).addEventListener('input',e=>{atlasColors[family]=e.target.value;draw();});
 }
-$('collection-select').addEventListener('change',e=>setCollection(e.target.value));
 function updateAtlasGroups(){
- const checks=[...document.querySelectorAll('[data-family]')];atlasGroups=new Set(checks.filter(el=>el.checked).map(el=>el.dataset.family));
- $('atlas-all').checked=atlasGroups.size===checks.length;$('atlas-all').indeterminate=atlasGroups.size>0&&atlasGroups.size<checks.length;
- $('atlas-groups-summary').textContent=atlasGroups.size===checks.length?'Tous les éléments':atlasGroups.size?[...atlasGroups].map(v=>v==='iss'?'ISS':'Starlink').join(' · '):'Aucun élément';
+ const checks=[...document.querySelectorAll('[data-family]')];atlasGroups=new Set(checks.filter(el=>el.checked).map(el=>el.dataset.family));$('atlas-clear').disabled=atlasGroups.size===0;
  if(selected!==null&&!atlasGroups.has(selected===25544?'iss':'starlink')){selected=null;positionRevision++;track=[];futureTrack=[];track3d=[];future3d=[];loadPositions(true);}list();draw();
 }
 document.querySelectorAll('[data-family]').forEach(el=>el.addEventListener('change',updateAtlasGroups));
-$('atlas-all').addEventListener('change',e=>{document.querySelectorAll('[data-family]').forEach(el=>el.checked=e.target.checked);updateAtlasGroups();});
+
+$('atlas-clear').addEventListener('click',()=>{
+ document.querySelectorAll('[data-family]').forEach(el=>el.checked=false);updateAtlasGroups();
+});
+$('atlas-reset').addEventListener('click',()=>{
+ document.querySelectorAll('[data-family]').forEach(el=>{el.checked=true;atlasColors[el.dataset.family]='#ffffff';$('atlas-color-'+el.dataset.family).value='#ffffff';});updateAtlasGroups();
+});

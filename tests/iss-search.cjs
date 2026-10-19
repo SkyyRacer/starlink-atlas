@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const search=require('../static/iss-search.js');
+const current={id:1,name:'Sophie Adénot',agency_abbrev:'ESA',mission:'Crew-12'};
+const past={...current,agency_abbrev:'Old agency'};
+const flights=[{id:10,name:'Crew-12',spacecraft:'Crew Dragon',crew:[past],landing_crew:[past]},{id:11,name:'Soyuz MS-29',crew:[],landing_crew:[{id:2,name:'Anil Menon',agency_abbrev:'NASA'}]}];
+const index=search.build({crew:[current],flights});
+assert.equal(index.filter(i=>i.kind==='person').length,2);
+let r=search.find(index,'adenot');assert.equal(r.total,1);assert.equal(r.items[0].value.agency_abbrev,'ESA');assert.equal(r.items[0].flights.length,1);
+r=search.find(index,'crew12');assert.equal(r.items[0].id,10);
+r=search.find(index,'SOYUZ ms');assert.equal(r.items[0].id,11);
+r=search.find(index,'Menon');assert.equal(r.items[0].kind,'person');assert.equal(r.items[0].flights[0].id,11);
+assert.equal(search.find(index,'absent').total,0);assert.equal(search.find(index,'  ').total,0);
+assert.equal(search.find(index,'crew',1).items.length,1);
+console.log('Recherche ISS : missions, vols, accents, astronautes uniques, équipage de retour et zéro résultat OK');

@@ -17,7 +17,7 @@ async function dispatch(message){if(message.op==='init'){
   if(typeof DecompressionStream!=='function')throw new Error('Ce navigateur doit être mis à jour pour décompresser les archives orbitales.');
   const edition=await jsonFile('edition.json');bundle=await jsonFile(edition.bundle,true);manifest=bundle.catalog_response.history;
   const module=await WebAssembly.instantiate(await(await fetch(new URL('atlas_web_core.wasm',self.location.href))).arrayBuffer(),{});engine=module.instance.exports;compute({op:'init',data:bundle});
-  return {catalog_response:bundle.catalog_response,config:bundle.config,sources:bundle.sources};
+  return {catalog_response:bundle.catalog_response,config:bundle.config,sources:bundle.sources,iss_missions:bundle.iss_missions,iss_evas:bundle.iss_evas};
  }
  if(message.op==='positions'){
   await loadHistory(message.at);const result=compute({op:'positions',at:message.at,now:message.now,id:message.idValue});

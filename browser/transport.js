@@ -7,6 +7,8 @@
  function call(op,payload={}){return new Promise((resolve,reject)=>{const id=++serial;pending.set(id,{resolve,reject});worker.postMessage({id,op,...payload});});}
  const ready=call('init');
  window.AtlasStatic={async handle(path){const url=new URL(path,base);const bundle=await ready;
+  if(url.pathname.endsWith('/api/iss-missions')&&bundle.iss_missions)return bundle.iss_missions;
+  if(url.pathname.endsWith('/api/iss-evas')&&bundle.iss_evas)return bundle.iss_evas;
   if(url.pathname.endsWith('/api/catalog'))return bundle.catalog_response;
   if(url.pathname.endsWith('/api/config'))return bundle.config;
   if(url.pathname.endsWith('/api/sources'))return bundle.sources;

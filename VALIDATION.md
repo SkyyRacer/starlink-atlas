@@ -176,3 +176,53 @@ Commandes : aide de manipulation sous l’altitude retirée, panneau de suivi al
 Fermeture de fiche : fonction commune à la croix et aux clics hors surface, désélection, suppression des trajectoires et invalidation des réponses en cours, retour au cadrage initial 3D/2D. Clic 3D : satellite prioritaire, puis intersection avec l’ellipsoïde pour distinguer la Terre du vide ; clic 2D : coordonnées comparées aux limites du monde. Vérifié au navigateur : croix puis bouton Recentrer grisé, surface 3D et carte conservant la fiche, vide dans les deux vues fermant la fiche. Tests de fermeture/recentrage et réponses périmées réussis.
 
 Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Worker, sans serveur de calcul public. Tests Rust (10), API hors ligne (7), suites JavaScript et WASM réussis. Test public : 50 téléchargements simultanés de 2,66 Mo chacun, 50 succès, 12,49 s au total depuis la connexion de test ; cette mesure ne constitue pas une garantie de SLA ou de rendu de 50 navigateurs. Calcul de 50 images orbitales locales : environ 29–30 ms/image. Page publique vérifiée : 11 152 positions actuelles, 10 549 positions au 12 juin 2026, pas d’erreur console. Édition des données conservée jusqu’au rechargement, archives de collecte adressées par contenu et conservées sept jours. Collecte vérifiée toutes les 30 min, GP/SupGP au plus toutes les 2 h, catalogue/GCAT toutes les 24 h.
+
+### ISS — missions, équipage et tailles Atlas (19 octobre 2026)
+- 15 tests Rust réussis, dont validation station, sélection des événements d’amarrage ISS, durée depuis l’arrivée sans remise à zéro lors d’un changement de port, exclusion d’un futur vol et des membres revenus au sol.
+- Vérifications Node : collections, sélection carte, navigation, recherche, pagination et syntaxe des fichiers modifiés.
+- Cache normalisé : 318 vols documentés de 1998 à 2028 (inclut vols futurs), 7 membres à la collecte. Les lacunes restent non renseignées.
+- Vérification navigateur locale : sélection ISS/Atlas, ouverture Crew-13, dates locales, durée du vol / séjour distinctes, drapeaux et agences ; dialogue dans un viewport de 390×844 sans débordement horizontal, fermeture par Échap et depuis le panneau mobile.
+- Aucune publication ou modification GitHub.
+
+### Ajustements du panneau ISS (19 octobre 2026)
+- Équipage au-dessus de la recherche et de l’historique ; nombre de personnes à côté de l’expédition.
+- Menu « Toutes les années » fermé par défaut, puis années dépliables individuellement.
+- Recherche locale sur les missions/vols et astronautes des équipages de départ et de retour, avec noms accentués, priorité de correspondance, dédoublonnage et message sans résultat ; tests `node tests/iss-search.cjs` réussis.
+- Vérification navigateur : fiche Jessica Watkins, fiche Crew-13, navigation flèche/Entrée, fermeture de la fiche, absence de résultats et menu annuel dans le panneau mobile.
+
+### EVA et cartes d’équipage cliquables (19 octobre 2026)
+- 17 tests Rust et tests Node `iss-evas.cjs`, `iss-search.cjs` réussis. Déduplication des sorties, cumul sans multiplication par le nombre de participants, exclusion du futur, distinction des sorties en cours et durées absentes.
+- Source publique limitée temporairement (HTTP 429) lors de la reprise des archives : cache initial de 300 sorties, du 18 juillet 2001 au 1er septembre 2026. Couverture partielle affichée, reprise complète prévue automatiquement aux prochaines collectes ; aucun zéro de carrière n’est déduit d’une absence de données.
+- Navigateur local : clic sur la carte de Pyotr Dubrov, fiche affichant quatre sorties documentées et 29 h 49 min, dates début/fin, durée par sortie, participants et liens source. Aucun débordement horizontal dans le panneau étroit.
+- Collectes LL2 sérialisées pour éviter le chevauchement des reprises historiques missions/EVA et respecter le quota public. Aucun déploiement.
+
+### Fiches, drapeaux et complément EVA (19 octobre 2026, 10 h 22)
+- Suppression de la ligne « Présence à bord ». Libellé discret encadré sous le nom, sans point ni effet lumineux ; uniquement pour les membres de l’équipage actuel, avec distinction des données anciennes.
+- Équipages au lancement et au retour cliquables vers les fiches astronautes. Vérification des profils Luke Delaney, Joshua Kutryk et Kjell Lindgren, y compris au clavier ; absence de statut actuel pour les anciens équipages.
+- Drapeaux locaux SVG flag-icons 7.6.0 (MIT), 257 ressources vectorielles ; tous les pays du catalogue couverts, XML valide, remplacement neutre pour les nationalités inconnues. Aucun emoji dans ces fiches.
+- Après réouverture du quota fournisseur : deux dernières pages EVA récupérées, 500 identifiants uniques sur les 500 sorties annoncées par Launch Library 2, du 18 mars 1965 au 1er septembre 2026. Cache marqué complet vis-à-vis de la source, sans prétendre à une exhaustivité historique absolue. Mention initiale de couverture partielle retirée automatiquement par les données.
+- Tests Rust (17), recherche ISS et statistiques EVA validés. Aucun déploiement.
+
+### Documents séparés et personnalisation Atlas (19 octobre 2026)
+- Routes HTML `/atlas`, `/iss`, `/starlink`, titres propres, redirections de la racine et des variantes avec barre finale : réponses HTTP 200 vérifiées après redirection.
+- Navigation complète via le menu « Changer de page » ; vérification navigateur Atlas → ISS → Starlink, URL et rubrique correctes après chargement. État remis à zéro, données collectées côté serveur conservées.
+- Cartes Atlas ISS / Starlink, case globale avec état intermédiaire, compteurs de positions affichées et sélecteurs de couleur. Choix de couleur testé sur le globe et le planisphère ; masquage/rétablissement Starlink vérifié.
+- Statut actuel en texte vert, sans point, et aucun lien dans la section EVA des fiches astronautes.
+- 17 tests Rust, tests Node pages/collections/carte/navigation/recherche ISS/EVA et changements de date en cours de requête réussis. Aucun déploiement et aucun module publicitaire ajouté.
+
+### Accueil Atlas et palette rapide
+- La racine redirige désormais vers `/atlas`. Les choix ISS/Starlink conservent une navigation complète vers leurs pages dédiées.
+- Suppression de la rubrique globale « Tous les éléments » ; seules les deux cartes de catégorie restent affichées.
+- Huit couleurs prédéfinies par catégorie, sélection visible, synchronisation avec le sélecteur libre et application sur les deux vues.
+
+### Navigation mise en valeur et palette native uniquement
+- Libellé « Choisir les satellites à observer », encadré bleu discret et rappel Atlas / ISS / Starlink.
+- Suppression des pastilles prédéfinies visibles sous les catégories. Carré natif conservé, avec libellé associé « Modifier la couleur ».
+- Vérification navigateur : désactivation/réactivation Starlink, mise à jour de la couleur libre et absence de pastilles sous les cartes. La présentation de la palette native peut varier selon l’OS et le navigateur ; aucune vérification sur d’autres OS n’a été revendiquée.
+
+### Préparation de la publication GitHub Pages
+- Aucun envoi ni configuration GitHub exécuté par l’agent ; `scripts/publish_github.sh` préparé pour lancement manuel, syntaxe Bash vérifiée. Dépôt cible contrôlé, arrêt en cas de modifications préexistantes, synchronisation sans `.env`, `target`, données de travail ou ZIP.
+- Export statique de 33,9 Mo testé sous `/starlink-atlas/` : trois documents avec base relative, tous les scripts chargés, drapeaux SVG, initialisation du worker WASM avec missions et EVA incluses. Tests `tests/static-pages.cjs` et `tests/wasm.cjs` réussis (11 152 points calculés lors de ce test).
+- Routes de navigation adaptées au sous-chemin GitHub Pages et aux pages locales. Aucun appel API Rust requis pour les fiches ISS dans la version statique.
+- Workflow de publication converti en téléversement d’artefact et déploiement Pages officiels. Le script manuel configure Pages en mode workflow, puis pousse main ; les collectes planifiées restent actives.
+- Signature de Quentin Jaros ajoutée au planisphère avec le même style et alignement bas/gauche que la vue 3D.

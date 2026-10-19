@@ -20,7 +20,7 @@ Chaque arrivée ou rechargement charge une édition immuable du catalogue, des d
 
 Le site fonctionne aussi sous le sous-chemin d’un dépôt GitHub Pages. Le fichier `.nojekyll` préserve les ressources Cesium. Les données gzip sont décompressées par le navigateur, et ne doivent pas être envoyées avec un deuxième encodage HTTP gzip. Navigateurs modernes avec WebAssembly, Web Workers et DecompressionStream requis ; la vue 2D sert de repli si WebGL est indisponible.
 
-Dans le dépôt public, sélectionner **Settings → Pages → Deploy from a branch → gh-pages / (root)**. La tâche publie une branche dédiée sans accumuler les anciennes éditions du site. Elle conserve les collectes intermédiaires dans le cache Actions, distinct des archives historiques de référence. GitHub peut supprimer les caches inutilisés ; le jeu initial permet alors de redémarrer.
+Dans le dépôt public, sélectionner **Settings → Pages → Source → GitHub Actions**. La tâche téléverse le site construit puis utilise l’action officielle de déploiement Pages, sans pousser une branche générée. Elle conserve les collectes intermédiaires dans le cache Actions, distinct des archives historiques de référence. GitHub peut supprimer les caches inutilisés ; le jeu initial permet alors de redémarrer.
 
 ## Limites de l’offre gratuite
 
@@ -29,3 +29,10 @@ GitHub Pages : site ≤1 Go, bande passante indicative de 100 Go/mois. L’expor
 Les premières données orbitales actuelles représentent environ 4 Mo compressés ; les archives ne sont téléchargées que pour les jours historiques consultés. Les tuiles OSM restent soumises à la politique du fournisseur. Sources et licences conservées dans l’interface et les fichiers SOURCES.md / THIRD-PARTY.md.
 
 Documentation : https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits et https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule .
+
+
+## Publier les modifications locales sur le dépôt existant
+
+Depuis le dossier source local, exécuter `bash scripts/publish_github.sh`. Le script vérifie la connexion GitHub, le dépôt cible et son état propre, synchronise les sources vers le checkout de publication existant, inclut les caches publics ISS / missions / EVA, crée un commit et pousse `main`. Il configure Pages en mode GitHub Actions. Il ne copie pas les fichiers `.env`, les exécutables compilés ou les archives ZIP. La préparation du script ne publie rien : seul son lancement explicite effectue ces actions.
+
+Les documents `/atlas/`, `/iss/` et `/starlink/` de l’export statique restent sous le sous-chemin du dépôt. La page racine affiche Atlas. Les fichiers partagés utilisent une base relative, y compris les drapeaux, le modèle ISS et les données des missions et EVA. La signature de Quentin Jaros figure en bas à gauche dans les deux vues.

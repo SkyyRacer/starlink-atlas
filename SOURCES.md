@@ -69,3 +69,19 @@ Les archives ISS quotidiennes commencent avec cette intégration. Les archives S
 Le dessin 2D et le modèle GLB blanc sont des créations schématiques originales du projet, sous sa licence MIT, générées par `scripts/build_iss_model.py`. Taille amplifiée à l’écran, orientation illustrative : ce modèle ne représente pas une attitude mesurée, ni une configuration précise des véhicules amarrés. Aucun modèle NASA tiers n’est incorporé.
 
 « Tous les satellites » désigne les familles actuellement intégrées à Atlas : **ISS et Starlink**, et non l’intégralité des objets du catalogue NORAD.
+
+## Missions et équipage ISS (version locale)
+
+Les faits textuels proviennent de [Launch Library 2 — The Space Devs](https://thespacedevs.com/llapi), API publique v2.3.0 : `space_stations/4`, `expeditions/{id}` et `spacecraft_flights` en mode détaillé. La liste comprend les vols vers l’ISS (habités, cargo et vols prévus), identifiés par destination ou amarrage à la station n°4. Ce catalogue peut comporter des omissions ; il ne représente pas toutes les expéditions, sorties extravéhiculaires ou lancements de composants indépendants. Les fiches renvoient au dossier source. Aucune photographie, biographie ou écusson tiers n’est incorporé.
+
+Collecte côté serveur toutes les 6 heures (3 requêtes), avec reprise intégrale de l’historique chaque semaine ou à la première installation (12 requêtes maximum par passage ; quota public de 15/heure/IP). Aucun appel fournisseur par visiteur. Un échec préserve le dernier cache ; sa date de réception reste affichée. Après 24 heures, l’interface signale une ancienne collecte. Le serveur doit rester en marche pour collecter ; un Mac éteint ne collecte pas.
+
+L’équipage est celui de l’expédition active dont les membres sont signalés dans l’espace, recoupé avec les vols documentés vers l’ISS pour retrouver la dernière arrivée à bord. La durée à bord part de l’amarrage, pas du décollage ni du temps de carrière cumulé. Les missions de retour peuvent avoir un équipage différent : il est présenté séparément. Une information absente reste non renseignée. Les dates futures restent prévisionnelles et leur précision est indiquée. Les faits sont chargés une seule fois par visite ; la chronologie passée de la carte ne transforme pas la rubrique « équipage actuel » en historique d’équipage.
+
+Références de contrôle : [documentation API](https://ll.thespacedevs.com/docs/), [FAQ et limites](https://github.com/TheSpaceDevs/Tutorials/blob/main/faqs/faq_LL2.md), [arrivée de Crew-13 — NASA](https://www.nasa.gov/blogs/spacestation/2026/10/01/crew-13-members-enter-station-join-expedition-75/).
+
+### Sorties extravéhiculaires dans les fiches astronautes
+
+L’endpoint public Launch Library 2 `spacewalks?mode=normal` fournit les participants, dates, lieux et durées communes des sorties (ISS et autres missions de carrière documentées). Le serveur conserve un cache séparé `data/iss-evas.json`, rafraîchi toutes les 6 h avec reprise historique hebdomadaire ; une reprise initiale de l’historique EVA attend au moins une heure après la reprise complète des missions pour respecter le quota public. Les indisponibilités conservent le cache. Les archives initiales partielles restent explicitement signalées ; absence de résultat ne signifie pas absence certaine de sortie dans la carrière.
+
+Le compteur et le cumul portent sur les sorties terminées documentées de l’astronaute. Les durées sont des durées de sortie selon les conventions de l’agence, et non un chronométrage individuel hors du sas. Une sortie de 6 h avec deux participants compte pour 6 h dans la fiche de chacun, et non pour 12 h. Aucune durée n’est inventée : une durée absente est signalée, avec repli sur la différence des dates début/fin lorsqu’elles sont présentes et cohérentes. Les sorties futures sont exclues du bilan ; les sorties en cours sont présentées séparément sans durée finale.

@@ -71,7 +71,7 @@ window.AtlasGlobe={
     const extraLabels=viewer.scene.primitives.add(new C.LabelCollection()),nameItems=new Map();
     const issFallback=viewer.scene.primitives.add(new C.BillboardCollection()).add({id:25544,image:AtlasISS.iconURI,width:64,height:44,show:false});
     let issModel=null,issVisible=false;AtlasISS.createModel(C,viewer.scene).then(model=>{issModel=model;if(lastData)api.update({...lastData,focus:false});}).catch(error=>{container.dataset.modelError=error.message;console.error('Modèle ISS :',error);});
-    const items=new Map(),lime=C.Color.fromCssColorString('#dce4ec'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null;
+    const items=new Map(),lime=C.Color.fromCssColorString('#dce4ec'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette={iss:white,starlink:lime};
     let followPitch=-.8,following=false,followReady=false,followCurrent=null;
         const followButton=document.getElementById('globe-follow');
     const releaseFollow=()=>{if(followReady)viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);followReady=false;};
@@ -149,12 +149,14 @@ window.AtlasGlobe={
         if(!active)return;lastData=data;
         if(motion.source!==data.points){motion.set(data.points,performance.now(),data.playing&&!data.focus&&motionAt!==null&&Math.abs(data.at-motionAt)<150000);motionAt=data.at;}
         viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));viewer.scene.globe.enableLighting=data.night;imagery.show=data.basemap;
-        issVisible=false;issFallback.show=false;if(issModel)issModel.show=false;for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
+        const nextPalette=data.collection==='all'?data.colors:null,key=nextPalette?nextPalette.iss+nextPalette.starlink:'';if(key!==paletteKey){paletteKey=key;palette={iss:nextPalette?C.Color.fromCssColorString(nextPalette.iss):white,starlink:nextPalette?C.Color.fromCssColorString(nextPalette.starlink):lime};}
+        issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;
+        issVisible=false;issFallback.show=false;issFallback.width=data.collection==='all'?24:64;issFallback.height=data.collection==='all'?16:44;if(issModel){issModel.show=false;issModel.minimumPixelSize=data.collection==='all'?24:72;}for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
         for(const p of data.points){
           const satellite=data.catalog.get(p.id);if(!satellite||!data.visible(satellite,p.id))continue;
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           let item=items.get(p.id);if(!item){item=satellites.add({id:p.id,pixelSize:3,color:lime,outlineWidth:0});items.set(p.id,item);}
-          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:lime;item.pixelSize=p.id===data.selected?9:3;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
+          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette.starlink;item.pixelSize=p.id===data.selected?9:3;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
           if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
         }
         past.positions=data.orbits?orbit(data.track):[];future.positions=data.orbits?orbit(data.future):[];

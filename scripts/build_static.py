@@ -12,6 +12,9 @@ shutil.copytree(ROOT/'static',out);(out/'.atlas-generated').touch();(out/'.nojek
 with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([str(ROOT/'target/release/starlink-atlas'),'--export-web',tmp],env=dict(os.environ,DATA_DIR=str(data),HISTORY_DIR=str(history)),cwd=ROOT,check=True)
  bundle=json.loads((pathlib.Path(tmp)/'bundle.json').read_text())
+ for name,key in [('iss-missions.json','iss_missions'),('iss-evas.json','iss_evas')]:
+  cache=data/name
+  if cache.is_file():bundle[key]=json.loads(cache.read_text())
  # Drop duplicate elements with identical satellite/source/epoch; preserve all distinct observations.
  rows={}
  for row in bundle['orbits']:
@@ -52,10 +55,18 @@ worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text
 transport_file=out/'transport.js';transport_file.write_text(transport_file.read_text().replace("'browser-worker.js'","'browser-worker.js?v="+hashlib.sha256(worker_file.read_bytes()).hexdigest()[:12]+"'"))
 # Project Pages are under /repository/. Keep every local resource relative to that path.
 for file in out.glob('*.js'):
- text=file.read_text().replace("'/vendor/","'./vendor/").replace('"/vendor/','"./vendor/').replace('`/vendor/','`./vendor/')
+ text=file.read_text().replace("'/images/","'./images/").replace("'/vendor/","'./vendor/").replace('"/vendor/','"./vendor/').replace('`/vendor/','`./vendor/')
+ if file.name=='pages.js':text=text.replace("{all:'/atlas',iss:'/iss',starlink:'/starlink'}","{all:'./atlas/',iss:'./iss/',starlink:'./starlink/'}")
  if file.name=='app.js':text=text.replace('async function get(url){','async function get(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');index.write_text(text)
+# Distinct static documents share assets via a base URL under /repository/.
+root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
+index.write_text(root_html)
+for page,title in [('atlas','Atlas — Tous les satellites'),('iss','ISS — Station spatiale internationale'),('starlink','Starlink — Observatoire orbital')]:
+ folder=out/page;folder.mkdir()
+ html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')
+ (folder/'index.html').write_text(html)
 size=sum(f.stat().st_size for f in out.rglob('*') if f.is_file())
 if size>950_000_000:raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
 print(json.dumps({'output':str(out),'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
