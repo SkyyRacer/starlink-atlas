@@ -23,3 +23,13 @@ clock+=10;skewed.done('scene');callback(500);assert.ok(reported.at(-1)>=midway,'
 clock+=200;callback(600);assert.equal(reported.at(-1),70);
 assert.ok(reported.every(value=>Number.isFinite(value)&&value>=0&&value<=100));
 console.log('Horodatage RAF ancien : progression bornée à 0–100 et toujours croissante OK');
+
+function permutations(items){return items.length?items.flatMap((item,i)=>permutations(items.filter((_,j)=>j!==i)).map(rest=>[item,...rest])):[[]];}
+for(const page of ['Atlas','ISS','Starlink'])for(const order of permutations(['config','catalog','scene','positions'])){
+ let time=1000,callback,values=[];const l=create({now:()=>time,render:v=>values.push(v),close(){},frame:fn=>{callback=fn;return 1;},cancelFrame(){},later(){}});
+ for(const step of order){l.done(step);callback(time-100);time+=50;callback(time-200);}
+ time+=200;callback(0);
+ assert.equal(values.at(-1),100,page+' must complete for every order of cached / network resources');
+ assert.ok(values.every((v,i)=>Number.isFinite(v)&&v>=0&&v<=100&&(!i||v>=values[i-1])),page+' must never show negatives or regress');
+}
+console.log('Atlas / ISS / Starlink : 24 ordres de chargement par page, horodatages désynchronisés, 0–100 sans recul OK');

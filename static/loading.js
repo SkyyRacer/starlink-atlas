@@ -12,12 +12,12 @@
    else if(target===100){const token=generation;later(()=>{if(active&&token===generation){active=false;close(false);}},reduced?0:70);}
   }
   function advance(){if(!active)return;target=[...completed].reduce((sum,key)=>sum+weights[key],0);from=value;began=now();if(animation!==null)cancelFrame(animation);animation=frame(animate);}
-  return {done(key){if(!(key in weights)||completed.has(key))return;completed.add(key);advance();},retry(){if(active)return;active=true;generation++;completed.delete('catalog');completed.delete('positions');value=0;render(0,true);advance();},fail(){if(!active)return;active=false;generation++;if(animation!==null)cancelFrame(animation);animation=null;close(true);}};
+  return {done(key){if(!Object.prototype.hasOwnProperty.call(weights,key)||completed.has(key))return;completed.add(key);advance();},retry(){if(active)return;active=true;generation++;completed.delete('catalog');completed.delete('positions');value=0;render(0,true);advance();},fail(){if(!active)return;active=false;generation++;if(animation!==null)cancelFrame(animation);animation=null;close(true);}};
  }
  if(typeof module!=='undefined'&&module.exports){module.exports={create};return;}
  const overlay=document.getElementById('catalog-loader'),view=overlay.closest('.view'),bar=document.getElementById('catalog-progress'),value=document.getElementById('catalog-percent'),fill=document.getElementById('catalog-progress-fill');
  root.AtlasLoading=create({now:()=>performance.now(),frame:requestAnimationFrame,cancelFrame:cancelAnimationFrame,later:setTimeout,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,
-  render(percent,reopen){if(reopen){overlay.hidden=false;overlay.dataset.state='';view.dataset.loading='true';view.setAttribute('aria-busy','true');}value.textContent=String(percent);bar.setAttribute('aria-valuenow',String(percent));fill.style.transform=`scaleX(${percent/100})`;},
+  render(percent,reopen){percent=Number.isFinite(percent)?Math.max(0,Math.min(100,Math.round(percent))):0;if(reopen){overlay.hidden=false;overlay.dataset.state='';view.dataset.loading='true';view.setAttribute('aria-busy','true');}value.textContent=String(percent);bar.setAttribute('aria-valuenow',String(percent));fill.style.transform=`scaleX(${percent/100})`;},
   close(error){view.dataset.loading='false';view.setAttribute('aria-busy','false');overlay.dataset.state='closing';if(error)overlay.hidden=true;else setTimeout(()=>{if(overlay.dataset.state==='closing')overlay.hidden=true;},180);}
  });
 })(typeof window==='undefined'?globalThis:window);

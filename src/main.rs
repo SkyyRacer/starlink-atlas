@@ -375,6 +375,15 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
         .replace("<body>", &format!("<body data-collection=\"{mode}\">"))))
 }
 
+fn is_fresh_entrypoint(path: &str) -> bool {
+    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
+}
+async fn fresh_entrypoints(request: axum::extract::Request, next: axum::middleware::Next) -> axum::response::Response {
+    let fresh = is_fresh_entrypoint(request.uri().path());
+    let mut response = next.run(request).await;
+    if fresh { response.headers_mut().insert(axum::http::header::CACHE_CONTROL, axum::http::HeaderValue::from_static("no-store")); }
+    response
+}
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dir = PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into()));
@@ -526,7 +535,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/api/positions", get(positions))
         .with_state(shared)
         .fallback_service(ServeDir::new("static"))
-        .layer(CompressionLayer::new());
+        .layer(CompressionLayer::new())
+        .layer(axum::middleware::from_fn(fresh_entrypoints));
     let bind = std::env::var("BIND").unwrap_or("127.0.0.1:3000".into());
     let listener = tokio::net::TcpListener::bind(&bind).await?;
     println!("Starlink Atlas http://{bind}");

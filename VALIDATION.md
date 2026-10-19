@@ -261,3 +261,10 @@ Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Work
 ## Barre de chargement initial — 19 octobre 2026
 
 Animation 0–100 % sur la carte, Terre floutée en arrière-plan (illustration légère avant l’arrivée de la scène, puis globe réel). Suppression de « Chargement du catalogue… ». Les pourcentages suivent les étapes effectivement terminées : configuration, catalogue, scène et premières positions. Animation courte entre les étapes et disparition après 100 %, sans délai artificiel long ; préférence de mouvement réduit respectée. Une erreur retire le voile et conserve les messages existants. Tests de progression, erreur, nouvelle tentative et non-régression suivi / sélection / recherche réussis. Export local reconstruit, aucune publication GitHub ; pas de validation visuelle disponible.
+
+
+## Progression négative : correction commune et anciennes versions — 19 octobre 2026
+
+Les documents Atlas / ISS / Starlink et le petit contrôleur de progression sont désormais récupérés sans réutiliser une ancienne entrée du cache. Le Service Worker ignore / supprime les anciennes copies de `loading.js` et `asset-cache.js`, y compris lorsque l’URL porte un ancien numéro de version. Le cache du moteur 3D, de la carte et du WASM reste actif. Le serveur natif émet `Cache-Control: no-store` pour les documents et scripts de démarrage concernés.
+
+Vérifications : 24 ordres de fin de chargement pour chacune des trois pages, horodatages RAF antérieurs, absence de valeurs négatives / de recul, récupération réseau malgré une copie obsolète en CacheStorage et conservation du moteur déjà téléchargé. Vérification HTTP et exécution du script réellement servi sur les six URL (trois pages natives + trois pages de l’export local) : même version `b2b828256bd1`, 0–100 sans valeurs négatives. 20 tests Rust réussis ; serveur local relancé et export reconstruit. Aucune publication GitHub.
