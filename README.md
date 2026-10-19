@@ -176,3 +176,20 @@ Cliquer sur le logo rejoint l’accueil Atlas. La recherche de pages reconnaît 
 Sources : groupe public CelesTrak `gps-ops` pour les orbites exploitables et SATCAT `NAME=NAVSTAR` pour le catalogue incluant les anciens satellites. Collectes espacées de deux heures pour les orbites et d’une journée pour le catalogue, avec conservation du cache en cas d’erreur. Les données ne changent pas au milieu d’une visite. Aucun historique GPS n’est remplacé par des archives Starlink ; une ancienne date sans éléments adaptés reste sans position.
 
 L’accueil Atlas et son recentrage conservent une vue Terre centrée sur 0° de longitude / 20° de latitude, avec une taille apparente d’environ 47 % de la hauteur disponible sur écran large (adaptation à la largeur sur mobile). Les orbites GPS / Galileo restent à leur altitude calculée : dézoomer pour les voir toutes. Leur arrivée ne provoque plus de recul automatique du cadrage Atlas. Les pages GPS et Galileo gardent leur cadrage global adapté aux hautes orbites.
+
+
+## Constellations et débris — extension locale
+
+L’observatoire comprend des documents distincts pour Atlas, BeiDou, COSMO-SkyMed, Débris, Galileo, Globalstar, GLONASS, GOES, GPS, ICEYE, Iridium, ISS, Meteosat, OneWeb, Pléiades Neo, Sentinel / Copernicus et Starlink. Toutes les familles sont présentes dans le sélecteur, la recherche (accents / synonymes compris) et les cases de visibilité / couleur d’Atlas. Les pages de constellation reprennent les filtres, la liste paginée, les fiches, les traces passées / futures et le suivi. Les cartes et le moteur restent communs et mis en cache.
+
+Le registre relu `resources/constellations.json` rassemble les noms, les identités et les sources. `python3 scripts/generate_constellations.py` synchronise son module navigateur, le menu et les cartes Atlas. La classification est partagée par le moteur natif / WASM et vérifiée sur des éléments orbitaux réels. GLONASS est recoupé avec les identifiants Cosmos ; Meteosat comprend les générations MSG / MTG ; GOES comprend ses alias EWS ; COSMO-SkyMed inclut CSG. Pléiades Neo reste séparé des anciens Pléiades. Les instruments Sentinel embarqués ne deviennent pas des satellites supplémentaires.
+
+Les groupes GP publics CelesTrak sont récupérés toutes les deux heures et les catalogues SATCAT quotidiennement. Les programmes utilisant le groupe commun `active` partagent un téléchargement par cycle. Une panne conserve le cache. Les collectes du serveur ne modifient pas l’édition déjà ouverte par un visiteur. Aucune publication automatique n’est effectuée pendant ce travail local.
+
+### Page Débris
+
+`/debris` comprend les enregistrements SATCAT de type `DEB` (fragments) et `R/B` (étages / corps de fusée) autour de la Terre, tous programmes et années confondus, avec les objets déjà rentrés. Les charges utiles entières, même non opérationnelles, conservent leur classification de satellite et ne sont pas assimilées à des fragments. Filtres supplémentaires : type et pays / organisation d’origine (code SATCAT). Les fiches affichent cette classification et l’origine.
+
+Source du catalogue : https://celestrak.org/pub/satcat.csv ; schéma : https://celestrak.org/satcat/satcat-format.php. Les positions utilisent les requêtes GP publiques par noms (`DEB`, `R/B`, `AKM`, `PKM`, noyaux / liquide de refroidissement, aiguilles Westford, etc.), recoupées par identifiant avec les types SATCAT. Les rares noms non couverts sont interrogés par identifiant. Aucun accès au catalogue orbital global restreint n’est nécessaire. Les petits objets non catalogués et les éléments non publics / manquants ne peuvent pas être représentés. La fenêtre de propagation reste de ±72 h ; les objets sans orbite adaptée restent consultables au catalogue.
+
+La page Débris conserve un cadrage terrestre lisible ; les pages Meteosat / GOES / BeiDou encadrent leurs hautes orbites. L’accueil Atlas conserve le zoom demandé, indépendamment des familles chargées.

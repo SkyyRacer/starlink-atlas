@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('static/globe.js','utf8');
 const fragment=source.slice(source.indexOf('const homeView=station=>'),source.indexOf('    const resetButton='))+'globalThis.homeView=homeView;';
-const ctx={C:{Cartesian3:{fromDegrees:(lon,lat,height)=>({lon,lat,height})}},document:{body:{dataset:{collection:'all'}}},lastData:null,viewer:{canvas:{clientWidth:1800,clientHeight:745},camera:{frustum:{fovy:Math.PI/3}}}};
+const ctx={AtlasPages:require('../static/pages.js'),C:{Cartesian3:{fromDegrees:(lon,lat,height)=>({lon,lat,height})}},document:{body:{dataset:{collection:'all'}}},lastData:null,viewer:{canvas:{clientWidth:1800,clientHeight:745},camera:{frustum:{fovy:Math.PI/3}}}};
 vm.createContext(ctx);vm.runInContext(fragment,ctx);
 const initial=ctx.homeView().destination;assert.equal(initial.lon,0);assert.equal(initial.lat,20);
 ctx.lastData={collection:'all',catalog:new Map([[1,{}]]),points:[{id:1,altitude_km:23222}],visible:()=>true};assert.deepEqual(ctx.homeView().destination,initial,'Atlas must retain the requested opening zoom after high orbits load');
@@ -11,3 +11,5 @@ ctx.lastData.collection='galileo';assert.ok(ctx.homeView().destination.height>in
 ctx.lastData.collection='starlink';ctx.lastData.points[0].altitude_km=550;assert.ok(ctx.homeView().destination.height<initial.height);
 ctx.lastData.collection='all';ctx.viewer.canvas.clientWidth=390;assert.ok(ctx.homeView().destination.height>initial.height,'Narrow screens keep the globe inside the viewport');
 console.log('Cadrage Atlas : centre 0° / 20°, Terre ≈47%, stable après chargement, GPS / Galileo et écrans étroits adaptés OK');
+
+for(const family of ['beidou','goes','meteosat']){ctx.lastData=null;ctx.document.body.dataset.collection=family;ctx.viewer.canvas.clientWidth=1800;assert.ok(ctx.homeView().destination.height>100000000,family+' must include geostationary orbits');}

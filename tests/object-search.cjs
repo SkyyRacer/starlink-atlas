@@ -12,7 +12,7 @@ function key(value){let prevented=false;input.listeners.keydown({key:value,preve
 search('iss');assert.equal(results.hidden,false);assert.equal(results.children[0].children[0].textContent,'ISS');
 assert.equal(key('Tab'),true);assert.equal(navigations.pop(),'/iss');
 search('Starlink');key('Enter');assert.equal(navigations.pop(),'/starlink');
-search('s');assert.equal(results.children.length,5);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
+search('s');assert.equal(results.children.length,17);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
 key('ArrowUp');key('Enter');assert.equal(navigations.pop(),'/starlink');
 search('s');results.children[0].onclick();assert.equal(navigations.pop(),'/atlas');
 search('galileo');key('Tab');assert.equal(navigations.pop(),'/galileo');
@@ -26,3 +26,7 @@ search('atlas');results.children[0].onclick();assert.equal(navigations.pop(),'/a
 
 search('gps');key('Enter');assert.equal(navigations.pop(),'/gps');
 search('navstar');key('Tab');assert.equal(navigations.pop(),'/gps');
+
+for(const name of ['GLONASS','BeiDou','Iridium','Globalstar','Copernicus','COSMO-SkyMed','Pleiades Neo','ICEYE','Meteosat','GOES','OneWeb']){search(name);assert.equal(results.children.length,1,name);key('Enter');assert.equal(navigations.pop(),pages.url(pages.search(name)[0].mode));}
+
+search('debris');key('Tab');assert.equal(navigations.pop(),'/debris');

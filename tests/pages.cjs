@@ -6,9 +6,9 @@ console.log('Pages distinctes : URLs, sélection initiale et navigation complèt
 
 assert.deepEqual(pages.search('station spatiale').map(x=>x.mode),['iss']);
 assert.deepEqual(pages.search('STARLiNK ').map(x=>x.mode),['starlink']);
-assert.deepEqual(pages.search('internét').map(x=>x.mode),['starlink']);
-assert.equal(pages.search('satellites').length,4);
-assert.equal(pages.search('s').length,5);
+assert.deepEqual(pages.search('internét').map(x=>x.mode),['oneweb','starlink']);
+assert.equal(pages.search('satellites').length,16);
+assert.equal(pages.search('s').length,17);
 assert.equal(pages.search(' ').length,0);
 assert.equal(pages.search('inconnu').length,0);
 for(const key of ['Enter','Tab']){assert.equal(pages.searchAction(key,pages.search('iss')),'iss');assert.equal(pages.searchAction(key,pages.search('s')),null);assert.equal(pages.searchAction(key,[]),null);}
@@ -20,3 +20,10 @@ for(const query of ['Tous les satellites','atlas','tous']){assert.deepEqual(page
 assert.match(fs.readFileSync('static/index.html','utf8'),/<a class="brand" id="atlas-home" href="\/atlas"/);assert.match(source,/\$\('atlas-home'\)\.href=AtlasPages\.url\('all'\)/);
 
 for(const query of ['GPS','NAVSTAR','Global Positioning System'])assert.deepEqual(pages.search(query).map(x=>x.mode),['gps']);
+
+for(const row of pages.definitions){assert.equal(pages.mode('/'+row.id),row.id);assert.equal(pages.mode('/'+row.id+'/'),row.id);assert.equal(pages.url(row.id),'/'+row.id);assert.deepEqual(pages.search(row.label).map(r=>r.mode),[row.id]);}
+assert.deepEqual(pages.search('pleiades neo').map(x=>x.mode),['pleiades-neo']);assert.deepEqual(pages.search('copernicus').map(x=>x.mode),['sentinel']);
+assert.deepEqual(pages.definitions,JSON.parse(fs.readFileSync('resources/constellations.json')));
+console.log('16 familles : documents, labels, synonymes et registre commun cohérents OK');
+
+assert.deepEqual(pages.search('débris').map(x=>x.mode),['debris']);

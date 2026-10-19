@@ -1,4 +1,5 @@
 """Lossless, page-scoped browser payloads and content-addressed lazy resources."""
+import pathlib
 import copy,datetime as dt,gzip,hashlib,json,re
 UTC=dt.timezone.utc
 
@@ -23,34 +24,40 @@ def prepare_live(bundle,history,updates,now):
     def epoch(row):
         value=dt.datetime.fromisoformat(row['elements']['EPOCH'].replace('Z','+00:00'))
         return value.astimezone(UTC) if value.tzinfo else value.replace(tzinfo=UTC)
-    maximum=max(map(epoch,rows),default=now)
-    latest={}
+    midnight=dt.datetime.combine(day,dt.time(),UTC)
+    start=max(midnight,now-dt.timedelta(minutes=1))
+    end=midnight+dt.timedelta(days=1)
+    # Keep every element that could be closest at any time from the export to the end of this UTC day.
+    # A future-dated or obsolete object must not disable the fast path for all pages.
+    bounds={}
     for row in rows:
-        key=(row['elements']['NORAD_CAT_ID'],row['source'])
-        latest[key]=max(latest.get(key,epoch(row)),epoch(row))
-    # SGP4 source selection compares whole seconds; keep every near-tie in its
-    # original current-feed / archive order, including sub-millisecond epochs.
+        key=(row['elements']['NORAD_CAT_ID'],row['source']);stamp=epoch(row)
+        before,after=bounds.get(key,(None,None))
+        if stamp<start:before=max(before,stamp) if before else stamp
+        if stamp>=end:after=min(after,stamp) if after else stamp
+        bounds[key]=(before,after)
     live=[];seen=set()
     for row in rows:
-        key=(row['elements']['NORAD_CAT_ID'],row['source'])
-        if latest[key]-epoch(row)<dt.timedelta(seconds=1):
+        key=(row['elements']['NORAD_CAT_ID'],row['source']);stamp=epoch(row);before,after=bounds[key]
+        if (before is None or stamp>before-dt.timedelta(seconds=1)) and (after is None or stamp<after+dt.timedelta(seconds=1)):
             identity=encode(row)
             if identity not in seen:live.append(row);seen.add(identity)
-    start=max(maximum,dt.datetime.combine(day,dt.time(),UTC))
-    end=dt.datetime.combine(day+dt.timedelta(days=1),dt.time(),UTC)
-    window={'from':start.isoformat(),'until':end.isoformat()} if start<end else None
-    return live,window
+    return live,{'from':start.isoformat(),'until':end.isoformat()}
 
 def build_resources(out,bundle,history,updates,now):
     live_rows,window=prepare_live(bundle,history,updates,now)
     resources={}
+    definitions=json.loads((pathlib.Path(__file__).resolve().parents[1]/'resources/constellations.json').read_text())
+    identities={}
     def family(row):
         ident=row.get('id',row.get('NORAD_CAT_ID'));name=row.get('name',row.get('OBJECT_NAME',''))
-        return row.get('family') or ('iss' if ident==25544 else 'gps' if re.match(r'^(?:GPS (?:B|III)|NAVSTAR \d)',name) else 'galileo' if re.match(r'^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))',name) else 'starlink')
+        return row.get('family') or identities.get(ident) or ('iss' if ident==25544 else 'gps' if re.match(r'^(?:GPS (?:B|III)|NAVSTAR \d)',name) else 'galileo' if re.match(r'^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))',name) else 'starlink')
     identities={row['id']:family(row) for row in bundle['catalog_response']['satellites']}
     navigation_histories={}
-    for constellation in ['galileo','gps']:
-        navigation_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak '+('GPS' if constellation=='gps' else 'Galileo')+' · collectes locales'}
+    for definition in definitions:
+        constellation=definition['id']
+        if constellation in ['starlink','iss']:continue
+        navigation_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak '+definition['label']+' · collectes locales'}
         epochs=[]
         for file in sorted(updates.glob('*.json.gz')):
             rows=[row for row in json.loads(gzip.decompress(file.read_bytes())) if family(row.get('elements',row))==constellation]
@@ -71,13 +78,14 @@ def build_resources(out,bundle,history,updates,now):
         if verification:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'verification':verification}
     resources['details']={key:write_resource(out,'details-'+key,rows) for key,rows in details.items()}
     collections={}
-    for mode in ['all','galileo','gps','iss','starlink']:
+    for mode in ['all',*[row['id'] for row in definitions]]:
         accept=lambda ident: mode=='all' or identities.get(ident)==mode
         catalog=copy.copy(bundle['catalog_response']);catalog['satellites']=[s for s in slim if accept(s['id'])]
         # The detailed archive index is fetched only when a historic date needs it.
         active_history=navigation_histories.get(mode,manifest)
         if active_history:catalog['history']={k:v for k,v in active_history.items() if k not in ['days','remote_days','local_days','local_files','remote_base']}
-        if mode in navigation_histories:catalog['source']='https://celestrak.org/NORAD/elements/gp.php?GROUP='+('gps-ops' if mode=='gps' else mode)+'&FORMAT=JSON'
+        if mode=='debris':catalog['source']='https://celestrak.org/pub/satcat.csv'
+        elif mode in navigation_histories:catalog['source']='https://celestrak.org/NORAD/elements/gp.php?GROUP='+next(row['group'] for row in definitions if row['id']==mode)+'&FORMAT=JSON'
         current=[r for r in bundle['orbits'] if accept(r['elements']['NORAD_CAT_ID'])]
         live=[r for r in live_rows if accept(r['elements']['NORAD_CAT_ID'])]
         # Field names and source labels appear once; values retain their exact JSON precision.

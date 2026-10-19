@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('static/app.js','utf8');const elements=new Map();
-const context={collectionMode:'starlink',showSearchAlternative:()=>{},selected:null,catalog:Array.from({length:205},(_,i)=>({id:i,name:`SAT-${i}`})),matches:()=>true,esc:String,state:()=> 'orbit',$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);}};
+const context={AtlasPages:require('../static/pages.js'),collectionMode:'starlink',showSearchAlternative:()=>{},selected:null,catalog:Array.from({length:205},(_,i)=>({id:i,name:`SAT-${i}`})),matches:()=>true,esc:String,state:()=> 'orbit',$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);}};
 vm.createContext(context);vm.runInContext(source.slice(source.indexOf('let resultsPage='),source.indexOf('\nfunction updateDetail')),context);
 const count=()=> (elements.get('results').innerHTML.match(/data-id=/g)||[]).length;
 vm.runInContext('list()',context);assert.equal(count(),100);assert.equal(elements.get('results-prev').disabled,true);assert.equal(elements.get('results-page').textContent,'Page 1 / 3');

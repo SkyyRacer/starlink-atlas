@@ -57,19 +57,19 @@ shutil.copyfile(wasm,out/'atlas_web_core.wasm')
 # A new asset release invalidates only reusable rendering caches, never page data.
 asset_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static').rglob('*')) if f.is_file() and f.name!='asset-sw.js')+wasm.read_bytes()).hexdigest()[:16]
 sw=out/'asset-sw.js';sw.write_text(sw.read_text().replace('atlas-rendering-v1','atlas-rendering-'+asset_version))
-worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text().replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
+worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text().replace("importScripts('constellations.js')","importScripts('constellations.js?v="+hashlib.sha256((out/'constellations.js').read_bytes()).hexdigest()[:12]+"')").replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
 transport_file=out/'transport.js';transport_file.write_text(transport_file.read_text().replace("'browser-worker.js'","'browser-worker.js?v="+hashlib.sha256(worker_file.read_bytes()).hexdigest()[:12]+"'"))
 # Project Pages are under /repository/. Keep every local resource relative to that path.
 for file in out.glob('*.js'):
  text=file.read_text().replace("'/images/","'./images/").replace("'/vendor/","'./vendor/").replace('"/vendor/','"./vendor/').replace('`/vendor/','`./vendor/')
- if file.name=='pages.js':text=text.replace("{all:'/atlas',galileo:'/galileo',gps:'/gps',iss:'/iss',starlink:'/starlink'}","{all:'./atlas/',galileo:'./galileo/',gps:'./gps/',iss:'./iss/',starlink:'./starlink/'}")
+ if file.name=='pages.js':text=text.replace("const routeRoot='/'","const routeRoot='./'")
  if file.name=='app.js':text=text.replace('async function get(url){','async function get(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');index.write_text(text)
 # Distinct static documents share assets via a base URL under /repository/.
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
 index.write_text(root_html)
-for page,title in [('atlas','Atlas — Tous les satellites'),('galileo','Galileo — Navigation européenne'),('gps','GPS — Navigation américaine'),('iss','ISS — Station spatiale internationale'),('starlink','Starlink — Observatoire orbital')]:
+for page,title in [('atlas','Atlas — Tous les satellites'),*[(row['id'],row['label']+' — '+row['description']) for row in json.loads((ROOT/'resources/constellations.json').read_text())]]:
  folder=out/page;folder.mkdir()
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')
  (folder/'index.html').write_text(html)

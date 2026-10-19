@@ -2,6 +2,9 @@ mod history;
 mod collections;
 mod galileo;
 mod gps;
+mod constellations;
+mod debris;
+mod csv_data;
 mod iss;
 mod iss_missions;
 mod iss_evas;
@@ -70,7 +73,7 @@ fn load_gp_source_for(db: &mut Database, bytes: &[u8], source: &'static str, iss
     let mut parsed = Vec::new();
     for el in els {
         if iss_only && el.norad_id != 25544 { continue; }
-        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() { continue; }
+        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() && !db.catalog.get(&el.norad_id).is_some_and(debris::is_debris) { continue; }
         let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
         parsed.push(Orbit {
             el,
@@ -99,7 +102,7 @@ fn load_cat(db: &mut Database, bytes: &[u8]) -> Result<(), String> {
     let rows: Vec<Value> = serde_json::from_slice(bytes).map_err(|e| e.to_string())?;
     let rows: Vec<_> = rows
         .into_iter()
-        .filter(|v| collections::family(v["NORAD_CAT_ID"].as_u64().unwrap_or(0),v["OBJECT_NAME"].as_str().unwrap_or("")).is_some())
+        .filter(|v| (debris::is_debris(v) || collections::family(v["NORAD_CAT_ID"].as_u64().unwrap_or(0),v["OBJECT_NAME"].as_str().unwrap_or("")).is_some()))
         .collect();
     if rows.is_empty() {
         return Err("Catalogue vide".into());
@@ -128,11 +131,12 @@ fn query_time(q: &Q) -> Result<DateTime<Utc>, (StatusCode, String)> {
 #[derive(Default, Deserialize)]
 struct CollectionQuery { collection: Option<String> }
 fn object_family(db: &Database, id: u64) -> &'static str {
+    if db.catalog.get(&id).is_some_and(debris::is_debris) { return "debris"; }
     let name=db.catalog.get(&id).and_then(|row|row["OBJECT_NAME"].as_str()).or_else(||db.orbits.get(&id).and_then(|rows|rows.last()).and_then(|orbit|orbit.el.object_name.as_deref())).unwrap_or("");
     collections::family(id,name).unwrap_or("starlink")
 }
 fn in_collection(db: &Database, id: u64, collection: &str) -> bool {
-    collection == "all" || !["iss","starlink","galileo","gps"].contains(&collection) || object_family(db,id)==collection
+    collection == "all" || collections::definition(collection).is_none() || object_family(db,id)==collection
 }
 async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
     let db = s.read().await;
@@ -157,7 +161,7 @@ fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
     let mut rows = BTreeMap::new();
     for (id, v) in &db.catalog {
         if !in_collection(&db, *id, collection) { continue; }
-        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"family":object_family(db,*id),"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"verification":db.gcat.get(id)}));
+        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"family":object_family(db,*id),"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"object_type":v["OBJECT_TYPE"],"owner":v["OWNER"],"verification":db.gcat.get(id)}));
     }
     for (id, list) in &db.orbits {
         if !in_collection(&db, *id, collection) { continue; }
@@ -178,10 +182,10 @@ fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
         .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .max();
-    let history=if ["galileo","gps"].contains(&collection) {
-        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,collection)).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":if collection=="gps"{"CelesTrak GPS · collectes locales"}else{"CelesTrak Galileo · collectes locales"}}))
+    let history=if collections::local_history(collection) {
+        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,collection)).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":format!("CelesTrak {} · collectes locales",collections::definition(collection).unwrap().label)}))
     } else { history::info() };
-    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":if collection=="galileo"{galileo::GP}else if collection=="gps"{gps::GP}else{GP},"history":history})
+    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":collections::source(collection).unwrap_or_else(||GP.to_owned()),"history":history})
 }
 async fn positions(
     State(s): State<Shared>,
@@ -231,7 +235,7 @@ async fn positions(
             .min_by_key(|(_, t)| (*t - at).num_seconds().abs())
             .map(|(_, t)| t)
             .into_iter()
-            .chain(if ["galileo","gps"].contains(&collection) { None } else { history::nearest_date(at) })
+            .chain(if collections::local_history(collection) { None } else { history::nearest_date(at) })
             .min_by_key(|t| (*t - at).num_seconds().abs())
     } else {
         None
@@ -366,15 +370,16 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
         "/iss" => ("iss", "ISS — Station spatiale internationale"),
         "/galileo" => ("galileo", "Galileo — Navigation européenne"),
         "/gps" => ("gps", "GPS — Navigation américaine"),
-        _ => ("starlink", "Starlink — Observatoire orbital"),
+        _ => collections::definition(uri.path().trim_matches('/')).map(|d|(d.id.as_str(),d.label.as_str())).unwrap_or(("starlink", "Starlink — Observatoire orbital")),
     };
+    let title=collections::definition(mode).map(|row|format!("{} — {}",row.label,row.description)).unwrap_or_else(||title.to_owned());
     let html = tokio::fs::read_to_string("static/index.html").await.map_err(|_|StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(axum::response::Html(html.replace("<title>Starlink Atlas — Observatoire orbital</title>", &format!("<title>{title}</title>"))
         .replace("<body>", &format!("<body data-collection=\"{mode}\">"))))
 }
 
 fn is_fresh_entrypoint(path: &str) -> bool {
-    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/galileo" | "/galileo/" | "/gps" | "/gps/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
+    collections::definition(path.trim_matches('/')).is_some() || matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/galileo" | "/galileo/" | "/gps" | "/gps/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
 }
 async fn fresh_entrypoints(request: axum::extract::Request, next: axum::middleware::Next) -> axum::response::Response {
     let fresh = is_fresh_entrypoint(request.uri().path());
@@ -422,6 +427,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
     let mut db = Database::default();
+    debris::load_cache(&mut db, &dir);
     db.message = "Cache local · collecte programmée (intervalle 2 h)".into();
     for file in std::fs::read_dir(&dir)? {
         let p = file?.path();
@@ -485,6 +491,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     iss::load_cache(&mut db, &dir);
     galileo::load_cache(&mut db, &dir);
     gps::load_cache(&mut db, &dir);
+    constellations::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
@@ -508,6 +515,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         iss::collect(shared.clone(), dir.clone(), true).await;
         galileo::collect(shared.clone(), dir.clone(), true).await;
         gps::collect(shared.clone(), dir.clone(), true).await;
+        constellations::collect(shared.clone(), dir.clone(), true).await;
+        debris::collect(shared.clone(), dir.clone(), true).await;
         iss_missions::collect(dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
         return Ok(());
@@ -518,11 +527,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tokio::spawn(iss_missions::collect(dir.clone(), false));
         tokio::spawn(iss::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(galileo::collect(shared.clone(), dir.clone(), false));
-        tokio::spawn(gps::collect(shared.clone(), dir, false));
+        tokio::spawn(gps::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(constellations::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(debris::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();
     }
-    let app = Router::new()
+    let mut app = Router::new();
+    for def in collections::definitions().iter().filter(|d|!["starlink","iss","gps","galileo"].contains(&d.id.as_str())) {
+        app=app.route(&format!("/{}",def.id),get(observation_page)).route(&format!("/{}/",def.id),get(|uri: axum::http::Uri|async move{axum::response::Redirect::permanent(uri.path().trim_end_matches('/'))}));
+    }
+    let app = app
         .route("/", get(|| async { axum::response::Redirect::temporary("/atlas") }))
         .route("/atlas", get(observation_page))
         .route("/iss", get(observation_page))

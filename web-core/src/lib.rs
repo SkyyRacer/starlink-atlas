@@ -37,6 +37,7 @@ mod collections;
 use orbit_math::*;
 #[derive(Default)]
 struct Engine {
+    allowed: std::collections::BTreeSet<u64>,
     db: Database,
     history: BTreeMap<u64, Vec<Orbit>>,
     live: BTreeMap<u64, Vec<Orbit>>,
@@ -46,6 +47,7 @@ fn add(
     rows: &[Value],
     dest: &mut BTreeMap<u64, Vec<Orbit>>,
     default_source: &'static str,
+    allowed: &std::collections::BTreeSet<u64>,
 ) -> Result<(), String> {
     for row in rows {
         let wrapped = row.get("elements").unwrap_or(row);
@@ -58,7 +60,7 @@ fn add(
         };
         let el: sgp4::Elements =
             serde_json::from_value(wrapped.clone()).map_err(|e| e.to_string())?;
-        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none(){continue;}
+        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() && !allowed.contains(&el.norad_id){continue;}
         let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
         dest.entry(el.norad_id).or_default().push(Orbit {
             el,
@@ -68,7 +70,7 @@ fn add(
     }
     Ok(())
 }
-fn add_packed(data: &Value, key: &str, dest: &mut BTreeMap<u64, Vec<Orbit>>) -> Result<(), String> {
+fn add_packed(data: &Value, key: &str, dest: &mut BTreeMap<u64, Vec<Orbit>>, allowed: &std::collections::BTreeSet<u64>) -> Result<(), String> {
     let fields = data["orbit_fields"].as_array().ok_or("Missing orbit fields")?;
     let sources = data["orbit_sources"].as_array().ok_or("Missing orbit sources")?;
     for values in data[key].as_array().ok_or("Missing packed orbits")? {
@@ -80,7 +82,7 @@ fn add_packed(data: &Value, key: &str, dest: &mut BTreeMap<u64, Vec<Orbit>>) -> 
         for (field, value) in fields.iter().zip(values.iter().skip(1)) {
             if !value.is_null() { elements.insert(field.as_str().ok_or("Invalid orbit field")?.to_owned(), value.clone()); }
         }
-        add(&[json!({"elements":elements,"source":source})], dest, "CelesTrak GP / Space-Track")?;
+        add(&[json!({"elements":elements,"source":source})], dest, "CelesTrak GP / Space-Track",allowed)?;
     }
     Ok(())
 }
@@ -89,16 +91,17 @@ impl Engine {
         match q["op"].as_str().unwrap_or("") {
             "init" => {
                 let data = &q["data"];
+                self.allowed=data["raw_catalog"].as_array().ok_or("Missing catalogue")?.iter().filter_map(|r|r["NORAD_CAT_ID"].as_u64()).collect();
                 let mut db = Database::default();
                 self.live.clear(); self.live_window = None;
                 if data.get("packed_orbits").is_some() {
-                    add_packed(data, "packed_orbits", &mut db.orbits)?;
-                    add_packed(data, "packed_live", &mut self.live)?;
+                    add_packed(data, "packed_orbits", &mut db.orbits,&self.allowed)?;
+                    add_packed(data, "packed_live", &mut self.live,&self.allowed)?;
                     if let (Some(from), Some(until)) = (data["live_window"]["from"].as_str(), data["live_window"]["until"].as_str()) {
                         self.live_window = Some((DateTime::parse_from_rfc3339(from).map_err(|e|e.to_string())?.with_timezone(&Utc), DateTime::parse_from_rfc3339(until).map_err(|e|e.to_string())?.with_timezone(&Utc)));
                     }
                 } else {
-                    add(data["orbits"].as_array().ok_or("Missing orbits")?, &mut db.orbits, "CelesTrak GP / Space-Track")?;
+                    add(data["orbits"].as_array().ok_or("Missing orbits")?, &mut db.orbits, "CelesTrak GP / Space-Track",&self.allowed)?;
                 }
                 for row in data["raw_catalog"].as_array().ok_or("Missing catalogue")? {
                     if let Some(id) = row["NORAD_CAT_ID"].as_u64() {
@@ -113,7 +116,7 @@ impl Engine {
             }
             "current" => {
                 let mut rows = BTreeMap::new();
-                add_packed(&q["data"], "packed_orbits", &mut rows)?;
+                add_packed(&q["data"], "packed_orbits", &mut rows,&self.allowed)?;
                 self.db.orbits = rows;
                 Ok(json!({"ready":true}))
             }
@@ -123,6 +126,7 @@ impl Engine {
                     q["rows"].as_array().ok_or("Missing history")?,
                     &mut history,
                     "Archive publique Julien Simon / Space-Track",
+                    &self.allowed,
                 )?;
                 self.history = history;
                 Ok(json!({"ready":true}))

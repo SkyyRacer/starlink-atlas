@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),vm=require('node:vm'),crypto=require('node:crypto');
 (async()=>{
- for(const [root,routes] of [['http://127.0.0.1:3002/', ['atlas','galileo','gps','iss','starlink']],['http://127.0.0.1:3004/starlink-atlas/', ['atlas/','galileo/','gps/','iss/','starlink/']]]){
+ for(const [root,routes] of [['http://127.0.0.1:3002/', ['atlas',...require('../static/pages.js').definitions.map(row=>row.id)]],['http://127.0.0.1:3004/starlink-atlas/', ['atlas/',...require('../static/pages.js').definitions.map(row=>row.id+'/')]]]){
   for(const route of routes){
    const page=new URL(route,root),response=await fetch(page,{cache:'no-store'});assert.equal(response.status,200);
    if(page.port==='3002')assert.equal(response.headers.get('cache-control'),'no-store');

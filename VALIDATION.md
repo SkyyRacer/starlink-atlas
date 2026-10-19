@@ -291,3 +291,41 @@ Ajout de la famille GPS au moteur natif et au WASM, du catalogue NAVSTAR (80 ent
 Atlas ouvre désormais une Terre centrée sur 0° / 20°, d’un diamètre apparent proche de 47 % de la hauteur disponible sur écran large, avec adaptation aux écrans étroits. Le chargement des orbites hautes ne change plus ce cadrage ; leur altitude physique est conservée. Le recentrage utilise le même cadrage et les pages GPS / Galileo continuent d’encadrer leurs hautes orbites.
 
 Validation : 24 tests Rust réussis ; ensemble des tests Node de comportement réussi, dont isolation GPS / Galileo / Starlink / ISS, recherche clic / Entrée / Tab, filtres, suivi, pagination et calcul du cadrage aux différentes dimensions. HTTP natif sur les cinq pages : catalogue GPS isolé, union Atlas exacte, continuité trace passée / future et absence de positions inventées pour 2020. Export local reconstruit ; tests HTTP + WASM sur les cinq pages : positions et traces strictement identiques aux données complètes au présent et à une date historique, chargement 0–100 sans recul, transport indépendant du moteur et archives à la demande. Charge initiale GPS compressée : 1 982 octets de catalogue + 3 074 octets d’orbites, hors moteurs communs. Serveur local relancé sur le port 3002. Aucune publication GitHub ; aucun outil de validation visuelle automatisée disponible.
+
+
+## Onze nouvelles familles et page Débris — 19 octobre 2026
+
+Pages GLONASS, BeiDou, Iridium, Globalstar, Sentinel / Copernicus, COSMO-SkyMed, Pléiades Neo, ICEYE, Meteosat, GOES et OneWeb. Registre partagé, groupes / alias recoupés avec SATCAT, exclusion des fragments / étages des constellations, contrôles et suivi identiques à Galileo, cadrage des orbites géostationnaires et préservation du cadrage Atlas. Débris : catalogue public complet de types DEB / R/B autour de la Terre (42 703 objets, dont les objets rentrés), 12 547 éléments orbitaux publics récupérés ; seuls les éléments adaptés à la date produisent des points. Deux fragments Starlink auparavant rangés parmi les satellites sont maintenant classés comme débris. Les charges utiles retirées du service ne sont pas recodées en fragments.
+
+Le fichier orbital global CSV a répondu HTTP 403 ; aucune nouvelle tentative sur ce fichier restreint. Utilisation des requêtes GP publiques documentées par CelesTrak, dont les fragments et corps de fusée, avec requêtes complémentaires et recoupement du catalogue public SATCAT. Les catégories inconnues ne sont pas présentées comme des débris. Le parseur CSV prend en charge Unicode, guillemets doublés, virgules / retours à la ligne cités et identifiants à six chiffres et plus ; rejet d’un en-tête ou d’une ligne invalide.
+
+Contrôle HTTP natif (quantités à l’instant du contrôle ; les âges des éléments évoluent) :
+
+| Page | Catalogue | Positions exploitables |
+|---|---:|---:|
+| all | 57036 | 23336 |
+| beidou | 64 | 51 |
+| cosmo-skymed | 7 | 7 |
+| debris | 42703 | 11200 |
+| galileo | 36 | 24 |
+| globalstar | 93 | 34 |
+| glonass | 148 | 24 |
+| goes | 19 | 6 |
+| gps | 80 | 32 |
+| iceye | 80 | 56 |
+| iridium | 175 | 79 |
+| iss | 1 | 1 |
+| meteosat | 14 | 6 |
+| oneweb | 656 | 651 |
+| pleiades-neo | 2 | 2 |
+| sentinel | 13 | 12 |
+| starlink | 12945 | 11151 |
+
+Validation native : 29 tests Rust réussis ; tous les tests Node de comportement réussis, dont isolation des seize familles, visibilité / couleur, filtres de type et origine pour les débris, navigation, recherche avec accents et synonymes, suivi et maintien du cadrage Atlas. Les 17 documents locaux répondent HTTP 200 avec cache de document désactivé ; union Atlas exacte et sans doublons, aucune intersection de familles, traces continues au satellite et absence de positions inventées en 2020.
+
+Optimisation : les éléments très anciens ou datés dans le futur d’un objet ne bloquent plus la fenêtre rapide commune. L’export conserve, par satellite et source, les éléments qui peuvent être les plus proches entre son instant de génération (marge d’une minute) et la fin de la journée UTC, en préservant les quasi-égalités à la seconde et la validité SupGP. Tests sur l’ensemble de cette fenêtre : sélection identique à la liste complète. Les changements de date hors fenêtre utilisent les archives existantes à la demande. Les métadonnées et orbites de chaque page restent isolées ; les grosses données de débris ne sont pas demandées par une page ISS ou une autre constellation.
+
+Serveur local relancé sur le port 3002 ; export statique reconstruit pour vérification locale. Aucune publication GitHub. Aucune validation visuelle automatisée disponible pendant cette session.
+
+
+Export final vérifié : calculs et traces strictement identiques aux données complètes sur les 17 pages (date courante et historique), transport sans blocage du catalogue par le moteur, chargement 0–100 sur les 34 URL natives / statiques. Charges initiales compressées : ISS 997 + 467 octets, Pléiades Neo 528 + 546 octets, OneWeb 6 243 + 36 025 octets, Débris 474 104 + 968 329 octets, Starlink 131 121 + 1 142 530 octets, Atlas 637 091 + 2 182 224 octets (catalogue + orbites, hors moteurs partagés). La charge Starlink reste au niveau de l’optimisation précédente ; les débris sont chargés seulement dans Débris / Atlas. Export local final : 63 167 476 octets.
