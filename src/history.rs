@@ -1,16 +1,17 @@
 //! Bounded lazy cache: only the seven daily files surrounding the requested date.
-use super::{load_gp_source, Database, Orbit};
+use super::{load_gp_source_for, Database, Orbit};
 use chrono::{DateTime, NaiveDate, Utc};
 use serde_json::Value;
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, VecDeque},
     io::Read,
     path::PathBuf,
     sync::{Arc, OnceLock},
 };
 use tokio::sync::Mutex;
 type Orbits = Arc<BTreeMap<u64, Vec<Orbit>>>;
-static CACHE: OnceLock<Mutex<Option<(String, Orbits)>>> = OnceLock::new();
+// Keep an ISS window alongside the full window, so switching pages cannot evict it.
+static CACHE: OnceLock<Mutex<VecDeque<(String, Orbits)>>> = OnceLock::new();
 fn directory() -> PathBuf {
     std::env::var("HISTORY_DIR")
         .map(PathBuf::from)
@@ -32,7 +33,7 @@ pub fn nearest_date(at: DateTime<Utc>) -> Option<DateTime<Utc>> {
         .filter(|t| *t <= Utc::now())
         .min_by_key(|t| (*t - at).num_seconds().abs())
 }
-pub async fn orbits(at: DateTime<Utc>) -> Result<Orbits, String> {
+pub async fn orbits(at: DateTime<Utc>, iss_only: bool) -> Result<Orbits, String> {
     let dir = directory();
     if !dir.join("manifest.json").exists() {
         return Ok(Arc::new(BTreeMap::new()));
@@ -40,12 +41,10 @@ pub async fn orbits(at: DateTime<Utc>) -> Result<Orbits, String> {
     let stamp = std::fs::metadata(dir.join("manifest.json"))
         .and_then(|m| m.modified())
         .map_err(|e| e.to_string())?;
-    let key = format!("{}:{}:{stamp:?}", dir.display(), at.date_naive());
-    let mut cache = CACHE.get_or_init(|| Mutex::new(None)).lock().await;
-    if let Some((k, v)) = &*cache {
-        if *k == key {
-            return Ok(v.clone());
-        }
+    let key = format!("{}:{}:{stamp:?}:{iss_only}", dir.display(), at.date_naive());
+    let mut cache = CACHE.get_or_init(|| Mutex::new(VecDeque::new())).lock().await;
+    if let Some((_, value)) = cache.iter().find(|(k, _)| *k == key) {
+        return Ok(value.clone());
     }
     let value = tokio::task::spawn_blocking(move || {
         let mut db = Database::default();
@@ -64,10 +63,11 @@ pub async fn orbits(at: DateTime<Utc>) -> Result<Orbits, String> {
             if bytes.len() > 30_000_000 {
                 return Err(format!("{} trop volumineuse", path.display()));
             }
-            load_gp_source(
+            load_gp_source_for(
                 &mut db,
                 &bytes,
                 "Archive publique Julien Simon / Space-Track",
+                iss_only,
             )
             .map_err(|e| format!("{}: {e}", path.display()))?;
         }
@@ -75,6 +75,7 @@ pub async fn orbits(at: DateTime<Utc>) -> Result<Orbits, String> {
     })
     .await
     .map_err(|e| e.to_string())??;
-    *cache = Some((key, value.clone()));
+    cache.push_back((key, value.clone()));
+    while cache.len() > 2 { cache.pop_front(); }
     Ok(value)
 }

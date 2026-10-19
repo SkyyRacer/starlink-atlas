@@ -2,13 +2,13 @@ const fs=require('node:fs');const vm=require('node:vm');const assert=require('no
 const source=fs.readFileSync('static/app.js','utf8');
 const start=source.indexOf('async function loadPositions('),end=source.indexOf('\nfunction choose',start);
 const requests=[],elements=new Map();
-const context={dataSnapshot:'test-edition',busy:false,pendingPosition:false,positionRevision:0,at:Date.now()-60000,selected:null,displayMode:'2d',track3d:[],future3d:[],focusSelected:false,points:[],track:[],futureTrack:[],failures:0,suggestedAt:null,Date,Math,encodeURIComponent,draw:()=>{},$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);},get:url=>new Promise(resolve=>requests.push({url,resolve}))};
+const context={collectionMode:'all',dataSnapshot:'test-edition',busy:false,pendingPosition:false,positionRevision:0,at:Date.now()-60000,selected:null,displayMode:'2d',track3d:[],future3d:[],focusSelected:false,points:[],track:[],futureTrack:[],failures:0,suggestedAt:null,Date,Math,encodeURIComponent,draw:()=>{},$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);},get:url=>new Promise(resolve=>requests.push({url,resolve}))};
 vm.createContext(context);vm.runInContext(source.slice(start,end),context);
 (async()=>{
  const first=context.loadPositions();
  context.at-=86400000;const expected=new Date(context.at).toISOString();
  await context.loadPositions(true);
- assert.equal(requests.length,1);
+ assert.equal(requests.length,1);assert.ok(requests[0].url.includes('collection=all'));
  requests[0].resolve({points:[{id:1}],track:[],future_track:[],missing:0});await first;
  assert.equal(context.points.length,0,'obsolete response must not be displayed');
  assert.equal(requests.length,2,'new request must run even while paused');

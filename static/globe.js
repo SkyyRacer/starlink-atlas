@@ -71,6 +71,12 @@ window.AtlasGlobe={
     const extraLabels=viewer.scene.primitives.add(new C.LabelCollection()),nameItems=new Map();
     const issFallback=viewer.scene.primitives.add(new C.BillboardCollection()).add({id:25544,image:AtlasISS.iconURI,width:64,height:44,show:false});
     let issModel=null,issVisible=false;AtlasISS.createModel(C,viewer.scene).then(model=>{issModel=model;if(lastData)api.update({...lastData,focus:false});}).catch(error=>{container.dataset.modelError=error.message;console.error('Modèle ISS :',error);});
+    function sizeISS(){
+      if(!lastData)return;
+      const size=AtlasISS.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.positionCartographic.height,lastData.selected===25544,lastData.collection);
+      issFallback.width=size;issFallback.height=size*.7;if(issModel)issModel.minimumPixelSize=size;
+    }
+    viewer.scene.preUpdate.addEventListener(sizeISS);
     const items=new Map(),lime=C.Color.fromCssColorString('#dce4ec'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette={iss:white,starlink:lime};
     let followPitch=-.8,following=false,followReady=false,followCurrent=null;
         const followButton=document.getElementById('globe-follow');
@@ -151,7 +157,7 @@ window.AtlasGlobe={
         viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));viewer.scene.globe.enableLighting=data.night;imagery.show=data.basemap;
         const nextPalette=data.collection==='all'?data.colors:null,key=nextPalette?nextPalette.iss+nextPalette.starlink:'';if(key!==paletteKey){paletteKey=key;palette={iss:nextPalette?C.Color.fromCssColorString(nextPalette.iss):white,starlink:nextPalette?C.Color.fromCssColorString(nextPalette.starlink):lime};}
         issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;
-        issVisible=false;issFallback.show=false;issFallback.width=data.collection==='all'?24:64;issFallback.height=data.collection==='all'?16:44;if(issModel){issModel.show=false;issModel.minimumPixelSize=data.collection==='all'?24:72;}for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
+        issVisible=false;issFallback.show=false;if(issModel)issModel.show=false;sizeISS();for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
         for(const p of data.points){
           const satellite=data.catalog.get(p.id);if(!satellite||!data.visible(satellite,p.id))continue;
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}

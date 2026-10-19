@@ -226,3 +226,14 @@ Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Work
 - Routes de navigation adaptées au sous-chemin GitHub Pages et aux pages locales. Aucun appel API Rust requis pour les fiches ISS dans la version statique.
 - Workflow de publication converti en téléversement d’artefact et déploiement Pages officiels. Le script manuel configure Pages en mode workflow, puis pousse main ; les collectes planifiées restent actives.
 - Signature de Quentin Jaros ajoutée au planisphère avec le même style et alignement bas/gauche que la vue 3D.
+
+
+## Optimisation locale et recherche d’objets — 19 octobre 2026
+
+- Démarrage : configuration/chargement du moteur 3D en parallèle avec catalogue puis positions ; la disponibilité du moteur ne bloque plus les données.
+- API locale : paramètre optionnel `collection=all|iss|starlink` sur catalogue et positions. Les catalogues JSON sont réutilisés par édition immuable et collection ; les archives ISS filtrent avant la préparation SGP4. Deux fenêtres historiques en cache évitent l’éviction mutuelle ISS / Atlas.
+- Mesures HTTP locales, même cache disque, même date `2026-10-19T10:00:00Z`, moteur release, sans compression demandée. Médiane de trois requêtes chaudes : catalogue ISS 36,76 ms → 0,21 ms (4 149 712 → 56 554 octets), positions ISS 27,12 ms → 0,25 ms (2 597 794 → 375 octets). Mesures indicatives de réponses API, pas du chargement complet d’une page. Positions comparées exactement avec l’ancien binaire : ISS, Starlink et Atlas identiques.
+- Taille schématique ISS progressive suivant hauteur de caméra et dimensions du cadre, adaptée aussi au planisphère. Taille réduite en vue générale, plus lisible à proximité / lors de la sélection.
+- Recherche de pages : ISS / Starlink et synonymes, casse et accents normalisés, clic sur résultats ; Entrée et Tab sur résultat unique, flèches puis Entrée sur plusieurs résultats, Échap pour fermer. Navigation complète conservée et aucune préférence sauvegardée.
+- Vérifications : 20 tests Rust réussis ; tests Node pages, recherche interactive, taille ISS, réponses périmées, collections, navigation, sélection carte et interpolation réussis. Contrôle HTTP des trois documents et du catalogue/positions ISS avec édition de visite. Compilation release réussie.
+- Aucune publication GitHub. Serveur local relancé sur le port 3002. Contrôles fonctionnels et de données réalisés ; pas de capture de rendu navigateur disponible pendant cette validation.

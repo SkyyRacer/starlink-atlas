@@ -1,5 +1,6 @@
 //! Shared immutable editions: visitors keep one edition until they reload.
 use super::Database;
+use axum::body::Bytes;
 use std::{
     collections::VecDeque,
     sync::{Arc, Mutex, OnceLock},
@@ -10,6 +11,7 @@ const MAX_AGE: Duration = Duration::from_secs(24 * 3600);
 #[derive(Default)]
 struct Store {
     editions: VecDeque<(String, Instant, Arc<Database>)>,
+    documents: std::collections::BTreeMap<(String, String), Bytes>,
 }
 impl Store {
     fn capture(&mut self, db: &Database) -> (String, Arc<Database>) {
@@ -21,6 +23,7 @@ impl Store {
         if let Some((id, _, data)) = self.editions.iter().find(|(key, _, _)| *key == id) {
             return (id.clone(), data.clone());
         }
+        self.documents.retain(|(key, _), _| self.editions.iter().any(|(id, _, _)| id == key));
         let data = Arc::new(db.clone());
         self.editions
             .push_back((id.clone(), Instant::now(), data.clone()));
@@ -52,9 +55,31 @@ pub fn get(id: &str) -> Option<Arc<Database>> {
         .unwrap_or_else(|e| e.into_inner())
         .get(id)
 }
+// Serialized catalogues are prepared once per immutable edition and collection.
+pub fn catalog(db: &Database, collection: &str) -> Bytes {
+    let collection = match collection { "iss" => "iss", "starlink" => "starlink", _ => "all" };
+    let mut store = STORE.get_or_init(|| Mutex::new(Store::default())).lock().unwrap_or_else(|e| e.into_inner());
+    let (id, edition) = store.capture(db);
+    let key = (id.clone(), collection.to_owned());
+    store.documents.entry(key).or_insert_with(|| {
+        Bytes::from(serde_json::to_vec(&super::catalog_for(&edition, &id, collection)).expect("serializable catalogue"))
+    }).clone()
+}
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn catalogue_cache_is_scoped_and_invalidated_on_revision() {
+        let mut db = Database { revision: u64::MAX - 10, ..Database::default() };
+        db.catalog.insert(25544, serde_json::json!({"OBJECT_NAME":"ISS"}));
+        db.catalog.insert(12345, serde_json::json!({"OBJECT_NAME":"STARLINK"}));
+        let first = catalog(&db, "iss"); let again = catalog(&db, "iss");
+        assert_eq!(first.as_ptr(), again.as_ptr());
+        assert_eq!(serde_json::from_slice::<serde_json::Value>(&first).unwrap()["satellites"].as_array().unwrap().len(), 1);
+        assert_eq!(serde_json::from_slice::<serde_json::Value>(&catalog(&db, "all")).unwrap()["satellites"].as_array().unwrap().len(), 2);
+        db.revision += 1; db.catalog.get_mut(&25544).unwrap()["OBJECT_NAME"] = serde_json::json!("ISS-NEW");
+        assert_ne!(catalog(&db, "iss"), first);
+    }
     #[test]
     fn visits_share_an_edition_while_new_visits_receive_updates() {
         let mut store = Store::default();

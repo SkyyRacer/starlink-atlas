@@ -43,6 +43,7 @@ struct Q {
     at: Option<String>,
     id: Option<u64>,
     snapshot: Option<String>,
+    collection: Option<String>,
 }
 #[derive(Serialize)]
 struct Point {
@@ -59,9 +60,13 @@ fn load_gp(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
     load_gp_source(db, bytes, "CelesTrak GP / Space-Track")
 }
 fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Result<usize, String> {
+    load_gp_source_for(db, bytes, source, false)
+}
+fn load_gp_source_for(db: &mut Database, bytes: &[u8], source: &'static str, iss_only: bool) -> Result<usize, String> {
     let els: Vec<sgp4::Elements> = serde_json::from_slice(bytes).map_err(|e| e.to_string())?;
     let mut parsed = Vec::new();
     for el in els {
+        if iss_only && el.norad_id != 25544 { continue; }
         if el.norad_id != 25544
             && !el
                 .object_name
@@ -78,7 +83,7 @@ fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Resu
             source,
         });
     }
-    if parsed.is_empty() {
+    if parsed.is_empty() && !iss_only {
         return Err("Aucun élément orbital pris en charge".into());
     }
     let count = parsed.len();
@@ -131,35 +136,45 @@ fn query_time(q: &Q) -> Result<DateTime<Utc>, (StatusCode, String)> {
     }
     Ok(at)
 }
-async fn catalog(State(s): State<Shared>) -> Result<Json<Value>, (StatusCode, String)> {
-    let (snapshot, db) = snapshots::capture(&*s.read().await);
+#[derive(Default, Deserialize)]
+struct CollectionQuery { collection: Option<String> }
+fn in_collection(id: u64, collection: &str) -> bool {
+    match collection { "iss" => id == 25544, "starlink" => id != 25544, _ => true }
+}
+async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
+    let db = s.read().await;
     if db.catalog.is_empty() && db.orbits.is_empty() {
-        return Err((
-            StatusCode::SERVICE_UNAVAILABLE,
-            "Première collecte en cours".into(),
-        ));
+        return Err((StatusCode::SERVICE_UNAVAILABLE, "Première collecte en cours".into()));
     }
-    Ok(Json(catalog_document(&db, &snapshot)))
+    let document = snapshots::catalog(&db, q.collection.as_deref().unwrap_or("all"));
+    Ok(([(axum::http::header::CONTENT_TYPE, "application/json")], document))
 }
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
+    catalog_for(db, snapshot, "all")
+}
+fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
     let mut rows = BTreeMap::new();
     for (id, v) in &db.catalog {
+        if !in_collection(*id, collection) { continue; }
         rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"verification":db.gcat.get(id)}));
     }
     for (id, list) in &db.orbits {
+        if !in_collection(*id, collection) { continue; }
         let e = &list.last().unwrap().el;
         rows.entry(*id).or_insert(json!({"id":id,"name":e.object_name,"designator":e.international_designator,"launch":null,"decay":null,"ops":null}));
     }
     let min = db
         .orbits
-        .values()
-        .flat_map(|v| v.iter())
+        .iter()
+        .filter(|(id, _)| in_collection(**id, collection))
+        .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .min();
     let max = db
         .orbits
-        .values()
-        .flat_map(|v| v.iter())
+        .iter()
+        .filter(|(id, _)| in_collection(**id, collection))
+        .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .max();
     json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":GP,"history":history::info()})
@@ -169,7 +184,8 @@ async fn positions(
     Query(q): Query<Q>,
 ) -> Result<Json<Value>, (StatusCode, String)> {
     let at = query_time(&q)?;
-    let historical = history::orbits(at).await.map_err(|e| {
+    let collection = q.collection.as_deref().unwrap_or("all");
+    let historical = history::orbits(at, collection == "iss").await.map_err(|e| {
         (
             StatusCode::SERVICE_UNAVAILABLE,
             format!("Archive historique invalide : {e}"),
@@ -182,7 +198,7 @@ async fn positions(
     let mut points = Vec::new();
     let mut missing = 0;
     let ids: std::collections::BTreeSet<_> =
-        db.orbits.keys().chain(historical.keys()).copied().collect();
+        db.orbits.keys().chain(historical.keys()).copied().filter(|id| in_collection(*id, collection)).collect();
     for id in &ids {
         if !exists_in_db(&db, *id, at) {
             continue;
@@ -198,12 +214,13 @@ async fn positions(
     missing += db
         .catalog
         .iter()
-        .filter(|(id, _v)| !ids.contains(id) && exists_in_db(&db, **id, at))
+        .filter(|(id, _v)| in_collection(**id, collection) && !ids.contains(id) && exists_in_db(&db, **id, at))
         .count();
     let suggested_at = if points.is_empty() {
         let now = Utc::now();
         db.orbits
             .iter()
+            .filter(|(id, _)| in_collection(**id, collection))
             .flat_map(|(id, list)| list.iter().map(move |o| (*id, o)))
             .map(|(id, o)| (id, o.el.datetime.and_utc()))
             .filter(|(id, t)| *t <= now && exists_in_db(&db, *id, *t))
@@ -219,7 +236,7 @@ async fn positions(
     let mut future_track = Vec::new();
     let mut track_3d = Vec::new();
     let mut future_track_3d = Vec::new();
-    if let Some(id) = q.id {
+    if let Some(id) = q.id.filter(|id| in_collection(*id, collection)) {
         if exists_in_db(&db, id, at) {
             if let Some(o) = select_sources(db.orbits.get(&id), historical.get(&id), at) {
                 // Same orbital elements for past and predicted path; the timeline still rejects future dates.
@@ -511,6 +528,34 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 mod tests {
     use super::*;
     #[test]
+    fn scoped_catalogues_keep_iss_separate() {
+        let mut db = Database::default();
+        db.catalog.insert(25544, json!({"OBJECT_NAME":"ISS"}));
+        db.catalog.insert(12345, json!({"OBJECT_NAME":"STARLINK-TEST"}));
+        assert_eq!(catalog_for(&db, "test", "all")["satellites"].as_array().unwrap().len(), 2);
+        for (collection, expected) in [("iss", 25544), ("starlink", 12345)] {
+            let document = catalog_for(&db, "test", collection);
+            assert_eq!(document["satellites"].as_array().unwrap().len(), 1);
+            assert_eq!(document["satellites"][0]["id"], expected);
+        }
+    }
+    #[test]
+    fn iss_history_filter_preserves_exact_orbital_solution() {
+        let mut rows: Vec<Value> = serde_json::from_slice(include_bytes!("../resources/iss-example.json")).unwrap();
+        let mut other = rows[0].clone();
+        other["NORAD_CAT_ID"] = json!(12345);
+        other["OBJECT_NAME"] = json!("STARLINK-TEST");
+        rows.push(other);
+        let bytes = serde_json::to_vec(&rows).unwrap();
+        let mut all = Database::default(); let mut station = Database::default();
+        load_gp_source_for(&mut all, &bytes, "test", false).unwrap();
+        load_gp_source_for(&mut station, &bytes, "test", true).unwrap();
+        assert_eq!(all.orbits.len(), 2); assert_eq!(station.orbits.len(), 1);
+        let a = &all.orbits[&25544][0]; let b = &station.orbits[&25544][0];
+        let at = a.el.datetime.and_utc() + chrono::Duration::minutes(20);
+        assert_eq!(serde_json::to_value(position(a, at).unwrap()).unwrap(), serde_json::to_value(position(b, at).unwrap()).unwrap());
+    }
+    #[test]
     fn equator_and_pole() {
         let (a, b, h) = geodetic([6928.137, 0.0, 0.0], 0.0);
         assert!(a.abs() < 1e-8 && b.abs() < 1e-8 && (h - 550.0).abs() < 1e-6);
@@ -521,12 +566,14 @@ mod tests {
     fn future_and_bad_dates_rejected() {
         assert!(query_time(&Q {
             snapshot: None,
+            collection: None,
             at: Some((Utc::now() + chrono::Duration::hours(1)).to_rfc3339()),
             id: None
         })
         .is_err());
         assert!(query_time(&Q {
             snapshot: None,
+            collection: None,
             at: Some("bad".into()),
             id: None
         })

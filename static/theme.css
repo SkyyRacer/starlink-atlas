@@ -322,3 +322,13 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 @media(max-width:900px){.collection-description{font-size:13px}}
 
 .map-creator{bottom:calc(var(--timeline-space,180px) + 6px)!important;z-index:550;pointer-events:none}
+
+.object-search{position:relative;margin-top:18px;margin-bottom:14px}
+.object-search>label{display:block;margin-bottom:7px;font-size:12px;color:#b9c6ce;line-height:1.5}
+.object-search>input{width:100%;min-width:0;padding:11px 12px;border:1px solid #526b7b;background:#0b1116;color:#f3f8fc;box-sizing:border-box}
+.object-search>input:focus{outline:1px solid #b1d4e8;outline-offset:2px}
+#object-search-results{position:absolute;left:0;right:0;top:100%;margin-top:5px;z-index:30;border:1px solid #526b7b;background:#0c141a;box-shadow:0 8px 24px #0009;max-height:240px;overflow:auto}
+#object-search-results button{display:block;width:100%;padding:12px;text-align:left;border:0;border-bottom:1px solid #293740;background:transparent;white-space:normal;color:#edf4f9}
+#object-search-results button:hover,#object-search-results button[aria-selected="true"]{background:#233745}
+#object-search-results strong,#object-search-results small{display:block}#object-search-results small{margin-top:4px;font-size:11px;line-height:1.5;color:#a7bbc9;font-weight:400}
+.object-search-empty{margin:0;padding:12px;color:#a7bbc9;font-size:12px}
