@@ -97,7 +97,7 @@ window.AtlasGlobe={
     const updateFollowControl=chosen=>{
       const idle=!!idleController?.active;
       followButton.disabled=!chosen&&!idle;followButton.setAttribute('aria-pressed',String(following||idle));
-      followButton.textContent=following||idle?'Libérer la caméra':'Suivre le satellite';
+      followButton.textContent=following||idle?'Arrêter le suivi':'Suivre le satellite';
       document.getElementById('follow-state').textContent=idle?'Vue globale · suivi automatique de l’ISS':following?(chosen?'Caméra centrée · zoom et rotation disponibles':'Suivi suspendu : position indisponible'):(chosen?'Suivre la lecture, même accélérée':'Sélectionne un satellite');
     };
     const position=p=>C.Cartesian3.fromDegrees(p.lon,p.lat,p.altitude_km*1000);

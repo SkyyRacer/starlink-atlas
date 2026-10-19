@@ -332,3 +332,18 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 #object-search-results button:hover,#object-search-results button[aria-selected="true"]{background:#233745}
 #object-search-results strong,#object-search-results small{display:block}#object-search-results small{margin-top:4px;font-size:11px;line-height:1.5;color:#a7bbc9;font-weight:400}
 .object-search-empty{margin:0;padding:12px;color:#a7bbc9;font-size:12px}
+
+.catalog-loader{position:absolute;inset:0 0 var(--timeline-space,180px);z-index:1400;display:grid;place-items:center;overflow:hidden;background:#0003;opacity:1;transition:opacity .18s ease}
+.catalog-loader[data-state="closing"]{opacity:0;pointer-events:none}
+.loading-earth{position:absolute;left:50%;top:50%;width:min(70%,68vh);aspect-ratio:1;transform:translate(-50%,-50%);filter:blur(8px);opacity:.65;pointer-events:none;transition:opacity .25s}
+.loading-earth svg{display:block;width:100%;height:100%}
+.view[data-loading="true"] #map,.view[data-loading="true"] #globe-canvas{filter:blur(9px)}
+.view[data-loading="true"] .notice{visibility:hidden}
+.view[data-loading="true"] .view-switch,.view[data-loading="true"] .compass,.view[data-loading="true"] .globe-tools,.view[data-loading="true"] .globe-help,.view[data-loading="true"] #globe-joystick,.view[data-loading="true"] .leaflet-control-container{visibility:hidden}
+.view[data-earth-ready="true"] .loading-earth{opacity:0}
+.catalog-progress-panel{position:relative;z-index:1;width:clamp(190px,35vw,380px);padding:28px 12px;text-align:center}
+.catalog-percentage{display:flex;align-items:baseline;justify-content:center;gap:5px;margin-bottom:19px;color:#f4f7f9;text-shadow:0 2px 24px #000;font-size:clamp(28px,4vw,42px);font-weight:300;letter-spacing:2px;font-variant-numeric:tabular-nums}
+.catalog-percentage>span:last-child{font-size:13px;color:#b3c0c9;letter-spacing:0}
+.catalog-progress{height:2px;background:#ffffff25;overflow:hidden}
+#catalog-progress-fill{height:100%;background:#d7e9f4;transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px #b7d8ee55}
+@media(prefers-reduced-motion:reduce){.catalog-loader,.loading-earth{transition:none}}

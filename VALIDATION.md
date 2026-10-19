@@ -256,3 +256,8 @@ Publication GitHub Pages : moteur orbital partagé Rust/WebAssembly dans un Work
 - Un clic gauche sur le globe libère la caméra ; le clic de sortie sur le modèle ne relance pas immédiatement sa sélection. Le comportement de fermeture sur le vide reste présent. Les commandes explicites de caméra libèrent aussi ce mode. Un nouveau délai de dix secondes permet de le réactiver.
 - Suivi inactif sur les autres pages, en planisphère, dans un onglet masqué / sans focus, pendant un geste maintenu ou avant l’ouverture d’une boîte de dialogue. Le passage de vue / perte de focus libère le suivi.
 - Tests Node : politique d’inactivité (limite des dix secondes, activité, arrêt et réarmement), éclairage progressif, sélection / suivi manuel, fermeture de fiche et taille du modèle ISS réussis. Export statique reconstruit pour la prévisualisation locale. Pas de validation visuelle disponible pendant cette session ; aucune publication GitHub.
+
+
+## Barre de chargement initial — 19 octobre 2026
+
+Animation 0–100 % sur la carte, Terre floutée en arrière-plan (illustration légère avant l’arrivée de la scène, puis globe réel). Suppression de « Chargement du catalogue… ». Les pourcentages suivent les étapes effectivement terminées : configuration, catalogue, scène et premières positions. Animation courte entre les étapes et disparition après 100 %, sans délai artificiel long ; préférence de mouvement réduit respectée. Une erreur retire le voile et conserve les messages existants. Tests de progression, erreur, nouvelle tentative et non-régression suivi / sélection / recherche réussis. Export local reconstruit, aucune publication GitHub ; pas de validation visuelle disponible.
