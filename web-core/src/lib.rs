@@ -32,6 +32,8 @@ struct Point {
 }
 #[path = "../../src/orbit_math.rs"]
 mod orbit_math;
+#[path = "../../src/collections.rs"]
+mod collections;
 use orbit_math::*;
 #[derive(Default)]
 struct Engine {
@@ -56,15 +58,7 @@ fn add(
         };
         let el: sgp4::Elements =
             serde_json::from_value(wrapped.clone()).map_err(|e| e.to_string())?;
-        if el.norad_id != 25544
-            && !el
-                .object_name
-                .as_deref()
-                .unwrap_or("")
-                .starts_with("STARLINK")
-        {
-            continue;
-        }
+        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none(){continue;}
         let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
         dest.entry(el.norad_id).or_default().push(Orbit {
             el,

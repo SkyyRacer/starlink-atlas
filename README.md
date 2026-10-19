@@ -158,3 +158,12 @@ La version locale fournit trois documents accessibles directement : `/atlas` (to
 Sur Atlas, les cartes ISS / Starlink contrôlent l’affichage des catégories et leurs couleurs, sur le globe comme sur le planisphère. La couleur ISS s’applique à son modèle et à son icône.
 
 Les couleurs Atlas se modifient en cliquant sur le carré coloré ou la mention « Modifier la couleur ». Cela ouvre le sélecteur natif du navigateur / système, dont la présentation et les options peuvent varier. Les deux cartes de catégorie remplacent la rubrique globale « Tous les éléments ».
+
+
+## Galileo et navigation entre collections
+
+Les pages locales `/atlas`, `/galileo`, `/iss` et `/starlink` partagent les vues 3D et planisphère. Galileo réutilise les filtres annuels, les groupes de lancement, la recherche de satellite, les fiches et le suivi. Dans Atlas, sa visibilité et sa couleur se règlent indépendamment. Le cadrage tient compte des orbites hautes tout en conservant les altitudes réelles.
+
+Les éléments orbitaux proviennent du groupe public CelesTrak `galileo` (collecte toutes les deux heures). Le catalogue SATCAT `NAME=GSAT` est filtré par identité Galileo pour exclure les objets indiens GSAT et les autres correspondances ; collecte quotidienne. Comme ailleurs, aucune position ne dépasse la fenêtre de validité de 72 heures autour de son élément orbital. Les objets sans orbite exploitable restent au catalogue ; les archives historiques Starlink ne sont pas présentées comme des archives Galileo. Les données de chaque visite restent figées jusqu’au rechargement.
+
+Cliquer sur le logo rejoint l’accueil Atlas. La recherche de pages reconnaît Atlas / Tous les satellites, Galileo, ISS et Starlink ; elle propose des liens cliquables et accepte Entrée ou Tab en cas de résultat unique. Les liens fonctionnent aussi sous le chemin d’export `/starlink-atlas/`.

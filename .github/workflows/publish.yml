@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p data-runtime
           if [ ! -f data-runtime/satcat.json ]; then cp data-seed/*.* data-runtime/; fi
-          for file in gp-iss.json iss-catalog.json iss-missions.json iss-evas.json iss-missions-attempt.txt iss-missions-full.txt iss-evas-attempt.txt iss-evas-full.txt; do
+          for file in gp-galileo.json galileo-catalog.json galileo-attempt.txt galileo-fetched.txt gp-iss.json iss-catalog.json iss-missions.json iss-evas.json iss-missions-attempt.txt iss-missions-full.txt iss-evas-attempt.txt iss-evas-full.txt; do
             if [ ! -f "data-runtime/$file" ] && [ -f "data-seed/$file" ]; then cp "data-seed/$file" "data-runtime/$file"; fi
           done
       - name: Réarmer une source uniquement sur demande explicite

@@ -7,10 +7,11 @@ function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=en
  try{answer=JSON.parse(decoder.decode(new Uint8Array(engine.memory.buffer,result+4,size)));}finally{engine.atlas_free(result,size+4);}
  if(answer.error)throw new Error(answer.error);return answer.data;
 }
-async function loadHistory(at){if(!manifest&&edition?.resources?.history)manifest=await jsonFile(edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,10);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
+function family(row){return row.NORAD_CAT_ID===25544?'iss':/^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))/.test(row.OBJECT_NAME||'')?'galileo':'starlink';}
+async function loadHistory(at){if(!manifest&&edition?.resources?.history)manifest=await jsonFile(collection==='galileo'?edition.resources.galileo_history:edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,10);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
  for(let offset=-3;offset<=3;offset++){const day=new Date(+date+offset*86400000).toISOString().slice(0,10);if(!manifest?.days?.[day])continue;windowDays.push(day);}
  const rows=await Promise.all(windowDays.map(async day=>{if(!days.has(day)){let values=[];if(manifest.remote_base&&manifest.remote_days.includes(day))values=await jsonFile(manifest.remote_base+day+'.json.gz',true);else if(!manifest.remote_base&&manifest.remote_days?.includes(day))values=await jsonFile(`data/history/${day}.json.gz`,true);if(manifest.local_days?.includes(day))values=values.concat(await jsonFile(manifest.local_files?.[day]||`data/history/${day}.json.gz`,true));days.set(day,values);}return days.get(day);}));
- compute({op:'history',rows:rows.flat().filter(row=>collection==='all'||(((row.elements||row).NORAD_CAT_ID===25544)===(collection==='iss')))});historyKey=key;
+ compute({op:'history',rows:rows.flat().filter(row=>collection==='all'||family(row.elements||row)===collection)});historyKey=key;
  for(const day of days.keys())if(!windowDays.includes(day))days.delete(day);
 }
 async function loadCurrent(){if(currentLoaded||!edition.collections)return;const data=await jsonFile(edition.collections[collection].observations,true);compute({op:'current',data});currentLoaded=true;}

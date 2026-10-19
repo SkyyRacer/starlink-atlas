@@ -57,7 +57,7 @@ pub fn get(id: &str) -> Option<Arc<Database>> {
 }
 // Serialized catalogues are prepared once per immutable edition and collection.
 pub fn catalog(db: &Database, collection: &str) -> Bytes {
-    let collection = match collection { "iss" => "iss", "starlink" => "starlink", _ => "all" };
+    let collection = match collection { "iss" => "iss", "starlink" => "starlink", "galileo" => "galileo", _ => "all" };
     let mut store = STORE.get_or_init(|| Mutex::new(Store::default())).lock().unwrap_or_else(|e| e.into_inner());
     let (id, edition) = store.capture(db);
     let key = (id.clone(), collection.to_owned());

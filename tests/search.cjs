@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');const source=fs.readFileSync('static/app.js','utf8');
 const fields={search:{value:'11482'},status:{value:''},'search-alternative':{dataset:{}}};
 const catalog=[{id:1,name:'STARLINK-11482',designator:'2026-225A'},{id:2,name:'STARLINK-114',designator:'2024-001A'}];
-const ctx={collectionMode:'starlink',atlasGroups:new Set(['iss','starlink']),Set,Map,catalog,byId:new Map(catalog.map(s=>[s.id,s])),esc:String,state:()=> 'orbit',$:id=>fields[id]};vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
+const ctx={AtlasPages:require('../static/pages.js'),collectionMode:'starlink',atlasGroups:new Set(['iss','starlink']),Set,Map,catalog,byId:new Map(catalog.map(s=>[s.id,s])),esc:String,state:()=> 'orbit',$:id=>fields[id]};vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
 vm.runInContext("chosenYears.add('2024')",ctx);assert.equal(ctx.matches(catalog[0]),false);assert.equal(ctx.searchCandidates().length,1);ctx.showSearchAlternative([]);assert.equal(fields['search-alternative'].hidden,false);assert.ok(fields['search-alternative'].innerHTML.includes('2026-225'));
 fields['search-alternative'].dataset.dismissed=vm.runInContext('searchPromptKey',ctx);ctx.showSearchAlternative([]);assert.equal(fields['search-alternative'].hidden,true);
 fields.search.value='S';fields['search-ghost']={};ctx.updateSearchSuggestion();assert.equal(fields['search-ghost'].textContent,'STARLINK-');fields.search.value='11482';ctx.updateSearchSuggestion();assert.equal(fields['search-ghost'].textContent,'');
@@ -21,3 +21,6 @@ fields.search.value='inexistant';ctx.submitSearch();assert.ok(fields['search-alt
 console.log('Entrée : premier résultat affiché, filtres bloquants et zéro résultat : OK');
 
 assert.ok(source.includes("submitSearch();$('search').blur();return;"));
+
+ctx.collectionMode='galileo';ctx.catalog=[{id:37846,name:'GSAT0101 (GALILEO-PFM)',designator:'2011-060A'},{id:37847,name:'GSAT0102 (GALILEO-FM2)',designator:'2011-060B'}];fields.search.value='GSAT010';assert.equal(ctx.searchCompletion(),'GSAT0101 (GALILEO-PFM)');
+console.log('Galileo : complétion des identifiants GSAT OK');

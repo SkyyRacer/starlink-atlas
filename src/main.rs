@@ -1,4 +1,6 @@
 mod history;
+mod collections;
+mod galileo;
 mod iss;
 mod iss_missions;
 mod iss_evas;
@@ -67,15 +69,7 @@ fn load_gp_source_for(db: &mut Database, bytes: &[u8], source: &'static str, iss
     let mut parsed = Vec::new();
     for el in els {
         if iss_only && el.norad_id != 25544 { continue; }
-        if el.norad_id != 25544
-            && !el
-                .object_name
-                .as_deref()
-                .unwrap_or("")
-                .starts_with("STARLINK")
-        {
-            continue;
-        }
+        if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() { continue; }
         let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
         parsed.push(Orbit {
             el,
@@ -104,13 +98,7 @@ fn load_cat(db: &mut Database, bytes: &[u8]) -> Result<(), String> {
     let rows: Vec<Value> = serde_json::from_slice(bytes).map_err(|e| e.to_string())?;
     let rows: Vec<_> = rows
         .into_iter()
-        .filter(|v| {
-            (v["NORAD_CAT_ID"].as_u64() == Some(25544))
-                || v["OBJECT_NAME"]
-                    .as_str()
-                    .unwrap_or("")
-                    .starts_with("STARLINK")
-        })
+        .filter(|v| collections::family(v["NORAD_CAT_ID"].as_u64().unwrap_or(0),v["OBJECT_NAME"].as_str().unwrap_or("")).is_some())
         .collect();
     if rows.is_empty() {
         return Err("Catalogue vide".into());
@@ -138,8 +126,12 @@ fn query_time(q: &Q) -> Result<DateTime<Utc>, (StatusCode, String)> {
 }
 #[derive(Default, Deserialize)]
 struct CollectionQuery { collection: Option<String> }
-fn in_collection(id: u64, collection: &str) -> bool {
-    match collection { "iss" => id == 25544, "starlink" => id != 25544, _ => true }
+fn object_family(db: &Database, id: u64) -> &'static str {
+    let name=db.catalog.get(&id).and_then(|row|row["OBJECT_NAME"].as_str()).or_else(||db.orbits.get(&id).and_then(|rows|rows.last()).and_then(|orbit|orbit.el.object_name.as_deref())).unwrap_or("");
+    collections::family(id,name).unwrap_or("starlink")
+}
+fn in_collection(db: &Database, id: u64, collection: &str) -> bool {
+    collection == "all" || !["iss","starlink","galileo"].contains(&collection) || object_family(db,id)==collection
 }
 async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
     let db = s.read().await;
@@ -163,29 +155,32 @@ fn catalog_document(db: &Database, snapshot: &str) -> Value {
 fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
     let mut rows = BTreeMap::new();
     for (id, v) in &db.catalog {
-        if !in_collection(*id, collection) { continue; }
-        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"verification":db.gcat.get(id)}));
+        if !in_collection(&db, *id, collection) { continue; }
+        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"family":object_family(db,*id),"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"verification":db.gcat.get(id)}));
     }
     for (id, list) in &db.orbits {
-        if !in_collection(*id, collection) { continue; }
+        if !in_collection(&db, *id, collection) { continue; }
         let e = &list.last().unwrap().el;
-        rows.entry(*id).or_insert(json!({"id":id,"name":e.object_name,"designator":e.international_designator,"launch":null,"decay":null,"ops":null}));
+        rows.entry(*id).or_insert(json!({"id":id,"name":e.object_name,"family":object_family(db,*id),"designator":e.international_designator,"launch":null,"decay":null,"ops":null}));
     }
     let min = db
         .orbits
         .iter()
-        .filter(|(id, _)| in_collection(**id, collection))
+        .filter(|(id, _)| in_collection(&db, **id, collection))
         .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .min();
     let max = db
         .orbits
         .iter()
-        .filter(|(id, _)| in_collection(**id, collection))
+        .filter(|(id, _)| in_collection(&db, **id, collection))
         .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .max();
-    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":GP,"history":history::info()})
+    let history=if collection=="galileo" {
+        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,"galileo")).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":"CelesTrak Galileo · collectes locales"}))
+    } else { history::info() };
+    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":if collection=="galileo"{galileo::GP}else{GP},"history":history})
 }
 async fn positions(
     State(s): State<Shared>,
@@ -193,7 +188,7 @@ async fn positions(
 ) -> Result<Json<Value>, (StatusCode, String)> {
     let at = query_time(&q)?;
     let collection = q.collection.as_deref().unwrap_or("all");
-    let historical = history::orbits(at, collection == "iss").await.map_err(|e| {
+    let historical = history::orbits(at, collection).await.map_err(|e| {
         (
             StatusCode::SERVICE_UNAVAILABLE,
             format!("Archive historique invalide : {e}"),
@@ -206,7 +201,7 @@ async fn positions(
     let mut points = Vec::new();
     let mut missing = 0;
     let ids: std::collections::BTreeSet<_> =
-        db.orbits.keys().chain(historical.keys()).copied().filter(|id| in_collection(*id, collection)).collect();
+        db.orbits.keys().chain(historical.keys()).copied().filter(|id| in_collection(&db, *id, collection)).collect();
     for id in &ids {
         if !exists_in_db(&db, *id, at) {
             continue;
@@ -222,20 +217,20 @@ async fn positions(
     missing += db
         .catalog
         .iter()
-        .filter(|(id, _v)| in_collection(**id, collection) && !ids.contains(id) && exists_in_db(&db, **id, at))
+        .filter(|(id, _v)| in_collection(&db, **id, collection) && !ids.contains(id) && exists_in_db(&db, **id, at))
         .count();
     let suggested_at = if points.is_empty() {
         let now = Utc::now();
         db.orbits
             .iter()
-            .filter(|(id, _)| in_collection(**id, collection))
+            .filter(|(id, _)| in_collection(&db, **id, collection))
             .flat_map(|(id, list)| list.iter().map(move |o| (*id, o)))
             .map(|(id, o)| (id, o.el.datetime.and_utc()))
             .filter(|(id, t)| *t <= now && exists_in_db(&db, *id, *t))
             .min_by_key(|(_, t)| (*t - at).num_seconds().abs())
             .map(|(_, t)| t)
             .into_iter()
-            .chain(history::nearest_date(at))
+            .chain(if collection=="galileo" { None } else { history::nearest_date(at) })
             .min_by_key(|t| (*t - at).num_seconds().abs())
     } else {
         None
@@ -244,7 +239,7 @@ async fn positions(
     let mut future_track = Vec::new();
     let mut track_3d = Vec::new();
     let mut future_track_3d = Vec::new();
-    if let Some(id) = q.id.filter(|id| in_collection(*id, collection)) {
+    if let Some(id) = q.id.filter(|id| in_collection(&db, *id, collection)) {
         if exists_in_db(&db, id, at) {
             if let Some(o) = select_sources(db.orbits.get(&id), historical.get(&id), at) {
                 // Same orbital elements for past and predicted path; the timeline still rejects future dates.
@@ -368,6 +363,7 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
     let (mode, title) = match uri.path() {
         "/atlas" => ("all", "Atlas — Tous les satellites"),
         "/iss" => ("iss", "ISS — Station spatiale internationale"),
+        "/galileo" => ("galileo", "Galileo — Navigation européenne"),
         _ => ("starlink", "Starlink — Observatoire orbital"),
     };
     let html = tokio::fs::read_to_string("static/index.html").await.map_err(|_|StatusCode::INTERNAL_SERVER_ERROR)?;
@@ -376,7 +372,7 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
 }
 
 fn is_fresh_entrypoint(path: &str) -> bool {
-    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
+    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/galileo" | "/galileo/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
 }
 async fn fresh_entrypoints(request: axum::extract::Request, next: axum::middleware::Next) -> axum::response::Response {
     let fresh = is_fresh_entrypoint(request.uri().path());
@@ -485,6 +481,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
     iss::load_cache(&mut db, &dir);
+    galileo::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
@@ -506,6 +503,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if args.len() == 2 && args[1] == "--collect-once" {
         refresh(shared.clone(), dir.clone(), true).await;
         iss::collect(shared.clone(), dir.clone(), true).await;
+        galileo::collect(shared.clone(), dir.clone(), true).await;
         iss_missions::collect(dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
         return Ok(());
@@ -514,7 +512,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tokio::spawn(refresh(shared.clone(), dir.clone(), false));
         tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(iss_missions::collect(dir.clone(), false));
-        tokio::spawn(iss::collect(shared.clone(), dir, false));
+        tokio::spawn(iss::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(galileo::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();
     }
@@ -523,9 +522,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/atlas", get(observation_page))
         .route("/iss", get(observation_page))
         .route("/starlink", get(observation_page))
+        .route("/galileo", get(observation_page))
         .route("/atlas/", get(|| async { axum::response::Redirect::permanent("/atlas") }))
         .route("/iss/", get(|| async { axum::response::Redirect::permanent("/iss") }))
         .route("/starlink/", get(|| async { axum::response::Redirect::permanent("/starlink") }))
+        .route("/galileo/", get(|| async { axum::response::Redirect::permanent("/galileo") }))
         .route("/api/config", get(config))
         .route("/api/iss-missions", get(iss_missions::endpoint))
         .route("/api/iss-evas", get(iss_evas::endpoint))

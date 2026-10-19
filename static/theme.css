@@ -42,7 +42,7 @@ time{font-weight:500;letter-spacing:-.35px}.timeline p{color:#909090}
 #results .satellite-result span{color:#aaa}#results .satellite-result em{color:#eee}
 #results .satellite-result.is-decayed{background:#080808;border-color:#282828}
 #results .satellite-result.is-decayed strong,#results .satellite-result.is-decayed span{color:#787878}
-#results .satellite-result.is-decayed em{color:#c8a37f}
+#results .satellite-result.is-decayed em,#results .satellite-result em.is-inactive{color:#c8a37f}
 #results .satellite-result[aria-pressed=true]{border-color:#fff;background:#191919;box-shadow:inset 3px 0 #fff}
 .search-box{background:#0b0b0b;border-radius:2px}#search-ghost{color:#777}
 .search-alternative{background:#111;border-color:#888;border-radius:2px}.search-alternative strong{color:#fff}
@@ -62,7 +62,7 @@ footer{background:#000;border-top:1px solid #262626;color:#777}a{color:#d5d5d5;t
 
 aside .observation-title{font-size:18px;line-height:1.35;letter-spacing:.7px;font-weight:500;text-transform:uppercase;margin:4px 0 18px}aside .observation-title span{display:block;font-weight:600;letter-spacing:3px;font-size:25px;margin-top:3px}
 
-body>header .brand{height:100%;min-width:0}body>header .atlas-logo{display:block;width:210px;height:76px;max-width:100%;object-fit:contain;object-position:left center}@media(max-width:640px){body>header .atlas-logo{width:175px;height:62px}}
+body>header .brand{height:100%;min-width:0;display:flex;align-items:center;text-decoration:none}body>header .brand:focus-visible{outline:2px solid #a9d2e6;outline-offset:3px}body>header .atlas-logo{display:block;width:210px;height:76px;max-width:100%;object-fit:contain;object-position:left center}@media(max-width:640px){body>header .atlas-logo{width:175px;height:62px}}
 
 /* Match the 3D imagery: preserve OSM land/ocean colors instead of inversion. */
 #map .leaflet-tile-pane{filter:saturate(.35) brightness(.65) contrast(1.2)}
@@ -347,3 +347,5 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 .catalog-progress{height:2px;background:#ffffff25;overflow:hidden}
 #catalog-progress-fill{height:100%;background:#d7e9f4;transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px #b7d8ee55}
 @media(prefers-reduced-motion:reduce){.catalog-loader,.loading-earth{transition:none}}
+
+body[data-collection="galileo"] #view-side{display:none}

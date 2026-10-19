@@ -12,10 +12,14 @@ function key(value){let prevented=false;input.listeners.keydown({key:value,preve
 search('iss');assert.equal(results.hidden,false);assert.equal(results.children[0].children[0].textContent,'ISS');
 assert.equal(key('Tab'),true);assert.equal(navigations.pop(),'/iss');
 search('Starlink');key('Enter');assert.equal(navigations.pop(),'/starlink');
-search('s');assert.equal(results.children.length,2);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
+search('s');assert.equal(results.children.length,4);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
 key('ArrowUp');key('Enter');assert.equal(navigations.pop(),'/starlink');
-search('s');results.children[0].onclick();assert.equal(navigations.pop(),'/iss');
+search('s');results.children[0].onclick();assert.equal(navigations.pop(),'/atlas');
+search('galileo');key('Tab');assert.equal(navigations.pop(),'/galileo');
 search('aucun objet');assert.equal(results.children[0].textContent,'Aucun objet trouvé');key('Enter');assert.equal(navigations.length,0);
 key('Escape');assert.equal(results.hidden,true);assert.equal(input.attributes['aria-expanded'],'false');
 search('');assert.equal(results.hidden,true);
 console.log('Recherche objets : résultats cliquables, Entrée / Tab uniques, choix multiples, flèches et Échap OK');
+
+for(const value of ['Enter','Tab']){search('tous les satellites');assert.equal(results.children.length,1);assert.equal(key(value),true);assert.equal(navigations.pop(),'/atlas');}
+search('atlas');results.children[0].onclick();assert.equal(navigations.pop(),'/atlas');
