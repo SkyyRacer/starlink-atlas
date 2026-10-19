@@ -3,7 +3,11 @@
  function create({render,close,frame,cancelFrame,now,later,reduced=false}){
   const weights={config:10,catalog:45,scene:25,positions:20},completed=new Set();
   let value=0,target=0,from=0,began=now(),animation=null,active=true,generation=0;
-  function animate(time){animation=null;const t=reduced?1:Math.min(1,(time-began)/160);value=from+(target-from)*(1-Math.pow(1-t,3));render(Math.round(value));
+  function animate(){if(!active)return;animation=null;
+   // RAF timestamps can predate a phase completed during the same frame.
+   // Use the same clock as advance(), and keep each run within its actual target.
+   const t=reduced?1:Math.max(0,Math.min(1,(now()-began)/160));
+   value=Math.max(value,Math.max(0,Math.min(target,from+(target-from)*(1-Math.pow(1-t,3)))));render(Math.round(Math.min(100,value)));
    if(t<1)animation=frame(animate);
    else if(target===100){const token=generation;later(()=>{if(active&&token===generation){active=false;close(false);}},reduced?0:70);}
   }
