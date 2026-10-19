@@ -37,6 +37,11 @@
   badge.classList.toggle('is-stale',stale);badge.textContent=stale?'À bord selon la dernière collecte':'Actuellement à bord de l’ISS';badge.title='Données reçues le '+date(data.fetched_at);
  }
  function elapsed(start,end){const a=Date.parse(start),b=end?Date.parse(end):Date.now();if(!Number.isFinite(a)||!Number.isFinite(b)||b<a)return 'Non renseignée';const hours=Math.floor((b-a)/3600000);return `${Math.floor(hours/24)} j ${hours%24} h`;}
+ function sortCurrentCrew(crew){
+  const collator=new Intl.Collator('fr',{sensitivity:'base'});
+  const surname=person=>person.family_name||person.last_name||String(person.name||'').trim().split(/\s+/).at(-1)||'';
+  return [...crew].sort((a,b)=>collator.compare(surname(a),surname(b))||collator.compare(a.name||'',b.name||''));
+ }
  function people(list,target){
   target.replaceChildren();
   if(!list?.length){target.append(text('p','Aucun équipage renseigné pour ce vol.','hint'));return;}
@@ -144,7 +149,7 @@
   searchIndex=AtlasISSSearch.build(data);search();
   $('iss-flight-count').textContent=`${data.flights.length} vols documentés · habités et ravitaillement`;
   const stale=Date.now()-Date.parse(data.fetched_at)>86400000;
-  $('iss-crew-title').textContent=stale?'Équipage à la dernière collecte':'Équipage actuel';$('iss-expedition').textContent=[data.expedition,`${Number.isInteger(data.reported_crew)?data.reported_crew:data.crew.length} personnes à bord`].filter(Boolean).join(' · ');people(data.crew,$('iss-current-crew'));
+  $('iss-crew-title').textContent=stale?'Équipage à la dernière collecte':'Équipage actuel';$('iss-expedition').textContent=[data.expedition,`${Number.isInteger(data.reported_crew)?data.reported_crew:data.crew.length} personnes à bord`].filter(Boolean).join(' · ');people(sortCurrentCrew(data.crew),$('iss-current-crew'));
   const mismatch=data.reported_crew!==data.crew.length?` · ${data.crew.length} membres identifiés sur ${data.reported_crew} signalés` : '';
   $('iss-data-status').textContent=`${stale?'Ancienne collecte · ':''}Données reçues le ${date(data.fetched_at)}${mismatch}. Équipage actuel, indépendant de la chronologie de la carte.`;
  }
