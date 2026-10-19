@@ -167,3 +167,12 @@ Les pages locales `/atlas`, `/galileo`, `/iss` et `/starlink` partagent les vues
 Les éléments orbitaux proviennent du groupe public CelesTrak `galileo` (collecte toutes les deux heures). Le catalogue SATCAT `NAME=GSAT` est filtré par identité Galileo pour exclure les objets indiens GSAT et les autres correspondances ; collecte quotidienne. Comme ailleurs, aucune position ne dépasse la fenêtre de validité de 72 heures autour de son élément orbital. Les objets sans orbite exploitable restent au catalogue ; les archives historiques Starlink ne sont pas présentées comme des archives Galileo. Les données de chaque visite restent figées jusqu’au rechargement.
 
 Cliquer sur le logo rejoint l’accueil Atlas. La recherche de pages reconnaît Atlas / Tous les satellites, Galileo, ISS et Starlink ; elle propose des liens cliquables et accepte Entrée ou Tab en cas de résultat unique. Les liens fonctionnent aussi sous le chemin d’export `/starlink-atlas/`.
+
+
+## GPS et cadrage d’accueil Atlas
+
+`/gps` reprend les filtres, la recherche NAVSTAR / NORAD, les fiches, les traces et le suivi 3D / planisphère de Galileo. La recherche de pages reconnaît aussi « GPS », « NAVSTAR » et « Global Positioning System ». GPS possède une catégorie indépendante avec couleur personnalisable dans Atlas ; les valeurs par défaut restent blanches. Le filtre « Hors service (statut actuel) » est distinct de « Désorbité » et reprend sa teinte. « Vue de côté » est masquée sur GPS comme sur Galileo.
+
+Sources : groupe public CelesTrak `gps-ops` pour les orbites exploitables et SATCAT `NAME=NAVSTAR` pour le catalogue incluant les anciens satellites. Collectes espacées de deux heures pour les orbites et d’une journée pour le catalogue, avec conservation du cache en cas d’erreur. Les données ne changent pas au milieu d’une visite. Aucun historique GPS n’est remplacé par des archives Starlink ; une ancienne date sans éléments adaptés reste sans position.
+
+L’accueil Atlas et son recentrage conservent une vue Terre centrée sur 0° de longitude / 20° de latitude, avec une taille apparente d’environ 47 % de la hauteur disponible sur écran large (adaptation à la largeur sur mobile). Les orbites GPS / Galileo restent à leur altitude calculée : dézoomer pour les voir toutes. Leur arrivée ne provoque plus de recul automatique du cadrage Atlas. Les pages GPS et Galileo gardent leur cadrage global adapté aux hautes orbites.

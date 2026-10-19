@@ -16,7 +16,7 @@ git -C "$repo_dir" pull --ff-only origin main
 # Keep the existing orbital history and Git metadata. Copy only project sources.
 rsync -a --exclude=.git --exclude=target --exclude=data --exclude=data-runtime --exclude=public --exclude=.env --exclude=.DS_Store --exclude=__pycache__ --exclude='*.pyc' --exclude='*.zip' --exclude='*.zip.sha256' "$source_dir/" "$repo_dir/"
 mkdir -p "$repo_dir/data-seed"
-for file in gp-galileo.json galileo-catalog.json galileo-attempt.txt galileo-fetched.txt gp-iss.json iss-catalog.json iss-missions.json iss-evas.json iss-missions-attempt.txt iss-missions-full.txt iss-evas-attempt.txt iss-evas-full.txt; do
+for file in gp-gps.json gps-catalog.json gps-attempt.txt gps-fetched.txt gp-galileo.json galileo-catalog.json galileo-attempt.txt galileo-fetched.txt gp-iss.json iss-catalog.json iss-missions.json iss-evas.json iss-missions-attempt.txt iss-missions-full.txt iss-evas-attempt.txt iss-evas-full.txt; do
   if [ -f "$source_dir/data/$file" ]; then cp "$source_dir/data/$file" "$repo_dir/data-seed/$file"; fi
 done
 git -C "$repo_dir" add -A

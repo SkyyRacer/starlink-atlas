@@ -46,16 +46,19 @@ def build_resources(out,bundle,history,updates,now):
     resources={}
     def family(row):
         ident=row.get('id',row.get('NORAD_CAT_ID'));name=row.get('name',row.get('OBJECT_NAME',''))
-        return row.get('family') or ('iss' if ident==25544 else 'galileo' if re.match(r'^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))',name) else 'starlink')
+        return row.get('family') or ('iss' if ident==25544 else 'gps' if re.match(r'^(?:GPS (?:B|III)|NAVSTAR \d)',name) else 'galileo' if re.match(r'^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))',name) else 'starlink')
     identities={row['id']:family(row) for row in bundle['catalog_response']['satellites']}
-    galileo_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak Galileo · collectes locales'}
-    epochs=[]
-    for file in sorted(updates.glob('*.json.gz')):
-        rows=[row for row in json.loads(gzip.decompress(file.read_bytes())) if family(row.get('elements',row))=='galileo']
-        if not rows:continue
-        day=file.name[:10];galileo_history['days'][day]=len(rows);galileo_history['local_days'].append(day);galileo_history['local_files'][day]=write_resource(out,'galileo-day-'+day,rows);galileo_history['observations']+=len(rows);epochs.extend(row.get('elements',row)['EPOCH'] for row in rows)
-    if epochs:galileo_history.update(first_epoch=min(epochs),last_epoch=max(epochs))
-    resources['galileo_history']=write_resource(out,'galileo-history',galileo_history)
+    navigation_histories={}
+    for constellation in ['galileo','gps']:
+        navigation_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak '+('GPS' if constellation=='gps' else 'Galileo')+' · collectes locales'}
+        epochs=[]
+        for file in sorted(updates.glob('*.json.gz')):
+            rows=[row for row in json.loads(gzip.decompress(file.read_bytes())) if family(row.get('elements',row))==constellation]
+            if not rows:continue
+            day=file.name[:10];navigation_history['days'][day]=len(rows);navigation_history['local_days'].append(day);navigation_history['local_files'][day]=write_resource(out,constellation+'-day-'+day,rows);navigation_history['observations']+=len(rows);epochs.extend(row.get('elements',row)['EPOCH'] for row in rows)
+        if epochs:navigation_history.update(first_epoch=min(epochs),last_epoch=max(epochs))
+        navigation_histories[constellation]=navigation_history
+        resources[constellation+'_history']=write_resource(out,constellation+'-history',navigation_history)
     for key in ['config','sources','iss_missions','iss_evas']:
         if key in bundle:resources[key]=write_resource(out,key,bundle[key])
     manifest=bundle['catalog_response'].get('history')
@@ -68,13 +71,13 @@ def build_resources(out,bundle,history,updates,now):
         if verification:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'verification':verification}
     resources['details']={key:write_resource(out,'details-'+key,rows) for key,rows in details.items()}
     collections={}
-    for mode in ['all','galileo','iss','starlink']:
+    for mode in ['all','galileo','gps','iss','starlink']:
         accept=lambda ident: mode=='all' or identities.get(ident)==mode
         catalog=copy.copy(bundle['catalog_response']);catalog['satellites']=[s for s in slim if accept(s['id'])]
         # The detailed archive index is fetched only when a historic date needs it.
-        active_history=galileo_history if mode=='galileo' else manifest
+        active_history=navigation_histories.get(mode,manifest)
         if active_history:catalog['history']={k:v for k,v in active_history.items() if k not in ['days','remote_days','local_days','local_files','remote_base']}
-        if mode=='galileo':catalog['source']='https://celestrak.org/NORAD/elements/gp.php?GROUP=galileo&FORMAT=JSON'
+        if mode in navigation_histories:catalog['source']='https://celestrak.org/NORAD/elements/gp.php?GROUP='+('gps-ops' if mode=='gps' else mode)+'&FORMAT=JSON'
         current=[r for r in bundle['orbits'] if accept(r['elements']['NORAD_CAT_ID'])]
         live=[r for r in live_rows if accept(r['elements']['NORAD_CAT_ID'])]
         # Field names and source labels appear once; values retain their exact JSON precision.

@@ -13,8 +13,8 @@ sizeMap();
 L.control.zoom({position:'topright'}).addTo(map);
 let tiles=null;
 let constellationCoverage='',issOverviewPending=false;
-let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(['galileo','iss','starlink']);
-const atlasColors={galileo:'#ffffff',iss:'#ffffff',starlink:'#ffffff'};
+let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(['galileo','gps','iss','starlink']);
+const atlasColors={galileo:'#ffffff',gps:'#ffffff',iss:'#ffffff',starlink:'#ffffff'};
 let catalog=[],byId=new Map(),points=[],selected=null,focusSelected=false,track=[],futureTrack=[],at=Date.now(),live=true,playing=true,busy=false,pendingPosition=false,positionRevision=0,suggestedAt=null,lastTick=performance.now(),failures=0;
 let planarFocusMode='overview';let dataSnapshot=null;let selectionRequest=0;
 const planarMotion=new SatelliteMotion();let planarMotionAt=null,motionFrame=null;
@@ -28,7 +28,7 @@ function searchCandidates(){const query=$('search').value.trim().toLowerCase();i
 function searchCompletion(){
  const value=$('search').value,query=value.toUpperCase();
  if(!query)return '';
- if(collectionMode==='galileo'){if('GSAT'.startsWith(query))return 'GSAT';const names=catalog.map(s=>s.name.toUpperCase());return names.includes(query)?'':names.filter(name=>name.startsWith(query)).sort((a,b)=>a.localeCompare(b,'en',{numeric:true}))[0]||'';}
+ if(['galileo','gps'].includes(collectionMode)){const prefix=collectionMode==='gps'?'NAVSTAR':'GSAT';if(prefix.startsWith(query))return prefix;const names=catalog.map(s=>s.name.toUpperCase());return names.includes(query)?'':names.filter(name=>name.startsWith(query)).sort((a,b)=>a.localeCompare(b,'en',{numeric:true}))[0]||'';}
  if('STARLINK'.startsWith(query))return 'STARLINK-';
  if(!/^STARLINK-\d*$/.test(query))return '';
  const names=[...new Set(catalog.map(s=>s.name.toUpperCase()).filter(name=>/^STARLINK-\d+$/.test(name)))];
@@ -48,7 +48,7 @@ function submitSearch(){
 }
 function sun(t){const d=t/86400000+2440587.5-2451545;const rad=Math.PI/180;const g=(357.529+.98560028*d)*rad;const l=(280.459+.98564736*d+1.915*Math.sin(g)+.020*Math.sin(2*g))*rad;const e=(23.439-.00000036*d)*rad;const dec=Math.asin(Math.sin(e)*Math.sin(l));const ra=Math.atan2(Math.cos(e)*Math.sin(l),Math.cos(l));const gmst=(280.46061837+360.98564736629*d)*rad;return {dec,lon:ra-gmst};}
 function screen(p){return map.latLngToContainerPoint([p.lat,p.lon]);}
-function updateAtlasCounts(){if(collectionMode!=='all')return;const counts={galileo:0,iss:0,starlink:0};for(const p of points){const s=byId.get(p.id);if(s&&matches(s))counts[AtlasPages.family(s)]++;}for(const family of Object.keys(counts))$('atlas-count-'+family).textContent=counts[family].toLocaleString('fr')+(counts[family]===1?' visible':' visibles');}
+function updateAtlasCounts(){if(collectionMode!=='all')return;const counts={galileo:0,gps:0,iss:0,starlink:0};for(const p of points){const s=byId.get(p.id);if(s&&matches(s))counts[AtlasPages.family(s)]++;}for(const family of Object.keys(counts))$('atlas-count-'+family).textContent=counts[family].toLocaleString('fr')+(counts[family]===1?' visible':' visibles');}
 function updatePositionNotice(visible){updateAtlasCounts();if(collectionMode==='iss'){$('notice').textContent=points.some(p=>p.id===25544)?'ISS':'ISS : aucune donnée orbitale adaptée à cette date. Les archives commencent aux premières collectes ISS ; aucune position ancienne n’est inventée.';$('available').hidden=true;return;}if(!points.length)return;const available=points.filter(p=>collectionMode==='all'||AtlasPages.family(byId.get(p.id)||p)===collectionMode).length;$('notice').textContent=visible===0?'Des positions sont disponibles, mais les filtres masquent tous les satellites. Effacez la recherche ou choisissez Tous les états / Toutes les années.':`${available.toLocaleString('fr')} positions disponibles · ${visible.toLocaleString('fr')} affichées`; }
 function draw(animation=false){if(displayMode==='3d'){const visible=points.filter(p=>{const s=byId.get(p.id);return s&&AtlasGeometry.shouldRender(p.id,selected,matches(s));});$('count').textContent=visible.length.toLocaleString('fr');if(!animation)updatePositionNotice(visible.length);if(globeController){globeController.update({collection:collectionMode,colors:atlasColors,points,catalog:byId,selected,selectionRequest,at,playing,track:track3d,future:future3d,night:true,basemap:true,orbits:true,names:false,focus:focusSelected,visible:(s,id)=>AtlasGeometry.shouldRender(id,selected,matches(s))});if(issOverviewPending&&points.some(p=>p.id===25544)){issOverviewPending=false;if(selected===null)globeController.home();}if(points.some(p=>p.id===selected))focusSelected=false;}if(!animation)updateDetail();return;}if(moving)return;
  if(planarMotion.source!==points){planarMotion.set(points,performance.now(),playing&&!focusSelected&&planarMotionAt!==null&&Math.abs(at-planarMotionAt)<150000);planarMotionAt=at;}
@@ -60,7 +60,7 @@ function draw(animation=false){if(displayMode==='3d'){const visible=points.filte
  const chosen=displayedPoints.find(p=>p.id===selected);if(chosen&&chosen.id!==25544){const xy=screen(chosen);ctx.beginPath();ctx.arc(xy.x,xy.y,9,0,Math.PI*2);ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();ctx.beginPath();ctx.arc(xy.x,xy.y,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.font='12px system-ui';ctx.fillText(byId.get(selected)?.name||String(selected),xy.x+13,xy.y-9);}
  ctx.restore();$('count').textContent=n.toLocaleString('fr');if(!animation)updatePositionNotice(n);if(!animation)updateDetail();if(planarMotion.active&&motionFrame===null)motionFrame=requestAnimationFrame(()=>{motionFrame=null;draw(true);});}
 let resultsPage=0;const resultsPageSize=100;
-function list(){const previousScroll=$('results').scrollTop;const rows=catalog.filter(matches);const pages=Math.max(1,Math.ceil(rows.length/resultsPageSize));resultsPage=Math.min(resultsPage,pages-1);const start=resultsPage*resultsPageSize;$('results-prev').disabled=resultsPage===0;$('results-next').disabled=resultsPage>=pages-1;$('results-page').textContent=`Page ${resultsPage+1} / ${pages}`;$('results-count').textContent=`${rows.length.toLocaleString('fr')} résultat${rows.length===1?'':'s'}${rows.length?` · ${start+1}–${Math.min(start+resultsPageSize,rows.length)}`:''}`;$('results').innerHTML=rows.length?rows.slice(start,start+resultsPageSize).map(s=>`<button data-id="${s.id}" class="satellite-result ${state(s)==='decayed'?'is-decayed':''}" aria-pressed="${s.id===selected}"><strong>${esc(s.name)}</strong><span>NORAD ${s.id}<em class="${collectionMode==='galileo'&&s.ops==='-'&&state(s)==='orbit'?'is-inactive':''}">${{orbit:collectionMode==='galileo'&&s.ops==='-'?'En orbite · hors service actuellement':'En orbite',decayed:'Désorbité',unknown:'État inconnu','not-launched':'Pas encore lancé'}[state(s)]}</em></span></button>`).join(''):'<p class="hint">Aucun satellite ne correspond aux filtres.</p>';$('results').scrollTop=previousScroll;showSearchAlternative(rows);}
+function list(){const previousScroll=$('results').scrollTop;const rows=catalog.filter(matches);const pages=Math.max(1,Math.ceil(rows.length/resultsPageSize));resultsPage=Math.min(resultsPage,pages-1);const start=resultsPage*resultsPageSize;$('results-prev').disabled=resultsPage===0;$('results-next').disabled=resultsPage>=pages-1;$('results-page').textContent=`Page ${resultsPage+1} / ${pages}`;$('results-count').textContent=`${rows.length.toLocaleString('fr')} résultat${rows.length===1?'':'s'}${rows.length?` · ${start+1}–${Math.min(start+resultsPageSize,rows.length)}`:''}`;$('results').innerHTML=rows.length?rows.slice(start,start+resultsPageSize).map(s=>`<button data-id="${s.id}" class="satellite-result ${state(s)==='decayed'?'is-decayed':''}" aria-pressed="${s.id===selected}"><strong>${esc(s.name)}</strong><span>NORAD ${s.id}<em class="${['galileo','gps'].includes(collectionMode)&&s.ops==='-'&&state(s)==='orbit'?'is-inactive':''}">${{orbit:['galileo','gps'].includes(collectionMode)&&s.ops==='-'?'En orbite · hors service actuellement':'En orbite',decayed:'Désorbité',unknown:'État inconnu','not-launched':'Pas encore lancé'}[state(s)]}</em></span></button>`).join(''):'<p class="hint">Aucun satellite ne correspond aux filtres.</p>';$('results').scrollTop=previousScroll;showSearchAlternative(rows);}
 
 function updateDetail(){
  if(selected===null){$('detail').hidden=true;return;}const s=byId.get(selected);if(!s)return;
@@ -98,7 +98,7 @@ function updateDetail(){
    changeMultiFilter();
    if(removing&&displayMode==='3d')globeController?.home();
   };
-  $('show-launch-train').disabled=!(s.designator||'').slice(0,8);$('show-launch-train').hidden=!['starlink','galileo'].includes(collectionMode)||s.id===25544;
+  $('show-launch-train').disabled=!(s.designator||'').slice(0,8);$('show-launch-train').hidden=!['starlink','galileo','gps'].includes(collectionMode)||s.id===25544;
   $('close').onclick=closeSatellite;
  }
  const launch=(s.designator||'').slice(0,8),launchButton=$('show-launch-train');
@@ -220,14 +220,14 @@ async function showGlobe(){
 $('view-3d').onclick=showGlobe;
 $('map-reset').onclick=()=>{focusSelected=false;constrainWorld(true);draw();};
 
-function updateCollectionCoverage(){$('coverage').textContent=collectionMode==='iss'?'ISS · Éléments publics CelesTrak, calcul SGP4. Archives conservées depuis les premières collectes ISS ; aucun historique antérieur n’est inventé. Modèle schématique, taille amplifiée et orientation illustrative.':collectionMode==='galileo'?'Galileo · Éléments publics CelesTrak, calcul SGP4 à altitude réelle. Collecte toutes les 2 h ; les éléments dépassant ±72 h ne sont pas utilisés. Les dates anciennes nécessitent des observations orbitales disponibles.':constellationCoverage;}
+function updateCollectionCoverage(){$('coverage').textContent=collectionMode==='iss'?'ISS · Éléments publics CelesTrak, calcul SGP4. Archives conservées depuis les premières collectes ISS ; aucun historique antérieur n’est inventé. Modèle schématique, taille amplifiée et orientation illustrative.':['galileo','gps'].includes(collectionMode)?`${collectionMode==='gps'?'GPS':'Galileo'} · Éléments publics CelesTrak, calcul SGP4 à altitude réelle. Collecte toutes les 2 h ; les éléments dépassant ±72 h ne sont pas utilisés. Les dates anciennes nécessitent des observations orbitales disponibles.`:constellationCoverage;}
 $('atlas-home').href=AtlasPages.url('all');
 $('collection-select').value=collectionMode;
-$('collection-title').textContent=collectionMode==='all'?'Atlas':collectionMode==='iss'?'ISS':collectionMode==='galileo'?'Galileo':'Starlink';
-$('collection-description').textContent=collectionMode==='all'?'Visualisez les objets suivis en orbite autour de la Terre. Choisissez un objet à observer pour explorer sa page et ses informations détaillées.':collectionMode==='iss'?'Station spatiale internationale':collectionMode==='galileo'?'Constellation européenne de navigation':'Constellation de satellites Internet';
+$('collection-title').textContent=collectionMode==='all'?'Atlas':collectionMode==='iss'?'ISS':collectionMode==='galileo'?'Galileo':collectionMode==='gps'?'GPS':'Starlink';
+$('collection-description').textContent=collectionMode==='all'?'Visualisez les objets suivis en orbite autour de la Terre. Choisissez un objet à observer pour explorer sa page et ses informations détaillées.':collectionMode==='iss'?'Station spatiale internationale':collectionMode==='galileo'?'Constellation européenne de navigation':collectionMode==='gps'?'Constellation américaine de navigation':'Constellation de satellites Internet';
 document.body.dataset.collection=collectionMode;
-if(collectionMode==='galileo')$('status').insertAdjacentHTML('beforeend','<option value="inactive">Hors service (statut actuel)</option>');
-$('starlink-controls').hidden=!['starlink','galileo'].includes(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=collectionMode!=='iss';issOverviewPending=collectionMode==='iss';updateCollectionCoverage();
+if(['galileo','gps'].includes(collectionMode))$('status').insertAdjacentHTML('beforeend','<option value="inactive">Hors service (statut actuel)</option>');
+$('starlink-controls').hidden=!['starlink','galileo','gps'].includes(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=collectionMode!=='iss';issOverviewPending=collectionMode==='iss';updateCollectionCoverage();
 $('collection-select').addEventListener('change',e=>{if(e.target.value!==collectionMode)location.assign(AtlasPages.url(e.target.value));});
 for(const family of Object.keys(atlasColors)){
  $('atlas-color-'+family).addEventListener('input',e=>{atlasColors[family]=e.target.value;draw();});

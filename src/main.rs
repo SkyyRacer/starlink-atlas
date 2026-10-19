@@ -1,6 +1,7 @@
 mod history;
 mod collections;
 mod galileo;
+mod gps;
 mod iss;
 mod iss_missions;
 mod iss_evas;
@@ -131,7 +132,7 @@ fn object_family(db: &Database, id: u64) -> &'static str {
     collections::family(id,name).unwrap_or("starlink")
 }
 fn in_collection(db: &Database, id: u64, collection: &str) -> bool {
-    collection == "all" || !["iss","starlink","galileo"].contains(&collection) || object_family(db,id)==collection
+    collection == "all" || !["iss","starlink","galileo","gps"].contains(&collection) || object_family(db,id)==collection
 }
 async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
     let db = s.read().await;
@@ -177,10 +178,10 @@ fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
         .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .max();
-    let history=if collection=="galileo" {
-        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,"galileo")).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":"CelesTrak Galileo · collectes locales"}))
+    let history=if ["galileo","gps"].contains(&collection) {
+        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,collection)).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":if collection=="gps"{"CelesTrak GPS · collectes locales"}else{"CelesTrak Galileo · collectes locales"}}))
     } else { history::info() };
-    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":if collection=="galileo"{galileo::GP}else{GP},"history":history})
+    json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":if collection=="galileo"{galileo::GP}else if collection=="gps"{gps::GP}else{GP},"history":history})
 }
 async fn positions(
     State(s): State<Shared>,
@@ -230,7 +231,7 @@ async fn positions(
             .min_by_key(|(_, t)| (*t - at).num_seconds().abs())
             .map(|(_, t)| t)
             .into_iter()
-            .chain(if collection=="galileo" { None } else { history::nearest_date(at) })
+            .chain(if ["galileo","gps"].contains(&collection) { None } else { history::nearest_date(at) })
             .min_by_key(|t| (*t - at).num_seconds().abs())
     } else {
         None
@@ -364,6 +365,7 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
         "/atlas" => ("all", "Atlas — Tous les satellites"),
         "/iss" => ("iss", "ISS — Station spatiale internationale"),
         "/galileo" => ("galileo", "Galileo — Navigation européenne"),
+        "/gps" => ("gps", "GPS — Navigation américaine"),
         _ => ("starlink", "Starlink — Observatoire orbital"),
     };
     let html = tokio::fs::read_to_string("static/index.html").await.map_err(|_|StatusCode::INTERNAL_SERVER_ERROR)?;
@@ -372,7 +374,7 @@ async fn observation_page(uri: axum::http::Uri) -> Result<axum::response::Html<S
 }
 
 fn is_fresh_entrypoint(path: &str) -> bool {
-    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/galileo" | "/galileo/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
+    matches!(path, "/" | "/index.html" | "/atlas" | "/atlas/" | "/iss" | "/iss/" | "/starlink" | "/starlink/" | "/galileo" | "/galileo/" | "/gps" | "/gps/" | "/loading.js" | "/asset-cache.js" | "/asset-sw.js")
 }
 async fn fresh_entrypoints(request: axum::extract::Request, next: axum::middleware::Next) -> axum::response::Response {
     let fresh = is_fresh_entrypoint(request.uri().path());
@@ -482,6 +484,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     iss::load_cache(&mut db, &dir);
     galileo::load_cache(&mut db, &dir);
+    gps::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
@@ -504,6 +507,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         refresh(shared.clone(), dir.clone(), true).await;
         iss::collect(shared.clone(), dir.clone(), true).await;
         galileo::collect(shared.clone(), dir.clone(), true).await;
+        gps::collect(shared.clone(), dir.clone(), true).await;
         iss_missions::collect(dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
         return Ok(());
@@ -513,7 +517,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(iss_missions::collect(dir.clone(), false));
         tokio::spawn(iss::collect(shared.clone(), dir.clone(), false));
-        tokio::spawn(galileo::collect(shared.clone(), dir, false));
+        tokio::spawn(galileo::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(gps::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();
     }
@@ -523,9 +528,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/iss", get(observation_page))
         .route("/starlink", get(observation_page))
         .route("/galileo", get(observation_page))
+        .route("/gps", get(observation_page))
         .route("/atlas/", get(|| async { axum::response::Redirect::permanent("/atlas") }))
         .route("/iss/", get(|| async { axum::response::Redirect::permanent("/iss") }))
         .route("/starlink/", get(|| async { axum::response::Redirect::permanent("/starlink") }))
+        .route("/gps/", get(|| async { axum::response::Redirect::permanent("/gps") }))
         .route("/galileo/", get(|| async { axum::response::Redirect::permanent("/galileo") }))
         .route("/api/config", get(config))
         .route("/api/iss-missions", get(iss_missions::endpoint))

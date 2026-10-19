@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('static/globe.js','utf8');
+const fragment=source.slice(source.indexOf('const homeView=station=>'),source.indexOf('    const resetButton='))+'globalThis.homeView=homeView;';
+const ctx={C:{Cartesian3:{fromDegrees:(lon,lat,height)=>({lon,lat,height})}},document:{body:{dataset:{collection:'all'}}},lastData:null,viewer:{canvas:{clientWidth:1800,clientHeight:745},camera:{frustum:{fovy:Math.PI/3}}}};
+vm.createContext(ctx);vm.runInContext(fragment,ctx);
+const initial=ctx.homeView().destination;assert.equal(initial.lon,0);assert.equal(initial.lat,20);
+ctx.lastData={collection:'all',catalog:new Map([[1,{}]]),points:[{id:1,altitude_km:23222}],visible:()=>true};assert.deepEqual(ctx.homeView().destination,initial,'Atlas must retain the requested opening zoom after high orbits load');
+const distance=initial.height+6378137,fraction=6378137/(Math.sqrt(distance*distance-6378137**2)*Math.tan(Math.PI/6));assert.ok(fraction>.45&&fraction<.50,'Earth should occupy about 47% of the map height');
+ctx.lastData.collection='gps';assert.ok(ctx.homeView().destination.height>initial.height,'GPS overview must include its real high orbits');
+ctx.lastData.collection='galileo';assert.ok(ctx.homeView().destination.height>initial.height);
+ctx.lastData.collection='starlink';ctx.lastData.points[0].altitude_km=550;assert.ok(ctx.homeView().destination.height<initial.height);
+ctx.lastData.collection='all';ctx.viewer.canvas.clientWidth=390;assert.ok(ctx.homeView().destination.height>initial.height,'Narrow screens keep the globe inside the viewport');
+console.log('Cadrage Atlas : centre 0° / 20°, Terre ≈47%, stable après chargement, GPS / Galileo et écrans étroits adaptés OK');

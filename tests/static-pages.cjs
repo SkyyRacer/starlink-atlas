@@ -5,7 +5,7 @@ function engine(exports){return value=>{const bytes=Buffer.from(JSON.stringify(v
 function read(file){return JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(root,file))));}
 (async()=>{
  const edition=JSON.parse(fs.readFileSync(path.join(root,'edition.json'))),legacy=read(edition.bundle);const families=new Map(legacy.catalog_response.satellites.map(s=>[s.id,s.family||'starlink']));
- for(const page of ['atlas','galileo','iss','starlink']){
+ for(const page of ['atlas','galileo','gps','iss','starlink']){
   const url=new URL(page+'/',origin),r=await fetch(url);assert.equal(r.status,200);const html=await r.text();assert.match(html,/<base href="\.\.\/">/);
   for(const [,src] of html.matchAll(/<script src="([^"]+)"/g))assert.equal((await fetch(new URL(src,new URL('../',url)))).status,200,src);
  }
@@ -13,8 +13,8 @@ function read(file){return JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(
  let history=read(edition.resources.history);
  function archivedRows(at){const rows=[],date=new Date(at);date.setUTCHours(12,0,0,0);for(let offset=-3;offset<=3;offset++){const day=new Date(+date+offset*86400000).toISOString().slice(0,10);if(history.remote_days.includes(day)){throw Error('Test date requires external archive: '+day);}if(history.local_days.includes(day))rows.push(...read(history.local_files[day]));}return rows;}
  const measurements=[];
- for(const collection of ['all','galileo','iss','starlink']){
-  history=read(collection==='galileo'?edition.resources.galileo_history:edition.resources.history);
+ for(const collection of ['all','galileo','gps','iss','starlink']){
+  history=read(['galileo','gps'].includes(collection)?edition.resources[collection+'_history']:edition.resources.history);
   const requested=[];const fetchRecorded=async(...args)=>{requested.push(String(args[0]));return fetch(...args);};
   const self={location:{href:new URL('browser-worker.js',origin).href},postMessage(){}};
   const ctx={self,fetch:fetchRecorded,Response,DecompressionStream,WebAssembly,TextEncoder,TextDecoder,URL,Map,Date,Promise,console};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(root,'browser-worker.js'),'utf8'),ctx);
@@ -35,6 +35,6 @@ function read(file){return JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(
   measurements.push({collection,initial_engine_requests:initialRequests,catalog_bytes:fs.statSync(path.join(root,edition.collections[collection].catalog)).size,engine_bytes:fs.statSync(path.join(root,edition.collections[collection].engine)).size});
  }
  assert.ok(read(edition.resources.iss_missions).flights.length>=300);assert.ok(read(edition.resources.iss_evas).spacewalks.length>=500);
- const pages={document:{baseURI:origin},URL,module:{exports:{}}};vm.createContext(pages);vm.runInContext(fs.readFileSync(path.join(root,'pages.js'),'utf8'),pages);for(const [mode,route] of [['all','atlas'],['galileo','galileo'],['iss','iss'],['starlink','starlink']])assert.equal(pages.module.exports.url(mode),new URL(route+'/',origin).href);
- console.log(JSON.stringify({static_pages:'OK',exact_positions_and_tracks:'live + historical, Atlas / Galileo / ISS / Starlink',measurements}));
+ const pages={document:{baseURI:origin},URL,module:{exports:{}}};vm.createContext(pages);vm.runInContext(fs.readFileSync(path.join(root,'pages.js'),'utf8'),pages);for(const [mode,route] of [['all','atlas'],['galileo','galileo'],['gps','gps'],['iss','iss'],['starlink','starlink']])assert.equal(pages.module.exports.url(mode),new URL(route+'/',origin).href);
+ console.log(JSON.stringify({static_pages:'OK',exact_positions_and_tracks:'live + historical, Atlas / Galileo / GPS / ISS / Starlink',measurements}));
 })().catch(e=>{console.error(e);process.exit(1)});

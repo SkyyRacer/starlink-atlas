@@ -62,14 +62,14 @@ transport_file=out/'transport.js';transport_file.write_text(transport_file.read_
 # Project Pages are under /repository/. Keep every local resource relative to that path.
 for file in out.glob('*.js'):
  text=file.read_text().replace("'/images/","'./images/").replace("'/vendor/","'./vendor/").replace('"/vendor/','"./vendor/').replace('`/vendor/','`./vendor/')
- if file.name=='pages.js':text=text.replace("{all:'/atlas',galileo:'/galileo',iss:'/iss',starlink:'/starlink'}","{all:'./atlas/',galileo:'./galileo/',iss:'./iss/',starlink:'./starlink/'}")
+ if file.name=='pages.js':text=text.replace("{all:'/atlas',galileo:'/galileo',gps:'/gps',iss:'/iss',starlink:'/starlink'}","{all:'./atlas/',galileo:'./galileo/',gps:'./gps/',iss:'./iss/',starlink:'./starlink/'}")
  if file.name=='app.js':text=text.replace('async function get(url){','async function get(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');index.write_text(text)
 # Distinct static documents share assets via a base URL under /repository/.
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
 index.write_text(root_html)
-for page,title in [('atlas','Atlas — Tous les satellites'),('galileo','Galileo — Navigation européenne'),('iss','ISS — Station spatiale internationale'),('starlink','Starlink — Observatoire orbital')]:
+for page,title in [('atlas','Atlas — Tous les satellites'),('galileo','Galileo — Navigation européenne'),('gps','GPS — Navigation américaine'),('iss','ISS — Station spatiale internationale'),('starlink','Starlink — Observatoire orbital')]:
  folder=out/page;folder.mkdir()
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')
  (folder/'index.html').write_text(html)

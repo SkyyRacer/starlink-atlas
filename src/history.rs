@@ -35,7 +35,7 @@ pub fn nearest_date(at: DateTime<Utc>) -> Option<DateTime<Utc>> {
 }
 pub async fn orbits(at: DateTime<Utc>, collection: &str) -> Result<Orbits, String> {
     // The imported archive contains Starlink only; Galileo uses its real locally collected GP epochs.
-    if collection == "galileo" { return Ok(Arc::new(BTreeMap::new())); }
+    if ["galileo","gps"].contains(&collection) { return Ok(Arc::new(BTreeMap::new())); }
     let iss_only = collection == "iss";
     let dir = directory();
     if !dir.join("manifest.json").exists() {

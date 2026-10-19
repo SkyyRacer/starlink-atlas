@@ -348,4 +348,4 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 #catalog-progress-fill{height:100%;background:#d7e9f4;transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px #b7d8ee55}
 @media(prefers-reduced-motion:reduce){.catalog-loader,.loading-earth{transition:none}}
 
-body[data-collection="galileo"] #view-side{display:none}
+body[data-collection="galileo"] #view-side,body[data-collection="gps"] #view-side{display:none}

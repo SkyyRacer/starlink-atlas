@@ -2,6 +2,7 @@
 pub fn family(id: u64, name: &str) -> Option<&'static str> {
     if id == 25544 { return Some("iss"); }
     if name.starts_with("STARLINK") { return Some("starlink"); }
+    if name.starts_with("GPS B") || name.starts_with("GPS III") || name.strip_prefix("NAVSTAR ").is_some_and(|rest|rest.as_bytes().first().is_some_and(u8::is_ascii_digit)) { return Some("gps"); }
     let galileo = name.strip_prefix("GSAT").is_some_and(|rest| {
         rest.len() >= 4 && rest.as_bytes()[..4].iter().all(u8::is_ascii_digit)
             && rest.as_bytes().get(4).is_none_or(|c| c.is_ascii_whitespace() || *c == b'(')
@@ -11,6 +12,11 @@ pub fn family(id: u64, name: &str) -> Option<&'static str> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn gps_names_are_separate() {
+        for name in ["GPS BIIR-5 (PRN 22)","GPS BIII-1 (PRN 04)","NAVSTAR 1 (OPS 5111)"] { assert_eq!(family(1,name),Some("gps")); }
+        for name in ["GPS-DEMO","NAVSTARLINK","NAVSTAR TEST"] { assert_eq!(family(1,name),None); }
+    }
     #[test]
     fn galileo_is_not_the_indian_gsat_family() {
         for name in ["GSAT0101 (GALILEO-PFM)", "GSAT0234 (GALILEO 34)", "GSAT0001 (GIOVE-A)"] { assert_eq!(family(1,name),Some("galileo")); }
