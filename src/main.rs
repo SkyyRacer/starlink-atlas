@@ -135,8 +135,15 @@ fn object_family(db: &Database, id: u64) -> &'static str {
     let name=db.catalog.get(&id).and_then(|row|row["OBJECT_NAME"].as_str()).or_else(||db.orbits.get(&id).and_then(|rows|rows.last()).and_then(|orbit|orbit.el.object_name.as_deref())).unwrap_or("");
     collections::family(id,name).unwrap_or("starlink")
 }
+fn object_collections(db:&Database,id:u64)->Vec<&'static str> {
+    if object_family(db,id)=="debris" { return vec!["debris"]; }
+    let name=db.catalog.get(&id).and_then(|r|r["OBJECT_NAME"].as_str()).or_else(||db.orbits.get(&id).and_then(|rows|rows.last()).and_then(|o|o.el.object_name.as_deref())).unwrap_or("");
+    collections::memberships(id,name)
+}
 fn in_collection(db: &Database, id: u64, collection: &str) -> bool {
-    collection == "all" || collections::definition(collection).is_none() || object_family(db,id)==collection
+    if collection=="all" || collections::definition(collection).is_none() || object_family(db,id)==collection {return true;}
+    if !collections::definition(collection).is_some_and(|row|row.parent.is_some()) {return false;}
+    object_collections(db,id).contains(&collection)
 }
 async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
     let db = s.read().await;
@@ -161,12 +168,12 @@ fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
     let mut rows = BTreeMap::new();
     for (id, v) in &db.catalog {
         if !in_collection(&db, *id, collection) { continue; }
-        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"family":object_family(db,*id),"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"object_type":v["OBJECT_TYPE"],"owner":v["OWNER"],"verification":db.gcat.get(id)}));
+        rows.insert(*id,json!({"id":id,"name":v["OBJECT_NAME"],"family":object_family(db,*id),"collections":object_collections(db,*id),"designator":v["OBJECT_ID"],"launch":db.gcat.get(id).map(|g|g["launch_time"].clone()).unwrap_or_else(||v["LAUNCH_DATE"].clone()),"decay":v["DECAY_DATE"],"ops":v["OPS_STATUS_CODE"],"object_type":v["OBJECT_TYPE"],"owner":v["OWNER"],"verification":db.gcat.get(id)}));
     }
     for (id, list) in &db.orbits {
         if !in_collection(&db, *id, collection) { continue; }
         let e = &list.last().unwrap().el;
-        rows.entry(*id).or_insert(json!({"id":id,"name":e.object_name,"family":object_family(db,*id),"designator":e.international_designator,"launch":null,"decay":null,"ops":null}));
+        rows.entry(*id).or_insert(json!({"id":id,"name":e.object_name,"family":object_family(db,*id),"collections":object_collections(db,*id),"designator":e.international_designator,"launch":null,"decay":null,"ops":null}));
     }
     let min = db
         .orbits

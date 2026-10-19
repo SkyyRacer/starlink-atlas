@@ -193,3 +193,17 @@ Les groupes GP publics CelesTrak sont récupérés toutes les deux heures et les
 Source du catalogue : https://celestrak.org/pub/satcat.csv ; schéma : https://celestrak.org/satcat/satcat-format.php. Les positions utilisent les requêtes GP publiques par noms (`DEB`, `R/B`, `AKM`, `PKM`, noyaux / liquide de refroidissement, aiguilles Westford, etc.), recoupées par identifiant avec les types SATCAT. Les rares noms non couverts sont interrogés par identifiant. Aucun accès au catalogue orbital global restreint n’est nécessaire. Les petits objets non catalogués et les éléments non publics / manquants ne peuvent pas être représentés. La fenêtre de propagation reste de ±72 h ; les objets sans orbite adaptée restent consultables au catalogue.
 
 La page Débris conserve un cadrage terrestre lisible ; les pages Meteosat / GOES / BeiDou encadrent leurs hautes orbites. L’accueil Atlas conserve le zoom demandé, indépendamment des familles chargées.
+
+### Catalogue étendu et thèmes Atlas
+
+Le registre fournit maintenant 91 familles d’objets et 92 pages avec Atlas. Chacune conserve les fiches, la recherche, les filtres, le suivi et les deux représentations. Atlas range ses contrôles dans sept thèmes repliables : stations spatiales, navigation, télécommunications, observation terrestre, météo et climat, sciences et astronomie, débris. Les objets sont triés par nom dans chaque thème. Les cases, couleurs, désélection et réinitialisation gardent leur fonctionnement.
+
+Les pages ciblées (GOES-18 / 19, MTG, Sentinel-5P / 6) partagent leurs objets avec les familles générales. Les filtres se combinent par union : une famille générale cochée peut donc continuer à afficher un objet dont la sous-famille est décochée. Un identifiant NORAD correspond à un seul marqueur dans Atlas. Une couleur personnalisée de sous-famille cochée prend priorité sur celle de sa famille. EDRS-A est représenté par son hôte Eutelsat 9B ; aucun satellite séparé n’est inventé.
+
+Les collectes supplémentaires utilisent le même téléchargement GP `active` par cycle et un seul catalogue SATCAT quotidien partagé, y compris avec Débris. Les pages ne chargent que leur propre moteur orbital et leurs données lors d’un export statique. Les identifiants publiés évitent les homonymes (PACE, Hubble, etc.). Un objet sans éléments publics reste dans le catalogue, sans position fabriquée. Les hautes orbites de Chandra, XMM-Newton et TESS ont un cadrage adapté ; leurs traces peuvent être partielles à cause de la limite de validité de 72 heures.
+
+Le moteur navigateur reçoit ses données par lots de 256 enregistrements. Les dates de lancement et de rentrée sont conservées sous forme compacte ; les positions sont sérialisées directement. Les observations courantes et historiques sont fusionnées sans doublons de source / époque, en préservant exactement les candidats susceptibles d’être utilisés dans la journée UTC consultée. Ce traitement réduit les pics mémoire sur mobile. Les données de la visite restent figées jusqu’au rechargement.
+
+Les modifications sont locales. Aucun script de publication n’est exécuté.
+
+Les éléments publics importés pour TESS et XPoSat sont actuellement anciens : ces pages proposent une date de consultation exploitable au lieu de propager indéfiniment une orbite périmée.

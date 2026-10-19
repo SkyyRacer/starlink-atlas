@@ -349,3 +349,14 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 @media(prefers-reduced-motion:reduce){.catalog-loader,.loading-earth{transition:none}}
 
 body[data-constellation="true"] #view-side{display:none}
+
+/* Observation families stay compact on small screens; native details supports mouse and keyboard. */
+.atlas-category{border:1px solid #333;background:#090909;min-width:0}
+.atlas-category>summary{padding:13px 10px;color:#dce7ed;cursor:pointer;font-size:13px;line-height:1.5}
+.atlas-category>summary:hover{background:#152029}
+.atlas-category>summary:focus-visible{outline:2px solid #9cc4dd;outline-offset:2px}
+.atlas-category[open]>summary{border-bottom:1px solid #333;background:#101a21}
+.atlas-category-total{float:right;color:#939fa6;font-size:11px;font-variant-numeric:tabular-nums;margin-left:8px}
+.atlas-category-items{display:grid;gap:8px;padding:8px}
+.atlas-category-items .atlas-family-card{padding:9px;gap:8px}
+@media(max-width:900px){.atlas-category>summary{padding:14px 10px;font-size:14px}}

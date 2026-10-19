@@ -25,7 +25,7 @@ window.AtlasGlobe={
     const imagery=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:config.tile_url,credit:new C.Credit(config.tile_attribution,true),maximumLevel:18}));imagery.brightness=.57;imagery.contrast=1.2;imagery.saturation=.35;
     const defaultFadeOut=viewer.scene.globe.lightingFadeOutDistance,defaultFadeIn=viewer.scene.globe.lightingFadeInDistance;
     const controls=viewer.scene.screenSpaceCameraController;
-    controls.inertiaSpin=.72;controls.inertiaTranslate=.72;controls.inertiaZoom=.65;controls.zoomFactor=2;controls.maximumMovementRatio=.08;controls.minimumZoomDistance=150000;controls.maximumZoomDistance=400000000;
+    controls.inertiaSpin=.72;controls.inertiaTranslate=.72;controls.inertiaZoom=.65;controls.zoomFactor=2;controls.maximumMovementRatio=.08;controls.minimumZoomDistance=150000;controls.maximumZoomDistance=4000000000;
     // Native surface-anchored rotation: the grabbed ground point follows the pointer.
     controls.enableRotate=true;
     let globeDrag=null,pendingX=0,pendingY=0;
@@ -191,7 +191,7 @@ window.AtlasGlobe={
           const satellite=data.catalog.get(p.id);if(!satellite||!data.visible(satellite,p.id))continue;
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           let item=items.get(p.id);if(!item){item=satellites.add({id:p.id,pixelSize:3,color:lime,outlineWidth:0});items.set(p.id,item);}
-          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.family(satellite)];item.pixelSize=p.id===data.selected?9:3;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
+          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
           if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
         }
         past.positions=data.orbits?orbit(data.track):[];future.positions=data.orbits?orbit(data.future):[];

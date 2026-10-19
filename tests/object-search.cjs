@@ -12,8 +12,8 @@ function key(value){let prevented=false;input.listeners.keydown({key:value,preve
 search('iss');assert.equal(results.hidden,false);assert.equal(results.children[0].children[0].textContent,'ISS');
 assert.equal(key('Tab'),true);assert.equal(navigations.pop(),'/iss');
 search('Starlink');key('Enter');assert.equal(navigations.pop(),'/starlink');
-search('s');assert.equal(results.children.length,17);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
-key('ArrowUp');key('Enter');assert.equal(navigations.pop(),'/starlink');
+search('s');assert.equal(results.children.length,pages.definitions.length+1);assert.equal(key('Enter'),false);assert.equal(navigations.length,0);
+key('ArrowUp');key('Enter');assert.equal(navigations.pop(),pages.url(pages.search('s').at(-1).mode));
 search('s');results.children[0].onclick();assert.equal(navigations.pop(),'/atlas');
 search('galileo');key('Tab');assert.equal(navigations.pop(),'/galileo');
 search('aucun objet');assert.equal(results.children[0].textContent,'Aucun objet trouvé');key('Enter');assert.equal(navigations.length,0);
@@ -27,6 +27,6 @@ search('atlas');results.children[0].onclick();assert.equal(navigations.pop(),'/a
 search('gps');key('Enter');assert.equal(navigations.pop(),'/gps');
 search('navstar');key('Tab');assert.equal(navigations.pop(),'/gps');
 
-for(const name of ['GLONASS','BeiDou','Iridium','Globalstar','Copernicus','COSMO-SkyMed','Pleiades Neo','ICEYE','Meteosat','GOES','OneWeb']){search(name);assert.equal(results.children.length,1,name);key('Enter');assert.equal(navigations.pop(),pages.url(pages.search(name)[0].mode));}
+for(const name of ['GLONASS','BeiDou','Iridium','Globalstar','Copernicus','COSMO-SkyMed','Pleiades Neo','ICEYE','Meteosat','GOES','OneWeb']){search(name);const matches=pages.search(name);assert.equal(results.children.length,matches.length,name);if(matches.length===1)key('Enter');else results.children[0].onclick();assert.equal(navigations.pop(),pages.url(matches[0].mode));}
 
 search('debris');key('Tab');assert.equal(navigations.pop(),'/debris');

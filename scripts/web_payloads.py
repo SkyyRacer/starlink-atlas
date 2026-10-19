@@ -53,14 +53,17 @@ def build_resources(out,bundle,history,updates,now):
         ident=row.get('id',row.get('NORAD_CAT_ID'));name=row.get('name',row.get('OBJECT_NAME',''))
         return row.get('family') or identities.get(ident) or ('iss' if ident==25544 else 'gps' if re.match(r'^(?:GPS (?:B|III)|NAVSTAR \d)',name) else 'galileo' if re.match(r'^(?:GSAT\d{4}(?:\s|\(|$)|GIOVE-[AB]|GALILEO(?:[ -]|$))',name) else 'starlink')
     identities={row['id']:family(row) for row in bundle['catalog_response']['satellites']}
+    scopes={row['id']:row.get('collections',[family(row)]) for row in bundle['catalog_response']['satellites']}
+    def belongs(ident,mode):return mode in scopes.get(ident,[])
+    archive_days=[(file,json.loads(gzip.decompress(file.read_bytes()))) for file in sorted(updates.glob('*.json.gz'))]
     navigation_histories={}
     for definition in definitions:
         constellation=definition['id']
         if constellation in ['starlink','iss']:continue
         navigation_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak '+definition['label']+' · collectes locales'}
         epochs=[]
-        for file in sorted(updates.glob('*.json.gz')):
-            rows=[row for row in json.loads(gzip.decompress(file.read_bytes())) if family(row.get('elements',row))==constellation]
+        for file,observed in archive_days:
+            rows=[row for row in observed if belongs(row.get('elements',row)['NORAD_CAT_ID'],constellation)]
             if not rows:continue
             day=file.name[:10];navigation_history['days'][day]=len(rows);navigation_history['local_days'].append(day);navigation_history['local_files'][day]=write_resource(out,constellation+'-day-'+day,rows);navigation_history['observations']+=len(rows);epochs.extend(row.get('elements',row)['EPOCH'] for row in rows)
         if epochs:navigation_history.update(first_epoch=min(epochs),last_epoch=max(epochs))
@@ -79,7 +82,7 @@ def build_resources(out,bundle,history,updates,now):
     resources['details']={key:write_resource(out,'details-'+key,rows) for key,rows in details.items()}
     collections={}
     for mode in ['all',*[row['id'] for row in definitions]]:
-        accept=lambda ident: mode=='all' or identities.get(ident)==mode
+        accept=lambda ident: mode=='all' or belongs(ident,mode)
         catalog=copy.copy(bundle['catalog_response']);catalog['satellites']=[s for s in slim if accept(s['id'])]
         # The detailed archive index is fetched only when a historic date needs it.
         active_history=navigation_histories.get(mode,manifest)

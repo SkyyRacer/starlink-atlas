@@ -30,13 +30,25 @@ struct Point {
     age_hours: f64,
     source: &'static str,
 }
+#[derive(Serialize)]
+struct Positions {
+    at:DateTime<Utc>,points:Vec<Point>,missing:usize,track:Vec<[f64;2]>,future_track:Vec<[f64;2]>,track_3d:Vec<[f64;3]>,future_track_3d:Vec<[f64;3]>,suggested_at:Option<DateTime<Utc>>,
+}
+#[derive(Serialize)]
+#[serde(untagged)]
+enum Reply {Positions(Positions),Other(Value)}
+#[derive(Serialize)]
+struct Response {#[serde(skip_serializing_if="Option::is_none")]data:Option<Reply>,#[serde(skip_serializing_if="Option::is_none")]error:Option<String>}
 #[path = "../../src/orbit_math.rs"]
 mod orbit_math;
 #[path = "../../src/collections.rs"]
 mod collections;
 use orbit_math::*;
 #[derive(Default)]
+struct Lifetime {launch:Option<DateTime<Utc>>,decay:Option<DateTime<Utc>>}
+#[derive(Default)]
 struct Engine {
+    lifetimes:BTreeMap<u64,Lifetime>,
     allowed: std::collections::BTreeSet<u64>,
     db: Database,
     history: BTreeMap<u64, Vec<Orbit>>,
@@ -87,11 +99,17 @@ fn add_packed(data: &Value, key: &str, dest: &mut BTreeMap<u64, Vec<Orbit>>, all
     Ok(())
 }
 impl Engine {
+    fn catalogue(&mut self,rows:&[Value],gcat:&Value){
+        for row in rows {if let Some(id)=row["NORAD_CAT_ID"].as_u64(){self.allowed.insert(id);self.lifetimes.insert(id,Lifetime{launch:event_time(row,"LAUNCH_DATE"),decay:event_time(row,"DECAY_DATE")});}}
+        if let Some(rows)=gcat.as_object(){for (key,row) in rows {if let (Ok(id),Some(launch))=(key.parse::<u64>(),event_time(row,"launch_time")){self.lifetimes.entry(id).or_default().launch=Some(launch);}}}
+    }
+    fn exists(&self,id:u64,at:DateTime<Utc>)->bool {self.lifetimes.get(&id).is_none_or(|v|v.launch.is_none_or(|d|at>=d)&&v.decay.is_none_or(|d|at<d))}
+
     fn dispatch(&mut self, q: Value) -> Result<Value, String> {
         match q["op"].as_str().unwrap_or("") {
             "init" => {
                 let data = &q["data"];
-                self.allowed=data["raw_catalog"].as_array().ok_or("Missing catalogue")?.iter().filter_map(|r|r["NORAD_CAT_ID"].as_u64()).collect();
+                self.lifetimes.clear();self.allowed=data["raw_catalog"].as_array().ok_or("Missing catalogue")?.iter().filter_map(|r|r["NORAD_CAT_ID"].as_u64()).collect();
                 let mut db = Database::default();
                 self.live.clear(); self.live_window = None;
                 if data.get("packed_orbits").is_some() {
@@ -103,15 +121,22 @@ impl Engine {
                 } else {
                     add(data["orbits"].as_array().ok_or("Missing orbits")?, &mut db.orbits, "CelesTrak GP / Space-Track",&self.allowed)?;
                 }
-                for row in data["raw_catalog"].as_array().ok_or("Missing catalogue")? {
-                    if let Some(id) = row["NORAD_CAT_ID"].as_u64() {
-                        db.catalog.insert(id, row.clone());
-                    }
-                }
                 self.db = db;
-                self.db.gcat =
-                    serde_json::from_value(data["gcat"].clone()).map_err(|e| e.to_string())?;
+                self.catalogue(data["raw_catalog"].as_array().ok_or("Missing catalogue")?,&data["gcat"]);
                 self.history.clear();
+                Ok(json!({"ready":true}))
+            }
+            "catalog-add" => {
+                self.catalogue(q["rows"].as_array().ok_or("Missing catalogue batch")?,&q["gcat"]);
+                Ok(json!({"ready":true}))
+            }
+            "orbits-start" => {
+                match q["target"].as_str(){Some("current")=>self.db.orbits.clear(),Some("history")=>self.history.clear(),Some("live")=>self.live.clear(),_=>return Err("Unknown target".into())};
+                Ok(json!({"ready":true}))
+            }
+            "orbits-add" => {
+                let dest=match q["target"].as_str(){Some("current")=>&mut self.db.orbits,Some("history")=>&mut self.history,Some("live")=>&mut self.live,_=>return Err("Unknown target".into())};
+                if q["data"].is_object(){add_packed(&q["data"],"packed_orbits",dest,&self.allowed)?;}else{add(q["rows"].as_array().ok_or("Missing orbit batch")?,dest,"Archive publique Julien Simon / Space-Track",&self.allowed)?;}
                 Ok(json!({"ready":true}))
             }
             "current" => {
@@ -131,11 +156,11 @@ impl Engine {
                 self.history = history;
                 Ok(json!({"ready":true}))
             }
-            "positions" => self.positions(q),
+            
             _ => Err("Unknown operation".into()),
         }
     }
-    fn positions(&self, q: Value) -> Result<Value, String> {
+    fn positions(&self, q: Value) -> Result<Positions, String> {
         let at = DateTime::parse_from_rfc3339(q["at"].as_str().ok_or("Date required")?)
             .map_err(|e| e.to_string())?
             .with_timezone(&Utc);
@@ -157,7 +182,7 @@ impl Engine {
             .copied()
             .collect();
         for id in &ids {
-            if !exists_in_db(db, *id, at) {
+            if !self.exists(*id,at) {
                 continue;
             }
             match select_sources(current.get(id), history.and_then(|rows| rows.get(id)), at)
@@ -167,37 +192,36 @@ impl Engine {
                 None => missing += 1,
             }
         }
-        missing += db
-            .catalog
-            .keys()
-            .filter(|id| !ids.contains(id) && exists_in_db(db, **id, at))
+        missing += self.allowed
+            .iter()
+            .filter(|id| !ids.contains(id) && self.exists(**id,at))
             .count();
         let mut track = Vec::new();
         let mut future = Vec::new();
         let mut track3 = Vec::new();
         let mut future3 = Vec::new();
         if let Some(id) = q["id"].as_u64() {
-            if exists_in_db(db, id, at) {
+            if self.exists(id,at) {
                 if let Some(o) = select_sources(current.get(&id), history.and_then(|rows| rows.get(&id)), at) {
                     let period = (1440. / o.el.mean_motion * 60.) as i64;
                     for i in 0..=120 {
                         let t = at - chrono::Duration::seconds(period * (120 - i) / 120);
-                        if exists_in_db(db, id, t) {
+                        if self.exists(id,t) {
                             if let Some(p) = position(o, t) {
-                                track.push(json!([p.lat, p.lon]));
-                                track3.push(json!([p.lat, p.lon, p.altitude_km]));
+                                track.push([p.lat, p.lon]);
+                                track3.push([p.lat, p.lon, p.altitude_km]);
                             }
                         }
                     }
                     for i in 0..=120 {
                         let t = at + chrono::Duration::seconds(period * i / 120);
-                        if !exists_in_db(db, id, t) {
+                        if !self.exists(id,t) {
                             break;
                         }
                         match position(o, t) {
                             Some(p) => {
-                                future.push(json!([p.lat, p.lon]));
-                                future3.push(json!([p.lat, p.lon, p.altitude_km]));
+                                future.push([p.lat, p.lon]);
+                                future3.push([p.lat, p.lon, p.altitude_km]);
                             }
                             None => break,
                         }
@@ -209,15 +233,13 @@ impl Engine {
             db.orbits
                 .iter()
                 .flat_map(|(id, rows)| rows.iter().map(move |o| (*id, o.el.datetime.and_utc())))
-                .filter(|(id, t)| *t <= now && exists_in_db(db, *id, *t))
+                .filter(|(id, t)| *t <= now && self.exists(*id,*t))
                 .min_by_key(|(_, t)| (*t - at).num_seconds().abs())
                 .map(|(_, t)| t)
         } else {
             None
         };
-        Ok(
-            json!({"at":at,"points":points,"missing":missing,"track":track,"future_track":future,"track_3d":track3,"future_track_3d":future3,"suggested_at":suggested}),
-        )
+        Ok(Positions{at,points,missing,track,future_track:future,track_3d:track3,future_track_3d:future3,suggested_at:suggested})
     }
 }
 static ENGINE: OnceLock<Mutex<Engine>> = OnceLock::new();
@@ -235,20 +257,12 @@ pub unsafe extern "C" fn atlas_free(ptr: *mut u8, len: usize) {
 }
 #[no_mangle]
 pub unsafe extern "C" fn atlas_call(ptr: *const u8, len: usize) -> *mut u8 {
-    let result = serde_json::from_slice(std::slice::from_raw_parts(ptr, len))
-        .map_err(|e| e.to_string())
-        .and_then(|q| {
-            ENGINE
-                .get_or_init(|| Mutex::new(Engine::default()))
-                .lock()
-                .map_err(|e| e.to_string())?
-                .dispatch(q)
-        });
-    let value = match result {
-        Ok(data) => json!({"data":data}),
-        Err(error) => json!({"error":error}),
-    };
-    let body = serde_json::to_vec(&value).unwrap();
+    let result=serde_json::from_slice::<Value>(std::slice::from_raw_parts(ptr,len)).map_err(|e|e.to_string()).and_then(|q|{
+        let mut engine=ENGINE.get_or_init(||Mutex::new(Engine::default())).lock().map_err(|e|e.to_string())?;
+        if q["op"]=="positions"{engine.positions(q).map(Reply::Positions)}else{engine.dispatch(q).map(Reply::Other)}
+    });
+    let response=match result {Ok(data)=>Response{data:Some(data),error:None},Err(error)=>Response{data:None,error:Some(error)}};
+    let body=serde_json::to_vec(&response).unwrap();
     let mut output = Vec::with_capacity(body.len() + 4);
     output.extend_from_slice(&(body.len() as u32).to_le_bytes());
     output.extend_from_slice(&body);

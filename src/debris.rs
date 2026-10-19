@@ -21,7 +21,7 @@ pub async fn collect(shared:Shared,dir:PathBuf,once:bool){
             let result:Result<(),String>=async {
                 let file=dir.join("debris-catalog.json");let age=std::fs::metadata(&file).and_then(|m|m.modified()).ok().and_then(|t|t.elapsed().ok()).map(|d|d.as_secs()).unwrap_or(u64::MAX);
                 let catalogue:Vec<Value>=if age>=86400 {
-                    let bytes=download(&client,CATALOG).await?;let rows:Vec<_>=csv_data::catalogue(&bytes)?.into_iter().filter(is_debris).collect();if rows.is_empty(){return Err("Catalogue des débris vide".into());}
+                    let rows:Vec<_>=constellations::bulk_catalogue(&client,&dir).await?.into_iter().filter(is_debris).collect();if rows.is_empty(){return Err("Catalogue des débris vide".into());}
                     let bytes=serde_json::to_vec(&rows).map_err(|e|e.to_string())?;sources::atomic(&dir,"debris-catalog.json",&bytes)?;load_cat(&mut *shared.write().await,&bytes)?;rows
                 }else{serde_json::from_slice(&std::fs::read(file).map_err(|e|e.to_string())?).map_err(|e|e.to_string())?};
                 let extra:std::collections::BTreeSet<_>=catalogue.iter().filter(|r|r["DECAY_DATE"].as_str().unwrap_or("").is_empty() && !QUERIES.iter().any(|q|r["OBJECT_NAME"].as_str().unwrap_or("").contains(q))).filter_map(|r|r["NORAD_CAT_ID"].as_u64()).collect();
