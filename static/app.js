@@ -12,9 +12,10 @@ if(typeof ResizeObserver!=='undefined')new ResizeObserver(sizeMap).observe(timel
 sizeMap();
 L.control.zoom({position:'topright'}).addTo(map);
 let tiles=null;
-let constellationCoverage='',issOverviewPending=false;
+let constellationCoverage='',issOverviewPending=false,initialOverviewTarget=null;
 let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(AtlasPages.definitions.filter(row=>row.id!=='debris').map(row=>row.id));
-const atlasColors=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,'#ffffff']));
+const atlasDefaultColor=family=>family==='debris'?'#d9a15f':'#ffffff';
+const atlasColors=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,atlasDefaultColor(row.id)]));
 let catalog=[],byId=new Map(),points=[],selected=null,focusSelected=false,track=[],futureTrack=[],at=Date.now(),live=true,playing=true,busy=false,pendingPosition=false,positionRevision=0,suggestedAt=null,lastTick=performance.now(),failures=0;
 let planarFocusMode='overview';let dataSnapshot=null;let selectionRequest=0;
 const planarMotion=new SatelliteMotion();let planarMotionAt=null,motionFrame=null;
@@ -158,7 +159,16 @@ function focusInitialSatellite(){
  const available=new Set(points.map(p=>p.id));
  const candidates=catalog.filter(s=>available.has(s.id)&&state(s)==='orbit');
  const satellite=candidates.find(s=>['+','P','X'].includes(s.ops))||candidates.find(s=>!['-','D','B','S'].includes(s.ops));
- if(satellite)choose(satellite.id);
+ if(satellite){
+  initialOverviewTarget=points.find(p=>p.id===satellite.id);
+  if(displayMode==='2d')map.panTo([initialOverviewTarget.lat,initialOverviewTarget.lon],{animate:false});
+  applyInitialOrientation();
+ }
+}
+function applyInitialOrientation(){
+ if(!initialOverviewTarget||!globeController||displayMode!=='3d')return;
+ if(selected===null)globeController.orientOverview(initialOverviewTarget);
+ initialOverviewTarget=null;
 }
 async function loadPositions(force=false){if(!dataSnapshot)return;if(force)positionRevision++;if(busy){if(force)pendingPosition=true;return;}busy=true;const revision=positionRevision;const requested=at;const id=selected;try{const d=await get(`/api/positions?collection=${collectionMode}&at=${encodeURIComponent(new Date(Math.min(requested,Date.now()-1000)).toISOString())}${id!==null?'&id='+id:''}${dataSnapshot?'&snapshot='+encodeURIComponent(dataSnapshot):''}`);if(revision!==positionRevision||id!==selected||Math.abs(requested-at)>150000)return;points=d.points;if(focusSelected&&displayMode==='2d'){const p=points.find(p=>p.id===selected);if(p){focusSelected=false;focusPlanisphere(p);}}track=d.track;futureTrack=d.future_track||[];track3d=d.track_3d||[];future3d=d.future_track_3d||[];failures=0;suggestedAt=d.suggested_at;$('available').hidden=!!d.points.length||!suggestedAt;$('notice').textContent=d.points.length===0?'Aucune position disponible à cette date. Les archives orbitales nécessaires ne sont pas présentes. Utilisez une date disponible ou importez des archives historiques.':`${d.points.length.toLocaleString('fr')} positions disponibles · ${d.missing.toLocaleString('fr')} sans position exploitable à cette date`;draw();focusInitialSatellite();globalThis.AtlasLoading?.done('positions');}catch(e){if(revision!==positionRevision)return;globalThis.AtlasLoading?.fail();failures++;points=[];track=[];futureTrack=[];track3d=[];future3d=[];$('notice').textContent='Positions indisponibles : '+e.message;draw();}finally{busy=false;if(pendingPosition){pendingPosition=false;loadPositions();}}}
 function closeSatellite(){
@@ -229,7 +239,7 @@ async function showGlobe(){
   await AtlasGlobe.load();if(!cartoConfig)cartoConfig=await get('/api/config');
   $('globe').hidden=false;$('map-creator').hidden=true;$('map').hidden=true;$('map-reset').hidden=true;displayMode='3d';
   if(!globeController)globeController=await AtlasGlobe.create($('globe-canvas'),cartoConfig,choose,closeSatellite);
-  globeController.setActive(true);$('globe').closest('.view').dataset.earthReady='true';if(AtlasPages.isStation(collectionMode)&&selected===null)issOverviewPending=true;$('view-2d').setAttribute('aria-pressed','false');$('view-3d').setAttribute('aria-pressed','true');focusSelected=selected!==null;draw();
+  globeController.setActive(true);$('globe').closest('.view').dataset.earthReady='true';if(AtlasPages.isStation(collectionMode)&&selected===null)issOverviewPending=true;$('view-2d').setAttribute('aria-pressed','false');$('view-3d').setAttribute('aria-pressed','true');focusSelected=selected!==null;draw();applyInitialOrientation();
  }catch(e){showPlanisphere();$('notice').textContent='La vue 3D est indisponible : '+e.message;}
  finally{$('view-3d').disabled=false;$('view-2d').disabled=false;}
 }
@@ -248,6 +258,7 @@ if(collectionMode==='debris'){document.querySelector('.satellite-results h2').te
 if(collectionMode!=='debris'&&AtlasPages.hasLocalHistory(collectionMode))$('status').insertAdjacentHTML('beforeend','<option value="inactive">Hors service (statut actuel)</option>');
 $('starlink-controls').hidden=!AtlasPages.isConstellation(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=!AtlasPages.isStation(collectionMode);issOverviewPending=AtlasPages.isStation(collectionMode);updateCollectionCoverage();
 $('collection-select').addEventListener('change',e=>{if(e.target.value!==collectionMode)location.assign(AtlasPages.url(e.target.value));});
+AtlasCollectionMenu.mount($('collection-select'));
 for(const family of Object.keys(atlasColors)){
  $('atlas-color-'+family).addEventListener('input',e=>{atlasColors[family]=e.target.value;draw();});
 }
@@ -270,7 +281,7 @@ $('atlas-clear').addEventListener('click',()=>{
  document.querySelectorAll('[data-family]').forEach(el=>el.checked=false);updateAtlasGroups();
 });
 $('atlas-reset').addEventListener('click',()=>{
- document.querySelectorAll('[data-theme-color]').forEach(el=>el.value='#ffffff');document.querySelectorAll('[data-family]').forEach(el=>{el.checked=el.dataset.family!=='debris';atlasColors[el.dataset.family]='#ffffff';$('atlas-color-'+el.dataset.family).value='#ffffff';});updateAtlasGroups();
+ document.querySelectorAll('[data-theme-color]').forEach(el=>el.value='#ffffff');document.querySelectorAll('[data-family]').forEach(el=>{el.checked=el.dataset.family!=='debris';atlasColors[el.dataset.family]=atlasDefaultColor(el.dataset.family);$('atlas-color-'+el.dataset.family).value=atlasDefaultColor(el.dataset.family);});updateAtlasGroups();
 });
 
 // Search navigates to complete documents, like the observation selector.

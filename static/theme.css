@@ -388,3 +388,19 @@ body[data-constellation="true"] #view-side{display:none}
 .atlas-debris-card .atlas-page-link{margin-left:0}
 @media(min-width:901px) and (max-height:850px){.atlas-actions::before{left:-16px;right:-16px}}
 @media(max-width:900px){.atlas-actions::before{left:-18px;right:-18px}#atlas-debris-toggle{min-height:40px;font-size:12px}}
+
+/* Alphabetical observation menu: no operating-system picker. */
+#collection-select[hidden]{display:none!important}
+.collection-menu-button{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:44px;text-align:left;padding:10px 12px;border:1px solid #7895a8;border-radius:0;background:#13212b;color:#f3f8fc;font-size:13px;font-weight:500;line-height:1.4}
+.collection-menu-button::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);flex:none;margin-right:3px;margin-top:-4px}
+.collection-menu-button[aria-expanded="true"]::after{transform:rotate(225deg);margin-top:4px}
+.collection-menu-button:hover{background:#1a2c39;border-color:#b1d4e8}
+.collection-menu-panel{margin-top:8px;border:1px solid #405967;background:#090e12}
+.collection-menu-panel[hidden]{display:none}
+.collection-menu-help{font-size:10px;line-height:1.5;color:#9aafbd;padding:9px 10px;margin:0;border-bottom:1px solid #2b3b45}
+.collection-menu-list{max-height:min(420px,48dvh);overflow-y:auto;overscroll-behavior:contain;scroll-padding-block:5px}
+.collection-menu-letter{padding:12px 10px 5px;color:#9ec4da;font-size:24px;line-height:1.2;font-weight:600;border-top:1px solid #29343c;margin-top:4px}
+.collection-menu-option{padding:9px 12px;color:#d5dce0;font-size:12px;line-height:1.4;cursor:pointer;border-left:2px solid transparent;overflow-wrap:anywhere}
+.collection-menu-option:hover,.collection-menu-option.is-active{background:#203441;color:#fff;border-left-color:#a9d2e9}
+.collection-menu-option[aria-selected="true"]{font-weight:600;color:#c5e4f6}
+@media(max-width:900px){.collection-menu-button{font-size:16px;min-height:46px}.collection-menu-option{font-size:14px;min-height:44px;padding:12px}.collection-menu-help{font-size:11px}}

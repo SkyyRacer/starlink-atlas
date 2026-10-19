@@ -109,6 +109,7 @@ window.AtlasGlobe={
     const position=p=>C.Cartesian3.fromDegrees(p.lon,p.lat,p.altitude_km*1000);
     const motion=new SatelliteMotion();let motionAt=null;
     const orbit=rows=>rows.map(p=>C.Cartesian3.fromDegrees(p[1],p[0],p[2]*1000));
+    let overviewAnchor=null;
     const homeView=station=>{
       const collection=lastData?.collection||document.body.dataset.collection;
       let radius=['all','debris'].includes(collection)?9600000:!lastData?(AtlasPages.definition(collection)?.frame_radius||7500000):7500000;
@@ -116,7 +117,7 @@ window.AtlasGlobe={
       const aspect=Math.max(.1,viewer.canvas.clientWidth/viewer.canvas.clientHeight);
       const fovy=viewer.camera.frustum.fovy||Math.PI/3;
       const halfAngle=Math.atan(.74*Math.tan(fovy/2)*Math.min(1,aspect));
-      const centre=station||(AtlasPages.isStation(lastData?.collection)?lastData.points.find(p=>p.id===AtlasPages.station(lastData.collection)):null);
+      const centre=station||(AtlasPages.isStation(lastData?.collection)?lastData.points.find(p=>p.id===AtlasPages.station(lastData.collection)):null)||overviewAnchor;
       return {destination:C.Cartesian3.fromDegrees(centre?.lon??0,centre?.lat??20,radius/Math.sin(halfAngle)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}};
     };
     const resetButton=document.getElementById('globe-reset');
@@ -220,6 +221,7 @@ window.AtlasGlobe={
       setActive(value){if(!value){idleController?.cancel();stopJoystick();pendingX=0;pendingY=0;globeDrag=null;releaseFollow();}active=value;viewer.useDefaultRenderLoop=value;if(value){viewer.resize();viewer.scene.requestRender();}},
       resize(){if(active){const atHome=resetButton.disabled&&!returningHome;viewer.resize();if(atHome){viewer.camera.setView(homeView());rememberHome();updateHomeState();}viewer.scene.requestRender();}},
       home,
+      orientOverview(point){overviewAnchor={lon:point.lon,lat:point.lat};home();},
       north(){idleController?.cancel();pendingX=0;pendingY=0;viewer.camera.cancelFlight();const angle=northAngle();if(angle!==null)viewer.camera.twistRight(angle);updateCompass();viewer.scene.requestRender();},
       zoom(direction){idleController?.cancel();const height=viewer.camera.positionCartographic.height;const distance=Math.max(0,Math.min(Math.max(10000,height*.12),direction>0?height-150000:controls.maximumZoomDistance-height));direction>0?viewer.camera.zoomIn(distance):viewer.camera.zoomOut(distance);viewer.scene.requestRender();}
     };
