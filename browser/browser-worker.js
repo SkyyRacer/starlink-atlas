@@ -1,6 +1,6 @@
 if(typeof AtlasCollections==='undefined')importScripts('constellations.js');
 'use strict';
-let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all';const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
+let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all',catalogIds=new Set();const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
 async function jsonFile(path,compressed=false){const response=await fetch(new URL(path,self.location.href),{cache:compressed?'default':'no-store'});if(!response.ok)throw new Error(`Données indisponibles (HTTP ${response.status})`);const bytes=compressed?await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():await response.arrayBuffer();return JSON.parse(decoder.decode(bytes));}
 function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=engine.atlas_alloc(bytes.length);new Uint8Array(engine.memory.buffer,ptr,bytes.length).set(bytes);let result;
  try{result=engine.atlas_call(ptr,bytes.length);}finally{engine.atlas_free(ptr,bytes.length);}
@@ -12,7 +12,7 @@ function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=en
 const BATCH=256;
 function loadPacked(data,target){compute({op:'orbits-start',target});const rows=data.packed_orbits||[];for(let i=0;i<rows.length;i+=BATCH)compute({op:'orbits-add',target,data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:rows.slice(i,i+BATCH)}});}
 function loadRows(rows,target,reset=true){if(reset)compute({op:'orbits-start',target});for(let i=0;i<rows.length;i+=BATCH)compute({op:'orbits-add',target,rows:rows.slice(i,i+BATCH)});}
-function initialize(data){
+function initialize(data){catalogIds=new Set((data.raw_catalog||[]).map(r=>r.NORAD_CAT_ID));
  if(!data.orbit_fields){compute({op:'init',data:{...data,orbits:[],raw_catalog:[],gcat:{}}});}
  else compute({op:'init',data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:[],packed_live:[],raw_catalog:[],gcat:{},live_window:data.live_window}});
  const rows=data.raw_catalog||[],gcat=Object.entries(data.gcat||{});
@@ -21,10 +21,10 @@ function initialize(data){
  if(data.orbit_fields){loadPacked(data,'current');loadPacked({...data,packed_orbits:data.packed_live||[]},'live');}
  else loadRows(data.orbits||[],'current');
 }
-// For any instant in this UTC day, only the nearest element before/after its boundaries
+// For any instant in this UTC window, only the nearest element before/after its boundaries
 // and the elements inside it can win source selection. Preserve near-equal source epochs.
-function historyBatches(dayRows,at,consume){
- const start=Date.parse(new Date(at).toISOString().slice(0,10)+'T00:00:00Z'),end=start+86400000,bounds=new Map();
+function historyBatches(dayRows,at,consume,windowMs=86400000){
+ const day=Date.parse(new Date(at).toISOString().slice(0,10)+'T00:00:00Z'),start=day+Math.floor((Date.parse(at)-day)/windowMs)*windowMs,end=start+windowMs,bounds=new Map();
  const stamp=row=>{const e=(row.elements||row).EPOCH;return Date.parse(/(?:Z|[+-]\d{2}:\d{2})$/.test(e)?e:e+'Z');};
  const identity=row=>String((row.elements||row).NORAD_CAT_ID)+'|'+(row.source||'Archive publique Julien Simon / Space-Track');
  for(const rows of dayRows)for(const row of rows){const key=identity(row),time=stamp(row);if(!Number.isFinite(time))throw Error('Époque orbitale invalide');let b=bounds.get(key);if(!b){b={before:-Infinity,after:Infinity};bounds.set(key,b);}if(time<start)b.before=Math.max(b.before,time);if(time>=end)b.after=Math.min(b.after,time);}
@@ -39,13 +39,13 @@ function combinedHistory(current,dayRows,at){
   const packed=batch.filter(row=>row.packed).map(row=>row.packed),raw=batch.filter(row=>!row.packed);
   if(packed.length)compute({op:'orbits-add',target:'history',data:{orbit_fields:fields,orbit_sources:current.orbit_sources,packed_orbits:packed}});
   if(raw.length)loadRows(raw,'history',false);
- });
+ },3600000);
  liveWindow=null;
 }
-async function loadHistory(at){const currentPromise=loadCurrent();if(!manifest&&edition?.resources?.history)manifest=await jsonFile(edition.resources[collection+'_history']||edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,10);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
+async function loadHistory(at){const currentPromise=loadCurrent();if(!manifest&&edition?.resources?.history)manifest=await jsonFile(edition.resources[collection+'_history']||edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,13);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
  for(let offset=-3;offset<=3;offset++){const day=new Date(+date+offset*86400000).toISOString().slice(0,10);if(!manifest?.days?.[day])continue;windowDays.push(day);}
  const rows=await Promise.all(windowDays.map(async day=>{if(!days.has(day)){let values=[];if(manifest.remote_base&&manifest.remote_days.includes(day))values=await jsonFile(manifest.remote_base+day+'.json.gz',true);else if(!manifest.remote_base&&manifest.remote_days?.includes(day))values=await jsonFile(`data/history/${day}.json.gz`,true);if(manifest.local_days?.includes(day))values=values.concat(await jsonFile(manifest.local_files?.[day]||`data/history/${day}.json.gz`,true));days.set(day,values);}return days.get(day);}));
- combinedHistory(await currentPromise,rows.map(dayRows=>dayRows.filter(row=>collection==='all'||AtlasCollections.belongs(row.elements||row,collection))),at);historyKey=key;
+ combinedHistory(await currentPromise,rows.map(dayRows=>dayRows.filter(row=>collection==='all'||catalogIds.has((row.elements||row).NORAD_CAT_ID)||AtlasCollections.belongs(row.elements||row,collection))),at);historyKey=key;
  for(const day of days.keys())if(!windowDays.includes(day))days.delete(day);
 }
 async function loadCurrent(){if(!currentData){currentData=edition.collections?await jsonFile(edition.collections[collection].observations,true):{};}return currentData;}

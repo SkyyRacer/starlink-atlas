@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-10-19T19:22:56.069900+00:00",
+  "catalogue_confirmed": 42703,
+  "catalogue_confirmed_not_reported_decayed": 14835,
+  "confirmed_with_any_public_gp_in_cache": 12547,
+  "analyst_records": 599,
+  "max_age_hours": 72,
+  "sources": [
+    "https://celestrak.org/pub/satcat.csv",
+    "https://celestrak.org/NORAD/elements/gp.php?GROUP=analyst&FORMAT=JSON",
+    "https://sdup.esoc.esa.int/discosweb/statistics/"
+  ],
+  "limits": "Statistical fragment population has no individual public positions. An Analyst record is not a confirmed fragment. Catalogued does not mean a recent public orbit exists."
+}

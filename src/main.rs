@@ -490,6 +490,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         iss_evas::import(&dir, std::path::Path::new(&args[2])).map_err(std::io::Error::other)?;
         return Ok(());
     }
+    if args.len()==3 && args[1]=="--import-tiangong-missions" {iss_missions::import_for(18,&dir,std::path::Path::new(&args[2])).map_err(std::io::Error::other)?;return Ok(());}
     if args.len() == 3 && args[1] == "--import-iss-missions" {
         iss_missions::import(&dir, std::path::Path::new(&args[2]))
             .map_err(std::io::Error::other)?;
@@ -558,7 +559,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/galileo/", get(|| async { axum::response::Redirect::permanent("/galileo") }))
         .route("/api/config", get(config))
         .route("/api/iss-missions", get(iss_missions::endpoint))
+        .route("/api/tiangong-missions",get(iss_missions::tiangong_endpoint))
         .route("/api/iss-evas", get(iss_evas::endpoint))
+        .route("/api/tiangong-evas",get(iss_evas::endpoint))
         .route("/api/sources", get(sources::status))
         .route("/api/catalog", get(catalog))
         .route("/api/satellite", get(satellite_detail))

@@ -12,7 +12,7 @@ shutil.copytree(ROOT/'static',out);(out/'.atlas-generated').touch();(out/'.nojek
 with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([str(ROOT/'target/release/starlink-atlas'),'--export-web',tmp],env=dict(os.environ,DATA_DIR=str(data),HISTORY_DIR=str(history)),cwd=ROOT,check=True)
  bundle=json.loads((pathlib.Path(tmp)/'bundle.json').read_text())
- for name,key in [('iss-missions.json','iss_missions'),('iss-evas.json','iss_evas')]:
+ for name,key in [('iss-missions.json','iss_missions'),('iss-evas.json','iss_evas'),('tiangong-missions.json','tiangong_missions')]:
   cache=data/name
   if cache.is_file():bundle[key]=json.loads(cache.read_text())
  # Drop duplicate elements with identical satellite/source/epoch; preserve all distinct observations.
@@ -65,7 +65,12 @@ for file in out.glob('*.js'):
  if file.name=='pages.js':text=text.replace("const routeRoot='/'","const routeRoot='./'")
  if file.name=='app.js':text=text.replace('async function get(url){','async function get(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
-index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');index.write_text(text)
+index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');
+# Hash the actual exported files after route and resource rewrites.
+for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',text)):
+ asset=out/name
+ if asset.is_file():text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256(asset.read_bytes()).hexdigest()[:12],text)
+index.write_text(text)
 # Distinct static documents share assets via a base URL under /repository/.
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
 index.write_text(root_html)

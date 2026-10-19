@@ -16,6 +16,6 @@
   return {rows,completed:completed.length,ongoing:ongoing.length,known:known.length,total:known.length?known.reduce((s,e)=>s+duration(e),0):null,complete:doc.complete===true};
  }
  let request;
- function load(){if(!request)request=(typeof window!=='undefined'&&window.AtlasStatic?window.AtlasStatic.handle('/api/iss-evas'):fetch('/api/iss-evas').then(r=>{if(!r.ok)throw Error('Historique indisponible');return r.json();})).then(v=>{if(!Array.isArray(v.spacewalks))throw Error('Réponse invalide');return v;});return request;}
+ function load(){const station=typeof AtlasPages!=='undefined'&&AtlasPages.mode(location.pathname)==='tiangong'?'tiangong':'iss';const endpoint='/api/'+station+'-evas';if(!request)request=(typeof window!=='undefined'&&window.AtlasStatic?window.AtlasStatic.handle(endpoint):fetch(endpoint).then(r=>{if(!r.ok)throw Error('Historique indisponible');return r.json();})).then(v=>{if(!Array.isArray(v.spacewalks))throw Error('Réponse invalide');return v;});return request;}
  const api={seconds,duration,format,stats,load};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEVA=api;
 })(typeof window!=='undefined'?window:globalThis);

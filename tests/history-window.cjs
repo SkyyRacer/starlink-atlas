@@ -7,3 +7,6 @@ assert.ok(pruned.length<rows.length);
 function selected(input,id,at){return input.filter(r=>r.elements.NORAD_CAT_ID===id).filter(r=>{const age=(at-Date.parse(r.elements.EPOCH+'Z'))/1000;return r.source.includes('SupGP')?age>=0&&age<=86400:Math.abs(age)<=259200;}).reduce((best,r)=>{const age=Math.abs(Math.trunc((at-Date.parse(r.elements.EPOCH+'Z'))/1000));return !best||age<best.age?{row:r,age}:best;},null)?.row;}
 for(let minute=0;minute<1440;minute+=3)for(const id of [1,2]){const at=Date.parse('2026-10-18T00:00:00Z')+minute*60000;assert.equal(selected(pruned,id,at),selected(sourceRows.flat(),id,at));}
 console.log('Historique mobile : candidats exacts sur toute la journée UTC, sources, frontières et doublons conservés correctement.');
+
+for(let hour=0;hour<24;hour++){const chosen=[],date=`2026-10-18T${String(hour).padStart(2,'0')}:00:00Z`;ctx.historyBatches(sourceRows,date,batch=>chosen.push(...batch),3600000);for(let minute=0;minute<60;minute+=3)for(const id of [1,2]){const at=Date.parse(date)+minute*60000;assert.equal(selected(chosen,id,at),selected(sourceRows.flat(),id,at));}}
+console.log('Fenêtres horaires : résultats identiques sur les 24 h avec moins d’éléments en mémoire.');

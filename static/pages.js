@@ -12,6 +12,6 @@
  function search(value){const exact=objects.filter(item=>normalize(item.name)===normalize(value));if(exact.length)return exact;const terms=normalize(value).split(/\s+/).filter(Boolean);return terms.length?objects.filter(item=>terms.every(term=>normalize(item.name+' '+item.description+' '+item.keywords).includes(term))):[];}
  function searchAction(key,results){return results.length===1&&(key==='Enter'||key==='Tab')?results[0].mode:null;}
  function family(s){return registry.family(s)||'starlink';}
- const api={mode,url,search,searchAction,family,memberships:registry.memberships,belongs:registry.belongs,displayFamily:registry.displayFamily,definitions,definition:id=>registry.byId.get(id),isConstellation:id=>id!=='iss'&&registry.byId.has(id),hasLocalHistory:id=>id!=='iss'&&id!=='starlink'&&registry.byId.has(id)};
+ const api={mode,url,search,searchAction,family,memberships:registry.memberships,belongs:registry.belongs,displayFamily:registry.displayFamily,definitions,definition:id=>registry.byId.get(id),isStation:id=>Boolean(registry.byId.get(id)?.station_id),station:id=>registry.byId.get(id)?.station_id,isConstellation:id=>registry.byId.has(id)&&!registry.byId.get(id).station_id,hasLocalHistory:id=>id!=='iss'&&id!=='starlink'&&registry.byId.has(id)};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasPages=api;
 })(globalThis);

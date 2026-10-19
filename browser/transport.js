@@ -10,6 +10,8 @@
  const edition=read('edition.json'),ready=edition.then(e=>call('init',e.collections?{edition:e,collection}:{}));ready.catch(()=>{});
  async function resource(key){const e=await edition;return e.resources?.[key]?file(e.resources[key]):(await ready)[key];}
  window.AtlasStatic={async handle(path){const url=new URL(path,base),e=await edition;
+  if(url.pathname.endsWith('/api/tiangong-missions'))return resource('tiangong_missions');
+  if(url.pathname.endsWith('/api/tiangong-evas'))return resource('iss_evas');
   if(url.pathname.endsWith('/api/iss-missions'))return resource('iss_missions');
   if(url.pathname.endsWith('/api/iss-evas'))return resource('iss_evas');
   if(url.pathname.endsWith('/api/config'))return resource('config');

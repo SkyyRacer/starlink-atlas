@@ -69,7 +69,7 @@ def build_resources(out,bundle,history,updates,now):
         if epochs:navigation_history.update(first_epoch=min(epochs),last_epoch=max(epochs))
         navigation_histories[constellation]=navigation_history
         resources[constellation+'_history']=write_resource(out,constellation+'-history',navigation_history)
-    for key in ['config','sources','iss_missions','iss_evas']:
+    for key in ['config','sources','iss_missions','iss_evas','tiangong_missions']:
         if key in bundle:resources[key]=write_resource(out,key,bundle[key])
     manifest=bundle['catalog_response'].get('history')
     if manifest:resources['history']=write_resource(out,'history-index',manifest)

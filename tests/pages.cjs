@@ -4,7 +4,7 @@ assert.equal(pages.mode('/'),'all');assert.equal(pages.url('invalid'),'/atlas');
 const fs=require('node:fs'),source=fs.readFileSync('static/app.js','utf8');assert.match(source,/location\.assign\(AtlasPages\.url\(e\.target\.value\)\)/);assert.match(source,/colors:atlasColors/);
 console.log('Pages distinctes : URLs, sélection initiale et navigation complète OK');
 
-assert.deepEqual(pages.search('station spatiale').map(x=>x.mode),['iss']);
+assert.deepEqual(pages.search('station spatiale').map(x=>x.mode),['iss','tiangong']);
 assert.deepEqual(pages.search('STARLiNK ').map(x=>x.mode),['starlink']);
 assert.ok(pages.search('internét').some(x=>x.mode==='starlink'));assert.ok(pages.search('internét').some(x=>x.mode==='amazon-leo'));
 assert.equal(pages.search('satellites').length,pages.definitions.length);
@@ -24,6 +24,6 @@ for(const query of ['GPS','NAVSTAR','Global Positioning System'])assert.deepEqua
 for(const row of pages.definitions){assert.equal(pages.mode('/'+row.id),row.id);assert.equal(pages.mode('/'+row.id+'/'),row.id);assert.equal(pages.url(row.id),'/'+row.id);assert.ok(pages.search(row.label).some(r=>r.mode===row.id),row.label);}
 assert.deepEqual(pages.search('pleiades neo').map(x=>x.mode),['pleiades-neo']);assert.deepEqual(pages.search('copernicus').map(x=>x.mode),['sentinel','sentinel-5p','sentinel-6']);
 assert.deepEqual(pages.definitions,JSON.parse(fs.readFileSync('resources/constellations.json')));
-console.log('91 familles : documents, labels, synonymes et registre commun cohérents OK');
+console.log('92 familles : documents, labels, synonymes et registre commun cohérents OK');
 
 assert.deepEqual(pages.search('débris').map(x=>x.mode),['debris']);

@@ -1,8 +1,11 @@
 /* ISS flight facts are loaded once per visit; only elapsed times change locally. */
 (function(){
  const $=id=>document.getElementById(id), root=$('iss-controls'), dialog=$('iss-mission-dialog');
+ const station=AtlasPages.mode(location.pathname),stationName=station==='tiangong'?'Tiangong':'ISS';
+ const stationText=value=>typeof value==='string'&&station==='tiangong'?value.replaceAll('de l’ISS','de Tiangong').replaceAll('à l’ISS','à Tiangong').replaceAll('vers l’ISS','vers Tiangong').replaceAll('ISS','Tiangong'):value;
+ if(AtlasPages.isStation(station)){root.setAttribute('aria-label','Missions et équipage '+stationName);$('iss-search-results').setAttribute('aria-label','Résultats de recherche '+stationName);}
  let data=null, pending=null, searchIndex=[], searchItems=[];
- const text=(tag,value,cls)=>{const e=document.createElement(tag);e.textContent=value??'Non renseigné';if(cls)e.className=cls;return e;};
+ const text=(tag,value,cls)=>{const e=document.createElement(tag);e.textContent=stationText(value??'Non renseigné');if(cls)e.className=cls;return e;};
  const date=v=>v?AtlasTime.instant(v):'Non renseignée';
  const roles={'Commander':'Commandant','Spacecraft Commander':'Commandant du vaisseau','Flight Engineer':'Ingénieur de vol','Pilot':'Pilote','Mission Specialist':'Spécialiste de mission','Spaceflight Participant':'Participant au vol','Payload Specialist':'Spécialiste de charge utile'};
  function launchDate(f){
@@ -34,7 +37,7 @@
  function aboard(current){
   const badge=$('iss-aboard-status');badge.hidden=!current;if(!current)return;
   const stale=Date.now()-Date.parse(data.fetched_at)>86400000;
-  badge.classList.toggle('is-stale',stale);badge.textContent=stale?'À bord selon la dernière collecte':'Actuellement à bord de l’ISS';badge.title='Données reçues le '+date(data.fetched_at);
+  badge.classList.toggle('is-stale',stale);badge.textContent=stale?'À bord selon la dernière collecte':stationText('Actuellement à bord de l’ISS');badge.title='Données reçues le '+date(data.fetched_at);
  }
  function elapsed(start,end){const a=Date.parse(start),b=end?Date.parse(end):Date.now();if(!Number.isFinite(a)||!Number.isFinite(b)||b<a)return 'Non renseignée';const hours=Math.floor((b-a)/3600000);return `${Math.floor(hours/24)} j ${hours%24} h`;}
  function sortCurrentCrew(crew){
@@ -59,7 +62,7 @@
  }
  function row(label,value){const d=text('div','', 'iss-fact');d.append(text('dt',label),text('dd',value));return d;}
  function show(f,opener){
-  aboard(null);$('iss-detail-kind').textContent='MISSION ISS';
+  aboard(null);$('iss-detail-kind').textContent='MISSION '+stationName;
   $('iss-mission-name').textContent=f.name;
   const body=$('iss-mission-body');body.replaceChildren();
   const past=Date.parse(f.launch)<=Date.now(), success=f.status_id===3;
@@ -153,11 +156,11 @@
   const mismatch=data.reported_crew!==data.crew.length?` · ${data.crew.length} membres identifiés sur ${data.reported_crew} signalés` : '';
   $('iss-data-status').textContent=`${stale?'Ancienne collecte · ':''}Données reçues le ${date(data.fetched_at)}${mismatch}. Équipage actuel, indépendant de la chronologie de la carte.`;
  }
- async function load(){if(data||pending)return pending;pending=(async()=>{try{const v=window.AtlasStatic?await window.AtlasStatic.handle('/api/iss-missions'):await fetch('/api/iss-missions').then(res=>{if(!res.ok)throw Error('Source indisponible');return res.json();});if(!Array.isArray(v.flights)||!Array.isArray(v.crew))throw Error('Réponse invalide');data=v;render();}catch(e){$('iss-flight-count').textContent='Les données de missions ne sont pas encore disponibles.';$('iss-data-status').textContent='Réessaie après la première collecte du serveur. La carte ISS reste disponible.';}finally{pending=null;}})();return pending;}
+ async function load(){if(data||pending)return pending;pending=(async()=>{try{const v=window.AtlasStatic?await window.AtlasStatic.handle('/api/'+station+'-missions'):await fetch('/api/'+station+'-missions').then(res=>{if(!res.ok)throw Error('Source indisponible');return res.json();});if(!Array.isArray(v.flights)||!Array.isArray(v.crew))throw Error('Réponse invalide');data=v;render();}catch(e){$('iss-flight-count').textContent='Les données de missions ne sont pas encore disponibles.';$('iss-data-status').textContent='Réessaie après la première collecte du serveur. La carte reste disponible.';}finally{pending=null;}})();return pending;}
  $('iss-mission-close').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('click',e=>{if(e.detail>0&&e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
  
- window.addEventListener('atlas:collection',e=>{root.hidden=e.detail!=='iss';if(!root.hidden)load();if(dialog.open)dialog.close();});
- if(document.body.dataset.collection==='iss'){root.hidden=false;load();}
- setInterval(()=>{if(!root.hidden)for(const e of root.querySelectorAll('[data-arrival]'))if(e.dataset.arrival)e.textContent=`${elapsed(e.dataset.arrival)} à bord de l’ISS`;},60000);
+ window.addEventListener('atlas:collection',e=>{root.hidden=!AtlasPages.isStation(e.detail);if(!root.hidden)load();if(dialog.open)dialog.close();});
+ if(AtlasPages.isStation(document.body.dataset.collection)){root.hidden=false;load();}
+ setInterval(()=>{if(!root.hidden)for(const e of root.querySelectorAll('[data-arrival]'))if(e.dataset.arrival)e.textContent=stationText(`${elapsed(e.dataset.arrival)} à bord de l’ISS`);},60000);
 })();
