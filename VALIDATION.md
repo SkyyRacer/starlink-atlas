@@ -374,3 +374,28 @@ Mise à jour des commandes : option détaillée entièrement masquée sans modè
 - L’activation du détail, après téléchargement ou depuis le cache, déclenche un cadrage rapproché adapté au rayon du modèle et au format de l’écran. Décocher ou terminer un chargement annulé ne cadre pas la caméra.
 - Contrôles ciblés : tests atlas-observation, atlas-categories, atlas-reorientation, detailed-models, detailed-layer, model-uvs, model-zoom, model-labels, auto-follow, tiangong.
 - Les modèles scientifiques supplémentaires non autorisés pour redistribution sont documentés dans resources/model-search-2026-10-20.json et ne sont pas annoncés dans le panneau. Aucun déploiement.
+
+
+## Chronologie et archives de toutes les rubriques — 20 octobre 2026
+
+- Calendrier appliqué à l’équipage ISS/Tiangong, durées de séjour, badges de présence, fiches de mission et statistiques EVA. Cas vérifiés : relèves, vol de retour différent, Starliner retourné sans ses astronautes, Soyuz MS-22/MS-23.
+- Un changement de date conserve l’identifiant sélectionné et réactive le cadrage/suivi à sa nouvelle position ; les réponses obsolètes restent rejetées.
+- Archives des stations : 9 658 observations quotidiennes ISS depuis novembre 1998 et 1 792 pour Tiangong depuis avril 2021, jusqu’au 19 octobre 2026. Des jours absents et TLE invalides existent ; ils ne sont pas interpolés artificiellement.
+- API locale vérifiée pour ISS en 2000/2010/2024/2026, Tiangong en 2021/2024/2026, et Hubble/GPS/LAGEOS/Atlas au 31 décembre 1998. Aucune station affichée avant son lancement.
+- Import initial étendu aux 59 628 objets du catalogue ; état exact par année dans data/history/manifest.json. Ne pas annoncer l’import total terminé tant que toutes les années demandées ne sont pas traitées.
+- Chaque collecte GP/SupGP réussie est conservée dans history-updates avant remplacement du cache récent ; test de conservation de l’ancien jour et d’ajout d’un nouvel objet. Le serveur et l’export navigateur utilisent les archives communes pour toutes les pages. Un enregistrement historique invalide ne supprime pas les objets valides.
+- Tests natifs, navigateur/WASM, calendrier, équipages, EVA, concurrence des dates, import Parquet hors ligne et archivage quotidien. Aucun déploiement.
+
+- Complément TESS : neuf années de vecteurs officiels NASA/JPL Horizons (2018–2026), chargement paresseux de l’année, cache de visite, refus des interpolations à travers les trous. Les collectes régulières conservent désormais leurs vecteurs par année, avec fusion et remplacement des seuls échantillons de même date. Test natif de conservation et tests navigateur d’archives réussis.
+- Validation finale du code : 38 tests Rust réussis, plus calendrier, équipages historiques, EVA, suivi 2D/3D, réponses de dates concurrentes et import hors ligne. Contrôle des 98 pages natives à une date passée sans erreur API ; les objets sans observation publique valide restent indisponibles.
+
+- Avec les archives récentes complètes, le test WASM sous 128 Mio a révélé des allocations inutiles de constantes pour des observations hors de validité. Le worker les écarte avant chargement : résultats strictement identiques vérifiés pour chaque minute de la fenêtre et sources GP/SupGP, mémoire historique mesurée à 93,19 Mio pour 24 258 points.
+
+- Import initial terminé : 68 années traitées (1959–2026), 113,624,992 observations quotidiennes, 56,987 objets avec archives sur 59,628 identifiants demandés. Aucune année en échec dans le manifeste. Ces comptes n’impliquent pas une couverture continue de chaque objet : les absences publiques restent explicites. Complément récent : 175 311 observations du 11 au 18 octobre 2026, plus archives des stations et vecteurs TESS.
+
+## Actualités orbitales — 20 octobre 2026
+
+- Bouton commun en haut à droite, dialogue accessible avec défilement indépendant et chargement au clic, cache pendant la visite. Routes relatives compatibles avec l’export GitHub Pages.
+- Comparaison persistante des catalogues : nouveaux objets regroupés par lancement, désorbitations documentées et changements de statut explicites. Positions, époques orbitales, disparition temporaire d’un catalogue et ajout de pages/familles restent silencieux. Les 60 événements les plus récents remplacent les anciens.
+- Premier démarrage : amorçage par lancements/désorbitations documentés des trente derniers jours ; aucune reconstitution de changements de statut sans ancienne collecte. Pas d’heure inventée pour les dates connues uniquement au jour.
+- Tests : 39 tests Rust, test UI `tests/news.cjs` (natif/statique, ouverture/fermeture, cache, dates et texte brut). API locale vérifiée : 60 événements, en-tête et script disponibles. La version testable de cette session écoute sur le port 3003, le processus préexistant sur 3002 ne pouvant pas être arrêté depuis cet environnement. Aucun déploiement.

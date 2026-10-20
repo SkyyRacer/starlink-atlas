@@ -12,7 +12,7 @@
   const unique=new Map();for(const e of doc.spacewalks||[])if((e.crew||[]).some(a=>a.id===id))unique.set(e.id,e);
   const rows=[...unique.values()].filter(e=>Number.isFinite(Date.parse(e.start))&&Date.parse(e.start)<=now).sort((a,b)=>Date.parse(b.start)-Date.parse(a.start));
   const completed=rows.filter(e=>Number.isFinite(Date.parse(e.end))&&Date.parse(e.end)<=now);
-  const known=completed.filter(e=>duration(e)!==null),ongoing=rows.filter(e=>!e.end);
+  const known=completed.filter(e=>duration(e)!==null),ongoing=rows.filter(e=>!Number.isFinite(Date.parse(e.end))||Date.parse(e.end)>now);
   return {rows,completed:completed.length,ongoing:ongoing.length,known:known.length,total:known.length?known.reduce((s,e)=>s+duration(e),0):null,complete:doc.complete===true};
  }
  let request;

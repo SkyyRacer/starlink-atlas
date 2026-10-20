@@ -81,6 +81,9 @@ pub fn load_gcat(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
     Ok(count)
 }
 pub(crate) fn atomic(dir: &Path, file: &str, bytes: &[u8]) -> Result<(), String> {
+    if (file.starts_with("gp-")||file.starts_with("supgp-"))&&file.ends_with(".json"){
+        super::history::record(dir,bytes,if file.starts_with("supgp-"){"CelesTrak SupGP / SpaceX"}else{"CelesTrak GP / Space-Track"})?;
+    }
     let temp = dir.join(format!("{file}.tmp"));
     std::fs::write(&temp, bytes).map_err(|e| e.to_string())?;
     std::fs::rename(temp, dir.join(file)).map_err(|e| e.to_string())

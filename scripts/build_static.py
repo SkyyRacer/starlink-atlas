@@ -12,6 +12,7 @@ shutil.copytree(ROOT/'static',out);(out/'.atlas-generated').touch();(out/'.nojek
 with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([str(ROOT/'target/release/starlink-atlas'),'--export-web',tmp],env=dict(os.environ,DATA_DIR=str(data),HISTORY_DIR=str(history)),cwd=ROOT,check=True)
  bundle=json.loads((pathlib.Path(tmp)/'bundle.json').read_text())
+ (out/'news.json').write_text(json.dumps(bundle.pop('news',{'items':[]}),ensure_ascii=False))
  for name,key in [('iss-missions.json','iss_missions'),('iss-evas.json','iss_evas'),('tiangong-missions.json','tiangong_missions')]:
   cache=data/name
   if cache.is_file():bundle[key]=json.loads(cache.read_text())

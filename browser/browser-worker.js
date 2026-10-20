@@ -35,7 +35,10 @@ function combinedHistory(current,dayRows,at){
  const fields=current.orbit_fields||[],idIndex=fields.indexOf('NORAD_CAT_ID')+1,epochIndex=fields.indexOf('EPOCH')+1;
  const candidates=current.packed_orbits?current.packed_orbits.map(row=>({NORAD_CAT_ID:row[idIndex],EPOCH:row[epochIndex],source:current.orbit_sources[row[0]],packed:row})):current.orbits||[];
  for(const target of ['current','history','live'])compute({op:'orbits-start',target});
- historyBatches([candidates,...dayRows],at,batch=>{
+ // Discard candidates that cannot be valid anywhere in this hour before allocating SGP4 constants.
+ const start=Math.floor(Date.parse(at)/3600000)*3600000,end=start+3600000;
+ const usable=row=>{const epoch=(row.elements||row).EPOCH,time=Date.parse(/(?:Z|[+-]\d{2}:\d{2})$/.test(epoch)?epoch:epoch+'Z');return Number.isFinite(time)&&(row.source==='CelesTrak SupGP / SpaceX'?time<=end&&time+86400000>=start:time-259200000<=end&&time+259200000>=start);};
+ historyBatches([candidates,...dayRows].map(rows=>rows.filter(usable)),at,batch=>{
   const packed=batch.filter(row=>row.packed).map(row=>row.packed),raw=batch.filter(row=>!row.packed);
   if(packed.length)compute({op:'orbits-add',target:'history',data:{orbit_fields:fields,orbit_sources:current.orbit_sources,packed_orbits:packed}});
   if(raw.length)loadRows(raw,'history',false);

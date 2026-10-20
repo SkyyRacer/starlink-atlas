@@ -1,5 +1,5 @@
 """Keep current downloads small while retaining actual daily orbital observations."""
-import collections,datetime as dt,gzip,json,pathlib
+import collections,datetime as dt,gzip,json,pathlib,os
 UTC=dt.timezone.utc
 def compact(bundle,data_dir,prune=False):
     directory=pathlib.Path(data_dir)/'history-updates';directory.mkdir(exist_ok=True)
@@ -14,7 +14,7 @@ def compact(bundle,data_dir,prune=False):
             for row in json.loads(gzip.decompress(file.read_bytes())):
                 e=row['elements'];date=dt.datetime.fromisoformat(e['EPOCH'].replace('Z','+00:00'));noon=date.replace(hour=12,minute=0,second=0,microsecond=0);rank=abs((date-noon).total_seconds());identity=(e['NORAD_CAT_ID'],row['source'])
                 if identity not in items or rank<items[identity][0]:items[identity]=(rank,row)
-        rows=[value[1] for _,value in sorted(items.items())];file.write_bytes(gzip.compress(json.dumps(rows,separators=(',',':'),ensure_ascii=False).encode(),mtime=0))
+        rows=[value[1] for _,value in sorted(items.items())];temp=file.with_name(file.name+'.'+str(os.getpid())+'.tmp');temp.write_bytes(gzip.compress(json.dumps(rows,separators=(',',':'),ensure_ascii=False).encode(),mtime=0));os.replace(temp,file)
     # At most the two latest observations per satellite/source are downloaded at arrival.
     latest=collections.defaultdict(list)
     for row in bundle['orbits']:latest[(row['elements']['NORAD_CAT_ID'],row['source'])].append(row)

@@ -59,14 +59,15 @@ def build_resources(out,bundle,history,updates,now):
     navigation_histories={}
     for definition in definitions:
         constellation=definition['id']
-        if constellation in ['starlink','iss']:continue
-        navigation_history={'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0,'source_label':'CelesTrak '+definition['label']+' · collectes locales'}
+        if constellation=='starlink':continue
+        navigation_history=copy.deepcopy(bundle['catalog_response'].get('history') or {'days':{},'local_days':[],'local_files':{},'remote_days':[],'remote_base':None,'observations':0})
+        navigation_history['source_label']='Archives publiques et collectes locales · '+definition['label']
         epochs=[]
         for file,observed in archive_days:
             rows=[row for row in observed if belongs(row.get('elements',row)['NORAD_CAT_ID'],constellation)]
             if not rows:continue
-            day=file.name[:10];navigation_history['days'][day]=len(rows);navigation_history['local_days'].append(day);navigation_history['local_files'][day]=write_resource(out,constellation+'-day-'+day,rows);navigation_history['observations']+=len(rows);epochs.extend(row.get('elements',row)['EPOCH'] for row in rows)
-        if epochs:navigation_history.update(first_epoch=min(epochs),last_epoch=max(epochs))
+            day=file.name[:10];navigation_history['days'][day]=len(rows);navigation_history['local_days']=list(dict.fromkeys([*navigation_history['local_days'],day]));navigation_history['local_files'][day]=write_resource(out,constellation+'-day-'+day,rows);navigation_history['observations']+=len(rows);epochs.extend(row.get('elements',row)['EPOCH'] for row in rows)
+        if epochs:navigation_history.update(first_epoch=min([*epochs,*([navigation_history['first_epoch']] if navigation_history.get('first_epoch') else [])]),last_epoch=max([*epochs,*([navigation_history['last_epoch']] if navigation_history.get('last_epoch') else [])]))
         navigation_histories[constellation]=navigation_history
         resources[constellation+'_history']=write_resource(out,constellation+'-history',navigation_history)
     for key in ['config','sources','iss_missions','iss_evas','tiangong_missions']:

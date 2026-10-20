@@ -28,8 +28,16 @@
  entry.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(commitEntry()){entry.setCustomValidity('');entry.blur();sync();}else{entry.setCustomValidity('Saisissez une date et une heure valides, jusqu’au présent.');entry.reportValidity();}}if(e.key==='Escape'){entry.setCustomValidity('');entry.blur();sync();}});
  toggle.onclick=()=>{if(!panel.hidden){close();return;}chosen=new Date(source.value);if(!Number.isFinite(+chosen))chosen=new Date();view=new Date(chosen.getFullYear(),chosen.getMonth(),1);hour.value=pad(chosen.getHours())+':'+pad(chosen.getMinutes());error.textContent='';panel.hidden=false;toggle.setAttribute('aria-expanded','true');render();month.focus();};
  panel.querySelector('[data-close]').onclick=()=>close(true);
- panel.querySelector('[data-prev]').onclick=()=>{view.setMonth(view.getMonth()-1);render();};panel.querySelector('[data-next]').onclick=()=>{view.setMonth(view.getMonth()+1);render();};
- function selectMonth(){view=new Date(Number(year.value),Number(month.value),1);const now=new Date();if(view>now)view=new Date(now.getFullYear(),now.getMonth(),1);render();}month.onchange=year.onchange=selectMonth;
+ function chooseMonth(next){
+  const now=new Date(),latest=new Date(now.getFullYear(),now.getMonth(),1),earliest=new Date(1957,0,1);
+  view=next>latest?latest:next<earliest?earliest:next;
+  const lastDay=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+  chosen=new Date(view.getFullYear(),view.getMonth(),Math.min(chosen.getDate(),lastDay));
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());if(chosen>today)chosen=today;
+  render();
+ }
+ panel.querySelector('[data-prev]').onclick=()=>chooseMonth(new Date(view.getFullYear(),view.getMonth()-1,1));panel.querySelector('[data-next]').onclick=()=>chooseMonth(new Date(view.getFullYear(),view.getMonth()+1,1));
+ function selectMonth(){chooseMonth(new Date(Number(year.value),Number(month.value),1));}month.onchange=year.onchange=selectMonth;
  function apply(){const value=AtlasTime.input(chosen).slice(0,10)+'T'+hour.value;if(!commit(value)){error.textContent='Choisissez une date et une heure valides, jusqu’au présent.';position();return;}entry.setCustomValidity('');close(true);}
  panel.querySelector('.date-apply').onclick=apply;
  panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close(true);}if(e.key==='Enter'&&e.target===hour){e.preventDefault();apply();}if(e.key==='Tab'){const items=[...panel.querySelectorAll('button:not(:disabled),select,input')];const first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});

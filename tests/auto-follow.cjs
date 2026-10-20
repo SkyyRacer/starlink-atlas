@@ -10,3 +10,7 @@ for(const id of [44235,25544]){update(id,1);assert.equal(context.following,true)
 assert.ok(source.includes("followButton.setAttribute('aria-pressed',String(following||idle))"));
 assert.ok(source.includes('if(following){\n            const snap=!followReady'));
 console.log('Suivi automatique : Starlink, ISS, nouveau clic et libération manuelle conservée entre actualisations OK');
+
+const snapStart=source.indexOf('          if(following){\n            const snap='),snapEnd=source.indexOf('else if(data.focus',snapStart);
+Object.assign(context,{data:{focus:true,selected:25544},chosen:{id:25544,lat:40,lon:90,altitude_km:420},lastSelection:25544,following:true,followReady:true,followPitch:-.8,position:p=>p,AtlasGlobe:{satelliteRange:()=>3500000},C:{HeadingPitchRange:class{constructor(heading,pitch,range){Object.assign(this,{heading,pitch,range});}}},viewer:{canvas:{clientWidth:1200,clientHeight:800},camera:{frustum:{fovy:1},cancelFlight(){},lookAt(point){context.focused=point;}}}});
+context.xyz=context.chosen;vm.runInContext(source.slice(snapStart,snapEnd),context);assert.equal(context.focused,context.chosen,'3D camera snaps to the selected object’s new historical position');

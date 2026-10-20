@@ -147,3 +147,12 @@ Le maillage `Cube.004` (mesh 10, primitive 0, 24 sommets) du fichier officiel Hu
 « tianGong », par **w29572227**, [source originale Sketchfab](https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Licence et auteur vérifiés dans l’API publique du modèle. GLB redistribué par earth-pulse, téléchargement épinglé et SHA-256 dans `resources/detailed-model-sources.json`. Atlas conserve géométrie, matériaux, texture et crédit intégrés ; seule la transformation de présentation est ajoutée. Taille illustrative ; configuration et orientation ne représentent pas la station en temps réel. Chargement à la demande uniquement.
 
 Les modèles ESA CHEOPS et XMM-Newton trouvés sur SciFleet restent dans les fichiers de recherche, hors `static/`, car les conditions générales liées par le site ne suffisent pas à autoriser leur redistribution dans Atlas. Aucun de ces fichiers n’est proposé comme modèle détaillé. État des autres recherches : `resources/model-search-2026-10-20.json`.
+
+
+### Historique toutes rubriques et stations — 20 octobre 2026
+
+L’import `scripts/import_public_history.py` sélectionne désormais tous les identifiants du catalogue fourni, dont les stations, satellites scientifiques, constellations et débris. Archives publiques Julien Simon / Space-Track (CC BY 4.0 déclarée), révision épinglée dans `data/history/manifest.json`. Une observation réelle proche de midi UTC par objet et journée disponible ; champs arrondis du jeu source conservés. Le manifeste distingue les objets demandés, ceux trouvés et les années traitées. Aucune couverture de 100 % des dates n’est déduite de la seule présence au catalogue.
+
+ISS et Tiangong : complément d’archives publiques IAU CPS SatChecker, provenant de CelesTrak / Space-Track. Documentation : https://satchecker.readthedocs.io/en/latest/tools_data_access.html . Provenance, empreintes des réponses et couverture dans `data/station-history-source.json`. Le script `scripts/import_station_history.py` contrôle les checksums TLE et convertit les champs en OMM ; aucun élément orbital synthétique.
+
+Les séjours historiques sont reconstruits depuis les arrivées et les équipages de retour documentés par Launch Library 2, en tenant compte des changements de véhicule et des retours sans équipage (Starliner CFT, Soyuz MS-22). Les expéditions courantes ne sont pas réutilisées comme des numéros d’expédition passés. Historique d’équipage signalé partiel lorsque les informations de départ manquent.

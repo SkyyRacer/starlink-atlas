@@ -13,7 +13,6 @@ pub fn definitions() -> &'static [Definition] {
     DEFINITIONS.get_or_init(||serde_json::from_str(include_str!("../resources/constellations.json")).expect("Invalid constellation registry"))
 }
 pub fn definition(id: &str) -> Option<&'static Definition> { definitions().iter().find(|row|row.id==id) }
-pub fn local_history(id: &str) -> bool { id!="starlink" && id!="iss" && definition(id).is_some() }
 pub fn source(id: &str) -> Option<String> { if id=="debris" { return Some("https://celestrak.org/pub/satcat.csv".to_owned()); } definition(id).map(|row|format!("https://celestrak.org/NORAD/elements/gp.php?GROUP={}&FORMAT=JSON",row.group)) }
 fn matches(row: &Definition, id: u64, name: &str) -> bool {
     if row.id!="debris" && !row.ids.contains(&id) && (name.contains(" DEB") || name.contains(" AKM") || name.contains(" R/B")) { return false; }

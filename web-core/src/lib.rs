@@ -72,10 +72,9 @@ fn add(
             Some("Archive publique Julien Simon / Space-Track") => "Archive publique Julien Simon / Space-Track",
             _ => default_source,
         };
-        let el: sgp4::Elements =
-            serde_json::from_value(wrapped.clone()).map_err(|e| e.to_string())?;
+        let Ok(el)=serde_json::from_value::<sgp4::Elements>(wrapped.clone()) else {continue;};
         if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() && !allowed.contains(&el.norad_id){continue;}
-        let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
+        let Ok(constants)=sgp4::Constants::from_elements(&el) else {continue;};
         dest.entry(el.norad_id).or_default().push(Orbit {
             el,
             constants,
@@ -269,4 +268,16 @@ pub unsafe extern "C" fn atlas_call(ptr: *const u8, len: usize) -> *mut u8 {
     output.extend_from_slice(&(body.len() as u32).to_le_bytes());
     output.extend_from_slice(&body);
     Box::into_raw(output.into_boxed_slice()) as *mut u8
+}
+
+#[cfg(test)]
+mod historical_tests {
+ use super::*;
+ #[test]
+ fn malformed_archived_object_does_not_clear_valid_history(){
+  let good:Vec<Value>=serde_json::from_str(include_str!("../../resources/iss-example.json")).unwrap();
+  let mut bad=good[0].clone();bad["MEAN_MOTION"]=json!(-1.0);
+  let mut engine=Engine::default();engine.dispatch(json!({"op":"orbits-add","target":"history","rows":[{"garbage":true},bad,good[0]]})).unwrap();
+  assert_eq!(engine.history.get(&25544).unwrap().len(),1);
+ }
 }

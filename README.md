@@ -206,7 +206,7 @@ Le moteur navigateur reçoit ses données par lots de 256 enregistrements. Les d
 
 Les modifications sont locales. Aucun script de publication n’est exécuté.
 
-Les éléments publics importés pour TESS et XPoSat sont actuellement anciens : ces pages proposent une date de consultation exploitable au lieu de propager indéfiniment une orbite périmée.
+TESS utilise également les vecteurs officiels NASA/JPL Horizons, avec archives depuis avril 2018 chargées uniquement pour l’année consultée. XPoSat propose une date de consultation exploitable lorsque ses éléments publics sont trop anciens ; aucune orbite périmée n’est propagée indéfiniment.
 
 ### Commandes Atlas et page Tiangong
 
@@ -215,3 +215,16 @@ Chaque thème offre « Tout sélectionner », « Tout désélectionner » et un 
 `/tiangong` représente la station actuelle (Tianhe / CSS, NORAD 48274), séparément des laboratoires historiques Tiangong-1 / 2. Elle partage les fiches et recherches des vols / équipages de l’ISS, avec un modèle original en T et une taille visuelle adaptative identique. L’équipage et les missions sont isolés de l’ISS ; les durées de séjour utilisent l’arrivée de la mission. Les noms de famille chinois sont fournis pour le tri. Les EVA reprennent le catalogue mondial partagé, avec dates, durées documentées, participants et cumuls individuels. Le même rafraîchissement LL2 fournit les deux pages ; aucune double collecte mondiale n’est ajoutée. Une source indisponible conserve le cache. Les données manquantes restent signalées comme telles.
 
 La rubrique Débris inclut désormais les objets publics du groupe CelesTrak `analyst`. Ces objets non identifiés sont explicitement séparés des fragments / étages confirmés, y compris dans les filtres et fiches. Ils ne reçoivent ni origine ni date de lancement inventée. Leur identifiant est provisoire. L’encadré de couverture distingue le catalogue cumulé, les objets encore signalés en orbite et les positions réellement calculables à la date affichée. Les millions de petits fragments estimés statistiquement ne possèdent pas de coordonnées individuelles publiques à dessiner. L’audit daté est dans `resources/debris-coverage-audit.json`.
+
+
+### Chronologie de toutes les rubriques
+
+La date de la carte pilote les équipages ISS/Tiangong, les durées et les EVA. Un satellite sélectionné est retrouvé à sa position à cette date, en 3D et sur le planisphère. Aucun état opérationnel ancien n’est inventé à partir du statut actuel.
+
+`scripts/import_public_history.py --scope all` importe désormais les identifiants de toutes les rubriques du catalogue fourni, avec reprise par année et conservation des journées déjà présentes. L’import initial est volumineux et peut continuer en arrière-plan ; son état réel reste dans `data/history/manifest.json` (`year_scopes`, `object_coverage`). `scripts/import_recent_history.py` complète uniquement une période récente depuis la dernière révision publique du jeu source, sans réimporter les anciennes années. `scripts/import_station_history.py` complète les stations depuis l’archive publique IAU CPS SatChecker.
+
+Les collecteurs existants restent espacés de deux heures, sous réserve de disponibilité des sources et de leurs éventuels arrêts sur erreur. Chaque collecte GP/SupGP réussie est conservée comme observation quotidienne dans `data/history-updates/`, avant le remplacement du cache récent. Cela inclut les nouveaux objets reconnus, dont les Starlink nouvellement lancés. Le moteur serveur et le moteur navigateur utilisent les archives communes pour toutes les rubriques ; l’historique n’est plus limité à Starlink. Les données nouvelles ne sont pas accompagnées d’une remise à zéro des filtres ou de la sélection.
+
+L’objectif d’import couvre tout le catalogue de l’application ; la disponibilité d’une position à n’importe quelle date dépend des observations publiques et de leur validité. Les trous d’archives, dates antérieures au lancement ou postérieures à la désorbitation restent signalés. Aucun objet absent des sources n’est simulé pour donner une couverture artificielle de 100 %.
+
+Le bouton « Actualités » de l’en-tête ouvre un fil orbital commun aux pages. Le serveur compare les catalogues collectés, regroupe les objets d’un même lancement et conserve les 60 événements les plus récents dans `data/orbital-news.json`. Il détecte les nouveaux objets, désorbitations documentées et changements de statut explicites ; une simple nouvelle position, l’absence d’éléments orbitaux et les mises à jour logicielles n’annoncent rien. À la première installation, les lancements et désorbitations documentés des trente derniers jours amorcent le fil ; les changements de statut antérieurs ne sont pas reconstitués. L’heure est affichée uniquement si elle est fournie. L’export statique contient `news.json`, renouvelé au prochain export des données.

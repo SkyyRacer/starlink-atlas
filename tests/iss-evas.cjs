@@ -8,3 +8,5 @@ let s=EVA.stats({spacewalks:[base,base,missing,ongoing,future],complete:false},7
 assert.equal(s.completed,2);assert.equal(s.ongoing,1);assert.equal(s.total,7*3600+49*60);assert.equal(s.rows.length,3);assert.equal(s.complete,false);assert.equal(EVA.stats({spacewalks:[base]},99).total,null);
 assert.equal(EVA.duration({...base,start:null,end:null,duration:null}),null);
 console.log('Sorties EVA : dédoublonnage, cumul sans multiplication par équipage, durées manquantes, sortie en cours et futur OK');
+
+const historical=EVA.stats({spacewalks:[base]},7,Date.parse('2026-01-01T15:00:00Z'));assert.equal(historical.completed,0);assert.equal(historical.ongoing,1);assert.equal(historical.total,null);

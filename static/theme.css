@@ -363,7 +363,8 @@ body[data-constellation="true"] #view-side{display:none}
 
 /* Persistent bulk controls; each theme keeps its own independent actions. */
 .atlas-actions{position:sticky;top:0;z-index:8;isolation:isolate;background:#050505;padding:10px 0;margin:0 0 10px;border-bottom:1px solid #333}
-.atlas-actions::before{content:"";position:absolute;inset:0 -24px -10px;background:#050505;z-index:-1;pointer-events:none}
+/* Cover the scroll container’s top padding as well as the controls themselves. */
+.atlas-actions::before{content:"";position:absolute;inset:-28px -24px -10px;background:#050505;z-index:-1;pointer-events:none}
 .atlas-category-actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:10px;border-bottom:1px solid #292929}
 .atlas-category-actions button{font-size:11px;padding:7px;min-height:32px}
 .atlas-theme-color{display:flex;align-items:center;gap:7px;font-size:11px;margin:0!important;cursor:pointer}
@@ -386,8 +387,8 @@ body[data-constellation="true"] #view-side{display:none}
 #atlas-debris-toggle{display:block;margin:9px 0 0;min-height:34px;padding:7px 9px;font-size:11px;border:1px solid #796747;background:#211c14;color:#e1d0af;border-radius:0}
 #atlas-debris-toggle[aria-pressed="true"]{background:#d4bd92;color:#18140e;border-color:#d4bd92}
 .atlas-debris-card .atlas-page-link{margin-left:0}
-@media(min-width:901px) and (max-height:850px){.atlas-actions::before{left:-16px;right:-16px}}
-@media(max-width:900px){.atlas-actions::before{left:-18px;right:-18px}#atlas-debris-toggle{min-height:40px;font-size:12px}}
+@media(min-width:901px) and (max-height:850px){.atlas-actions::before{top:-16px;left:-16px;right:-16px}}
+@media(max-width:900px){.atlas-actions::before{top:0;left:-18px;right:-18px}#atlas-debris-toggle{min-height:40px;font-size:12px}}
 
 /* Alphabetical observation menu: no operating-system picker. */
 #collection-select[hidden]{display:none!important}
@@ -418,3 +419,12 @@ body[data-science="true"] #view-side{display:inline-block}
 .globe-tools .detailed-model-option{margin-top:10px;padding:8px 10px;background:#102734;border:1px solid #57859b;border-left:3px solid #8bc5e2;border-radius:3px;color:#cceafa;font-weight:600;min-height:34px}.globe-tools .detailed-model-option:hover{background:#193848;border-color:#8bc5e2}.globe-tools .detailed-model-option[data-active="true"]{background:#20475b;border-color:#b5e1f7;color:#fff}.detailed-model-option input[type=checkbox]{accent-color:#8bc5e2}.globe-tools #detailed-model-hint{color:#98b4c3;margin-top:5px}
 
 .atlas-view-link{display:inline-flex;align-items:center;padding:4px 7px;margin:6px 0 0 23px;font-size:11px;line-height:1.5;min-height:28px;border:1px solid #688b9f;background:#162b37;color:#d6ecf7;border-radius:2px;text-align:left}.atlas-view-link:hover:not(:disabled){background:#254454}.atlas-view-link:disabled{opacity:.45;cursor:default}.atlas-debris-card .atlas-view-link{margin-left:0}@media(max-width:900px){.atlas-view-link{min-height:38px}}
+/* Shared orbital news: quiet header action, readable independent scroll area. */
+#orbital-news-button{margin-left:auto;display:flex;align-items:center;gap:9px;min-height:42px;padding:10px 16px;border:1px solid #527487;background:#10212b;color:#dceef8;font-size:13px;font-weight:600}
+#orbital-news-button:hover{background:#1b3443;border-color:#a9d2e6}#orbital-news-button:focus-visible{outline:2px solid #a9d2e6;outline-offset:3px}
+#orbital-news-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5}
+#orbital-news-dialog{padding:0;width:min(600px,calc(100vw - 28px));max-height:calc(100dvh - 40px);color:#eee;background:#0c0c0c;border:1px solid #555;box-shadow:0 16px 80px #000b}
+#orbital-news-dialog::backdrop{background:#0009}#orbital-news-dialog>header{height:auto;position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;background:#0c0c0c;border-bottom:1px solid #333;z-index:1}
+#orbital-news-dialog h2{margin:0;font-size:22px}#orbital-news-close{width:42px;min-height:42px;font-size:24px;padding:4px}#orbital-news-dialog .news-intro{font-size:12px;line-height:1.6;color:#aaa;margin:16px 24px}
+#orbital-news-list{list-style:none;margin:0;padding:0 24px 20px}.news-item{padding:20px 0;border-top:1px solid #303030}.news-kind{font-size:10px;letter-spacing:.14em;color:#a9d2e6}.news-item h3{font-size:17px;line-height:1.45;margin:8px 0}.news-item time{font-size:12px;color:#bbb;margin:0}.news-item .news-meta{font-size:12px;color:#999;line-height:1.5;margin:8px 0}.news-item details{font-size:12px;margin:14px 0;color:#bbb}.news-item details ul{padding:0 0 0 18px;max-height:180px;overflow:auto;line-height:1.8}.news-item>a{display:inline-block;font-size:12px;margin-top:8px;color:#a9d2e6}.news-empty{font-size:13px;color:#aaa;line-height:1.6}
+@media(max-width:640px){#orbital-news-button{min-height:40px;font-size:11px;padding:8px;gap:5px}body>header .brand{flex:1;min-width:60px}#mobile-menu{font-size:11px;padding:8px}#orbital-news-dialog>header{padding:16px}#orbital-news-dialog h2{font-size:19px}#orbital-news-list{padding:0 16px 16px}#orbital-news-dialog .news-intro{margin:14px 16px}}

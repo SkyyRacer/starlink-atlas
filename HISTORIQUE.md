@@ -23,10 +23,10 @@ L’importeur est facultatif et nécessite Python 3 et DuckDB ; le fonctionnemen
 ```sh
 python3 -m venv history-env
 history-env/bin/pip install -r scripts/history-requirements.txt
-history-env/bin/python scripts/import_public_history.py --first-year 2018 --last-year 2026
+history-env/bin/python scripts/import_public_history.py --scope all --first-year 1959 --last-year 2026
 ```
 
-Exécuter dans le dossier du projet après une première collecte SATCAT. L’import peut lire plusieurs gigaoctets distants et demander plusieurs minutes. Les fichiers terminés et les années importées sont conservés : un relancement reprend les années non terminées. Le script épingle la révision et s’arrête sur erreur. Ne pas lancer plusieurs importeurs simultanément sur le même dossier. `--data-dir` et `--work-dir` permettent de changer les chemins.
+Exécuter dans le dossier du projet après une première collecte SATCAT. L’import peut lire plusieurs gigaoctets distants et demander plusieurs minutes. Les fichiers terminés et les années importées sont conservés : un relancement reprend les années non terminées. Le script épingle la révision, poursuit les autres années en cas d’échec puis signale les années à reprendre avec un statut d’échec. Les téléchargements sont contrôlés et réessayés avant leur import. Ne pas lancer plusieurs importeurs simultanément sur le même dossier. `--data-dir` et `--work-dir` permettent de changer les chemins.
 
 Les fichiers `.json.gz` sont écrits dans des fichiers temporaires puis renommés. L’importeur peut fusionner un catalogue complémentaire avec `--catalog-file data/supplemental-catalog.json --first-year 2018 --last-year 2020 --merge`. Cela ajoute les prototypes aux journées existantes sans remplacer les autres satellites. Le catalogue complémentaire est fourni dans `resources/prototypes-catalog.json` et installé automatiquement par l’importeur complet. Il provient de CelesTrak SATCAT, collecté le 12 octobre 2026. Redémarrer le serveur à la fin de l’import.
 
@@ -48,3 +48,9 @@ Après réception, --import accepte les JSON GP ou SupGP SpaceX-E. SupGP est rec
 Le bouton « Voir le train de ce lancement » dans la fiche isole tous les membres du lancement et retire les autres filtres. Choisir ensuite une date couverte et lancer la lecture accélérée pour voir leur dispersion estimée et leurs altitudes. Les positions restent calculées par SGP4, les données reçues ne sont pas une mesure continue de chaque manœuvre.
 
 KeepTrack affiche un historique d’altitude pour NORAD 100855 (https://keeptrack.space/satellite/100855), mais le lien JSON public retourne HTTP 403 lors de cette vérification. Aucun contournement ni collecte par satellite automatique ; ses conditions interdisent le moissonnage et ne constituent pas une source libre de redistribution commerciale.
+
+## Nouvelles observations et éphémérides particulières
+
+Chaque collecte orbitale régulière réussie conserve une observation quotidienne dans `data/history-updates/`, avant de remplacer le cache récent. Les nouveaux identifiants sont inclus, sans supprimer les anciennes journées. Les visiteurs reçoivent les nouvelles données à leur prochain chargement ; changer la date consulte les archives sans relancer les collectes.
+
+TESS dispose en complément de vecteurs officiels NASA/JPL Horizons depuis avril 2018, importés avec `scripts/import_tess_history.py`. L’index `static/ephemerides/tess-index.json` charge uniquement l’année demandée et la garde en mémoire pendant la visite. L’interpolation est bornée aux intervalles publiés ; aucune position n’est extrapolée hors de ces intervalles. Les stations disposent aussi d’observations publiques IAU CPS SatChecker, documentées dans `data/station-history-source.json`.

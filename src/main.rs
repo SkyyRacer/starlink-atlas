@@ -1,4 +1,5 @@
 mod history;
+mod news;
 mod collections;
 mod galileo;
 mod gps;
@@ -204,9 +205,7 @@ fn catalog_for(db: &Database, snapshot: &str, collection: &str) -> Value {
         .flat_map(|(_, v)| v.iter())
         .map(|o| o.el.datetime)
         .max();
-    let history=if collections::local_history(collection) {
-        min.zip(max).map(|(first,last)|json!({"first_epoch":first,"last_epoch":last,"observations":db.orbits.iter().filter(|(id,_)|in_collection(db,**id,collection)).map(|(_,rows)|rows.len()).sum::<usize>(),"source_label":format!("CelesTrak {} · collectes locales",collections::definition(collection).unwrap().label)}))
-    } else { history::info() };
+    let history=history::info();
     json!({"snapshot":snapshot,"satellites":rows.values().collect::<Vec<_>>(),"message":db.message,"fetched":db.fetched,"first_epoch":min,"last_epoch":max,"max_age_hours":72,"source":collections::source(collection).unwrap_or_else(||GP.to_owned()),"history":history})
 }
 async fn positions(
@@ -215,16 +214,17 @@ async fn positions(
 ) -> Result<Json<Value>, (StatusCode, String)> {
     let at = query_time(&q)?;
     let collection = q.collection.as_deref().unwrap_or("all");
-    let historical = history::orbits(at, collection).await.map_err(|e| {
+    let db = match q.snapshot.as_deref() {
+        Some(id) => snapshots::get(id).ok_or((StatusCode::GONE, "Cette édition des données a expiré. Rechargez la page pour charger les dernières données.".into()))?,
+        None => snapshots::capture(&*s.read().await).1,
+    };
+    let allowed:std::collections::BTreeSet<u64>=db.catalog.keys().chain(db.orbits.keys()).copied().filter(|id|in_collection(&db,*id,collection)).collect();
+    let historical = history::orbits(at, collection, &allowed).await.map_err(|e| {
         (
             StatusCode::SERVICE_UNAVAILABLE,
             format!("Archive historique invalide : {e}"),
         )
     })?;
-    let db = match q.snapshot.as_deref() {
-        Some(id) => snapshots::get(id).ok_or((StatusCode::GONE, "Cette édition des données a expiré. Rechargez la page pour charger les dernières données.".into()))?,
-        None => snapshots::capture(&*s.read().await).1,
-    };
     let mut points = Vec::new();
     let mut missing = 0;
     let ids: std::collections::BTreeSet<_> =
@@ -257,7 +257,7 @@ async fn positions(
             .min_by_key(|(_, t)| (*t - at).num_seconds().abs())
             .map(|(_, t)| t)
             .into_iter()
-            .chain(if collections::local_history(collection) { None } else { history::nearest_date(at) })
+            .chain(history::nearest_date(at))
             .min_by_key(|t| (*t - at).num_seconds().abs())
     } else {
         None
@@ -347,8 +347,7 @@ async fn refresh(s: Shared, dir: PathBuf, once: bool) {
             // Validate before replacing any state or durable cache.
             let mut temp = Database::default();
             load_gp(&mut temp, &bytes)?;
-            std::fs::write(dir.join(format!("gp-{now}.json")), &bytes)
-                .map_err(|e| e.to_string())?;
+            sources::atomic(&dir,&format!("gp-{now}.json"),&bytes)?;
             load_gp(&mut *s.write().await, &bytes)?;
             let last_cat = std::fs::metadata(dir.join("satcat.json"))
                 .and_then(|m| m.modified())
@@ -523,6 +522,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     gps::load_cache(&mut db, &dir);
     constellations::load_cache(&mut db, &dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
+    news::update(&dir,&db).map_err(std::io::Error::other)?;
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
         std::fs::create_dir_all(&target)?;
@@ -534,7 +534,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .map(|o| json!({"elements":o.el,"source":o.source}))
             })
             .collect();
-        let bundle = json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0});
+        let bundle = json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0,"news":news::document(&dir)});
         std::fs::write(target.join("bundle.json"), serde_json::to_vec(&bundle)?)?;
         println!("Export navigateur : {} satellites", db.catalog.len());
         return Ok(());
@@ -552,6 +552,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         sources::collect(shared, dir, true).await;
         return Ok(());
     }
+    tokio::spawn(news::watch(shared.clone(),dir.clone()));
     if std::env::var("OFFLINE").as_deref() != Ok("1") {
         tokio::spawn(refresh(shared.clone(), dir.clone(), false));
         tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
@@ -581,6 +582,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/starlink/", get(|| async { axum::response::Redirect::permanent("/starlink") }))
         .route("/gps/", get(|| async { axum::response::Redirect::permanent("/gps") }))
         .route("/galileo/", get(|| async { axum::response::Redirect::permanent("/galileo") }))
+        .route("/api/news",get(news::endpoint))
         .route("/api/config", get(config))
         .route("/api/iss-missions", get(iss_missions::endpoint))
         .route("/api/tiangong-missions",get(iss_missions::tiangong_endpoint))

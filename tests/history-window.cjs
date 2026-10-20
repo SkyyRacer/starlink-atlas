@@ -10,3 +10,9 @@ console.log('Historique mobile : candidats exacts sur toute la journée UTC, sou
 
 for(let hour=0;hour<24;hour++){const chosen=[],date=`2026-10-18T${String(hour).padStart(2,'0')}:00:00Z`;ctx.historyBatches(sourceRows,date,batch=>chosen.push(...batch),3600000);for(let minute=0;minute<60;minute+=3)for(const id of [1,2]){const at=Date.parse(date)+minute*60000;assert.equal(selected(chosen,id,at),selected(sourceRows.flat(),id,at));}}
 console.log('Fenêtres horaires : résultats identiques sur les 24 h avec moins d’éléments en mémoire.');
+const allocated=[];ctx.compute=message=>{if(message.op==='orbits-add')allocated.push(...message.rows);return {};};
+const stale={elements:{NORAD_CAT_ID:1,EPOCH:'2010-01-01T00:00:00'},source:'CelesTrak GP / Space-Track'};
+ctx.combinedHistory({orbits:[stale]},sourceRows,'2026-10-18T12:00:00Z');
+assert.ok(!allocated.includes(stale),'Never allocate constants for observations outside the valid hour');
+for(let minute=0;minute<60;minute++)for(const id of [1,2]){const at=Date.parse('2026-10-18T12:00:00Z')+minute*60000;assert.equal(selected(allocated,id,at),selected([stale,...sourceRows.flat()],id,at));}
+console.log('Filtrage mémoire : éléments périmés exclus, sélection strictement identique dans l’heure consultée.');

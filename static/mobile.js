@@ -21,7 +21,7 @@
     if(e.key==='Enter'&&small.matches)queueMicrotask(()=>{if(document.querySelector('#results .satellite-result')&&!document.getElementById('detail').hidden&&document.getElementById('search-alternative').hidden)setOpen(false);});
   });
   document.addEventListener('keydown',e=>{
-    if(document.getElementById('iss-mission-dialog')?.open)return;
+    if(document.getElementById('iss-mission-dialog')?.open||document.getElementById('orbital-news-dialog')?.open)return;
     if(!document.body.classList.contains('filters-open'))return;
     if(e.key==='Escape'){e.preventDefault();setOpen(false);}
     if(e.key==='Tab'){

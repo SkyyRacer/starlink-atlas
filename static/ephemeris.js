@@ -1,11 +1,12 @@
 /* Official vectors interpolated only inside their published time interval. */
 (function(root){
  const base=typeof document!=='undefined'?new URL('./',document.currentScript.src):null;
- let cached;
+ let cached,indexRequest;const archives=new Map();
  function vector(data,at){
-  const rows=data.samples,t=at/1000;if(!rows?.length||t<rows[0][0]||t>rows.at(-1)[0])return null;
+  const rows=data.samples,t=at/1000;if(!Number.isFinite(t)||!rows?.length||t<rows[0][0]||t>rows.at(-1)[0])return null;
+  if(rows.length===1)return rows[0].slice(1,4);
   let lo=0,hi=rows.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(rows[m][0]<=t)lo=m;else hi=m;}
-  const a=rows[lo],b=rows[hi],dt=b[0]-a[0],u=(t-a[0])/dt,u2=u*u,u3=u2*u;
+  const a=rows[lo],b=rows[hi],dt=b[0]-a[0];if(dt>3601&&t!==a[0]&&t!==b[0])return null;const u=(t-a[0])/dt,u2=u*u,u3=u2*u;
   return [1,2,3].map(i=>(2*u3-3*u2+1)*a[i]+(u3-2*u2+u)*dt*a[i+3]+(-2*u3+3*u2)*b[i]+(u3-u2)*dt*b[i+3]);
  }
  function point(data,at){
@@ -20,7 +21,8 @@
   for(let i=0;i<6;i++){const n=6378.137/Math.sqrt(1-.00669437999014*Math.sin(lat)**2);alt=r/Math.cos(lat)-n;lat=Math.atan2(C,r*(1-.00669437999014*n/(n+alt)));}
   const before=vector(data,Math.max(data.samples[0][0]*1000,at-1000)),after=vector(data,Math.min(data.samples.at(-1)[0]*1000,at+1000));
   const elapsed=Math.min(data.samples.at(-1)[0]*1000,at+1000)-Math.max(data.samples[0][0]*1000,at-1000);
-  return {id:data.id,lat:lat*180/Math.PI,lon:((Math.atan2(py,px)-gmst)*180/Math.PI%360+540)%360-180,altitude_km:alt,speed_km_s:Math.hypot(...after.map((v,i)=>v-before[i]))/(elapsed/1000),epoch:data.epoch||data.fetched,age_hours:(at-Date.parse(data.epoch||data.fetched))/3600000,source:data.source};
+  const speed=before&&after&&elapsed>0?Math.hypot(...after.map((v,i)=>v-before[i]))/(elapsed/1000):Math.hypot(...data.samples.find(row=>row[0]===at/1000).slice(4,7));
+  return {id:data.id,lat:lat*180/Math.PI,lon:((Math.atan2(py,px)-gmst)*180/Math.PI%360+540)%360-180,altitude_km:alt,speed_km_s:speed,epoch:data.epoch||data.fetched,age_hours:(at-Date.parse(data.epoch||data.fetched))/3600000,source:data.source};
  }
  function augment(result,data,at,id){
   const p=point(data,at);if(!p)return result;
@@ -35,8 +37,14 @@
  async function apply(url,result){
   const parsed=new URL(url,base);if(!parsed.pathname.endsWith('/api/positions')||!['all','tess'].includes(parsed.searchParams.get('collection')))return result;
   if(!cached)cached=fetch(new URL('ephemerides/tess.json',base),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Éphémérides indisponibles');return r.json();}).catch(()=>null);
-  const data=await cached;if(!data)return result;
-  return augment(result,data,Date.parse(parsed.searchParams.get('at')),Number(parsed.searchParams.get('id')));
+  const at=Date.parse(parsed.searchParams.get('at'));let data=await cached;
+  if(!data||!vector(data,at)){
+   if(!indexRequest)indexRequest=fetch(new URL('ephemerides/tess-index.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+   const index=await indexRequest,entry=index&&Object.values(index.years||{}).find(row=>at>=row.first_epoch*1000&&at<=row.last_epoch*1000);
+   if(entry){if(!archives.has(entry.file))archives.set(entry.file,fetch(new URL(entry.file,base)).then(r=>r.ok?r.json():null).catch(()=>null));data=await archives.get(entry.file);}
+  }
+  if(!data)return result;
+  return augment(result,data,at,Number(parsed.searchParams.get('id')));
  }
  const api={vector,point,augment,apply};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
 })(typeof window==='undefined'?globalThis:window);
