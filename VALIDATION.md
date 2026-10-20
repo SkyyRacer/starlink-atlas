@@ -399,3 +399,20 @@ Mise à jour des commandes : option détaillée entièrement masquée sans modè
 - Comparaison persistante des catalogues : nouveaux objets regroupés par lancement, désorbitations documentées et changements de statut explicites. Positions, époques orbitales, disparition temporaire d’un catalogue et ajout de pages/familles restent silencieux. Les 60 événements les plus récents remplacent les anciens.
 - Premier démarrage : amorçage par lancements/désorbitations documentés des trente derniers jours ; aucune reconstitution de changements de statut sans ancienne collecte. Pas d’heure inventée pour les dates connues uniquement au jour.
 - Tests : 39 tests Rust, test UI `tests/news.cjs` (natif/statique, ouverture/fermeture, cache, dates et texte brut). API locale vérifiée : 60 événements, en-tête et script disponibles. La version testable de cette session écoute sur le port 3003, le processus préexistant sur 3002 ne pouvant pas être arrêté depuis cet environnement. Aucun déploiement.
+
+## Refonte de présentation et audit UX — 20 octobre 2026
+
+- Nouvelle feuille observatory.css : typographies Barlow/Barlow Semi Condensed servies localement, licences OFL jointes ; hiérarchie, espaces, surfaces monochromes, navigation, filtres, caméra, chronologie, fiches, missions et actualités harmonisés. Adaptations ordinateur, mobile et faible hauteur. Les comportements des moteurs et collectes restent inchangés.
+- Suppression du paragraphe d’aide Atlas demandé. Ressources versionnées et polices vérifiées par HTTP sur le serveur local 3003.
+- Tests existants réussis : actualités, calendrier, actions et catégories Atlas, menu, recherche, navigation, suivi, changements de date, zoom des modèles et progression. Structure CSS contrôlée.
+- La tentative de rendu Chromium a échoué sur l’autorisation macOS MachPortRendezvous : aucun résultat de validation visuelle ou tactile réelle n’est revendiqué.
+- Rapport heuristique : RAPPORT-UX-ATLAS-2026-10-20.md ; note indicative 14,5/20, moyenne de seize rubriques. Les recommandations de parcours et les évolutions fonctionnelles proposées dans le rapport ne sont pas implémentées ici. Aucun déploiement.
+
+Refonte graphique annulée à la demande de l’utilisateur : suppression de observatory.css, des polices ajoutées et de la légende d’en-tête. Retour au thème précédent ; fonctionnalités conservées. Le paragraphe d’aide retiré séparément reste supprimé. Le rapport UX précédent décrit la refonte désormais abandonnée.
+
+## Commandes repliables sur ordinateur — 20 octobre 2026
+
+- Chronologie repliée par défaut : résumé « Maintenant » ou date locale consultée, bouton de retour au présent accessible en mode historique, calendrier/lecture/vitesse disponibles à l’ouverture. Les éléments restent montés ; aucun état temporel ou réglage n’est réinitialisé par une fermeture. La fermeture du panneau referme aussi le calendrier et restitue le focus.
+- « Outils avancés » révèle les couleurs individuelles/par thème, les filtres détaillés et les options d’orbite/modèle. Recherche, choix des pages et objets, listes, sélection des thèmes, vues, recentrage et suivi restent accessibles. Les commandes de modèles conservent leurs conditions de disponibilité.
+- Les changements de dimensions réutilisent le calcul existant de la taille de la carte et du globe. Tests desktop-tools, calendrier, date/réponses obsolètes, modèles détaillés, thèmes et suivi réussis ; structure HTML et unicité des identifiants contrôlées.
+- Aucun déploiement. Pas de validation visuelle automatisée disponible dans cet environnement.
