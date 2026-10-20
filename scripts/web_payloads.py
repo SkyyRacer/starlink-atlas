@@ -75,10 +75,22 @@ def build_resources(out,bundle,history,updates,now):
     if manifest:resources['history']=write_resource(out,'history-index',manifest)
     # Per-object metadata is not needed to draw or search the constellation.
     details={}
+    latest={}
+    for item in bundle['orbits']:
+        el=item['elements'];ident=el['NORAD_CAT_ID']
+        if ident not in latest or el['EPOCH']>latest[ident]['EPOCH']:latest[ident]=el
+    raw_details={row['NORAD_CAT_ID']:row for row in bundle['raw_catalog']}
+    def orbit_info(ident):
+        el=latest.get(ident)
+        if el:return {'mean_motion':el['MEAN_MOTION'],'eccentricity':el['ECCENTRICITY'],'inclination':el['INCLINATION'],'epoch':el['EPOCH']}
+        raw=raw_details.get(ident,{})
+        try:return {'perigee_km':float(raw['PERIGEE']),'apogee_km':float(raw['APOGEE']),'period_minutes':float(raw['PERIOD']) if raw.get('PERIOD') not in [None,''] else None,'inclination':float(raw['INCLINATION']) if raw.get('INCLINATION') not in [None,''] else None}
+        except (ValueError,TypeError,KeyError):return None
     slim=[]
     for satellite in bundle['catalog_response']['satellites']:
         row=dict(satellite);verification=row.pop('verification',None);slim.append(row)
-        if verification:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'verification':verification}
+        orbit=orbit_info(row['id'])
+        if verification or orbit:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'verification':verification,'orbit':orbit}
     resources['details']={key:write_resource(out,'details-'+key,rows) for key,rows in details.items()}
     collections={}
     for mode in ['all',*[row['id'] for row in definitions]]:

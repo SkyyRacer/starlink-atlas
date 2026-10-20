@@ -1,0 +1,195 @@
+[
+  {
+    "key": "astrosat",
+    "ids": [
+      40930
+    ],
+    "name": "AstroSat",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ISRO",
+    "source": "https://www.isro.gov.in/Astrosat_Spacecraft.html",
+    "glb": "images/science/astrosat.glb?v=e60a3c9df3ed",
+    "drawing": "images/science/astrosat.json?v=3977cbb8d33b",
+    "radius": 39.851,
+    "segments": 227,
+    "line_segments": 227,
+    "bytes": 13604
+  },
+  {
+    "key": "chandra",
+    "ids": [
+      25867
+    ],
+    "name": "Chandra",
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory",
+    "glb": "images/science/chandra.glb?v=8aa7d925f329",
+    "drawing": "images/science/chandra.json?v=f981a8218fb7",
+    "radius": 55.19,
+    "segments": 2200,
+    "line_segments": 2200,
+    "bytes": 128235
+  },
+  {
+    "key": "cheops",
+    "ids": [
+      44874
+    ],
+    "name": "CHEOPS",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ESA",
+    "source": "https://www.cosmos.esa.int/web/cheops/cheops-spacecraft",
+    "glb": "images/science/cheops.glb?v=6c2e9a0d5730",
+    "drawing": "images/science/cheops.json?v=3a178e3b4f46",
+    "radius": 25.962,
+    "segments": 135,
+    "line_segments": 135,
+    "bytes": 8585
+  },
+  {
+    "key": "fermi",
+    "ids": [
+      33053
+    ],
+    "name": "Fermi",
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope",
+    "glb": "images/science/fermi.glb?v=9759f6d788a6",
+    "drawing": "images/science/fermi.json?v=098d1c123dda",
+    "radius": 50.329,
+    "segments": 2200,
+    "line_segments": 2200,
+    "bytes": 125906
+  },
+  {
+    "key": "hubble",
+    "ids": [
+      20580
+    ],
+    "name": "Hubble",
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Hubble%20Space%20Telescope%20%28A%29",
+    "glb": "images/science/hubble.glb?v=928becd70683",
+    "drawing": "images/science/hubble.json?v=bf4553676289",
+    "radius": 64.79,
+    "segments": 2200,
+    "line_segments": 2200,
+    "bytes": 127882
+  },
+  {
+    "key": "ixpe",
+    "ids": [
+      49954
+    ],
+    "name": "IXPE",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "source": "https://ixpe.msfc.nasa.gov/",
+    "glb": "images/science/ixpe.glb?v=c6b8dc99ab40",
+    "drawing": "images/science/ixpe.json?v=418d41004d05",
+    "radius": 36.236,
+    "segments": 193,
+    "line_segments": 193,
+    "bytes": 11881
+  },
+  {
+    "key": "lageos",
+    "ids": [
+      8820,
+      22195
+    ],
+    "name": "LAGEOS-1 / LAGEOS-2",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "source": "https://ilrs.gsfc.nasa.gov/missions/satellite_missions/current_missions/lag1_general.html",
+    "glb": "images/science/lageos.glb?v=edea8ea10c49",
+    "drawing": "images/science/lageos.json?v=f0fa456ece4f",
+    "radius": 18.0,
+    "segments": 1709,
+    "line_segments": 3408,
+    "bytes": 225280
+  },
+  {
+    "key": "nustar",
+    "ids": [
+      38358
+    ],
+    "name": "NuSTAR",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "source": "https://nustar.caltech.edu/page/mast",
+    "glb": "images/science/nustar.glb?v=0353e84b3c62",
+    "drawing": "images/science/nustar.json?v=6c87a48f60cd",
+    "radius": 40.312,
+    "segments": 279,
+    "line_segments": 279,
+    "bytes": 17325
+  },
+  {
+    "key": "tess",
+    "ids": [
+      43435
+    ],
+    "name": "TESS",
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28A%29",
+    "glb": "images/science/tess.glb?v=d0e995bf649d",
+    "drawing": "images/science/tess.json?v=8fda9c732faa",
+    "radius": 51.603,
+    "segments": 2200,
+    "line_segments": 2200,
+    "bytes": 127481
+  },
+  {
+    "key": "xmm-newton",
+    "ids": [
+      25989
+    ],
+    "name": "XMM-Newton",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ESA",
+    "source": "https://www.esa.int/Science_Exploration/Space_Science/XMM-Newton",
+    "glb": "images/science/xmm-newton.glb?v=1e7559369c56",
+    "drawing": "images/science/xmm-newton.json?v=5be7730a0edf",
+    "radius": 42.486,
+    "segments": 223,
+    "line_segments": 223,
+    "bytes": 13533
+  },
+  {
+    "key": "xposat",
+    "ids": [
+      58694
+    ],
+    "name": "XPoSat",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ISRO",
+    "source": "https://www.isro.gov.in/XPoSat.html",
+    "glb": "images/science/xposat.glb?v=3e3c5eac9707",
+    "drawing": "images/science/xposat.json?v=153f5adc95e5",
+    "radius": 33.242,
+    "segments": 159,
+    "line_segments": 159,
+    "bytes": 9884
+  },
+  {
+    "key": "xrism",
+    "ids": [
+      57800
+    ],
+    "name": "XRISM",
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation JAXA",
+    "source": "https://www.xrism.jaxa.jp/en/technology/",
+    "glb": "images/science/xrism.glb?v=31c6d4e5fce1",
+    "drawing": "images/science/xrism.json?v=28b1089baf86",
+    "radius": 45.794,
+    "segments": 175,
+    "line_segments": 175,
+    "bytes": 10820
+  }
+]

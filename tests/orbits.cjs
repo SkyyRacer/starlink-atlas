@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict'),orbit=require('../static/orbits'),pages=require('../static/pages'),fs=require('node:fs');
+for(const def of pages.definitions){assert.ok(def.orbit_types.length,def.id);assert.notEqual(orbit.nominal(def),'Non renseigné');}
+const describe=(n,e,i,key)=>orbit.describe({mean_motion:n,eccentricity:e,inclination:i},pages.definition(key));
+assert.match(describe(15.5,.0005,51.6,'iss'),/^LEO/);
+assert.match(describe(14.55,.0012,98.25,'proba-2'),/SSO/);
+assert.match(describe(12.8,.001,86.4,'iridium'),/^LEO/);assert.ok(!describe(12.8,.001,86.4,'iridium').includes('SSO'));
+assert.match(describe(2,.001,55,'gps'),/^MEO/);
+assert.match(describe(1.0027379,.0001,.02,'goes'),/^GEO/);
+assert.match(describe(1.0027379,.001,55,'beidou'),/inclinée/);
+assert.match(describe(1.0027379,.075,40,'qzss'),/elliptique/);
+assert.match(describe(1.22078,.7995,59.84,'proba-3'),/^HEO/);
+assert.match(orbit.describe({perigee_km:5890,apogee_km:5900,period_minutes:225,inclination:70},pages.definition('lares-2')),/^MEO/);
+assert.match(orbit.describe(null,pages.definition('starlink')),/nominale/);
+assert.equal(orbit.describe(null,pages.definition('debris')),'Non déterminé');
+assert.equal(orbit.describe({},null),'Non déterminé');
+assert.match(orbit.nominal(pages.definition('beidou')),/MEO.*GEO.*IGSO/);
+assert.match(orbit.nominal(pages.definition('navic')),/GEO.*IGSO/);
+assert.match(orbit.nominal(pages.definition('qzss')),/QZO.*GEO/);
+assert.ok(fs.readFileSync('static/index.html','utf8').includes('id="collection-orbit"'));
+console.log('Types d’orbite : toutes les pages couvertes, paramètres individuels, régimes mixtes, nominal explicite et ellipticité respectée.');

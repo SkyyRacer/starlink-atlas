@@ -2,7 +2,7 @@ const fs=require('node:fs');const vm=require('node:vm');const assert=require('no
 const source=fs.readFileSync('static/app.js','utf8');
 const start=source.indexOf('async function loadPositions('),end=source.indexOf('\nfunction choose',start);
 const requests=[],elements=new Map();
-const context={collectionMode:'all',dataSnapshot:'test-edition',busy:false,pendingPosition:false,positionRevision:0,at:Date.now()-60000,selected:null,displayMode:'2d',track3d:[],future3d:[],focusSelected:false,points:[],track:[],futureTrack:[],failures:0,suggestedAt:null,Date,Math,encodeURIComponent,draw:()=>{},$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);},get:url=>new Promise(resolve=>requests.push({url,resolve}))};
+const context={collectionMode:'all',dataSnapshot:'test-edition',busy:false,pendingPosition:false,positionRevision:0,at:Date.now()-60000,selected:null,displayMode:'2d',track3d:[],future3d:[],focusSelected:false,points:[],track:[],futureTrack:[],failures:0,suggestedAt:null,Date,Math,encodeURIComponent,draw:()=>{},focusInitialSatellite(){},orientAtlasGroups(){},$:id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);},get:url=>new Promise(resolve=>requests.push({url,resolve}))};
 vm.createContext(context);vm.runInContext(source.slice(start,end),context);
 (async()=>{
  const first=context.loadPositions();

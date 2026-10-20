@@ -1,0 +1,8 @@
+const assert=require('node:assert/strict'),fs=require('node:fs');
+function textures(value){let result=[];if(value&&typeof value==='object'){for(const [key,item]of Object.entries(value)){if(key.endsWith('Texture')&&item&&typeof item==='object'&&'index'in item)result.push(item.extensions?.KHR_texture_transform?.texCoord??item.texCoord??0);result.push(...textures(item));}}return result;}
+const manifest=JSON.parse(fs.readFileSync('resources/detailed-model-manifest.json'));let count=0;
+for(const row of manifest){const bytes=fs.readFileSync('static/images/detailed/'+row.key+'.glb'),n=bytes.readUInt32LE(12),g=JSON.parse(bytes.subarray(20,20+n));
+ for(const mesh of g.meshes)for(const p of mesh.primitives){if(p.material===undefined)continue;for(const uv of textures(g.materials[p.material])){const a=g.accessors[p.attributes['TEXCOORD_'+uv]];assert.ok(a,`${row.key}/${mesh.name}: missing TEXCOORD_${uv}`);assert.equal(a.type,'VEC2');assert.equal(a.count,g.accessors[p.attributes.POSITION].count);count++;}}
+ if(row.key==='hubble'){assert.equal(row.uv_repairs.length,1);const repair=row.uv_repairs[0];assert.equal(repair.mesh,10);assert.equal(repair.primitive,0);const a=g.accessors[g.meshes[10].primitives[0].attributes.TEXCOORD_0];assert.equal(a.count,24);assert.equal(g.materials[9].alphaMode,'BLEND');assert.ok(g.materials[9].pbrMetallicRoughness.baseColorTexture,'Keep the transparent texture; dropping it would create an opaque box');}
+}
+console.log(`Modèles : ${count} références de textures vérifiées, UV présents et cohérents ; élément transparent Hubble corrigé sans altérer la géométrie.`);

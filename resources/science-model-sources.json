@@ -1,0 +1,86 @@
+{
+  "hubble": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Hubble%20Space%20Telescope%20%28A%29",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Hubble%20Space%20Telescope%20%28A%29/Hubble%20Space%20Telescope%20%28A%29.glb",
+    "sha256": "e5ba4de15c7d359ac8fa1ab7e286aff42dec09c0fadae3db99252587f39fa384",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "chandra": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory/Chandra%20X-ray%20Observatory.glb",
+    "sha256": "9383f44fc4c6eba73c40b0c2cfe33c08c90f1fb5230274bfdaa98e0c9f116a34",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "fermi": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope.glb",
+    "sha256": "d345f3b0595f7792f699acf33b28d7401cb53cc2a20b735bca00e95644e3813c",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "tess": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28A%29",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28A%29/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28A%29.glb",
+    "sha256": "2b82a0191af6f06081368bb59d6cbb63b13ad8f019cd7ad08229e911e5b9ee6a",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "astrosat": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ISRO",
+    "page": "https://www.isro.gov.in/Astrosat_Spacecraft.html",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "cheops": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ESA",
+    "page": "https://www.cosmos.esa.int/web/cheops/cheops-spacecraft",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "ixpe": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "page": "https://ixpe.msfc.nasa.gov/",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "lageos": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "page": "https://ilrs.gsfc.nasa.gov/missions/satellite_missions/current_missions/lag1_general.html",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "nustar": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation NASA / Caltech",
+    "page": "https://nustar.caltech.edu/page/mast",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "xmm-newton": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ESA",
+    "page": "https://www.esa.int/Science_Exploration/Space_Science/XMM-Newton",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "xposat": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation ISRO",
+    "page": "https://www.isro.gov.in/XPoSat.html",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "xrism": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation JAXA",
+    "page": "https://www.xrism.jaxa.jp/en/technology/",
+    "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  }
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "key": "hubble",
+    "ids": [
+      20580
+    ],
+    "url": "images/detailed/hubble.glb?v=cde447ffa790",
+    "bytes": 11463724,
+    "source": "https://science.nasa.gov/resource/hubble-space-telescope-3d-model/",
+    "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/h/Hubble.glb",
+    "sha256": "e6a40640d6846e8f5d9438821ebe2d7de730c8dadba1cc9dfdbcc148ff1052cd",
+    "uv_repairs": [
+      {
+        "mesh": 10,
+        "primitive": 0,
+        "texcoord": 0,
+        "reason": "clear.png.001 is a uniform RGBA (255,255,255,0) image; constant UV preserves full transparency.",
+        "count": 24
+      }
+    ],
+    "credit": "NASA VTAD",
+    "original_file": "resources/detailed-originals/hubble-vtad.glb",
+    "version": "NASA VTAD texturé",
+    "triangles": 21129,
+    "textures": 10,
+    "materials": 10
+  },
+  {
+    "key": "chandra",
+    "ids": [
+      25867
+    ],
+    "url": "images/detailed/chandra.glb?v=1d9d7c9b3893",
+    "bytes": 998740,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory/Chandra%20X-ray%20Observatory.glb",
+    "sha256": "9383f44fc4c6eba73c40b0c2cfe33c08c90f1fb5230274bfdaa98e0c9f116a34",
+    "uv_repairs": [],
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "original_file": "resources/science-originals/chandra.glb",
+    "version": "NASA original",
+    "triangles": 30132,
+    "textures": 6,
+    "materials": 5
+  },
+  {
+    "key": "fermi",
+    "ids": [
+      33053
+    ],
+    "url": "images/detailed/fermi.glb?v=5338f88c8bea",
+    "bytes": 1379236,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope.glb",
+    "sha256": "d345f3b0595f7792f699acf33b28d7401cb53cc2a20b735bca00e95644e3813c",
+    "uv_repairs": [],
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "original_file": "resources/science-originals/fermi.glb",
+    "version": "NASA original",
+    "triangles": 172788,
+    "textures": 0,
+    "materials": 27
+  },
+  {
+    "key": "tess",
+    "ids": [
+      43435
+    ],
+    "url": "images/detailed/tess.glb?v=a3b4bba3dff8",
+    "bytes": 1693880,
+    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29.glb",
+    "sha256": "94e9ce15b02924175f1c0b33c0aaa7a33ee5e1fcbf933642ab933c1b04a1a238",
+    "uv_repairs": [],
+    "credit": "NASA 3D Resources",
+    "original_file": "resources/detailed-originals/tess-b.glb",
+    "version": "NASA B texturé",
+    "triangles": 16161,
+    "textures": 6,
+    "materials": 5
+  },
+  {
+    "key": "iss",
+    "ids": [
+      25544
+    ],
+    "url": "images/detailed/iss.glb?v=ccf3a2a7279e",
+    "bytes": 95875884,
+    "source": "https://www.nasa.gov/integrated-graphics-operations-and-analysis-laboratory/",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/International%20Space%20Station%20%28ISS%29%20%28D%29%20%28IGOAL%29/International%20Space%20Station%20%28ISS%29.glb",
+    "sha256": "57cecfaf332efb2127d07796c4b65ca570d95a11516c8e046feb5a12efee491d",
+    "uv_repairs": [],
+    "credit": "NASA IGOAL",
+    "original_file": "resources/detailed-originals/iss-igoal.glb",
+    "version": "NASA IGOAL D",
+    "triangles": 2707621,
+    "textures": 220,
+    "materials": 49
+  },
+  {
+    "key": "tiangong",
+    "ids": [
+      48274
+    ],
+    "url": "images/detailed/tiangong.glb?v=82d45acbc3e6",
+    "bytes": 980084,
+    "source": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
+    "download": "https://raw.githubusercontent.com/Buggy1111/earth-pulse/be3a16addde8a5d59c73e7a1c5e512f3f8963ae0/public/models/sats/tiangong.glb",
+    "sha256": "d0e2ee481e63dfd28397346ce3802508136187e10263a2c3e1d203825eb2a3b5",
+    "uv_repairs": [],
+    "credit": "w29572227 · CC BY 4.0",
+    "original_file": "resources/detailed-originals/tiangong-sketchfab.glb",
+    "version": "tianGong — maillage et matériaux de w29572227",
+    "triangles": 128932,
+    "textures": 1,
+    "materials": 22
+  }
+]

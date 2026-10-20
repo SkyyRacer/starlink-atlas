@@ -3,6 +3,7 @@ mod collections;
 mod galileo;
 mod gps;
 mod constellations;
+mod ephemeris;
 mod debris;
 mod csv_data;
 mod iss;
@@ -63,7 +64,12 @@ struct Point {
     source: &'static str,
 }
 fn load_gp(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
-    load_gp_source(db, bytes, "CelesTrak GP / Space-Track")
+    if !bytes.windows(b"\"ATLAS_SOURCE\"".len()).any(|w|w==b"\"ATLAS_SOURCE\""){return load_gp_source(db,bytes,"CelesTrak GP / Space-Track");}
+    let rows:Vec<Value>=serde_json::from_slice(bytes).map_err(|e|e.to_string())?;
+    if rows.is_empty(){return Err("Aucun élément orbital pris en charge".into());}
+    let mut groups:BTreeMap<&'static str,Vec<Value>>=BTreeMap::new();
+    for row in rows{let source=match row["ATLAS_SOURCE"].as_str(){Some("SatNOGS / Space-Track")=>constellations::BACKUP_SOURCE,Some("N2YO / Space-Track")=>constellations::TRACKER_SOURCE,_=>"CelesTrak GP / Space-Track"};groups.entry(source).or_default().push(row);}
+    let mut count=0;for (source,rows) in groups{count+=load_gp_source(db,&serde_json::to_vec(&rows).map_err(|e|e.to_string())?,source)?;}Ok(count)
 }
 fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Result<usize, String> {
     load_gp_source_for(db, bytes, source, false)
@@ -153,13 +159,22 @@ async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> R
     let document = snapshots::catalog(&db, q.collection.as_deref().unwrap_or("all"));
     Ok(([(axum::http::header::CONTENT_TYPE, "application/json")], document))
 }
+fn orbit_info(db:&Database,id:u64)->Option<Value>{
+    if let Some(el)=db.orbits.get(&id).and_then(|rows|rows.last()).map(|o|&o.el){
+        return Some(json!({"mean_motion":el.mean_motion,"eccentricity":el.eccentricity,"inclination":el.inclination,"epoch":el.datetime}));
+    }
+    let row=db.catalog.get(&id)?;
+    let number=|key:&str|row[key].as_f64().or_else(||row[key].as_str().and_then(|s|s.parse::<f64>().ok()));
+    let (perigee,apogee)=(number("PERIGEE")?,number("APOGEE")?);
+    Some(json!({"perigee_km":perigee,"apogee_km":apogee,"period_minutes":number("PERIOD"),"inclination":number("INCLINATION")}))
+}
 async fn satellite_detail(State(s): State<Shared>, Query(q): Query<Q>) -> Result<Json<Value>, (StatusCode, String)> {
     let id = q.id.ok_or((StatusCode::BAD_REQUEST, "Identifiant requis".into()))?;
     let db = match q.snapshot.as_deref() {
         Some(key) => snapshots::get(key).ok_or((StatusCode::GONE, "Édition expirée : rechargez la page".into()))?,
         None => snapshots::capture(&*s.read().await).1,
     };
-    Ok(Json(json!({"verification":db.gcat.get(&id)})))
+    Ok(Json(json!({"verification":db.gcat.get(&id),"orbit":orbit_info(&db,id)})))
 }
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
     catalog_for(db, snapshot, "all")
@@ -399,6 +414,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dir = PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into()));
     std::fs::create_dir_all(&dir)?;
     let args: Vec<String> = std::env::args().collect();
+    if args.len()==3 && args[1]=="--import-tle-backup"{
+        let rows:Vec<Value>=serde_json::from_slice(&std::fs::read(&args[2])?)?;
+        let bytes=constellations::parse_backup(&rows).map_err(std::io::Error::other)?;
+        let mut db=Database::default();let count=load_gp(&mut db,&bytes).map_err(std::io::Error::other)?;
+        sources::atomic(&dir,&format!("gp-backup-experimental-{}.json",Utc::now().timestamp()),&bytes).map_err(std::io::Error::other)?;
+        println!("{count} éléments orbitaux importés avec leur provenance");return Ok(());
+    }
     if args.len() == 3 && args[1] == "--import-catalog" {
         let b = std::fs::read(&args[2])?;
         let mut db = Database::default();
@@ -524,6 +546,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         galileo::collect(shared.clone(), dir.clone(), true).await;
         gps::collect(shared.clone(), dir.clone(), true).await;
         constellations::collect(shared.clone(), dir.clone(), true).await;
+        ephemeris::collect(true).await;
         debris::collect(shared.clone(), dir.clone(), true).await;
         iss_missions::collect(dir.clone(), true).await;
         sources::collect(shared, dir, true).await;
@@ -537,6 +560,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         tokio::spawn(galileo::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(gps::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(constellations::collect(shared.clone(), dir.clone(), false));
+        tokio::spawn(ephemeris::collect(false));
         tokio::spawn(debris::collect(shared.clone(), dir, false));
     } else {
         shared.write().await.message = "Mode hors ligne : archives locales uniquement".into();

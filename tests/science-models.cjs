@@ -1,0 +1,25 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto'),registry=require('../static/constellations');
+const manifest=JSON.parse(fs.readFileSync('resources/science-model-manifest.json')),sources=JSON.parse(fs.readFileSync('resources/science-model-sources.json'));
+assert.deepEqual(manifest.map(r=>r.key),registry.definitions.filter(r=>r.category==='science').map(r=>r.id));const html=fs.readFileSync('static/index.html','utf8');assert.ok(html.indexOf('/constellations.js?')<html.indexOf('/science-visual.js?'));assert.ok(html.indexOf('/science-visual.js?')<html.indexOf('/app.js?'));assert.equal(manifest.length,12);assert.equal(manifest.flatMap(m=>m.ids).length,13);
+let total=0;
+for(const info of manifest){
+ const raw=fs.readFileSync('static/images/science/'+info.key+'.glb');assert.equal(raw.readUInt32LE(0),0x46546c67);assert.equal(raw.readUInt32LE(8),raw.length);
+ const length=raw.readUInt32LE(12),g=JSON.parse(raw.subarray(20,20+length).toString());assert.equal(g.meshes[0].primitives[0].mode,1);assert.ok(g.extensionsUsed.includes('KHR_materials_unlit'));assert.ok(g.accessors[0].min.every(Number.isFinite));assert.ok(g.accessors[0].count>20);
+ const drawing=JSON.parse(fs.readFileSync('static/images/science/'+info.key+'.json'));assert.equal(drawing.segments.length,info.segments);assert.ok(drawing.segments.flat(2).every(Number.isFinite));assert.ok(drawing.segments.flat(2).every(x=>Math.abs(x)<=50.01));
+ assert.ok(sources[info.key].page.startsWith('https://'));if(info.kind==='nasa-adaptation'){const source=fs.readFileSync('resources/science-originals/'+info.key+'.glb');assert.equal(crypto.createHash('sha256').update(source).digest('hex'),sources[info.key].sha256);}
+ total+=info.bytes;
+}
+assert.ok(total<900000,'All line models and drawings remain under 900 KB before HTTP compression');
+(async()=>{
+ const requests=[],events=[];const ctx={URL,Map,Event,console,document:{currentScript:{src:'https://example.test/starlink-atlas/science-visual.js'}},fetch:async url=>{requests.push(String(url));return {ok:true,json:async()=>JSON.parse(fs.readFileSync('static/'+new URL(url).pathname.split('/starlink-atlas/')[1]))};},dispatchEvent:event=>events.push(event.type),AtlasISS:{screenSize:()=>30}};ctx.window=ctx;vm.createContext(ctx);vm.runInContext(fs.readFileSync('static/science-visual.js','utf8'),ctx);assert.equal(requests.length,0,'No model drawings are fetched before use');assert.equal(ctx.AtlasScience.has(20580),true);assert.equal(ctx.AtlasScience.has(25544),false);assert.equal(ctx.AtlasScience.has(44235),false);
+ const visual=ctx.AtlasScience.model(20580);await Promise.all([visual.prepare(),visual.prepare()]);assert.equal(requests.length,1);assert.ok(events.includes('atlas-science-ready'));assert.ok(decodeURIComponent(visual.iconURI).includes('<svg'));
+ const strokes={save(){},restore(){},translate(){},scale(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}};visual.draw2D(strokes,0,0,30,'#abcdef');assert.equal(strokes.strokeStyle,'#abcdef');assert.equal(requests.length,1);
+ const modelRequests=[],callbacks=[],primitives=[];
+ class BillboardCollection{add(props){return {...props};}}
+ const C={BillboardCollection,Cartesian3:{fromDegrees:(lon,lat,height)=>({lon,lat,height})},Transforms:{eastNorthUpToFixedFrame:p=>p},Matrix4:{IDENTITY:{}},Color:{WHITE:'#fff'},ColorBlendMode:{REPLACE:1},Model:{fromGltfAsync:async options=>{modelRequests.push(options);return {minimumPixelSize:options.minimumPixelSize,show:false};}}};
+ const viewer={canvas:{clientWidth:400,clientHeight:600},camera:{positionCartographic:{height:30000000}},scene:{primitives:{add:p=>{primitives.push(p);return p;}},preUpdate:{addEventListener:fn=>callbacks.push(fn)},requestRender(){}}};
+ let ready=0;const layer=ctx.AtlasScience.createLayer(C,viewer,()=>ready++);const point={id:20580,lon:12,lat:34,altitude_km:500};assert.equal(layer.update(point,{selected:null,collection:'all',color:'#00ffff'}),true);await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(ready,1);assert.equal(modelRequests.length,1);assert.match(modelRequests[0].url,/\/starlink-atlas\/images\/science\/hubble.glb\?v=/);layer.update(point,{selected:20580,collection:'hubble',color:'#ffffff'});assert.equal(modelRequests.length,1);assert.equal(layer.count,1);const model=primitives.at(-1);assert.equal(model.id,20580);assert.equal(model.show,true);assert.equal(model.color,'#ffffff');assert.equal(model.minimumPixelSize,30);
+ layer.move({...point,lon:99});assert.equal(model.modelMatrix.lon,99);assert.equal([...layer.hits()][0].position.lon,99);layer.begin();assert.equal(layer.count,0);assert.equal(model.show,false);assert.equal([...layer.hits()].length,0);
+ console.log('Science : 12 modèles / 13 objets, GLB et dessins valides, origines vérifiées, chargement différé, couleurs, suivi et filtres OK.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

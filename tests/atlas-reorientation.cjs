@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),pages=require('../static/pages');
+const source=fs.readFileSync('static/app.js','utf8'),start=source.indexOf('let pendingAtlasOverview=null;'),end=source.indexOf("document.querySelectorAll('[data-family]').forEach",start);
+const fields=Object.fromEntries(['atlas-clear','atlas-debris-toggle'].map(key=>[key,{setAttribute(){}}]));let checks=[],orientations=[],fetches=0;
+const ctx={Set,AtlasPages:pages,$:id=>fields[id],document:{querySelectorAll:()=>checks},selected:20580,selectionRequest:1,focusSelected:true,positionRevision:0,atlasGroups:new Set(['hubble']),points:[{id:20580},{id:49954,lat:10,lon:20}],catalog:[{id:20580,family:'hubble',ops:'+'},{id:49954,family:'ixpe',ops:'+'}],byId:new Map([[20580,{id:20580,family:'hubble'}]]),displayMode:'3d',initialOverviewTarget:null,track:[1],futureTrack:[1],track3d:[1],future3d:[1],loadPositions(){fetches++},list(){},draw(){},state:()=> 'orbit',globeController:{orientOverview:p=>orientations.push(p)},applyInitialOrientation(){if(this.initialOverviewTarget){orientations.push(this.initialOverviewTarget);this.initialOverviewTarget=null;}}};
+ctx.applyInitialOrientation=()=>{if(ctx.initialOverviewTarget){orientations.push(ctx.initialOverviewTarget);ctx.initialOverviewTarget=null;}};vm.createContext(ctx);vm.runInContext(source.slice(start,end),ctx);
+function update(families){checks=families.map(family=>({checked:true,dataset:{family}}));ctx.updateAtlasGroups();}
+update([]);assert.equal(ctx.selected,null);assert.equal(ctx.focusSelected,false);assert.equal(fetches,1);assert.equal(orientations.at(-1),null);
+update(['ixpe']);assert.equal(orientations.at(-1).id,49954);assert.equal(ctx.selected,null,'Overview must not open profile or activate follow');
+ctx.points=[];update(['hubble']);assert.equal(orientations.at(-1).id,49954,'Wait for an available position');ctx.points=[{id:20580,lat:30,lon:40}];ctx.orientAtlasGroups();assert.equal(orientations.at(-1).id,20580,'Delayed positions orient toward the new family');
+ctx.selected=20580;update(['hubble','ixpe']);assert.equal(ctx.selected,20580);assert.equal(orientations.at(-1).id,20580,'Preserve a still-visible explicit selection');
+console.log('Atlas : Hubble supprimé, IXPE activé, orientation distante sans fiche, positions différées et sélection existante OK.');

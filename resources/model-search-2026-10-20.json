@@ -1,0 +1,65 @@
+[
+  {
+    "key": "tiangong",
+    "status": "integrated",
+    "page": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
+    "license": "CC BY 4.0",
+    "credit": "w29572227"
+  },
+  {
+    "key": "cheops",
+    "status": "research_only",
+    "page": "https://scifleet.esa.int/#/model-downloads",
+    "formats": [
+      "OBJ",
+      "FBX",
+      "textures"
+    ],
+    "note": "Real official ESA mesh available. User Guide links general ESA terms, which do not establish redistribution/adaptation permission for this model. Downloads retained outside static; no detailed option advertised."
+  },
+  {
+    "key": "xmm-newton",
+    "status": "research_only",
+    "page": "https://scifleet.esa.int/#/model-downloads",
+    "formats": [
+      "OBJ",
+      "FBX",
+      "textures",
+      "STL"
+    ],
+    "note": "Real official ESA mesh available, same permission limitation as CHEOPS. Sketchfab re-upload cd53b781d479466ebceb388bc3169cc5 is not downloadable and has no public license; do not extract viewer data."
+  },
+  {
+    "key": "xrism",
+    "status": "not_integrated",
+    "page": "https://www.turbosquid.com/3d-models/xrism-jaxa-x-ray-space-telescope-2516416",
+    "note": "Commercial model located, not purchased. No freely redistributable model verified."
+  },
+  {
+    "key": "nustar",
+    "status": "not_integrated",
+    "page": "https://www.cgtrader.com/3d-models/space/spaceship/nustar-satellite",
+    "note": "Commercial detailed model located, not purchased. No freely redistributable model verified."
+  },
+  {
+    "key": "ixpe",
+    "status": "not_integrated",
+    "page": "https://www.reddit.com/r/nasa/comments/w734zg/",
+    "note": "Creator announces printable model. Original model download and usable license not yet established; no detailed option advertised."
+  },
+  {
+    "key": "astrosat",
+    "status": "not_integrated",
+    "note": "No reusable detailed mesh verified; existing white schematic retained."
+  },
+  {
+    "key": "xposat",
+    "status": "not_integrated",
+    "note": "No reusable detailed mesh verified; existing white schematic retained."
+  },
+  {
+    "key": "lageos",
+    "status": "not_integrated",
+    "note": "Corrected white schematic retained, not advertised as imported detailed geometry."
+  }
+]

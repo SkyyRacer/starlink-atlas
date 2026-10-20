@@ -16,3 +16,16 @@ for(const family of ['beidou','goes','meteosat']){ctx.lastData=null;ctx.document
 
 ctx.document.body.dataset.collection='starlink';ctx.lastData={collection:'starlink',points:[{id:1,altitude_km:550}],catalog:new Map([[1,{}]]),visible:()=>true};
 const farHeight=ctx.homeView().destination.height;ctx.overviewAnchor={lon:123,lat:-25};const oriented=ctx.homeView();assert.equal(oriented.destination.lon,123);assert.equal(oriented.destination.lat,-25);assert.equal(oriented.destination.height,farHeight,'Orienting toward a satellite must preserve overview distance');assert.equal(oriented.orientation.pitch,-Math.PI/2);
+
+// An isolated high-orbit family in Atlas must use its actual distance from Earth.
+ctx.viewer.canvas.clientWidth=1800;ctx.lastData.collection='all';ctx.lastData.groups=new Set(['tess']);ctx.lastData.points=[{id:43435,lon:80,lat:15,altitude_km:350000}];ctx.lastData.catalog=new Map([[43435,{}]]);ctx.overviewAnchor={id:43435,lon:80,lat:15,altitude_km:350000};
+const tess=ctx.homeView().destination;assert.equal(tess.lon,80);assert.ok(tess.height>800000000);
+ctx.lastData.collection='tess';assert.equal(ctx.homeView().destination.height,tess.height,'Dedicated page and isolated Atlas object use the same distance');
+ctx.viewer.canvas.clientWidth=390;assert.ok(ctx.homeView().destination.height>tess.height,'Portrait display requires more room for the same high orbit');
+const globals={window:{}};vm.createContext(globals);vm.runInContext(source,globals);const range=globals.window.AtlasGlobe.satelliteRange;
+assert.equal(range(550,1800,745),3500000);assert.ok(range(350000,390,745)>range(350000,1800,745));
+for(const altitude of [20200,35786,200000,400000])for(const [w,h] of [[1800,745],[390,745]]){
+ const half=Math.atan(.74*Math.tan(Math.PI/6)*Math.min(1,w/h)),distance=range(altitude,w,h);
+ assert.ok(Math.asin((altitude*1000+2*6378137)/distance)<=half+1e-10,'Whole Earth and satellite enclosed in the view cone');
+}
+console.log('Objets lointains : Atlas filtré, page dédiée, TESS jusqu’à 400 000 km, suivi et écran étroit cadrés selon la distance réelle.');

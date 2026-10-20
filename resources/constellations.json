@@ -65,7 +65,11 @@
       68432,
       68442
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "alos-2",
@@ -80,7 +84,11 @@
     "ids": [
       39766
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "alos-4",
@@ -95,7 +103,11 @@
     "ids": [
       60182
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "amazon-leo",
@@ -509,7 +521,10 @@
       69790,
       69791
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "arabsat",
@@ -542,7 +557,10 @@
       44186,
       56757
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "ast-spacemobile",
@@ -573,7 +591,10 @@
       100241,
       100242
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "astrosat",
@@ -588,7 +609,10 @@
     "ids": [
       40930
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "beidou",
@@ -670,7 +694,12 @@
       61187
     ],
     "frame_radius": 47000000,
-    "category": "navigation"
+    "category": "navigation",
+    "orbit_types": [
+      "MEO",
+      "GEO",
+      "IGSO"
+    ]
   },
   {
     "id": "biomass",
@@ -685,7 +714,11 @@
     "ids": [
       63772
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "blacksky-gen2",
@@ -721,7 +754,10 @@
       "prefix": "GLOBAL-",
       "min": 1,
       "max": 20
-    }
+    },
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "blacksky-gen3",
@@ -745,7 +781,10 @@
       "prefix": "GLOBAL-",
       "min": 31,
       "max": 999
-    }
+    },
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "capella",
@@ -780,7 +819,11 @@
       67385,
       68485
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "cartosat-3",
@@ -795,7 +838,11 @@
     "ids": [
       44804
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "chandra",
@@ -810,7 +857,10 @@
     "ids": [
       25867
     ],
-    "frame_radius": 180000000
+    "frame_radius": 180000000,
+    "orbit_types": [
+      "HEO"
+    ]
   },
   {
     "id": "cheops",
@@ -825,7 +875,11 @@
     "ids": [
       44874
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "cosmo-skymed",
@@ -852,7 +906,11 @@
       67304
     ],
     "frame_radius": 7500000,
-    "category": "observation"
+    "category": "observation",
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "cryosat-2",
@@ -867,7 +925,10 @@
     "ids": [
       36508
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "debris",
@@ -2033,7 +2094,10 @@
       290027
     ],
     "frame_radius": 9600000,
-    "category": "debris"
+    "category": "debris",
+    "orbit_types": [
+      "VARIED"
+    ]
   },
   {
     "id": "earthcare",
@@ -2048,7 +2112,11 @@
     "ids": [
       59908
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "edrs",
@@ -2066,7 +2134,10 @@
       41310,
       44475
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "eros-c3",
@@ -2081,7 +2152,11 @@
     "ids": [
       54880
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "fengyun-3",
@@ -2105,7 +2180,11 @@
       57490,
       65815
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "fengyun-4",
@@ -2124,7 +2203,10 @@
       48808,
       67246
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "fermi",
@@ -2139,7 +2221,10 @@
     "ids": [
       33053
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "galileo",
@@ -2154,7 +2239,10 @@
     "contains": [],
     "ids": [],
     "frame_radius": 33000000,
-    "category": "navigation"
+    "category": "navigation",
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "gaofen-3",
@@ -2173,7 +2261,11 @@
       49495,
       52200
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "geesatcom",
@@ -2252,7 +2344,10 @@
       65722,
       65723
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "ghgsat",
@@ -2279,7 +2374,11 @@
       64529,
       64548
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "globalstar",
@@ -2390,7 +2489,10 @@
       100332
     ],
     "frame_radius": 7500000,
-    "category": "telecommunications"
+    "category": "telecommunications",
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "glonass",
@@ -2556,7 +2658,10 @@
       100744
     ],
     "frame_radius": 30000000,
-    "category": "navigation"
+    "category": "navigation",
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "goes",
@@ -2593,7 +2698,10 @@
       60133
     ],
     "frame_radius": 47000000,
-    "category": "weather"
+    "category": "weather",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "goes-18",
@@ -2609,7 +2717,10 @@
       51850
     ],
     "frame_radius": 47000000,
-    "parent": "goes"
+    "parent": "goes",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "goes-19",
@@ -2625,7 +2736,10 @@
       60133
     ],
     "frame_radius": 47000000,
-    "parent": "goes"
+    "parent": "goes",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "gps",
@@ -2640,7 +2754,10 @@
     "contains": [],
     "ids": [],
     "frame_radius": 30000000,
-    "category": "navigation"
+    "category": "navigation",
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "grace-fo",
@@ -2656,7 +2773,10 @@
       43476,
       43477
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "himawari",
@@ -2672,7 +2792,10 @@
       40267,
       41836
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "hubble",
@@ -2687,7 +2810,10 @@
     "ids": [
       20580
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "iceye",
@@ -2785,7 +2911,11 @@
       100914
     ],
     "frame_radius": 7500000,
-    "category": "observation"
+    "category": "observation",
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "inmarsat",
@@ -2820,7 +2950,10 @@
       50319,
       55683
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "insat-3ds",
@@ -2835,7 +2968,10 @@
     "ids": [
       58990
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "iridium",
@@ -3028,7 +3164,10 @@
       56730
     ],
     "frame_radius": 7500000,
-    "category": "telecommunications"
+    "category": "telecommunications",
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "iss",
@@ -3042,7 +3181,10 @@
     "ids": [],
     "frame_radius": 7500000,
     "category": "stations",
-    "station_id": 25544
+    "station_id": 25544,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "ixpe",
@@ -3057,7 +3199,10 @@
     "ids": [
       49954
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "kompsat-5",
@@ -3072,7 +3217,11 @@
     "ids": [
       39227
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "lageos",
@@ -3088,7 +3237,10 @@
       8820,
       22195
     ],
-    "frame_radius": 16000000
+    "frame_radius": 16000000,
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "landsat",
@@ -3104,7 +3256,11 @@
       39084,
       49260
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "lares-2",
@@ -3122,7 +3278,10 @@
     "ids": [
       53105
     ],
-    "frame_radius": 15000000
+    "frame_radius": 15000000,
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "meteosat",
@@ -3157,7 +3316,10 @@
       100530
     ],
     "frame_radius": 47000000,
-    "category": "weather"
+    "category": "weather",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "mtg-i1",
@@ -3173,7 +3335,10 @@
       54743
     ],
     "frame_radius": 47000000,
-    "parent": "meteosat"
+    "parent": "meteosat",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "mtg-i2",
@@ -3189,7 +3354,10 @@
       100530
     ],
     "frame_radius": 47000000,
-    "parent": "meteosat"
+    "parent": "meteosat",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "mtg-s1",
@@ -3205,7 +3373,10 @@
       64723
     ],
     "frame_radius": 47000000,
-    "parent": "meteosat"
+    "parent": "meteosat",
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "metop",
@@ -3221,7 +3392,11 @@
       38771,
       43689
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "metop-sg-a1",
@@ -3236,7 +3411,11 @@
     "ids": [
       65159
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "mev-1",
@@ -3253,7 +3432,10 @@
     "ids": [
       44625
     ],
-    "frame_radius": 48000000
+    "frame_radius": 48000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "mev-2",
@@ -3270,7 +3452,10 @@
     "ids": [
       46113
     ],
-    "frame_radius": 48000000
+    "frame_radius": 48000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "navic",
@@ -3300,7 +3485,11 @@
       56759,
       62850
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO",
+      "IGSO"
+    ]
   },
   {
     "id": "nilesat",
@@ -3320,7 +3509,10 @@
       36830,
       52817
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "nisar",
@@ -3335,7 +3527,11 @@
     "ids": [
       65053
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "noaa-jpss",
@@ -3351,7 +3547,11 @@
       43013,
       54234
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "nustar",
@@ -3366,7 +3566,10 @@
     "ids": [
       38358
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "o3b",
@@ -3403,7 +3606,10 @@
       44114,
       44115
     ],
-    "frame_radius": 16000000
+    "frame_radius": 16000000,
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "o3b-mpower",
@@ -3431,7 +3637,10 @@
       100686,
       100688
     ],
-    "frame_radius": 16000000
+    "frame_radius": 16000000,
+    "orbit_types": [
+      "MEO"
+    ]
   },
   {
     "id": "oco-2",
@@ -3446,7 +3655,11 @@
     "ids": [
       40059
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "oneweb",
@@ -4120,7 +4333,10 @@
       61613
     ],
     "frame_radius": 9000000,
-    "category": "telecommunications"
+    "category": "telecommunications",
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "orbcomm-og2",
@@ -4160,7 +4376,10 @@
       "prefix": "ORBCOMM FM",
       "min": 100,
       "max": 199
-    }
+    },
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "pace",
@@ -4175,7 +4394,11 @@
     "ids": [
       58928
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "pelican",
@@ -4200,7 +4423,10 @@
       69019,
       69871
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "planetscope",
@@ -4872,7 +5098,11 @@
       101073,
       101074
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "pleiades-neo",
@@ -4892,7 +5122,11 @@
       49070
     ],
     "frame_radius": 7500000,
-    "category": "observation"
+    "category": "observation",
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "proba-2",
@@ -4909,7 +5143,11 @@
     "ids": [
       36037
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "proba-3",
@@ -4927,7 +5165,10 @@
       62256,
       62258
     ],
-    "frame_radius": 75000000
+    "frame_radius": 75000000,
+    "orbit_types": [
+      "HEO"
+    ]
   },
   {
     "id": "qzss",
@@ -4950,7 +5191,11 @@
       62876,
       100270
     ],
-    "frame_radius": 50000000
+    "frame_radius": 50000000,
+    "orbit_types": [
+      "QZO",
+      "GEO"
+    ]
   },
   {
     "id": "radarsat-constellation",
@@ -4967,7 +5212,11 @@
       44323,
       44324
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "radarsat-2",
@@ -4982,7 +5231,11 @@
     "ids": [
       32382
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "sateliot",
@@ -5008,7 +5261,10 @@
       100945,
       100952
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "sentinel",
@@ -5039,7 +5295,11 @@
       100690
     ],
     "frame_radius": 7500000,
-    "category": "observation"
+    "category": "observation",
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "sentinel-5p",
@@ -5055,7 +5315,11 @@
       42969
     ],
     "frame_radius": 7500000,
-    "parent": "sentinel"
+    "parent": "sentinel",
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "sentinel-6",
@@ -5072,7 +5336,10 @@
       66514
     ],
     "frame_radius": 7500000,
-    "parent": "sentinel"
+    "parent": "sentinel",
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "skysat",
@@ -5109,7 +5376,10 @@
       46180,
       46235
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "smap",
@@ -5124,7 +5394,10 @@
     "ids": [
       40376
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "spacesail",
@@ -5388,7 +5661,10 @@
       100700,
       100701
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "spire-lemur",
@@ -5655,7 +5931,10 @@
       69934,
       69940
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "spot",
@@ -5671,7 +5950,11 @@
       38755,
       40053
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "starlink",
@@ -5686,7 +5969,10 @@
     "contains": [],
     "ids": [],
     "frame_radius": 7500000,
-    "category": "telecommunications"
+    "category": "telecommunications",
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "swarm",
@@ -5703,7 +5989,10 @@
       39452,
       39453
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "swot",
@@ -5718,7 +6007,10 @@
     "ids": [
       54754
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "tdrss",
@@ -5746,7 +6038,10 @@
       39504,
       42915
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "tess",
@@ -5761,7 +6056,10 @@
     "ids": [
       43435
     ],
-    "frame_radius": 450000000
+    "frame_radius": 450000000,
+    "orbit_types": [
+      "HEO"
+    ]
   },
   {
     "id": "thuraya",
@@ -5781,7 +6079,10 @@
       32404,
       62483
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "tiangong",
@@ -5799,7 +6100,10 @@
     "ids": [
       48274
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "umbra",
@@ -5827,7 +6131,10 @@
       66748,
       67371
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "viasat",
@@ -5848,7 +6155,10 @@
       66454,
       68893
     ],
-    "frame_radius": 47000000
+    "frame_radius": 47000000,
+    "orbit_types": [
+      "GEO"
+    ]
   },
   {
     "id": "worldview-legion",
@@ -5870,7 +6180,10 @@
       62900,
       62901
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "worldview-3",
@@ -5885,7 +6198,11 @@
     "ids": [
       40115
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO",
+      "SSO"
+    ]
   },
   {
     "id": "xmm-newton",
@@ -5900,7 +6217,10 @@
     "ids": [
       25989
     ],
-    "frame_radius": 150000000
+    "frame_radius": 150000000,
+    "orbit_types": [
+      "HEO"
+    ]
   },
   {
     "id": "xposat",
@@ -5915,7 +6235,10 @@
     "ids": [
       58694
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   },
   {
     "id": "xrism",
@@ -5930,6 +6253,9 @@
     "ids": [
       57800
     ],
-    "frame_radius": 7500000
+    "frame_radius": 7500000,
+    "orbit_types": [
+      "LEO"
+    ]
   }
 ]

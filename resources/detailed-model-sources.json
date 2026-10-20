@@ -1,0 +1,51 @@
+{
+  "iss": {
+    "file": "resources/detailed-originals/iss-igoal.glb",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/International%20Space%20Station%20%28ISS%29%20%28D%29%20%28IGOAL%29/International%20Space%20Station%20%28ISS%29.glb",
+    "page": "https://www.nasa.gov/integrated-graphics-operations-and-analysis-laboratory/",
+    "version": "NASA IGOAL D",
+    "sha256": "57cecfaf332efb2127d07796c4b65ca570d95a11516c8e046feb5a12efee491d",
+    "license": "NASA media usage guidelines",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "tess": {
+    "file": "resources/detailed-originals/tess-b.glb",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29.glb",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29",
+    "version": "NASA B texturé",
+    "sha256": "94e9ce15b02924175f1c0b33c0aaa7a33ee5e1fcbf933642ab933c1b04a1a238",
+    "license": "NASA media usage guidelines",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  },
+  "hubble": {
+    "file": "resources/detailed-originals/hubble-vtad.glb",
+    "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/h/Hubble.glb",
+    "page": "https://science.nasa.gov/resource/hubble-space-telescope-3d-model/",
+    "version": "NASA VTAD texturé",
+    "sha256": "e6a40640d6846e8f5d9438821ebe2d7de730c8dadba1cc9dfdbcc148ff1052cd",
+    "license": "NASA media usage guidelines",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "missing_uv_repairs": [
+      {
+        "mesh": 10,
+        "primitive": 0,
+        "texcoord": 0,
+        "reason": "clear.png.001 is a uniform RGBA (255,255,255,0) image; constant UV preserves full transparency."
+      }
+    ]
+  },
+  "tiangong": {
+    "file": "resources/detailed-originals/tiangong-sketchfab.glb",
+    "ids": [
+      48274
+    ],
+    "download": "https://raw.githubusercontent.com/Buggy1111/earth-pulse/be3a16addde8a5d59c73e7a1c5e512f3f8963ae0/public/models/sats/tiangong.glb",
+    "page": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
+    "version": "tianGong — maillage et matériaux de w29572227",
+    "credit": "w29572227 · CC BY 4.0",
+    "sha256": "d0e2ee481e63dfd28397346ce3802508136187e10263a2c3e1d203825eb2a3b5",
+    "license": "Creative Commons Attribution 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "note": "Redistributed GLB from earth-pulse; author and license verified against the original Sketchfab public API on 2026-10-20. Repackaged/compressed by earth-pulse; Atlas normalizes placement only."
+  }
+}

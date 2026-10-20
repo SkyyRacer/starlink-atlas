@@ -404,3 +404,17 @@ body[data-constellation="true"] #view-side{display:none}
 .collection-menu-option:hover,.collection-menu-option.is-active{background:#203441;color:#fff;border-left-color:#a9d2e9}
 .collection-menu-option[aria-selected="true"]{font-weight:600;color:#c5e4f6}
 @media(max-width:900px){.collection-menu-button{font-size:16px;min-height:46px}.collection-menu-option{font-size:14px;min-height:44px;padding:12px}.collection-menu-help{font-size:11px}}
+
+#detail .detail-description{font-size:12px;line-height:1.5;color:#aaa;margin:-8px 0 16px;overflow-wrap:anywhere}
+
+.collection-orbit{margin:8px 0 0;color:#b5c7d3;font-size:11px;line-height:1.5}.collection-orbit[hidden]{display:none}@media(max-width:900px){.collection-orbit{font-size:12px}}
+
+body[data-science="true"] #view-side{display:inline-block}
+
+.orbit-toggle{display:flex;align-items:center;gap:7px;margin-top:8px;color:#bbb;font-size:11px;line-height:1.4;cursor:pointer;min-height:24px;pointer-events:auto}.orbit-toggle input[type=checkbox]{width:14px;min-width:14px;height:14px;margin:0;padding:0;cursor:pointer}.map-creator .orbit-toggle{width:max-content;margin:0 0 8px;padding:6px 9px;border:1px solid #444;border-radius:3px;background:#080808ed;color:#bbb}@media(pointer:coarse){.orbit-toggle{min-height:32px}}
+
+.detailed-model-hint{display:block;max-width:240px;margin-top:4px;color:#888;font-size:10px;line-height:1.4}.orbit-toggle:has(input:disabled){opacity:.55;cursor:default}.globe-stage[data-model-loading="true"] #globe-canvas{filter:blur(9px);pointer-events:none}.model-loader{position:absolute;inset:0;z-index:650;display:grid;place-items:center;pointer-events:none;background:#0002}.model-progress-panel{width:clamp(170px,35vw,330px);padding:24px 14px;text-align:center;color:#eee;text-shadow:0 1px 7px #000}.model-progress-panel>span{display:block;font-size:12px;letter-spacing:.06em}.model-progress-panel strong{display:block;margin:9px 0 14px;font-size:28px;font-weight:400;font-variant-numeric:tabular-nums}#model-progress-fill{height:100%;background:#d7e9f4;transform:scaleX(0);transform-origin:left}
+
+.globe-tools .detailed-model-option{margin-top:10px;padding:8px 10px;background:#102734;border:1px solid #57859b;border-left:3px solid #8bc5e2;border-radius:3px;color:#cceafa;font-weight:600;min-height:34px}.globe-tools .detailed-model-option:hover{background:#193848;border-color:#8bc5e2}.globe-tools .detailed-model-option[data-active="true"]{background:#20475b;border-color:#b5e1f7;color:#fff}.detailed-model-option input[type=checkbox]{accent-color:#8bc5e2}.globe-tools #detailed-model-hint{color:#98b4c3;margin-top:5px}
+
+.atlas-view-link{display:inline-flex;align-items:center;padding:4px 7px;margin:6px 0 0 23px;font-size:11px;line-height:1.5;min-height:28px;border:1px solid #688b9f;background:#162b37;color:#d6ecf7;border-radius:2px;text-align:left}.atlas-view-link:hover:not(:disabled){background:#254454}.atlas-view-link:disabled{opacity:.45;cursor:default}.atlas-debris-card .atlas-view-link{margin-left:0}@media(max-width:900px){.atlas-view-link{min-height:38px}}

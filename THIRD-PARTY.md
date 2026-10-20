@@ -189,3 +189,22 @@ Moteur navigateur : même code orbital Rust que le serveur, compilé en WebAssem
 ## Drapeaux SVG
 
 `static/images/flags/*.svg` : **flag-icons 7.6.0**, lipis et contributeurs, licence MIT. Source : https://github.com/lipis/flag-icons ; paquet npm `flag-icons`, intégrité SHA-512 vérifiée. Licence conservée dans `resources/flag-icons-LICENSE.txt`. Images vectorielles locales au format 4:3 ; aucun emoji ou téléchargement externe pendant une visite.
+
+## Modèles des satellites scientifiques
+
+Hubble, Chandra, Fermi et TESS : géométries issues du dépôt officiel NASA 3D Resources, révision `11ebb4ee043715aefbba6aeec8a61746fad67fa7` (https://github.com/nasa/NASA-3D-Resources). Le dépôt les présente comme libres et sans copyright ; les consignes NASA sur les médias restent applicables : https://www.nasa.gov/nasa-brand-center/images-and-media/. Aucun logo ou texture n’est repris dans les adaptations filaires. Les fichiers originaux, leurs empreintes et leur provenance sont conservés dans `resources/science-originals/` et `resources/science-model-sources.json`. Les contours simplifiés blancs sont une adaptation Atlas, pas un modèle d’ingénierie certifié.
+
+AstroSat, CHEOPS, IXPE, LAGEOS-1/2, NuSTAR, XMM-Newton, XPoSat et XRISM : géométries schématiques originales Atlas, construites d’après les documents publics des missions ISRO, ESA, NASA, Caltech et JAXA. Aucune géométrie commerciale ou à licence inconnue n’est copiée. Les huit références exactes sont dans `resources/science-model-sources.json`. Les fiches distinguent « Modèle NASA adapté » et « Modèle schématique ». Les dessins 2D dérivent des mêmes sommets que les modèles 3D ; taille amplifiée pour la lisibilité et orientation illustrative, sans attitude réelle.
+
+Reproduction hors ligne des fichiers optimisés : `python3 scripts/build_science_models.py`. Le décodage initial Draco des modèles NASA peut être reproduit avec `scripts/decode_science_models.cjs` et `draco3dgltf` 1.5.7 ; les caches décodés, liés à l’empreinte de l’original, sont fournis. Aucun décodeur Draco supplémentaire n’est chargé dans le navigateur. Les modèles et les dessins ne sont téléchargés qu’à leur première utilisation.
+
+Les modèles couleur de `static/images/detailed/` proviennent également de NASA 3D Resources (Hubble, Chandra, Fermi, TESS et ISS variante B). Les données originales et leurs matériaux sont conservés, avec une transformation de présentation Atlas ; crédits, URLs et empreintes dans `resources/detailed-model-manifest.json`. Les règles NASA précédemment référencées s’appliquent.
+
+Modèles détaillés révisés : ISS NASA IGOAL D, Hubble NASA VTAD et TESS B, sources et empreintes dans `resources/detailed-model-sources.json`. L’environnement Kiara 6 Afternoon est de Greg Zaal / Poly Haven (CC0, https://polyhaven.com/license), préfiltré KTX2 issu des données de test Cesium 1.130. Les coefficients d’éclairage de l’exemple Cesium Image-Based Lighting sont sous Apache-2.0, licence incluse dans `static/vendor/cesium/LICENSE.md`. Aucune garantie de configuration ou d’éclairage de vol réel n’est revendiquée pour ces illustrations.
+
+
+### Tiangong — modèle détaillé (20 octobre 2026)
+
+« tianGong », par **w29572227**, [source originale Sketchfab](https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Licence et auteur vérifiés dans l’API publique du modèle. GLB redistribué par earth-pulse, téléchargement épinglé et SHA-256 dans `resources/detailed-model-sources.json`. Atlas conserve géométrie, matériaux, texture et crédit intégrés ; seule la transformation de présentation est ajoutée. Taille illustrative ; configuration et orientation ne représentent pas la station en temps réel. Chargement à la demande uniquement.
+
+Les modèles ESA CHEOPS et XMM-Newton trouvés sur SciFleet restent dans les fichiers de recherche, hors `static/`, car les conditions générales liées par le site ne suffisent pas à autoriser leur redistribution dans Atlas. Aucun de ces fichiers n’est proposé comme modèle détaillé. État des autres recherches : `resources/model-search-2026-10-20.json`.

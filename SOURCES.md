@@ -99,3 +99,51 @@ Les pages ciblées Meteosat MTG, GOES-18 / 19 et Sentinel-5P / 6 restent aussi a
 Tiangong utilise le groupe public CelesTrak `stations`, filtré sur NORAD 48274. Le modèle GLB et son dessin 2D sont des schémas originaux, générés par `scripts/build_tiangong_model.py` ; aucune attitude réelle ou configuration d’amarrage n’est affirmée. Les vols sont filtrés sur la station LL2 18 et la destination « Tiangong space station ». La station ISS reste LL2 4. Les membres courants sont associés à un vol habité effectivement arrivé, non reparti, et déclarés en vol. L’équipage Shenzhou 23 a été recoupé avec CMSA : https://www.cmse.gov.cn/fxrw/SZ23/ ; arrivée : https://www.cmse.gov.cn/xwzx/202605/t20260525_57570.html ; sortie : https://www.cmse.gov.cn/xwzx/202608/t20260828_57758.html. Les 21 vols et 27 EVA Tiangong présents dans l’import correspondent à la couverture publiée disponible, pas à une promesse d’exhaustivité biographique.
 
 Audit Débris : 42 703 fragments / étages au catalogue cumulé, dont 14 835 sans rentrée signalée, dans le SATCAT importé. Certains n’ont aucun élément public ; d’autres ont une époque trop ancienne pour la fenêtre de 72 h. Le groupe public Analyst (https://celestrak.org/NORAD/elements/gp.php?GROUP=analyst&FORMAT=JSON) ajoute 599 objets non identifiés à cet import. Leur identité et nature ne sont pas supposées : https://celestrak.org/NORAD/documentation/gp-data-formats.php. La population statistique est distincte de ce catalogue individuellement calculable : https://sdup.esoc.esa.int/discosweb/statistics/. Les estimations ne sont pas transformées en faux points. Les satellites intacts hors service gardent leur classification de charge utile dans leurs pages respectives.
+
+## Représentations scientifiques
+
+Le détail de provenance et des droits est dans THIRD-PARTY.md et `resources/science-model-sources.json`. Les douze modèles représentent treize identifiants, les deux LAGEOS partageant la même géométrie avec des positions et sélections indépendantes. Les quatre adaptations NASA préservent la géométrie source tout en retirant textures et détails superflus. Les huit autres modèles sont des schémas originaux fondés sur la documentation officielle ; aucun fichier 3D officiel réutilisable n’a été identifié pour ces huit missions pendant cette intégration. Ils ne sont donc pas présentés comme des modèles téléchargés des agences. Une représentation ne crée jamais de position : les mêmes règles de validité des éléments orbitaux s’appliquent.
+
+### TESS : trajectoire NASA/JPL Horizons
+
+Les vecteurs géocentriques ICRF de TESS (NAIF −95, NORAD 43435) sont récupérés via l’API officielle Horizons, centre Terre 399, positions/vitesses en km et km/s, dates UTC explicites. Réponse originale de validation : `resources/tess-horizons-sample.json`. Le cache `static/ephemerides/tess.json` est renouvelé chaque jour par le serveur local ou lors d’une collecte de publication ; un échec conserve le cache. La réponse obtenue le 20 octobre 2026 décrit une trajectoire prédite à partir du suivi du 27 septembre 2026 et couvre jusqu’en mars 2028. L’extrait fourni couvre du 30 septembre au 15 novembre 2026.
+
+Le navigateur charge ce petit cache une seule fois par visite sur Atlas/TESS. Interpolation Hermite des positions et vitesses à pas horaire ; aucune extrapolation hors des bornes publiées. Conversion ICRF vers l’équateur de date par précession IAU 1976 puis rotation sidérale et géodésie WGS84 ; la nutation et le mouvement polaire ne sont pas appliqués. Affichage d’observation, sans précision de navigation revendiquée. Les trajectoires 2D/3D sont échantillonnées dans ces mêmes données, sans remplacer les vecteurs par de faux TLE.
+
+Documentation : https://ssd-api.jpl.nasa.gov/doc/horizons.html et https://ssd.jpl.nasa.gov/horizons/manual.html.
+
+### XPoSat : disponibilité vérifiée le 20 octobre 2026
+
+Le TLE accessible via N2YO et le miroir public TLE est daté du 9 octobre 2026 à 22:27:47 UTC. SatNOGS ne retourne pas de TLE pour cet objet. Aucun TLE frais exploitable trouvé lors de cette recherche ; le seuil de validité de 72 h reste inchangé. La page indique la date disponible et permet sa consultation historique ; elle ne présente pas cette archive comme une position actuelle. Le collecteur tente également les sources de secours lors des cycles suivants.
+
+### LAGEOS : correction géométrique
+
+Le modèle schématique partagé par LAGEOS-1/2 représente une sphère de 60 cm avec 426 ouvertures circulaires de réflecteurs de 3,81 cm intégrées à la surface. La disposition sphérique est illustrative ; les anciens cubes externes ont été supprimés. Dimensions : https://earth.gsfc.nasa.gov/geo/missions/lageos/design et https://ntrs.nasa.gov/citations/19760006091.
+
+### Modèles 3D détaillés à la demande
+
+Les représentations en couleur de Hubble, Chandra, Fermi et TESS conservent les maillages, matériaux et textures des originaux NASA précédemment référencés. L’ISS utilise « International Space Station (ISS) (B) » du même dépôt officiel NASA-3D-Resources, révision `11ebb4ee043715aefbba6aeec8a61746fad67fa7`. SHA-256, URL, taille et crédits figurent dans `resources/detailed-model-manifest.json`. Le constructeur `scripts/build_detailed_models.py` ne modifie que la transformation racine pour conserver le centrage et le cadrage de la version filaire. Il conserve intégralement les données binaires, matériaux et images embarquées. Les versions sont artistiques, ne constituent pas des configurations de vol exactes et n’indiquent pas l’attitude réelle.
+
+Les 5 fichiers totalisent environ 4,8 Mo et ne sont chargés qu’après activation de l’option. La barre reflète les octets reçus puis la préparation du rendu ; aucune extrapolation de pourcentage. Décocher ou changer de cible annule la demande et rend le dessin blanc immédiatement ; un modèle déjà prêt est réutilisé. Une erreur conserve le dessin blanc. Les autres objets signalent explicitement l’indisponibilité d’un modèle détaillé, sans recolorer leur schéma pour le faire passer pour un modèle fidèle.
+
+Sources et règles d’utilisation : https://github.com/nasa/NASA-3D-Resources et https://www.nasa.gov/nasa-brand-center/images-and-media/.
+
+### Révision des modèles détaillés et des étiquettes (20 octobre 2026)
+
+- ISS : remplacement de la variante B simplifiée par le modèle officiel NASA IGOAL D (2 707 621 triangles, 49 matériaux, 220 images embarquées, environ 96 Mo). Source et empreinte dans `resources/detailed-model-sources.json`.
+- Hubble : remplacement de la variante A de 7 672 triangles par le modèle NASA VTAD texturé de 21 129 triangles, 10 matériaux et 10 images, publié sur https://science.nasa.gov/resource/hubble-space-telescope-3d-model/. La variante B du dépôt GitHub, bien que plus dense, a été écartée car dépourvue de matériaux et textures.
+- TESS : remplacement de la variante A sans textures par la variante B officielle, avec six images embarquées. Chandra et Fermi conservent leurs originaux NASA.
+- Les surfaces et textures originales restent intégralement conservées par le constructeur. Un éclairage PBR par objet est ajouté pour rendre les métaux lisibles : environnement Kiara 6 Afternoon de Greg Zaal / Poly Haven, CC0 (https://polyhaven.com/a/kiara_6_afternoon ; https://polyhaven.com/license), version KTX2 préfiltrée distribuée avec Cesium 1.130. URL et empreinte dans `resources/detailed-environment-source.json`. Les coefficients SH proviennent de l’exemple officiel « Image-Based Lighting » de Cesium (Apache-2.0). Cet éclairage de présentation ne simule pas l’éclairage orbital réel.
+- L’environnement est chargé uniquement avec un modèle détaillé, indépendamment de l’éclairage du globe. Le rendu détaillé active le lissage et une densité maximale de deux pixels par pixel CSS ; décocher restaure la résolution habituelle. La taille du téléchargement est indiquée dans les commandes avant activation.
+- Les noms sont positionnés en fonction de la sphère englobante réellement projetée du modèle, de son agrandissement à l’écran et de la largeur du texte. En très gros plan sans marge libre, le nom reste dans une zone sombre lisible au bord de l’image.
+
+### Correction de compatibilité du modèle Hubble VTAD
+
+Le maillage `Cube.004` (mesh 10, primitive 0, 24 sommets) du fichier officiel Hubble VTAD référence `clear.png.001` via le matériau `transparent` sans attribut `TEXCOORD_0`. Cette image PNG 128×128 est uniformément RGBA (255,255,255,0). Le constructeur ajoute des UV constants (0,0) pour ces seuls sommets : les matériaux, les textures, la transparence et toutes les données géométriques originales sont conservés. La réparation est déclarée dans `resources/detailed-model-sources.json` et journalisée dans le manifeste généré. Toute référence de texture sans UV provoque désormais un échec de construction. La suppression de la texture aurait rendu ce cube opaque et a donc été écartée.
+
+
+### Tiangong — modèle détaillé (20 octobre 2026)
+
+« tianGong », par **w29572227**, [source originale Sketchfab](https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Licence et auteur vérifiés dans l’API publique du modèle. GLB redistribué par earth-pulse, téléchargement épinglé et SHA-256 dans `resources/detailed-model-sources.json`. Atlas conserve géométrie, matériaux, texture et crédit intégrés ; seule la transformation de présentation est ajoutée. Taille illustrative ; configuration et orientation ne représentent pas la station en temps réel. Chargement à la demande uniquement.
+
+Les modèles ESA CHEOPS et XMM-Newton trouvés sur SciFleet restent dans les fichiers de recherche, hors `static/`, car les conditions générales liées par le site ne suffisent pas à autoriser leur redistribution dans Atlas. Aucun de ces fichiers n’est proposé comme modèle détaillé. État des autres recherches : `resources/model-search-2026-10-20.json`.

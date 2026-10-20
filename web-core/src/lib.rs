@@ -67,6 +67,8 @@ fn add(
             Some("CelesTrak SupGP / SpaceX") => "CelesTrak SupGP / SpaceX",
             Some("Archive importée / GP") => "Archive importée / GP",
             Some("CelesTrak GP / Space-Track") => "CelesTrak GP / Space-Track",
+            Some("SatNOGS / Space-Track") => "SatNOGS / Space-Track",
+            Some("N2YO / Space-Track") => "N2YO / Space-Track",
             Some("Archive publique Julien Simon / Space-Track") => "Archive publique Julien Simon / Space-Track",
             _ => default_source,
         };

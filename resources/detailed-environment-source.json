@@ -1,0 +1,10 @@
+{
+  "file": "static/images/detailed/environment.ktx2",
+  "sha256": "e5fd262fc6da94b7818e0243048ca55b5bfca813673b548b566a72eb73bba623",
+  "download": "https://raw.githubusercontent.com/CesiumGS/cesium/1.130/Specs/Data/EnvironmentMap/kiara_6_afternoon_2k_ibl.ktx2",
+  "original": "https://polyhaven.com/a/kiara_6_afternoon",
+  "author": "Greg Zaal / Poly Haven",
+  "license": "CC0",
+  "license_url": "https://polyhaven.com/license",
+  "coefficients": "https://github.com/CesiumGS/cesium/blob/1.130/Apps/Sandcastle/gallery/Image-Based%20Lighting.html"
+}

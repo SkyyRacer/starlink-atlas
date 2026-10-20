@@ -63,7 +63,7 @@ transport_file=out/'transport.js';transport_file.write_text(transport_file.read_
 for file in out.glob('*.js'):
  text=file.read_text().replace("'/images/","'./images/").replace("'/vendor/","'./vendor/").replace('"/vendor/','"./vendor/').replace('`/vendor/','`./vendor/')
  if file.name=='pages.js':text=text.replace("const routeRoot='/'","const routeRoot='./'")
- if file.name=='app.js':text=text.replace('async function get(url){','async function get(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
+ if file.name=='app.js':text=text.replace('async function getRaw(url){','async function getRaw(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');
 # Hash the actual exported files after route and resource rewrites.

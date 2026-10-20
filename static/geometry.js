@@ -26,7 +26,30 @@
     for(let lon=-180;lon<=180;lon+=.5){const latitude=Math.atan(-cos*Math.cos(lon*Math.PI/180-solarLongitude)/denominator)*180/Math.PI;path.push([Math.max(-limit,Math.min(limit,latitude)),lon]);}
     path.push([pole,180],[pole,-180]);return path;
   }
-  const api={splitTrack,shouldRender,nightPolygon};
+  // Distances are CSS pixels, independent of canvas resolution and device pixel ratio.
+  function pickRadius({mode,zoom=0,minZoom=0,height=0,touch=false}){
+    const far=mode==='2d'?Math.pow(2,-Math.max(0,zoom-minZoom)/3):Math.max(0,Math.min(1,Math.log2(1+Math.max(0,height)/500000)/7));
+    return 6+8*far+(touch?3:0);
+  }
+  function nearestHit(hits,point,radius){
+    let best=null,distance=Infinity;
+    for(const hit of hits){if(hit.visible===false)continue;const d=Math.hypot(hit.x-point.x,hit.y-point.y),limit=hit.radius??radius;
+      if(Number.isFinite(d)&&d<=limit&&d<distance){best=hit.id;distance=d;}
+    }
+    return best;
+  }
+  function labelPlacement({anchor,bounds,width,height,textWidth,textHeight=24,gap=12}){
+    const pad=10,w=Math.min(textWidth,Math.max(1,width-2*pad)),h=textHeight;
+    const clamp=(v,min,max)=>Math.max(min,Math.min(Math.max(min,max),v));
+    const y=clamp(anchor.y-h/2,pad,height-h-pad),x=clamp(anchor.x-w/2,pad,width-w-pad);
+    if(bounds.right+gap>=pad&&bounds.right+gap+w<=width-pad)return {x:bounds.right+gap,y};
+    if(bounds.left-gap-w>=pad&&bounds.left-gap<=width-pad)return {x:bounds.left-gap-w,y};
+    if(bounds.top-gap-h>=pad&&bounds.top-gap<=height-pad)return {x,y:bounds.top-gap-h};
+    if(bounds.bottom+gap>=pad&&bounds.bottom+gap+h<=height-pad)return {x,y:bounds.bottom+gap};
+    // At extreme close-up no free margin may remain: keep the caption legible in a dark panel.
+    return {x:pad,y:Math.max(pad,height-h-pad)};
+  }
+  const api={splitTrack,shouldRender,nightPolygon,pickRadius,nearestHit,labelPlacement};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else root.AtlasGeometry=api;
 })(typeof window!=='undefined'?window:this);

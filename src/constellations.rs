@@ -22,7 +22,8 @@ fn filtered_orbits(def: &collections::Definition, rows: &[Value], catalog: &[Val
         }
         if !collections::belongs(id,row["OBJECT_NAME"].as_str().unwrap_or(""),&def.id) { continue; }
         let elements: sgp4::Elements=serde_json::from_value(row.clone()).map_err(|e|e.to_string())?;
-        sgp4::Constants::from_elements(&elements).map_err(|e|e.to_string())?;output.push(row);
+        sgp4::Constants::from_elements(&elements).map_err(|e|e.to_string())?;
+        output.push(row);
     }
     if output.is_empty() { return Err(format!("Aucun élément orbital {} exploitable",def.label)); }
     serde_json::to_vec(&output).map_err(|e|e.to_string())
@@ -36,6 +37,44 @@ pub async fn bulk_catalogue(client:&reqwest::Client,dir:&std::path::Path)->Resul
         let bytes=download(client,debris::CATALOG).await?;csv_data::catalogue(&bytes)?;sources::atomic(dir,"satcat-all.csv",&bytes)?;bytes
     };
     csv_data::catalogue(&bytes)
+}
+pub const BACKUP_SOURCE:&str="SatNOGS / Space-Track";
+pub const TRACKER_SOURCE:&str="N2YO / Space-Track";
+fn backup_elements(id:u64,name:&str,line1:&str,line2:&str,source:&str)->Result<Value,String>{
+    let el=sgp4::Elements::from_tle(Some(name.to_owned()),line1.as_bytes(),line2.as_bytes()).map_err(|e|e.to_string())?;
+    if el.norad_id!=id{return Err("Identité TLE incorrecte".into());}
+    sgp4::Constants::from_elements(&el).map_err(|e|e.to_string())?;
+    let mut row=serde_json::to_value(el).map_err(|e|e.to_string())?;row["ATLAS_SOURCE"]=json!(source);Ok(row)
+}
+pub fn parse_backup(rows:&[Value])->Result<Vec<u8>,String>{
+    let mut output=Vec::new();
+    for row in rows {let id=row["norad_cat_id"].as_u64().ok_or("Identifiant TLE manquant")?;
+        let def=collections::definitions().iter().find(|d|d.ids.contains(&id)).ok_or("Objet TLE non pris en charge")?;
+        let source=if row["provider"]=="N2YO"{TRACKER_SOURCE}else{BACKUP_SOURCE};
+        output.push(backup_elements(id,row["name"].as_str().unwrap_or(&def.label),row["tle1"].as_str().ok_or("TLE 1 manquant")?,row["tle2"].as_str().ok_or("TLE 2 manquant")?,source)?);
+    }
+    serde_json::to_vec(&output).map_err(|e|e.to_string())
+}
+async fn backup(def:&collections::Definition,client:&reqwest::Client,shared:&Shared,dir:&std::path::Path)->Result<(),String>{
+    let mut rows=Vec::new();
+    for id in &def.ids{
+        let url=format!("https://db.satnogs.org/api/tle/?norad_cat_id={id}");
+        let records:Vec<Value>=match download(client,&url).await{Ok(bytes)=>serde_json::from_slice(&bytes).unwrap_or_default(),Err(_)=>Vec::new()};
+        if let Some(row)=records.into_iter().find(|r|r["norad_cat_id"].as_u64()==Some(*id)){rows.push(row);continue;}
+        let bytes=download(client,&format!("https://www.n2yo.com/satellite/?s={id}")).await?;
+        let html=std::str::from_utf8(&bytes).map_err(|e|e.to_string())?;
+        let first=html.find(&format!("1 {id:05}U")).ok_or("TLE absent de la source de secours")?;
+        let second=html.find(&format!("2 {id:05} ")).ok_or("TLE 2 absent de la source de secours")?;
+        rows.push(json!({"norad_cat_id":id,"name":def.label,"tle1":html.get(first..first+69).ok_or("TLE incomplet")?,"tle2":html.get(second..second+69).ok_or("TLE incomplet")?,"provider":"N2YO"}));
+    }
+    let bytes=parse_backup(&rows)?;
+    let elements:Vec<sgp4::Elements>=serde_json::from_slice(&bytes).map_err(|e|e.to_string())?;
+    if elements.iter().any(|el|(Utc::now()-el.datetime.and_utc()).num_seconds().abs()>MAX_AGE){return Err("Éléments de secours périmés : archive conservée, aucune position actuelle inventée".into());}
+    let now=Utc::now().timestamp();
+    sources::atomic(dir,&format!("gp-backup-{}-{now}.json",def.id),&bytes)?;
+    load_gp(&mut *shared.write().await,&bytes)?;
+    sources::atomic(dir,&format!("{}-fetched.txt",def.id),Utc::now().to_rfc3339().as_bytes())?;
+    Ok(())
 }
 pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
     let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).timeout(std::time::Duration::from_secs(60)).build().unwrap();
@@ -65,12 +104,18 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
                 }
                 let rows=feeds.get(&url).unwrap().as_ref().map_err(Clone::clone)?;
                 let bytes=filtered_orbits(def,rows,&catalogue)?;
+                if ["tess","xposat"].contains(&def.id.as_str()){
+                    let elements:Vec<sgp4::Elements>=serde_json::from_slice(&bytes).map_err(|e|e.to_string())?;
+                    if elements.iter().all(|el|(Utc::now()-el.datetime.and_utc()).num_seconds().abs()>MAX_AGE){return Err(format!("{} : éléments orbitaux périmés",def.label));}
+                }
                 sources::atomic(&dir,&format!("gp-{}-{now}.json",def.id),&bytes)?;sources::atomic(&dir,&format!("gp-{}.json",def.id),&bytes)?;
                 load_gp(&mut *shared.write().await,&bytes)?;
                 sources::atomic(&dir,&format!("{}-fetched.txt",def.id),Utc::now().to_rfc3339().as_bytes())?;
                 let _=std::fs::remove_file(dir.join(format!("{}-error.txt",def.id)));
                 Ok(())
             }.await;
+            let result=match result{Err(primary) if ["proba-2","proba-3","mev-1","mev-2","lares-2","tess","xposat"].contains(&def.id.as_str())=>backup(def,&client,&shared,&dir).await.map_err(|fallback|format!("{primary} · secours : {fallback}")),other=>other};
+            if result.is_ok(){let _=std::fs::remove_file(dir.join(format!("{}-error.txt",def.id)));}
             if let Err(error)=result { eprintln!("{} : {error}",def.label);let _=std::fs::write(dir.join(format!("{}-error.txt",def.id)),error); }
         }
         if once { return; }tokio::time::sleep(std::time::Duration::from_secs(7200)).await;
@@ -79,6 +124,16 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn verified_backup_tles_keep_identity_epoch_and_provenance(){
+        let input:Vec<Value>=serde_json::from_str(include_str!("../resources/experimental-tle-examples.json")).unwrap();
+        let bytes=parse_backup(&input).unwrap();let mut db=Database::default();assert_eq!(load_gp(&mut db,&bytes).unwrap(),6);
+        for row in &input{let id=row["norad_cat_id"].as_u64().unwrap();let orbit=&db.orbits[&id][0];
+            assert_eq!(orbit.source,if row["provider"]=="N2YO"{TRACKER_SOURCE}else{BACKUP_SOURCE});
+            let p=position(orbit,orbit.el.datetime.and_utc()).unwrap();assert!(p.altitude_km>100.&&p.altitude_km<100000.);
+        }
+        let mut bad=input.clone();bad[0]["norad_cat_id"]=json!(53105);assert!(parse_backup(&bad).is_err());
+    }
     #[test]
     fn experimental_catalogues_include_docked_mev_and_both_proba_spacecraft() {
         for (collection, ids) in [("proba-2",vec![36037]),("proba-3",vec![62256,62258]),("mev-1",vec![44625]),("mev-2",vec![46113]),("lares-2",vec![53105])] {

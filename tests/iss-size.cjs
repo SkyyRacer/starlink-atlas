@@ -10,3 +10,10 @@ for(const [width,height] of [[320,500],[390,650],[1400,900]]){
 }
 assert.ok(size(320,500,28000000,false,'iss')<size(1400,900,28000000,false,'iss'));
 console.log('ISS : taille progressive selon zoom et écran, suivi lisible, Atlas discret OK');
+for(const selected of [false,true]){
+ assert.equal(size(390,745,30000000,selected,'all'),3);
+ assert.equal(size(1800,745,300000000,selected,'all'),3);
+ assert.ok(size(390,745,200000,selected,'all')>=38);
+ let previous=Infinity;for(const distance of [200000,500000,1000000,3500000,12000000,30000000]){const value=size(390,745,distance,selected,'all');assert.ok(value<=previous);previous=value;}
+}
+console.log('Atlas : modèles réduits à 3 px de loin, grossissement continu vers la cible, pages dédiées inchangées.');

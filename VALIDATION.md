@@ -329,3 +329,48 @@ Serveur local relancé sur le port 3002 ; export statique reconstruit pour véri
 
 
 Export final vérifié : calculs et traces strictement identiques aux données complètes sur les 17 pages (date courante et historique), transport sans blocage du catalogue par le moteur, chargement 0–100 sur les 34 URL natives / statiques. Charges initiales compressées : ISS 997 + 467 octets, Pléiades Neo 528 + 546 octets, OneWeb 6 243 + 36 025 octets, Débris 474 104 + 968 329 octets, Starlink 131 121 + 1 142 530 octets, Atlas 637 091 + 2 182 224 octets (catalogue + orbites, hors moteurs partagés). La charge Starlink reste au niveau de l’optimisation précédente ; les débris sont chargés seulement dans Débris / Atlas. Export local final : 63 167 476 octets.
+
+## 20 octobre 2026 — modèles et navigation scientifique
+
+- Atlas : changement Hubble → IXPE réoriente la vue distante, sans fiche ni suivi implicite ; position différée prise en charge, sélection encore visible préservée.
+- Modèles : zoom relatif à la cible, molette et boutons, butée à proximité ; changement de satellite réinitialise la vue inclinée héritée.
+- LAGEOS : 426 ouvertures affleurantes, coque opaque occultant les réflecteurs arrière, dessin 2D limité à la face visible ; GLB, dimensions et provenance vérifiés.
+- TESS : éphémérides officielles JPL horaires, UTC, interpolation Hermite, trajectoires 2D/3D, aucune extrapolation. Requête locale + adaptation navigateur : une position et 161 points par arc.
+- XPoSat : aucune position actuelle acceptée avec le TLE périmé ; consultation historique vérifiée au 9 octobre 2026 à 22:27:47 UTC.
+- 36 tests Rust réussis ; tests JS de caméra, zoom, sélection, course entre requêtes, modèles, éphémérides et transport autonome réussis. Export autonome préparé dans un dossier temporaire et testé, sans publication.
+- Aperçu LAGEOS vérifié par rendu 2D ; inspection interactive WebGL non effectuée dans cet environnement.
+
+## 20 octobre 2026 — commandes et modèles couleur
+
+- Option indépendante « Afficher le trait vers le sol », activée par défaut ; les positions animées ne réintroduisent pas le trait lorsqu’il est masqué.
+- 5 modèles couleur NASA : Hubble, Chandra, Fermi, TESS et ISS B. Conservation vérifiée des maillages compressés, matériaux, images et données binaires ; transformation racine uniquement.
+- Chargement explicite, progression bornée 0–100, flou sur le rendu 3D au cadrage courant, attente de la préparation graphique, annulation immédiate et retour au filaire. Cache de la version prête ; erreur et changement de cible tardif testés. Aucun téléchargement détaillé à l’initialisation.
+- Atlas : 3 px à grande distance, croissance progressive jusqu’au zoom rapproché. Distance caméra–modèle utilisée en 3D, repère de zoom en 2D ; modèles filaires lointains remplacés par des points, zones de clic conservées. Pages dédiées conservées.
+- Thème « Sciences et astronomie » après « Stations spatiales » dans le HTML et dans le générateur.
+- Tests JS réussis pour les modèles détaillés, tailles, thèmes, modèles filaires, Tiangong, caméra, suivi, sélection, courses de chargement et clics. Fichiers GLB servis et export autonome construits localement. Pas de publication ; vérification WebGL interactive non réalisée dans cet environnement.
+
+## 20 octobre 2026 — lisibilité des noms et véritables modèles détaillés
+
+- Noms 3D placés autour de l’encombrement projeté du modèle réellement affiché, blanc ou couleur. Prise en compte de l’agrandissement Cesium, du zoom, de la largeur de texte et des limites de l’écran ; fond sombre et absence d’occultation par la géométrie en très gros plan.
+- ISS remplacée par NASA IGOAL D : 2 707 621 triangles, 49 matériaux, 220 images embarquées. Hubble remplacé par NASA VTAD : 21 129 triangles et 10 textures. TESS B texturé remplace TESS A sans textures. Données binaires et matériaux originaux conservés, empreintes vérifiées.
+- Éclairage PBR par modèle avec environnement KTX2 local et coefficients SH officiels Cesium. Lissage et densité Retina plafonnée à 2× uniquement en mode détaillé.
+- Tests réussis : placement des noms (desktop, mobile, limites et très gros plan), intégrité des modèles, commande du panneau détaillé, progression, annulation, cache, caméra inchangée, rendu demandé et résolution restaurée. Réponses HTTP partielles vérifiées pour les modèles lourds. Pas de publication ; contrôle visuel WebGL interactif toujours à effectuer dans le navigateur utilisateur.
+
+## Correction du shader de texture Hubble (20 octobre 2026)
+
+- Défaut reproduit dans les données : un matériau texturé Hubble exigeait `TEXCOORD_0` sur une primitive qui ne le fournissait pas. Inspection du PNG : entièrement transparent. Ajout vérifié de 24 UV constants, sans modifier les positions, indices, matériaux ou images.
+- Contrôle de 1 820 références de textures sur les cinq modèles détaillés : UV présents, type VEC2 et nombre de sommets cohérent. Contrôle ajouté à la construction et test de régression dédié.
+- Repli ciblé lors d’une erreur GPU d’un modèle détaillé : suppression du modèle fautif, invalidation du cache, arrêt du chargement, restauration du dessin blanc et reprise du rendu. Les erreurs sans rapport ne sont pas masquées. Transitions testées via le véritable contrôleur et le panneau simulé.
+- Contrôles de syntaxe, modèles, noms, suivi et cadrage réussis. La compilation WebGL réelle dans Safari reste à vérifier au rechargement dans le navigateur utilisateur.
+
+Mise à jour des commandes : option détaillée entièrement masquée sans modèle disponible (y compris lorsqu’un schéma blanc existe), mise en avant bleue quand disponible, test du panneau réussi. Orbite et liaison au sol pilotées par le même état et la même case « Afficher l’orbite et le trait au sol », cochée par défaut ; la commande planisphère synchronisée conserve l’intitulé « Afficher l’orbite ». Tests de régression des modèles, UV, panneau et sélection réussis.
+
+
+## Modèles détaillés et actions Atlas — 20 octobre 2026
+
+- Tiangong : modèle importé, attribution CC BY 4.0 vérifiée sur l’API originale. 478 maillages, 22 matériaux et une texture embarquée. Géométrie inspectée hors ligne avec décodage Draco ; pas de validation WebGL dans un navigateur pour ce changement.
+- Les tests des matériaux/UV passent pour les six objets détaillés ; le shader Hubble conserve sa correction.
+- Chaque catégorie Atlas a une navigation « Voir les détails » et une action « Voir le satellite » (débris : « Voir un objet »). Cible : premier membre en orbite avec position, priorité au statut opérationnel ; activation de la catégorie si nécessaire. Le panneau mobile se ferme. Les cibles des 97 catégories sont calculées en un passage sur le catalogue.
+- L’activation du détail, après téléchargement ou depuis le cache, déclenche un cadrage rapproché adapté au rayon du modèle et au format de l’écran. Décocher ou terminer un chargement annulé ne cadre pas la caméra.
+- Contrôles ciblés : tests atlas-observation, atlas-categories, atlas-reorientation, detailed-models, detailed-layer, model-uvs, model-zoom, model-labels, auto-follow, tiangong.
+- Les modèles scientifiques supplémentaires non autorisés pour redistribution sont documentés dans resources/model-search-2026-10-20.json et ne sont pas annoncés dans le panneau. Aucun déploiement.

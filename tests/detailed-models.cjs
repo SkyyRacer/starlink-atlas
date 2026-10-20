@@ -1,0 +1,31 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto');
+const manifest=JSON.parse(fs.readFileSync('resources/detailed-model-manifest.json'));
+function glb(file){const bytes=fs.readFileSync(file),n=bytes.readUInt32LE(12);assert.equal(bytes.readUInt32LE(8),bytes.length);return {bytes,doc:JSON.parse(bytes.subarray(20,20+n)),binary:bytes.subarray(28+n)};}
+for(const info of manifest){
+ const original=glb(info.original_file),detail=glb('static/images/detailed/'+info.key+'.glb');
+ assert.equal(crypto.createHash('sha256').update(original.bytes).digest('hex'),info.sha256);assert.equal(detail.bytes.length,info.bytes);const meshes=structuredClone(detail.doc.meshes);
+ for(const repair of info.uv_repairs||[]){const primitive=meshes[repair.mesh].primitives[repair.primitive],name='TEXCOORD_'+repair.texcoord,accessor=detail.doc.accessors[primitive.attributes[name]],view=detail.doc.bufferViews[accessor.bufferView];assert.equal(accessor.type,'VEC2');assert.equal(accessor.count,repair.count);assert.equal(accessor.count,detail.doc.accessors[primitive.attributes.POSITION].count);assert.ok(detail.binary.subarray(view.byteOffset,view.byteOffset+view.byteLength).every(value=>value===0));delete primitive.attributes[name];}
+ assert.deepEqual(meshes,original.doc.meshes);assert.deepEqual(detail.doc.materials,original.doc.materials);assert.deepEqual(detail.doc.images,original.doc.images);assert.deepEqual(detail.binary.subarray(0,original.binary.length),original.binary,'Mesh compression, textures and original vertex data remain intact');
+ assert.ok(detail.doc.materials.some(m=>m.pbrMetallicRoughness?.baseColorFactor?.some((x,i)=>i<3&&x<.9)||m.pbrMetallicRoughness?.baseColorTexture));
+}
+const ctx={window:{},document:{currentScript:{src:'http://localhost/detailed-models.js'}},URL,Map,Math,AbortController,fetch(){throw Error('No download before explicit request');}};
+vm.createContext(ctx);vm.runInContext(fs.readFileSync('static/detailed-models.js','utf8'),ctx);const api=ctx.window.AtlasDetailed;
+(async()=>{
+ assert.equal(api.has(20580),true);assert.equal(api.has(25544),true);assert.equal(api.has(48274),true);assert.equal(api.has(49954),false,'Do not advertise a schematic as a detailed official model');
+ let requests=[],values=[];const state=api.controller({load:(id,signal,progress)=>new Promise((resolve,reject)=>requests.push({id,signal,progress,resolve,reject})),progress:value=>values.push(value)});
+ state.select(20580);assert.equal(requests.length,0);const first=state.toggle(true);assert.equal(requests.length,1);assert.equal(state.loading,true);assert.equal(state.enabled,true);
+ requests[0].progress(-100);requests[0].progress(999);assert.ok(values.every(n=>n>=0&&n<=100));requests[0].resolve({id:20580});await first;assert.equal(state.model.id,20580);assert.equal(state.loading,false);assert.equal(values.at(-1),100);
+ await state.toggle(false);assert.equal(state.model,null);assert.equal(state.loading,false);await state.toggle(true);assert.equal(requests.length,1,'Detailed model is reused when rechecked');
+ state.select(43435);const cancelled=state.toggle(true);assert.equal(state.loading,true);await state.toggle(false);assert.equal(state.enabled,false,'Unchecking restores wireframe immediately');assert.equal(requests[1].signal.aborted,true);requests[1].reject(Object.assign(Error('aborted'),{name:'AbortError'}));await cancelled;assert.equal(state.error,'');
+ const stale=state.toggle(true);state.select(25544);requests[2].resolve({id:43435});await stale;assert.equal(state.target,25544);assert.equal(state.enabled,false,'Late completion cannot replace another object');
+ const failed=state.toggle(true);requests[3].reject(Error('HTTP 500'));await failed;assert.equal(state.loading,false);assert.equal(state.enabled,false);assert.ok(state.error);
+ const html=fs.readFileSync('static/index.html','utf8'),globe=fs.readFileSync('static/globe.js','utf8');assert.ok(!html.includes('id="ground-link-toggle"'));assert.match(html,/data-orbit-toggle checked>Afficher l’orbite et le trait au sol/);assert.match(fs.readFileSync('static/app.js','utf8'),/orbits:showOrbit,groundLink:showOrbit/);assert.match(globe,/heightLine.positions=data.groundLink!==false\?/);assert.match(globe,/if\(heightLine.positions.length\)/);assert.match(globe,/scienceLayer.suppress\(p.id\)/);
+ console.log('Détail : 5 modèles NASA et Tiangong sous CC BY, surfaces et textures intactes, aucun préchargement, progression bornée, cache, annulation, erreur et réponse tardive OK ; trait au sol indépendant.');
+})().catch(e=>{console.error(e);process.exitCode=1;});
+const high=Object.fromEntries(manifest.map(m=>[m.key,m]));
+assert.ok(high.iss.triangles>2000000&&high.iss.textures>100);assert.ok(high.hubble.triangles>20000&&high.hubble.textures>=10);assert.ok(high.tess.textures>=6);
+const environment=fs.readFileSync('static/images/detailed/environment.ktx2');assert.equal(environment.subarray(0,12).toString('hex'),'ab4b5458203230bb0d0a1a0a');
+assert.match(fs.readFileSync('static/detailed-models.js','utf8'),/specularEnvironmentMaps:new URL/);
+console.log('Qualité : ISS IGOAL 2,7 M de triangles, Hubble VTAD et TESS texturés, reflets IBL locaux.');
+
+assert.ok(high.tiangong.triangles>100000&&high.tiangong.materials>=20);assert.match(high.tiangong.credit,/w29572227/);assert.equal(high.tiangong.textures,1);
