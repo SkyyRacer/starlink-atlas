@@ -7,6 +7,7 @@ const event=(key,code='',editing=false)=>({key,code,target:{closest:()=>editing?
 ctx.navigateSatellite(event('ArrowDown'));assert.equal(chosen,100);assert.equal(ctx.resultsPage,1);assert.ok(focused&&scrolled);
 ctx.navigateSatellite(event('8','Numpad8'));assert.equal(chosen,99);assert.equal(ctx.resultsPage,0);
 ctx.navigateSatellite(event('ArrowDown','',true));assert.equal(chosen,99);
+for(const area of ['.collection-navigation','#advanced-panel','#workspace-navigation']){const e=event('ArrowDown');e.target.closest=selector=>selector.includes(area)?{}:null;ctx.navigateSatellite(e);assert.equal(chosen,99,'Arrow keys in menus must not switch the selected satellite');}
 ctx.selected=101;ctx.navigateSatellite(event('ArrowDown'));assert.equal(chosen,99);
 ctx.selected=null;ctx.navigateSatellite(event('ArrowUp'));assert.equal(chosen,99);
 console.log('Navigation satellites : flèches, pavé numérique, pagination, limites et saisie : OK');

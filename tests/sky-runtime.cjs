@@ -1,0 +1,10 @@
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const code=fs.readFileSync('static/globe.js','utf8');
+assert.match(code,/skyBox:false/);
+assert.match(code,/backgroundColor=C.Color.fromCssColorString\('#000000'\)/);
+assert.match(code,/viewer.scene.sun.show=false/);
+assert.match(code,/viewer.scene.sunBloom=false/);
+assert.ok(!code.includes('/images/sky/'));
+assert.ok(!code.includes('new C.SkyBox'));
+assert.match(code,/viewer.clock.currentTime=C.JulianDate.fromDate\(new Date\(data.at\)\)/);
+console.log('Black background, no sky textures, no visible Sun or bloom; scene clock retained.');

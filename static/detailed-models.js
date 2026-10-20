@@ -25,10 +25,10 @@
  }
  function createLayer(C,viewer,container,onChange,onReady=()=>{}){
   const toggle=document.getElementById('detailed-model-toggle'),label=document.getElementById('detailed-model-label'),hint=document.getElementById('detailed-model-hint'),overlay=document.getElementById('model-loader'),bar=document.getElementById('model-progress'),percent=document.getElementById('model-percent'),fill=document.getElementById('model-progress-fill');
-  const records=new Map();let data=null,highQuality=false;const originalFxaa=viewer.scene.postProcessStages.fxaa.enabled;
+  const records=new Map();let data=null,highQuality=false;const originalFxaa=viewer.scene.postProcessStages.fxaa.enabled,originalRecommendedResolution=viewer.useBrowserRecommendedResolution,originalResolutionScale=viewer.resolutionScale;
   const state=controller({changed(){sync();onChange();},progress(value){bar.setAttribute('aria-valuenow',String(value));percent.textContent=value+' %';fill.style.transform='scaleX('+(value/100)+')';},async load(id,signal,progress){
    const info=models.get(id),bytes=await download(info,signal,progress);if(signal.aborted)throw new DOMException('Aborted','AbortError');
-   const model=await C.Model.fromGltfAsync({gltf:bytes,basePath:base.href,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:32,maximumScale:10000000,allowPicking:true,show:true,incrementallyLoadTextures:false,releaseGltfJson:true,lightColor:new C.Cartesian3(1.5,1.5,1.5),imageBasedLighting:new C.ImageBasedLighting({imageBasedLightingFactor:new C.Cartesian2(.5,.8),specularEnvironmentMaps:new URL('images/detailed/environment.ktx2',base).href,sphericalHarmonicCoefficients:[[1.234897375,1.221635103,1.273374081],[1.136140108,1.171419978,1.287894368],[1.245410919,1.245791078,1.283067107],[1.107124329,1.112697005,1.153419137],[1.086415052,1.079904079,1.102125049],[1.190043211,1.186099291,1.214627981],[.017783647,.020140396,.025317270],[1.087014318,1.084779263,1.111417651],[-.052426789,-.048315056,-.041973855]].map(rgb=>new C.Cartesian3(...rgb))})});
+   const model=await C.Model.fromGltfAsync({gltf:bytes,basePath:base.href,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:32,maximumScale:10000000,allowPicking:true,show:true,incrementallyLoadTextures:false,releaseGltfJson:true,lightColor:new C.Cartesian3(1,1,1),imageBasedLighting:new C.ImageBasedLighting({imageBasedLightingFactor:new C.Cartesian2(.7,.35),specularEnvironmentMaps:new URL('images/detailed/environment.ktx2',base).href,sphericalHarmonicCoefficients:[[1.2,1.2,1.2],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]].map(rgb=>new C.Cartesian3(...rgb))})});
    if(signal.aborted){model.destroy();throw new DOMException('Aborted','AbortError');}
    model.id=id;records.set(id,model);viewer.scene.primitives.add(model);move();progress(92);viewer.scene.requestRender();
    try{await new Promise((resolve,reject)=>{
@@ -41,7 +41,7 @@
   }});
   function sync(){
    const quality=state.enabled&&!state.loading;
-   if(quality!==highQuality){highQuality=quality;viewer.useBrowserRecommendedResolution=!quality;viewer.resolutionScale=quality?Math.min(1,2/(root.devicePixelRatio||1)):1;viewer.scene.postProcessStages.fxaa.enabled=quality||originalFxaa;viewer.resize();}
+   if(quality!==highQuality){highQuality=quality;viewer.useBrowserRecommendedResolution=quality?false:originalRecommendedResolution;viewer.resolutionScale=quality?Math.min(1,2/(root.devicePixelRatio||1)):originalResolutionScale;viewer.scene.postProcessStages.fxaa.enabled=quality||originalFxaa;viewer.resize();}
    const supported=models.has(state.target);
    label.hidden=!supported;toggle.disabled=!supported;toggle.checked=state.enabled;label.dataset.active=String(state.enabled);hint.hidden=!supported;hint.textContent=supported?(state.error||Math.ceil(models.get(state.target).bytes/1000000)+' Mo · '+models.get(state.target).credit):'';
    overlay.hidden=!state.loading;container.dataset.modelLoading=String(state.loading);move();viewer.scene.requestRender();

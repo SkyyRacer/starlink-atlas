@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),{parseHTML}=require('linkedom');
+const {document}=parseHTML(fs.readFileSync('static/index.html','utf8'));
+const s={id:44235,name:'STARLINK-31',designator:'2019-029A',launch:'2019-05-24',ops:'+'};
+const ctx={document,$:id=>document.getElementById(id),collectionMode:'all',selected:s.id,byId:new Map([[s.id,s]]),points:[{id:s.id,altitude_km:550,speed_km_s:7.6,epoch:'2026-10-20T12:00:00Z'}],state:()=> 'orbit',AtlasPages:require('../static/pages.js'),AtlasTime:require('../static/time.js'),AtlasOrbits:require('../static/orbits.js'),AtlasStations:{has:()=>false},AtlasScience:{has:()=>false},displayMode:'2d',showOrbit:true,live:true,at:Date.parse('2024-02-10T12:00:00Z'),chosenLaunches:new Set(),esc:String,closeSatellite(){},globeController:null};
+vm.createContext(ctx);const source=fs.readFileSync('static/app.js','utf8');vm.runInContext(source.slice(source.indexOf('function updateDetail(){'),source.indexOf('\nasync function get(url)')),ctx);ctx.draw=()=>ctx.updateDetail();ctx.updateDetail();
+assert.equal(ctx.$('detail-orbit-toggle'),null);assert.equal(ctx.$('detail-dedicated'),null);
+assert.equal(ctx.$('follow-details').getAttribute('href'),'/starlink?satellite=44235&view=3d');assert.equal(ctx.$('follow-details').hidden,false);
+assert.ok(ctx.$('follow-details').closest('.globe-tools'));assert.equal(ctx.$('detail').contains(ctx.$('follow-details')),false);
+assert.equal(document.querySelectorAll('.globe-tools [data-orbit-toggle]').length,1,'Keep the single existing orbit control');
+ctx.live=false;ctx.updateDetail();assert.ok(ctx.$('follow-details').getAttribute('href').includes('at=2024-02-10'));
+ctx.collectionMode='starlink';ctx.updateDetail();assert.equal(ctx.$('follow-details').hidden,true);
+ctx.collectionMode='all';ctx.selected=null;ctx.updateDetail();assert.equal(ctx.$('follow-details').hidden,true);assert.equal(ctx.$('follow-details').hasAttribute('href'),false);
+console.log('Atlas actions removed from the card; details link in follow box preserves exact object/date and hides without a target.');
+
+ctx.selected=s.id;ctx.displayMode='3d';ctx.collectionMode='all';let cameraResets=0;ctx.globeController={home(){cameraResets++;}};ctx.updateDetail();
+ctx.$('close').click();assert.equal(ctx.selected,s.id);assert.equal(cameraResets,0);assert.equal(ctx.$('detail').dataset.collapsed,'true');assert.equal(ctx.$('detail-reopen').hidden,false);assert.equal(ctx.$('detail-reopen').querySelector('span').textContent,s.name);
+ctx.updateDetail();assert.equal(ctx.$('detail').dataset.collapsed,'true','Position updates preserve reduced card');
+ctx.$('detail-reopen').click();assert.equal(ctx.$('detail').dataset.collapsed,'false');assert.equal(ctx.$('detail-reopen').hidden,true);assert.equal(cameraResets,0);
+ctx.$('close').click();const second={...s,id:44236,name:'STARLINK-32'};ctx.byId.set(second.id,second);ctx.selected=second.id;ctx.updateDetail();assert.equal(ctx.$('detail').dataset.collapsed,'false','A new satellite opens its full information card');
+console.log('3D information card collapses/reopens without changing selection or camera, persists during updates, resets for a new satellite.');

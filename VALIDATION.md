@@ -416,3 +416,86 @@ Refonte graphique annulée à la demande de l’utilisateur : suppression de obs
 - « Outils avancés » révèle les couleurs individuelles/par thème, les filtres détaillés et les options d’orbite/modèle. Recherche, choix des pages et objets, listes, sélection des thèmes, vues, recentrage et suivi restent accessibles. Les commandes de modèles conservent leurs conditions de disponibilité.
 - Les changements de dimensions réutilisent le calcul existant de la taille de la carte et du globe. Tests desktop-tools, calendrier, date/réponses obsolètes, modèles détaillés, thèmes et suivi réussis ; structure HTML et unicité des identifiants contrôlées.
 - Aucun déploiement. Pas de validation visuelle automatisée disponible dans cet environnement.
+
+## Menus desktop regroupés — 20 octobre 2026
+
+- Recherche de pages intégrée au sélecteur : recherche, résultats et choix alphabétique réunis dans un seul menu. Saisie, flèches, Entrée et Échap conservés. Les raccourcis de navigation entre satellites ne capturent plus les flèches utilisées dans le menu ou le panneau.
+- Panneau latéral non modal : filtres existants déplacés sans reconstruction, palettes individuelles et groupées synchronisées avec les contrôles originaux, options d’orbite et de modèles regroupées. Fermeture et réouverture conservent les réglages, réinitialisation synchronisée. Les modèles détaillés restent proposés seulement en vue 3D, selon leur disponibilité.
+- Présentation limitée aux menus : noir et blanc, séparateurs, boutons rectangulaires, thèmes en accordéons. Aucun retour à la refonte générale abandonnée. Chronologie repliable conservée.
+- Tests avec le vrai document HTML et LinkeDOM installé uniquement dans un dossier de test temporaire : recherche/Entrée/Échap, panneau, couleurs individuelles/groupées, reset, restauration des contrôles et contexte 2D. Tests existants de navigation, recherche, modèles et thèmes réussis. Le navigateur graphique reste indisponible pour un rendu visuel automatisé. Aucun déploiement.
+
+## Vue Terre immersive et navigation haute — 20 octobre 2026
+
+- Référence consultée : https://satellitemap.space/vis/constellation/GLONASS. Sur ordinateur, la scène occupe désormais toute la fenêtre : ni colonne latérale ni bandeau inférieur ne réservent d’espace au moteur. Le logo et une barre compacte flottent en haut, navigation regroupée à droite.
+- Sélecteur/recherche, objets affichés (ou satellites, ou missions/équipage selon la page), outils et actualités regroupés dans la barre. Le catalogue et les réglages s’ouvrent en panneaux flottants à droite, un seul à la fois ; fermeture et observation d’un objet libèrent la scène.
+- Chronologie compacte en bas à droite, caméra/suivi en bas à gauche et attribution conservée. L’ouverture de la chronologie ajuste le dégagement des panneaux sans réduire la scène. Aucun élément de catalogue n’est recréé, états et calculs conservés.
+- Tests sur le vrai HTML : navigation déplacée dans l’en-tête, panneau initialement fermé et inaccessible au focus, exclusivité des panneaux, conservation/restitution des contrôles. Test sizeMap : scène à zéro marge basse même avec chronologie dépliée, dégagements mis à jour. Tests suivi, zoom, date, modèles, thèmes et actualités réussis. Pages Atlas, GLONASS, ISS, Starlink, Hubble et Débris vérifiées par HTTP avec leurs ressources versionnées. Aucun contrôle visuel réel du WebGL n’est revendiqué dans cet environnement. Aucun déploiement.
+
+## 2026-10-20 — Navigation haute, actions Atlas et ciel Gaia
+
+- Bandeau noir de 84 px, accès Tous les satellites, débris dans un panneau dédié, ISS, Tiangong, types classés par thème et retour Atlas sur les pages dédiées.
+- Points Atlas réduits de 25 %, zones de clic adaptées au zoom élargies de 2 à 4 px ; objets masqués et occultés restent exclus.
+- Fiche sélectionnée Atlas : action orbite/trait au sol synchronisée avec les cases existantes ; accès à la page du programme avec identifiant NORAD exact, vue 3D rapprochée et date historique conservée.
+- Fond Gaia EDR3 officiel ESA/Gaia/DPAC sous CC BY-SA 3.0 IGO : six JPEG 1024², environ 1 Mo au total, chargement indépendant et cache d’images existant. Conversion galactique → équatoriale, axes de cube Cesium et orientation d’upload testés. Approximation J2000/TEME documentée dans images/sky/README.md. Soleil natif Cesium réactivé selon la date de scène, sans bloom.
+- 46 tests JavaScript autonomes existants passent, ainsi que satellite-links.cjs, detail-actions.cjs et sky_projection.py. desktop-panels.cjs vérifie aussi thèmes, liens directs, panneau débris et exclusion mutuelle des panneaux. Les tests d’export statique/WASM et site-loading.cjs demandent un export/serveur de test spécifique et ne sont pas inclus dans cette validation d’interface.
+- HTTP local : 31 ressources avec empreintes correctes, six images JPEG disponibles et lien profond ISS répondant 200 sur le port 3003.
+- Validation réelle du rendu WebGL non réalisée : Chromium local ne démarre pas dans cet environnement (erreur macOS MachPortRendezvous). Les tests DOM utilisent LinkeDOM, sans dépendance ajoutée au site.
+
+## 2026-10-20 — Correction du ciel et retour à la liste alphabétique
+
+- Atlas : retour au menu alphabétique avec repères et raccourcis clavier ; les autres pages conservent le menu thématique. Tests DOM et navigation alphabétique validés.
+- Cause du Soleil absent confirmée dans le code Cesium 1.127 : skyBox=false empêche aussi la création automatique de Sun. Création explicite de Cesium.Sun, réutilisation de l’instance et lueur native ; test du cas sans Soleil préexistant et de la date de scène.
+- Panorama précédent retiré. Source officielle NASA Deep Star Maps 2020 céleste HDR 8192 × 4096, celle citée dans les crédits du site de référence. Conversion en six faces 2048² WebP qualité 95, environ 8 Mo au total. Aucun EXR de 124 Mo envoyé au navigateur.
+- Rendu Retina activé, densité plafonnée à 2 pour limiter la charge. Source, projection et conditions documentées dans images/sky/README.md.
+- Tests sky_projection.py, sky-runtime.cjs, desktop-panels.cjs, collection-menu.cjs, model-zoom.cjs, globe-framing.cjs, iss-idle.cjs, satellite-links.cjs et detail-actions.cjs réussis. Sources et empreintes vérifiées par HTTP sur 3003 ; six WebP disponibles. Limite : rendu WebGL réel non validé dans un navigateur automatisé, toujours indisponible dans l’environnement.
+
+## Navigation Atlas, fond léger et contraste des satellites
+
+- Un seul menu alphabétique « Tous les satellites », blanc et en première position. Le bouton redondant devient « Catégories », immédiatement à sa droite, avec les groupes et réglages de sélection existants. La recherche commune se déplace dans le menu ouvert ; recherche au clavier, navigation et Échap vérifiés dans les deux menus.
+- Ciel NASA : six faces 1024², luminosité ×0,60, WebP qualité 80, total 334 072 octets contre environ 8 Mo avant. Les anciennes faces lourdes sont retirées de l’export. Mémoire des textures divisée par quatre.
+- Soleil natif : halo/rayons renforcés (glowFactor=2), bloom activé. La direction réelle et les occultations sont conservées.
+- Satellites : teinte bleu glacier #afe1f3 par défaut dans Atlas et pour les points des pages dédiées ; sélection blanche, modèles filaires des pages dédiées conservés, débris ambrés. Les couleurs personnalisées et la réinitialisation sont synchronisées.
+- Tests menus DOM, sélection et couleurs des rubriques, rayons de clic et couleur par défaut, projection du ciel, création du Soleil, suivi et cadrage réussis. Limite de validation visuelle WebGL inchangée.
+
+## 2026-10-21 — Boussole, sous-menus et commandes locales de suivi
+
+- Rotation libre de la caméra sans contrainte UNIT_Z ; la boussole projette le nord géographique dans le plan de l’écran, indépendamment d’une sélection. Géométrie de projection testée pour plusieurs rotations et cas dégénéré.
+- Tous les satellites, catégories, liste de page, outils Atlas et actualités se placent sous leur bouton, sans espace vertical, avec bornage horizontal et hauteur adaptée. Actualités en sous-menu non modal sur ordinateur ; clic extérieur et Échap ferment les panneaux.
+- Débris déplacés du bandeau vers le bloc inférieur gauche, au-dessus des commandes de suivi. Le sous-menu garde la vraie sélection, couleur et compteur ; lien « Isoler les débris » vers la page dédiée. Une catégorie Débris donne aussi accès à cette page avec compteur synchronisé.
+- Outils avancés retirés des pages dédiées ; leurs filtres restent accessibles dans la liste de la page. Options d’orbite et de modèle haute résolution dans le bloc de suivi. La case modèle reste masquée si aucun modèle source n’est disponible. L’orbite/trait au sol s’affiche dans le bloc pendant le suivi, le contrôle 2D reste accessible.
+- Suivre sans sélection choisit le premier objet opérationnel visible, ou un objet disponible à statut inconnu, puis réutilise l’action de sélection et son cadrage. Une sélection historique sans position ne bascule pas vers un autre satellite.
+- 50 tests JavaScript autonomes réussis (hors suites nécessitant un export statique ou un serveur dédié) ; nouveaux contrôles pour suivi, compas, sous-menus, filtres et options dans les pages dédiées, synchronisation du compteur et actualités non modales. Validation WebGL visuelle dans un navigateur automatisé toujours indisponible dans cet environnement.
+
+## 2026-10-21 — Retour à la rotation globale et correction du rendu
+
+- Contrainte de rotation UNIT_Z rétablie comme avant. Boussole et vues du satellite visibles seulement pendant son suivi, masquées en vue globale. Sur Atlas, le bouton de suivi et son aide sont également masqués en vue globale.
+- Bouton Débris limité à Atlas. Les pages dédiées conservent leur navigation existante vers Atlas, sans ce bouton.
+- Le haut des sous-menus est borné par le bas du bandeau complet et non seulement celui du bouton ; la hauteur disponible est recalculée en conséquence. Le panneau de catégories ne passe plus derrière le bandeau.
+- Éclairage terrestre stable : suppression de la variation des ombres et de la transition d’éclairage en fonction de la distance caméra, lumière solaire d’intensité constante, suppression de l’atmosphère au sol et du brouillard qui provoquaient le halo. Contraste de la texture adouci. Le jour/nuit dépend toujours de la date consultée.
+- Modèles détaillés : ambiance diffuse neutre sans termes directionnels artificiels, reflets atténués, éclairage direct modéré. Résolution et politique Retina d’origine restaurées après désactivation du modèle au lieu de changer le rendu de toute la scène.
+- Tests mis à jour pour les états vue globale/suivi, l’absence de Débris hors Atlas, les menus sous un bandeau plus haut, la constance de l’éclairage et la conservation de la résolution. Limite : rendu WebGL visuel non vérifié automatiquement dans l’environnement local.
+
+## 2026-10-21 — Menus des stations et recherche
+
+- En-tête « Fermer le panneau » masqué dans Missions et équipage sur ISS et Tiangong ; fermeture toujours accessible par le bouton du menu, Échap ou clic à l’extérieur.
+- Les clics dans une fiche modale ne ferment plus le menu situé derrière. Fermer une fiche d’astronaute conserve le menu et son défilement.
+- Recherche : affichage des résultats suivi d’un défilement minimal du menu uniquement ; taille de la zone de résultats bornée à l’espace disponible, champ de saisie conservé à l’écran, aucun défilement supplémentaire si les résultats sont déjà visibles.
+- Boussole agrandie de l’échelle 0,72 à 0,88 ; bouton Recentrer décalé pour garder de l’espace.
+- station-menu.cjs valide les deux stations, la conservation d’ouverture et de position, le défilement et l’absence de déplacement de la page. dedicated-controls.cjs et desktop-panels.cjs passent également.
+
+### Optional realistic Earth — 21 October 2026
+- Added the Terre réaliste switch beneath 3D/planisphere, above position counts. Off by default; hidden in planisphere.
+- Three local NASA WebP composites (1,228,182 bytes combined), requested only on activation, reused on later toggles. Geographic UVs derive from the globe normal in Earth-fixed coordinates; sun direction follows Cesium's simulation clock. Clouds are a static MODIS composite, not live weather.
+- Dedicated globe material supplies day/night shading and lights without applying globe lighting twice. Cesium atmospheric scattering is enabled only in this mode. Disabling restores imagery, material and atmosphere without changing the camera or satellites. Load and shader failure fall back to the original renderer.
+- Passed earth-realistic, follow-controls, iss-idle, globe-framing and desktop-panels tests. Local HTTP /atlas, JS module and all three image assets returned 200 with correct MIME types. Syntax checks passed. WebGL appearance has not been verified in an interactive browser in this environment.
+
+### Realistic Earth blue globe regression
+- Root cause confirmed in bundled Cesium 1.127 `Globe` material gating: shader sources containing `normalEC` or `slope` are ignored unless the terrain provider requests vertex normals. The app uses EllipsoidTerrainProvider without those normals, leaving only the blue base color after hiding the map.
+- Replaced terrain-normal input with WGS84 surface direction derived from eye-space position, transformed into Earth-fixed coordinates. No terrain download or imagery size increase.
+- Regression test now constructs a real bundled Cesium Material and EllipsoidTerrainProvider and checks the actual material eligibility rule, in addition to lazy-loading/restoration tests. Passed.
+
+### Earth controls and overview selection
+- Earth style switch shares a common width with the view selector. Removed the persistent NASA/composite text below the switch, retaining loading/error feedback and map credits.
+- Restored original atmospheric settings (18 intensity, 7500 m Rayleigh scale height, -0.12 brightness) and removed the illustrative green limb. Kept 4K textures and the ellipsoid-compatible material.
+- Atlas overview has a compact Satellites sélectionnés disclosure in the follow controls. Per-family and category/all toggles reuse original visibility controls; top and lower menus remain synchronized. Debris remains separate and off by default. Selector disappears during satellite tracking.
+- Passed earth-realistic, overview-selection, desktop-panels, station-menu and follow-controls tests. Interactive WebGL visual verification remains unavailable in this environment.

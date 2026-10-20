@@ -208,3 +208,7 @@ Modèles détaillés révisés : ISS NASA IGOAL D, Hubble NASA VTAD et TESS B, s
 « tianGong », par **w29572227**, [source originale Sketchfab](https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Licence et auteur vérifiés dans l’API publique du modèle. GLB redistribué par earth-pulse, téléchargement épinglé et SHA-256 dans `resources/detailed-model-sources.json`. Atlas conserve géométrie, matériaux, texture et crédit intégrés ; seule la transformation de présentation est ajoutée. Taille illustrative ; configuration et orientation ne représentent pas la station en temps réel. Chargement à la demande uniquement.
 
 Les modèles ESA CHEOPS et XMM-Newton trouvés sur SciFleet restent dans les fichiers de recherche, hors `static/`, car les conditions générales liées par le site ne suffisent pas à autoriser leur redistribution dans Atlas. Aucun de ces fichiers n’est proposé comme modèle détaillé. État des autres recherches : `resources/model-search-2026-10-20.json`.
+
+## Fond céleste NASA Deep Star Maps 2020
+
+NASA/Goddard Space Flight Center Scientific Visualization Studio, Ernie Wright. Source officielle : https://svs.gsfc.nasa.gov/4851/ ; carte céleste 8K HDR convertie en six faces cubiques. Sources, crédits et transformations : [static/images/sky/README.md](static/images/sky/README.md). Les anciennes faces issues de la prévisualisation ESA ont été retirées.

@@ -7,14 +7,16 @@
   timeButton.setAttribute('aria-expanded',String(timeOpen));$('timeline-content').inert=desktop.matches&&!timeOpen;
   document.body.classList.toggle('advanced-tools-open',toolsOpen);
   toolsButton.setAttribute('aria-expanded',String(toolsOpen));toolsButton.querySelector('span').textContent=toolsOpen?'−':'+';
-  $('advanced-filters').inert=desktop.matches&&!toolsOpen;$('advanced-model-options').inert=desktop.matches&&!toolsOpen;
+  $('advanced-filters').inert=false;$('advanced-model-options').inert=false;
+  window.AtlasAdvanced?.setOpen(toolsOpen);
   // Reuse the scene's existing layout measurement after folding the chronology.
   window.dispatchEvent(new Event('resize'));
  }
  function updateTime(event){
   const state=event?.detail||window.AtlasTimeline;if(!state)return;
   const value=state.time??state.at;
-  $('timeline-summary-label').textContent=state.live?'Maintenant':new Intl.DateTimeFormat(navigator.languages?.[0]||navigator.language,{dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
+  $('timeline-summary-label').textContent='Maintenant';
+  $('timeline-summary-label').disabled=Boolean(state.live);$('now').disabled=Boolean(state.live);
   $('timeline-now').hidden=Boolean(state.live);
   timeButton.title=state.live?'Ouvrir la chronologie':`Date consultée · ${AtlasTime.environment().timeZone} · ouvrir la chronologie`;
  }
@@ -23,7 +25,14 @@
   if(!timeOpen&&!$('date-popover')?.hidden){$('date-popover')?.querySelector('[data-close]')?.click();timeButton.focus({preventScroll:true});}
   apply();
  });
+ window.addEventListener('pointerdown',event=>{
+  if(!desktop.matches||!timeOpen||timeline.contains(event.target))return;
+  const calendar=$('date-popover');if(calendar&&!calendar.hidden&&calendar.contains(event.target))return;
+  if(calendar&&!calendar.hidden)calendar.querySelector('[data-close]')?.click();
+  timeOpen=false;apply();
+ });
  $('timeline-now').addEventListener('click',()=>$('now').click());
+ $('timeline-summary-label').addEventListener('click',()=>$('now').click());
  toolsButton.addEventListener('click',()=>{toolsOpen=!toolsOpen;apply();});
  window.addEventListener('atlas:time',updateTime);desktop.addEventListener('change',apply);updateTime();apply();
 })();

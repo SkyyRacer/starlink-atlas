@@ -27,10 +27,11 @@
     path.push([pole,180],[pole,-180]);return path;
   }
   // Distances are CSS pixels, independent of canvas resolution and device pixel ratio.
-  function pickRadius({mode,zoom=0,minZoom=0,height=0,touch=false}){
+  function pickRadius({mode,zoom=0,minZoom=0,height=0,touch=false,collection}){
     const far=mode==='2d'?Math.pow(2,-Math.max(0,zoom-minZoom)/3):Math.max(0,Math.min(1,Math.log2(1+Math.max(0,height)/500000)/7));
-    return 6+8*far+(touch?3:0);
+    return 6+8*far+(collection==='all'?2+2*far:0)+(touch?3:0);
   }
+  function markerScale(collection){return collection==='all'?.75:1;}
   function nearestHit(hits,point,radius){
     let best=null,distance=Infinity;
     for(const hit of hits){if(hit.visible===false)continue;const d=Math.hypot(hit.x-point.x,hit.y-point.y),limit=hit.radius??radius;
@@ -49,7 +50,7 @@
     // At extreme close-up no free margin may remain: keep the caption legible in a dark panel.
     return {x:pad,y:Math.max(pad,height-h-pad)};
   }
-  const api={splitTrack,shouldRender,nightPolygon,pickRadius,nearestHit,labelPlacement};
+  const api={splitTrack,shouldRender,nightPolygon,pickRadius,markerScale,nearestHit,labelPlacement};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else root.AtlasGeometry=api;
 })(typeof window!=='undefined'?window:this);

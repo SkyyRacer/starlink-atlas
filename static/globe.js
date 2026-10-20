@@ -1,17 +1,40 @@
 'use strict';
 /* Cesium stays lazy and local. No access token, terrain service, or geolocation. */
 window.AtlasGlobe={
+  compassAngle(north,right,up){
+    const dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;
+    const x=dot(north,right),y=dot(north,up);
+    return Math.hypot(x,y)<1e-8?null:Math.atan2(x,y);
+  },
+  followTarget(data){
+    if(!data)return null;
+    if(data.selected!==null)return data.points.find(p=>p.id===data.selected)||null;
+    const available=new Map(data.points.map(p=>[p.id,p]));let fallback=null,unknown=null;
+    for(const satellite of data.catalog.values()){
+      const point=available.get(satellite.id);if(!point||!data.visible(satellite,satellite.id))continue;
+      fallback ||= point;
+      if(['+','P','X'].includes(satellite.ops))return point;
+      if(!['-','D','B','S'].includes(satellite.ops))unknown ||= point;
+    }
+    return unknown||fallback;
+  },
   idleController({now,canStart,start,stop,delay=10000}){
     let last=now(),active=false;
     return {get active(){return active;},activity(){last=now();},cancel(){last=now();if(!active)return false;active=false;stop();return true;},tick(){if(!active&&now()-last>=delay&&canStart()){active=true;start();}}};
   },
-  lighting(height,distance,fadeOut,fadeIn){
-    const x=Math.max(0,Math.min(1,(height-5000000)/10000000)),far=x*x*(3-2*x);
-    return {shadow:.3+.12*far,fadeIn:Math.max(fadeIn,fadeOut+Math.max(0,distance-fadeOut)/(1-.1*far))};
+  lighting(){
+    // Keep the day/night contrast identical at every camera distance.
+    return {shadow:.35,fadeOut:0,fadeIn:1};
   },
   modelZoomRange(range,direction,strength=1,radius=50){
     const minimum=Math.max(2,radius*1.5),factor=range>radius*12?4:1.8;
     return Math.max(minimum,Math.min(4e9,range*Math.pow(factor,-direction*Math.min(2,Math.max(.01,strength)))));
+  },
+  overviewZoomHeight(height,direction,strength=1){
+    const current=Math.max(150000,height);
+    const t=Math.min(1,Math.max(0,Math.log(current/150000)/Math.log(20000000/150000)));
+    const factor=1.12+.78*t*t*(3-2*t);
+    return Math.max(150000,Math.min(4e9,current*Math.pow(factor,-direction*Math.min(2,Math.max(.001,strength)))));
   },
   detailedRange(radius,width,height,fovy=Math.PI/3){
     const halfAngle=Math.atan(.62*Math.tan(fovy/2)*Math.min(1,Math.max(.15,width/height)));
@@ -34,11 +57,43 @@ window.AtlasGlobe={
   async create(container,config,onSelect,onEmptySpace){
     await this.load();const C=window.Cesium;
     const viewer=new C.Viewer(container,{baseLayer:false,terrainProvider:new C.EllipsoidTerrainProvider(),animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyBox:false,skyAtmosphere:false,shouldAnimate:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,contextOptions:{webgl:{alpha:false,antialias:true}}});
+    viewer.camera.constrainedAxis=C.Cartesian3.UNIT_Z;
     viewer.scene.backgroundColor=C.Color.fromCssColorString('#000000');viewer.scene.globe.baseColor=C.Color.fromCssColorString('#1d3443');
     viewer.scene.globe.preloadSiblings=false;viewer.scene.globe.preloadAncestors=false;viewer.scene.globe.tileCacheSize=100;viewer.scene.globe.maximumScreenSpaceError=3;
-    if(viewer.scene.sun)viewer.scene.sun.show=false;if(viewer.scene.moon)viewer.scene.moon.show=false;viewer.clock.shouldAnimate=false;
-    const imagery=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:config.tile_url,credit:new C.Credit(config.tile_attribution,true),maximumLevel:18}));imagery.brightness=.57;imagery.contrast=1.2;imagery.saturation=.35;
-    const defaultFadeOut=viewer.scene.globe.lightingFadeOutDistance,defaultFadeIn=viewer.scene.globe.lightingFadeInDistance;
+    if(viewer.scene.sun)viewer.scene.sun.show=false;viewer.scene.sunBloom=false;if(viewer.scene.moon)viewer.scene.moon.show=false;viewer.clock.shouldAnimate=false;
+    const skyToggle=document.getElementById('sky-toggle');
+    const skyCredit=new C.Credit('Ciel : NASA/Goddard SVS · Hipparcos, Tycho, Gaia',true);
+    if(skyToggle)skyToggle.onclick=()=>{
+      const enabled=skyToggle.getAttribute('aria-checked')!=='true';
+      if(enabled&&!viewer.scene.skyBox){
+        const sources={};
+        for(const face of ['positiveX','negativeX','positiveY','negativeY','positiveZ','negativeZ'])
+          sources[face]='/images/sky/nasa-2020-clean-v4-'+face+'.webp';
+        viewer.scene.skyBox=new C.SkyBox({sources});
+      }
+      if(enabled&&!viewer.scene.sun){viewer.scene.sun=new C.Sun();viewer.scene.sun.glowFactor=1.1;}
+      if(viewer.scene.skyBox)viewer.scene.skyBox.show=enabled;
+      if(viewer.scene.sun)viewer.scene.sun.show=enabled;
+      // Keep the halo local to the Sun, without brightening the whole scene.
+      viewer.scene.sunBloom=false;
+      skyToggle.setAttribute('aria-checked',String(enabled));
+      if(enabled)viewer.creditDisplay.addStaticCredit(skyCredit);
+      else viewer.creditDisplay.removeStaticCredit(skyCredit);
+      viewer.scene.requestRender();
+    };
+    const imagery=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:config.tile_url,credit:new C.Credit(config.tile_attribution,true),maximumLevel:18}));imagery.brightness=.68;imagery.contrast=1.05;imagery.saturation=.45;
+    const lighting=this.lighting();
+    viewer.scene.light=new C.SunLight({intensity:1});
+    viewer.scene.globe.showGroundAtmosphere=false;viewer.scene.fog.enabled=false;
+    viewer.scene.globe.vertexShadowDarkness=lighting.shadow;
+    viewer.scene.globe.lightingFadeOutDistance=lighting.fadeOut;viewer.scene.globe.lightingFadeInDistance=lighting.fadeIn;
+    viewer.scene.globe.lambertDiffuseMultiplier=.65;
+    viewer.scene.postProcessStages.fxaa.enabled=true;
+    const earthLayer=AtlasEarth.create({viewer,imagery,C,onChange:state=>{
+      const button=document.getElementById('earth-realistic-toggle'),hint=document.getElementById('earth-style-status');
+      button.setAttribute('aria-checked',String(state.enabled));button.setAttribute('aria-busy',String(state.loading));
+      hint.textContent=state.loading?'Chargement…':state.error||'';hint.hidden=!hint.textContent;
+    }});
     const controls=viewer.scene.screenSpaceCameraController;
     controls.inertiaSpin=.72;controls.inertiaTranslate=.72;controls.inertiaZoom=.65;controls.zoomFactor=2;controls.maximumMovementRatio=.08;controls.minimumZoomDistance=150000;controls.maximumZoomDistance=4000000000;
     // Native surface-anchored rotation: the grabbed ground point follows the pointer.
@@ -47,8 +102,6 @@ window.AtlasGlobe={
     viewer.canvas.style.touchAction='none';
     viewer.scene.preUpdate.addEventListener(()=>{
       const height=Math.max(150000,viewer.camera.positionCartographic.height);
-      const lighting=this.lighting(height,C.Cartesian3.magnitude(viewer.camera.positionWC),defaultFadeOut,defaultFadeIn);
-      viewer.scene.globe.vertexShadowDarkness=lighting.shadow;viewer.scene.globe.lightingFadeInDistance=lighting.fadeIn;
       controls.zoomFactor=.9+1.5*Math.min(1,Math.max(0,Math.log10(height/150000)/2));
     });
     const stick=document.getElementById('globe-stick'),joystick=document.getElementById('globe-joystick');
@@ -88,7 +141,8 @@ window.AtlasGlobe={
       const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
       if(directions[event.key]){event.preventDefault();rotateJoystick(...directions[event.key],3);}
     });
-    viewer.targetFrameRate=60;viewer.useBrowserRecommendedResolution=true;
+    viewer.targetFrameRate=60;viewer.useBrowserRecommendedResolution=false;
+    viewer.resolutionScale=Math.min(1,2/(window.devicePixelRatio||1));
     const satellites=viewer.scene.primitives.add(new C.PointPrimitiveCollection()), lines=viewer.scene.primitives.add(new C.PolylineCollection()), labels=viewer.scene.primitives.add(new C.LabelCollection());
     const past=lines.add({positions:[],width:1.5,material:C.Material.fromType('Color',{color:C.Color.fromCssColorString('#e0e0e0')})});
     const future=lines.add({positions:[],width:2,material:C.Material.fromType('PolylineDash',{color:C.Color.fromCssColorString('#a9c5df'),dashLength:12})});
@@ -126,16 +180,16 @@ window.AtlasGlobe={
       followReady=true;updateFollowControl(chosen);viewer.scene.requestRender();
     });
     viewer.scene.renderError.addEventListener((scene,error)=>{
-      if(!detailedLayer.recover(error))return;
+      if(!earthLayer.recover(error)&&!detailedLayer.recover(error))return;
       const rethrow=scene.rethrowRenderErrors;scene.rethrowRenderErrors=false;
       queueMicrotask(()=>{scene.rethrowRenderErrors=rethrow;if(active){viewer.useDefaultRenderLoop=true;scene.requestRender();}});
     });
-    const items=new Map(),lime=C.Color.fromCssColorString('#dce4ec'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
-    let modelZoomTarget=null;
+    const items=new Map(),lime=C.Color.fromCssColorString('#afe1f3'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
+    let modelZoomTarget=null,overviewZoomTarget=null;
     let followPitch=-.8,following=false,followReady=false,followCurrent=null,lastSelectionRequest=null;
     let idleController=null,idleFlight=false,ignoreOverviewClick=false,overviewPosition=null;
         const followButton=document.getElementById('globe-follow');
-    const releaseFollow=()=>{modelZoomTarget=null;if(followReady)viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);followReady=false;};
+    const releaseFollow=()=>{modelZoomTarget=null;overviewZoomTarget=null;if(followReady)viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);followReady=false;};
     const modelFollow=()=>following&&followReady&&(AtlasScience.has(lastData?.selected)||[25544,48274].includes(lastData?.selected));
     const zoomModel=(direction,strength=1)=>{
       if(!modelFollow())return false;
@@ -143,14 +197,26 @@ window.AtlasGlobe={
       modelZoomTarget=AtlasGlobe.modelZoomRange(modelZoomTarget??C.Cartesian3.magnitude(viewer.camera.position),direction,strength,radius);
       viewer.scene.requestRender();return true;
     };
+    const overviewRange=()=>followReady?C.Cartesian3.magnitude(viewer.camera.position):viewer.camera.positionCartographic.height;
+    const zoomOverview=(direction,strength=1)=>{
+      viewer.camera.cancelFlight();
+      overviewZoomTarget=AtlasGlobe.overviewZoomHeight(overviewZoomTarget??overviewRange(),direction,strength);
+      viewer.scene.requestRender();
+    };
+    viewer.canvas.addEventListener('pointerdown',()=>{overviewZoomTarget=null;},{passive:true});
     viewer.canvas.addEventListener('wheel',event=>{
-      if(!modelFollow())return;
+      if(!active)return;
       event.preventDefault();event.stopImmediatePropagation();idleController?.cancel();
       const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?viewer.canvas.clientHeight:1);
-      if(pixels)zoomModel(pixels<0?1:-1,Math.abs(pixels)/100);
+      if(pixels&&!detailedLayer.loading){const direction=pixels<0?1:-1,strength=Math.abs(pixels)/100;if(!zoomModel(direction,strength))zoomOverview(direction,strength);}
     },{capture:true,passive:false});
     viewer.scene.preUpdate.addEventListener(()=>{
       controls.enableInputs=!detailedLayer.loading;controls.enableZoom=!modelFollow();controls.minimumZoomDistance=modelFollow()?1:150000;
+      if(overviewZoomTarget!==null&&!detailedLayer.loading){
+        const height=overviewRange(),delta=(height-overviewZoomTarget)*.28;
+        if(Math.abs(delta)<1)overviewZoomTarget=null;
+        else{if(followReady)C.Cartesian3.multiplyByScalar(viewer.camera.position,(height-delta)/height,viewer.camera.position);else delta>0?viewer.camera.zoomIn(delta):viewer.camera.zoomOut(-delta);viewer.scene.requestRender();}
+      }
       if(modelZoomTarget===null||!modelFollow())return;
       const camera=viewer.camera,range=C.Cartesian3.magnitude(camera.position),next=range+(modelZoomTarget-range)*.35;
       C.Cartesian3.multiplyByScalar(camera.position,next/range,camera.position);
@@ -158,12 +224,20 @@ window.AtlasGlobe={
       viewer.scene.requestRender();
     });
     const debrisTarget=()=>lastData?.collection==='debris'||(lastData?.selected!==null&&lastData?.catalog.get(lastData?.selected)?.family==='debris')||document.body.dataset.collection==='debris';
-    const stopFollowing=()=>{following=false;releaseFollow();followButton.setAttribute('aria-pressed','false');followButton.textContent=debrisTarget()?'Suivre l’objet':'Suivre le satellite';document.getElementById('follow-state').textContent=lastData?.selected!==null&&lastData?'Suivre la lecture, même accélérée':debrisTarget()?'Sélectionne un objet':'Sélectionne un satellite';};
+    const stopFollowing=()=>{following=false;releaseFollow();document.getElementById('compass').hidden=true;document.getElementById('satellite-views').hidden=true;if(lastData?.collection==='all'){followButton.hidden=true;document.getElementById('follow-state').hidden=true;}document.getElementById('advanced-model-options').dataset.following='false';followButton.setAttribute('aria-pressed','false');followButton.textContent=debrisTarget()?'Suivre l’objet':'Suivre le satellite';document.getElementById('follow-state').textContent=lastData?.selected!==null&&lastData?'Suivre la lecture, même accélérée':debrisTarget()?'Sélectionne un objet':'Sélectionne un satellite';};
     const updateFollowControl=chosen=>{
       const idle=!!idleController?.active;
-      followButton.disabled=!chosen&&!idle;followButton.setAttribute('aria-pressed',String(following||idle));
+      const inSatelliteView=following&&!!chosen&&!idle;
+      document.getElementById('compass').hidden=!inSatelliteView;
+      document.getElementById('satellite-views').hidden=!inSatelliteView;
+      followButton.hidden=lastData?.collection==='all'&&!inSatelliteView;
+      document.getElementById('follow-state').hidden=followButton.hidden;
+      const target=chosen||AtlasGlobe.followTarget(lastData);
+      followButton.disabled=!target&&!idle&&!following;
+      followButton.title=target?'Suivre '+(lastData.catalog.get(target.id)?.name||target.id):'Aucun objet disponible à cette date';
+      document.getElementById('advanced-model-options').dataset.following=String(following&&!!chosen);followButton.setAttribute('aria-pressed',String(following||idle));
       followButton.textContent=following||idle?'Arrêter le suivi':debrisTarget()?'Suivre l’objet':'Suivre le satellite';
-      document.getElementById('follow-state').textContent=idle?'Vue globale · suivi automatique de '+(lastData?.collection==='tiangong'?'Tiangong':'l’ISS'):following?(chosen?'Caméra centrée · zoom et rotation disponibles':'Suivi suspendu : position indisponible'):(chosen?'Suivre la lecture, même accélérée':debrisTarget()?'Sélectionne un objet':'Sélectionne un satellite');
+      document.getElementById('follow-state').textContent=idle?'Vue globale · suivi automatique de '+(lastData?.collection==='tiangong'?'Tiangong':'l’ISS'):following?(chosen?'Caméra centrée · zoom et rotation disponibles':'Suivi suspendu : position indisponible'):(chosen?'Suivre la lecture, même accélérée':target?'Centrer sur '+(lastData.catalog.get(target.id)?.name||target.id):debrisTarget()?'Sélectionne un objet':'Sélectionne un satellite');
     };
     const position=p=>C.Cartesian3.fromDegrees(p.lon,p.lat,p.altitude_km*1000);
     const motion=new SatelliteMotion();let motionAt=null;
@@ -182,7 +256,7 @@ window.AtlasGlobe={
       const centre=station||(AtlasPages.isStation(lastData?.collection)?lastData.points.find(p=>p.id===AtlasPages.station(lastData.collection)):null)||anchor;
       return {destination:C.Cartesian3.fromDegrees(centre?.lon??0,centre?.lat??20,radius/Math.sin(halfAngle)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}};
     };
-    const resetButton=document.getElementById('globe-reset');
+    const resetButton=document.getElementById('globe-home');
     let homePose=null,returningHome=false;
     const rememberHome=()=>{homePose={position:C.Cartesian3.clone(viewer.camera.positionWC),direction:C.Cartesian3.clone(viewer.camera.directionWC),up:C.Cartesian3.clone(viewer.camera.upWC)};};
     const updateHomeState=()=>{
@@ -203,8 +277,7 @@ window.AtlasGlobe={
       const anchor=viewer.camera.pickEllipsoid(centre,viewer.scene.globe.ellipsoid)||viewer.camera.positionWC;
       C.Transforms.eastNorthUpToFixedFrame(anchor,viewer.scene.globe.ellipsoid,enu);
       C.Matrix4.multiplyByPointAsVector(enu,C.Cartesian3.UNIT_Y,northVector);
-      const x=C.Cartesian3.dot(northVector,viewer.camera.rightWC),y=C.Cartesian3.dot(northVector,viewer.camera.upWC);
-      return Math.hypot(x,y)<1e-8?null:Math.atan2(x,y);
+      return AtlasGlobe.compassAngle(northVector,viewer.camera.rightWC,viewer.camera.upWC);
     };
     const updateCompass=()=>{
       const angle=northAngle();if(angle===null)return;
@@ -268,7 +341,7 @@ window.AtlasGlobe={
     viewer.scene.preRender.addEventListener(placeSatelliteLabel);
     function satelliteAtGlobeClick(click){
       const exact=viewer.scene.pick(click);if(exact&&typeof exact.id==='number')return exact.id;
-      const radius=AtlasGeometry.pickRadius({mode:'3d',height:viewer.camera.positionCartographic.height,touch:matchMedia('(pointer: coarse)').matches});
+      const radius=AtlasGeometry.pickRadius({mode:'3d',collection:lastData?.collection,height:viewer.camera.positionCartographic.height,touch:matchMedia('(pointer: coarse)').matches});
       const occluder=new C.EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC),offset=new C.Cartesian3();
       function* projected(){
         function project(id,xyz){
@@ -293,8 +366,8 @@ window.AtlasGlobe={
         // Ordinary position updates preserve a deliberate camera release.
         if(data.selected!==null&&(data.selected!==lastSelection||data.selectionRequest!==lastSelectionRequest)){idleController?.cancel();if(data.selected!==lastSelection)followPitch=-.8;releaseFollow();following=true;}
         if(motion.source!==data.points){motion.set(data.points,performance.now(),data.playing&&!data.focus&&motionAt!==null&&Math.abs(data.at-motionAt)<150000);motionAt=data.at;}
-        viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));viewer.scene.globe.enableLighting=data.night;imagery.show=data.basemap;
-        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette);if(key!==paletteKey){paletteKey=key;palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#ffffff'):row.id==='starlink'?lime:white]));}
+        viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));earthLayer.update(data);
+        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette);if(key!==paletteKey){paletteKey=key;palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#afe1f3'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
         issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;tiangongFallback.color=palette.tiangong;if(tiangongModel)tiangongModel.color=palette.tiangong;
         scienceLayer.begin();
         issVisible=false;issFallback.show=false;if(issModel)issModel.show=false;tiangongVisible=false;tiangongFallback.show=false;if(tiangongModel)tiangongModel.show=false;sizeISS();for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
@@ -304,7 +377,7 @@ window.AtlasGlobe={
           if(p.id===48274){tiangongVisible=true;tiangongFallback.position=position(p);tiangongFallback.show=!tiangongModel;if(tiangongModel){tiangongModel.show=true;tiangongModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           let item=items.get(p.id);if(!item){item=satellites.add({id:p.id,pixelSize:3,color:lime,outlineWidth:0});items.set(p.id,item);}
-          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
+          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3*AtlasGeometry.markerScale(data.collection);item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
           if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
         }
         detailedLayer.update(data);
@@ -325,7 +398,16 @@ window.AtlasGlobe={
           document.getElementById('globe-measure').textContent=`Altitude estimée : ${chosen.altitude_km.toLocaleString(navigator.language,{maximumFractionDigits:1})} km`;
           if(following){
             const snap=!followReady||data.focus||data.selected!==lastSelection;
-            if(snap){viewer.camera.cancelFlight();viewer.camera.lookAt(xyz,new C.HeadingPitchRange(0,followPitch,AtlasGlobe.satelliteRange(chosen.altitude_km,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy)));followReady=true;}
+            if(snap){
+              let range=AtlasGlobe.satelliteRange(chosen.altitude_km,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy);
+              if(data.closeFocus){
+                const model=scienceLayer.getModel(chosen.id)||(chosen.id===25544?issModel:chosen.id===48274?tiangongModel:null);
+                const visual=AtlasScience.model(chosen.id)||AtlasStations.model(chosen.id);
+                range=visual?AtlasGlobe.detailedRange(Math.max(1,model?.boundingSphere?.radius||visual.radius||75),viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy):250000;
+                followPitch=-.5;
+              }
+              viewer.camera.cancelFlight();viewer.camera.lookAt(xyz,new C.HeadingPitchRange(0,followPitch,range));followReady=true;
+            }
           }else if(data.focus||data.selected!==lastSelection)viewer.camera.flyToBoundingSphere(new C.BoundingSphere(xyz,1000000),{duration:.6,offset:new C.HeadingPitchRange(viewer.camera.heading,-.8,AtlasGlobe.satelliteRange(chosen.altitude_km,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy))});
         }
         lastSelection=data.selected;lastSelectionRequest=data.selectionRequest;container.dataset.points=String([...items.values()].filter(p=>p.show).length+(issVisible?1:0)+(tiangongVisible?1:0)+scienceLayer.count);container.dataset.altitudeScale='1';if(firstOverview&&data.points.length){firstOverview=false;if(data.selected===null&&data.points.some(p=>(AtlasPages.definition(AtlasPages.family(data.catalog.get(p.id)||p))?.frame_radius||0)>9000000&&data.visible(data.catalog.get(p.id)||p,p.id)))home();}viewer.scene.requestRender();
@@ -336,7 +418,8 @@ window.AtlasGlobe={
       detailedActive(id){return detailedLayer.replaces(id);},
       orientOverview(point){overviewAnchor=point?{id:point.id,lon:point.lon,lat:point.lat,altitude_km:point.altitude_km}:null;home();},
       north(){idleController?.cancel();pendingX=0;pendingY=0;viewer.camera.cancelFlight();const angle=northAngle();if(angle!==null)viewer.camera.twistRight(angle);updateCompass();viewer.scene.requestRender();},
-      zoom(direction){if(detailedLayer.loading)return;idleController?.cancel();if(zoomModel(direction))return;const height=viewer.camera.positionCartographic.height;const distance=Math.max(0,Math.min(Math.max(10000,height*.12),direction>0?height-150000:controls.maximumZoomDistance-height));direction>0?viewer.camera.zoomIn(distance):viewer.camera.zoomOut(distance);viewer.scene.requestRender();}
+      setRealistic(enabled){return earthLayer.setEnabled(enabled);},
+      zoom(direction){if(detailedLayer.loading)return;idleController?.cancel();if(zoomModel(direction))return;zoomOverview(direction);}
     };
     viewer.camera.moveEnd.addEventListener(()=>{if(active&&lastData&&lastData.names)api.update({...lastData,focus:false});});
     const compass=document.getElementById('compass');let compassDrag=null,suppressCompassClick=false;
@@ -344,8 +427,15 @@ window.AtlasGlobe={
     compass.addEventListener('pointerdown',event=>{if(event.button!==0)return;idleController?.cancel();viewer.camera.cancelFlight();compassDrag={x:event.clientX,moved:false};compass.setPointerCapture(event.pointerId);});
     compass.addEventListener('pointermove',event=>{if(!compassDrag)return;const dx=event.clientX-compassDrag.x;if(!compassDrag.moved&&Math.abs(dx)<3)return;compassDrag.moved=true;compassDrag.x=event.clientX;viewer.camera.twistRight(C.Math.toRadians(dx*.5));updateCompass();viewer.scene.requestRender();});
     compass.addEventListener('pointerup',()=>{suppressCompassClick=!!compassDrag?.moved;compassDrag=null;});
-    compass.addEventListener('pointercancel',()=>{compassDrag=null;suppressCompassClick=false;});document.getElementById('globe-home').onclick=home;document.getElementById('globe-reset').onclick=home;
-    followButton.onclick=()=>{if(idleController?.cancel())return;if(following){stopFollowing();if(lastData)api.update({...lastData,focus:false});}else if(lastData){following=true;api.update({...lastData,focus:true});}};
+    compass.addEventListener('pointercancel',()=>{compassDrag=null;suppressCompassClick=false;});document.getElementById('globe-home').onclick=home;
+    followButton.onclick=()=>{
+      idleController?.cancel();
+      if(following){stopFollowing();if(lastData)api.update({...lastData,focus:false});return;}
+      const target=AtlasGlobe.followTarget(lastData);if(!target)return;
+      following=true;
+      if(lastData.selected!==target.id)onSelect(target.id);
+      else api.update({...lastData,focus:true});
+    };
     const satelliteView=pitch=>{idleController?.cancel();if(!lastData?.points.some(p=>p.id===lastData.selected))return;pendingX=0;pendingY=0;globeDrag=null;followPitch=pitch;following=true;api.update({...lastData,focus:true});updateCompass();};
     document.getElementById('view-above').onclick=()=>satelliteView(-Math.PI/2);
     document.getElementById('view-side').onclick=()=>satelliteView(0);

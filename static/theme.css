@@ -258,7 +258,8 @@ body[data-collection=iss] #satellite-panel>details{margin-top:24px}
 #iss-mission-dialog{color:#eee;background:#090909;border:1px solid #555;border-radius:3px;width:min(660px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:0;box-sizing:border-box;box-shadow:0 20px 100px #000b;overflow:auto;overscroll-behavior:contain}
 #iss-mission-dialog::backdrop{background:#0009;backdrop-filter:blur(4px)}
 #iss-mission-dialog>header{position:sticky;top:0;background:#0c0c0c;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #333;height:auto}
-#iss-mission-dialog header small{font-size:10px;letter-spacing:.2em;color:#999}#iss-mission-dialog h2{font-size:23px;margin:8px 0 0}#iss-mission-close{min-width:40px;min-height:40px;margin-left:12px;font-size:22px}
+#iss-mission-dialog header small{font-size:10px;letter-spacing:.2em;color:#999}#iss-mission-dialog h2{font-size:23px;margin:8px 0 0}#iss-mission-close{position:relative;display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;min-width:32px;min-height:32px;padding:0;margin-left:16px;font-size:0;border-color:#444;border-radius:2px}
+#iss-mission-close:focus-visible{outline:1px solid #ddd;outline-offset:2px}
 #iss-mission-body{padding:0 24px 24px}#iss-mission-body h3{font-size:14px;margin-top:25px}#iss-mission-body a{display:block;font-size:12px;margin-top:24px;color:#b5d3e8}#iss-mission-body .hint{font-size:11px;color:#999;line-height:1.6}
 .iss-mission-state{font-size:12px;color:#b5d3e8;margin:20px 0}.iss-fact{display:grid;grid-template-columns:38% 1fr;gap:20px;padding:12px 0;border-bottom:1px solid #252525;font-size:13px;line-height:1.5}.iss-fact dt{color:#999}.iss-fact dd{margin:0;overflow-wrap:anywhere}
 @media(max-width:600px){#iss-mission-dialog{width:calc(100vw - 20px);max-height:calc(100dvh - 24px)}#iss-mission-dialog>header{padding:16px}#iss-mission-body{padding:0 16px 20px}.iss-fact{gap:12px;font-size:12px}#iss-flight-years{max-height:32vh}.iss-flight{min-height:48px}}
@@ -451,3 +452,5 @@ body[data-science="true"] #view-side{display:inline-block}
  .timeline[data-expanded=true] #timeline-content{display:block}
 }
 @media(min-width:901px){.timeline[data-expanded=true] #timeline-now{display:none}}
+
+.atlas-view-link[hidden]{display:none!important}
