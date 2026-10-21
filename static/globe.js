@@ -60,26 +60,16 @@ window.AtlasGlobe={
     viewer.camera.constrainedAxis=C.Cartesian3.UNIT_Z;
     viewer.scene.backgroundColor=C.Color.fromCssColorString('#000000');viewer.scene.globe.baseColor=C.Color.fromCssColorString('#1d3443');
     viewer.scene.globe.preloadSiblings=false;viewer.scene.globe.preloadAncestors=false;viewer.scene.globe.tileCacheSize=100;viewer.scene.globe.maximumScreenSpaceError=3;
-    if(viewer.scene.sun)viewer.scene.sun.show=false;viewer.scene.sunBloom=false;if(viewer.scene.moon)viewer.scene.moon.show=false;viewer.clock.shouldAnimate=false;
+    if(viewer.scene.sun)viewer.scene.sun.show=false;viewer.scene.sunBloom=false;viewer.scene.moon=new C.Moon({onlySunLighting:true});viewer.clock.shouldAnimate=false;
     const skyToggle=document.getElementById('sky-toggle');
-    const skyCredit=new C.Credit('Ciel : NASA/Goddard SVS · Hipparcos, Tycho, Gaia',true);
-    if(skyToggle)skyToggle.onclick=()=>{
+    const skyLayer=AtlasSky.create(viewer,C);
+    if(skyToggle)skyToggle.onclick=async()=>{
       const enabled=skyToggle.getAttribute('aria-checked')!=='true';
-      if(enabled&&!viewer.scene.skyBox){
-        const sources={};
-        for(const face of ['positiveX','negativeX','positiveY','negativeY','positiveZ','negativeZ'])
-          sources[face]='/images/sky/nasa-2020-clean-v4-'+face+'.webp';
-        viewer.scene.skyBox=new C.SkyBox({sources});
-      }
-      if(enabled&&!viewer.scene.sun){viewer.scene.sun=new C.Sun();viewer.scene.sun.glowFactor=1.1;}
-      if(viewer.scene.skyBox)viewer.scene.skyBox.show=enabled;
-      if(viewer.scene.sun)viewer.scene.sun.show=enabled;
-      // Keep the halo local to the Sun, without brightening the whole scene.
-      viewer.scene.sunBloom=false;
       skyToggle.setAttribute('aria-checked',String(enabled));
-      if(enabled)viewer.creditDisplay.addStaticCredit(skyCredit);
-      else viewer.creditDisplay.removeStaticCredit(skyCredit);
-      viewer.scene.requestRender();
+      skyToggle.setAttribute('aria-busy','true');
+      try{await skyLayer.setEnabled(enabled);}
+      catch(error){skyToggle.setAttribute('aria-checked','false');await skyLayer.setEnabled(false);console.warn('Ciel indisponible',error);}
+      finally{skyToggle.setAttribute('aria-busy','false');}
     };
     const imagery=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:config.tile_url,credit:new C.Credit(config.tile_attribution,true),maximumLevel:18}));imagery.brightness=.68;imagery.contrast=1.05;imagery.saturation=.45;
     const lighting=this.lighting();
@@ -184,7 +174,7 @@ window.AtlasGlobe={
       const rethrow=scene.rethrowRenderErrors;scene.rethrowRenderErrors=false;
       queueMicrotask(()=>{scene.rethrowRenderErrors=rethrow;if(active){viewer.useDefaultRenderLoop=true;scene.requestRender();}});
     });
-    const items=new Map(),lime=C.Color.fromCssColorString('#afe1f3'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
+    const items=new Map(),lime=C.Color.fromCssColorString('#c8efff'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
     let modelZoomTarget=null,overviewZoomTarget=null;
     let followPitch=-.8,following=false,followReady=false,followCurrent=null,lastSelectionRequest=null;
     let idleController=null,idleFlight=false,ignoreOverviewClick=false,overviewPosition=null;
@@ -367,7 +357,7 @@ window.AtlasGlobe={
         if(data.selected!==null&&(data.selected!==lastSelection||data.selectionRequest!==lastSelectionRequest)){idleController?.cancel();if(data.selected!==lastSelection)followPitch=-.8;releaseFollow();following=true;}
         if(motion.source!==data.points){motion.set(data.points,performance.now(),data.playing&&!data.focus&&motionAt!==null&&Math.abs(data.at-motionAt)<150000);motionAt=data.at;}
         viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));earthLayer.update(data);
-        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette);if(key!==paletteKey){paletteKey=key;palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#afe1f3'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
+        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette);if(key!==paletteKey){paletteKey=key;palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#c8efff'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
         issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;tiangongFallback.color=palette.tiangong;if(tiangongModel)tiangongModel.color=palette.tiangong;
         scienceLayer.begin();
         issVisible=false;issFallback.show=false;if(issModel)issModel.show=false;tiangongVisible=false;tiangongFallback.show=false;if(tiangongModel)tiangongModel.show=false;sizeISS();for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
@@ -377,7 +367,7 @@ window.AtlasGlobe={
           if(p.id===48274){tiangongVisible=true;tiangongFallback.position=position(p);tiangongFallback.show=!tiangongModel;if(tiangongModel){tiangongModel.show=true;tiangongModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           let item=items.get(p.id);if(!item){item=satellites.add({id:p.id,pixelSize:3,color:lime,outlineWidth:0});items.set(p.id,item);}
-          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3*AtlasGeometry.markerScale(data.collection);item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
+          item.show=true;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3*AtlasGeometry.markerScale(data.collection,viewer.canvas.clientWidth,viewer.canvas.clientHeight);item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
           if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
         }
         detailedLayer.update(data);

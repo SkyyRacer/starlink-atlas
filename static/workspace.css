@@ -329,3 +329,8 @@
  .earth-workspace .globe-buttons #workspace-debris-menu{position:absolute;left:0;bottom:calc(100% + 10px);width:100%;max-width:100%;border:1px solid #777;max-height:50vh;overflow:auto}
  .earth-workspace #scene-actions:empty{display:none}
 }
+
+#overview-visibility{display:block;width:100%;margin-top:10px;padding:8px 10px;min-height:34px;border:1px solid #666;background:#0c0c0c;color:#ddd;font-size:11px;text-align:left}
+#overview-visibility:hover{background:#eee;color:#111}
+#overview-visibility[aria-pressed=true]{border-color:#a7c5d5;color:#a7c5d5}
+@media(max-width:900px){#overview-visibility{display:none}}

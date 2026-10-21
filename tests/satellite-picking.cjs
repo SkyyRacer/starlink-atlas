@@ -31,5 +31,5 @@ for(const mode of ['2d','3d'])for(const scale of [0,1,5,20]){
 }
 
 const defaultColorLine=app.split('\n').find(line=>line.startsWith('const atlasDefaultColor='));
-assert.equal(vm.runInNewContext(defaultColorLine+';atlasDefaultColor("starlink")'),'#afe1f3');
+assert.equal(vm.runInNewContext(defaultColorLine+';atlasDefaultColor("starlink")'),'#c8efff');
 assert.equal(vm.runInNewContext(defaultColorLine+';atlasDefaultColor("debris")'),'#d9a15f');

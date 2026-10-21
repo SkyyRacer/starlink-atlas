@@ -9,7 +9,7 @@ function setup(loadImage){
 }
 (async()=>{
  const a=setup();assert.equal(a.loads,0,'No texture requests until enabled');
- await a.controller.setEnabled(true);assert.equal(a.loads,3);assert.equal(a.controller.enabled,true);assert.equal(a.imagery.show,false);assert.equal(a.viewer.scene.globe.enableLighting,false,'Avoid double-darkening night lights');assert.equal(a.viewer.scene.skyAtmosphere.show,true);assert.equal(a.viewer.scene.skyAtmosphere.atmosphereRayleighScaleHeight,7500);assert.equal(a.viewer.scene.skyAtmosphere.atmosphereLightIntensity,18);assert.equal(a.credits.size,1);
+ await a.controller.setEnabled(true);assert.equal(a.loads,3);assert.equal(a.controller.enabled,true);assert.equal(a.imagery.show,false);assert.equal(a.viewer.scene.globe.enableLighting,false,'Avoid double-darkening night lights');assert.equal(a.viewer.scene.skyAtmosphere.show,true);assert.equal(a.viewer.scene.skyAtmosphere.atmosphereRayleighScaleHeight,8500);assert.equal(a.viewer.scene.skyAtmosphere.atmosphereLightIntensity,22);assert.equal(a.credits.size,1);
  const material=a.viewer.scene.globe.material;assert.equal(material.options.translucent,false);assert.ok(material.options.fabric.uniforms.cloudMap);
  a.controller.update({night:true,basemap:true});assert.equal(a.imagery.show,false,'Position updates must not restore country labels');
  await a.controller.setEnabled(false);assert.equal(a.viewer.scene.globe.material,a.original);assert.equal(a.imagery.show,true);assert.equal(a.viewer.scene.globe.enableLighting,true);assert.equal(a.viewer.scene.skyAtmosphere,false);assert.equal(a.credits.size,0);

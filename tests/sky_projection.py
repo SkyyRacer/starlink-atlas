@@ -12,8 +12,8 @@ a=sky.face_directions('positiveX',3)
 assert a[-1,1,1]>0 and a[0,1,1]<0
 assert np.allclose(a[1,1],[1,0,0])
 assert np.all(np.isfinite(sky.srgb(np.array([0,.003,.1,1,10]))))
-files=list((Path(__file__).resolve().parents[1]/'static/images/sky').glob('nasa-2020-light-v3-*.webp'))
+files=list((Path(__file__).resolve().parents[1]/'static/images/sky').glob('nasa-2020-pinpoint-v5-*.webp'))
 assert len(files)==6
 for p in files:
- with Image.open(p) as image: assert image.size==(1024,1024)
-print('NASA sky: RA/declination axes, cube upload orientation, linear-to-sRGB and six lightweight 1K images OK.')
+ with Image.open(p) as image: assert image.size==(2048,2048)
+print('NASA sky: RA/declination axes, cube upload orientation, linear-to-sRGB and six detailed 2K images OK.')

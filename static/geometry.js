@@ -31,7 +31,7 @@
     const far=mode==='2d'?Math.pow(2,-Math.max(0,zoom-minZoom)/3):Math.max(0,Math.min(1,Math.log2(1+Math.max(0,height)/500000)/7));
     return 6+8*far+(collection==='all'?2+2*far:0)+(touch?3:0);
   }
-  function markerScale(collection){return collection==='all'?.75:1;}
+  function markerScale(collection,width=1440,height=900){const screen=Math.max(.65,Math.min(1.35,Math.sqrt(Math.max(1,width)*Math.max(1,height)/(1440*900))));return (collection==='all'?.75:1)*screen;}
   function nearestHit(hits,point,radius){
     let best=null,distance=Infinity;
     for(const hit of hits){if(hit.visible===false)continue;const d=Math.hypot(hit.x-point.x,hit.y-point.y),limit=hit.radius??radius;

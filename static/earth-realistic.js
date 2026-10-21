@@ -11,13 +11,34 @@
   vec2 uv=vec2(atan(normalWorld.y,normalWorld.x)/czm_twoPi+0.5,asin(clamp(normalWorld.z,-1.0,1.0))/czm_pi+0.5);
   vec3 land=texture(dayMap,uv).rgb;
   vec3 cities=texture(nightMap,uv).rgb;
-  float clouds=smoothstep(0.10,0.9,texture(cloudMap,uv).r)*0.86;
+  float cloudDensity=texture(cloudMap,uv).r;
+  float clouds=smoothstep(0.055,0.94,cloudDensity)*0.93;
   float sunlight=dot(eyeNormal,normalize(czm_sunDirectionEC));
-  float day=smoothstep(-0.12,0.14,sunlight);
-  float diffuse=0.10+0.90*pow(max(sunlight,0.0),0.45);
-  vec3 daylight=mix(land,vec3(0.94,0.96,1.0),clouds)*diffuse;
-  vec3 night=cities*0.95*(1.0-clouds*0.65)+vec3(0.008,0.014,0.025)*clouds;
-  material.diffuse=mix(night,daylight,day);
+  float day=smoothstep(-0.12,0.16,sunlight);
+  float diffuse=0.14+0.86*pow(max(sunlight,0.0),0.40);
+  // Neutral daylight keeps oceans blue, deserts sandy and clouds white.
+  vec3 cloudLight=mix(vec3(0.78,0.83,0.90),vec3(0.98,0.99,1.0),sqrt(clouds));
+  float landLuma=dot(land,vec3(0.2126,0.7152,0.0722));
+  land=mix(vec3(landLuma),land,0.76)*vec3(0.92,0.98,1.05);
+  vec3 daylight=mix(land*(1.0-clouds*0.04),cloudLight,clouds)*diffuse;
+  daylight=mix(daylight,vec3(0.13,0.22,0.34)*diffuse,0.055);
+  float cityBrightness=max(cities.r,max(cities.g,cities.b));
+  float cityMask=smoothstep(0.025,0.20,cityBrightness);
+  vec3 cityLights=cities*cityMask*1.30;
+  // A very faint blue surface and cloud layer remain visible behind city lights.
+  vec3 nightGround=land*vec3(0.018,0.023,0.055);
+  vec3 nightClouds=vec3(0.022,0.028,0.048)*clouds;
+  vec3 night=nightGround*(1.0-clouds)+nightClouds+cityLights*(1.0-clouds*0.62);
+  vec3 surface=mix(night,daylight,day);
+  float viewCos=clamp(dot(eyeNormal,normalize(inputData.positionToEyeEC)),0.0,1.0);
+  float grazing=1.0-viewCos;
+  float twilight=smoothstep(-0.24,0.18,sunlight);
+  float opticalDepth=0.075*(1.0/(viewCos+0.16)-1.0/1.16);
+  float haze=(1.0-exp(-opticalDepth))*twilight;
+  surface=mix(surface,vec3(0.16,0.26,0.42),haze);
+  // Blue-white limb on the lit side, a faint outline on the dark side.
+  surface+=pow(grazing,5.0)*vec3(0.095,0.19,0.33)*(0.025+0.975*twilight);
+  material.diffuse=surface/(vec3(1.0)+surface*0.035);
   material.alpha=1.0;
   return material;
  }`;
@@ -48,7 +69,7 @@
       const [dayMap,nightMap,cloudMap]=await pending;
       if(request!==revision)return enabled;
       material=new C.Material({fabric:{type:'AtlasRealisticEarth',uniforms:{dayMap,nightMap,cloudMap},source},translucent:false});
-      atmosphere=new C.SkyAtmosphere();atmosphere.perFragmentAtmosphere=true;atmosphere.atmosphereLightIntensity=18;atmosphere.atmosphereRayleighScaleHeight=7500;atmosphere.brightnessShift=-0.12;
+      atmosphere=new C.SkyAtmosphere();atmosphere.perFragmentAtmosphere=true;atmosphere.atmosphereLightIntensity=22;atmosphere.atmosphereRayleighScaleHeight=8500;atmosphere.brightnessShift=-0.13;
      }
      if(request!==revision)return enabled;
      enabled=wanted;update();status();return enabled;

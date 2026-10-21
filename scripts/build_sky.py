@@ -7,7 +7,7 @@ Source and credit: static/images/sky/README.md.
 import sys
 from pathlib import Path
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter, ImageDraw
 
 FACES = ['positiveX','negativeX','positiveY','negativeY','positiveZ','negativeZ']
 
@@ -55,14 +55,30 @@ def build(source, output, size=2048):
         sample = (pixels[y0,x0].astype(np.float32)*(1-dx)+pixels[y0,x1].astype(np.float32)*dx)*(1-dy)+(pixels[y1,x0].astype(np.float32)*(1-dx)+pixels[y1,x1].astype(np.float32)*dx)*dy
         display = srgb(sample)
         luminance = display @ np.array([.2126, .7152, .0722])
-        # Suppress the dense faint stellar grain while preserving real bright stars.
-        t = np.clip((luminance - .025) / .205, 0, 1)
-        keep = .20 + .80 * t*t*(3-2*t)
-        display = display * keep[...,None] * .72
-        image = Image.fromarray(np.clip(display*255,0,255).astype('uint8'))
+        # Separate diffuse galactic light from stellar cores. Compact cores avoid
+        # magnifying the broad stellar halos baked into the original survey.
+        broad = np.asarray(Image.fromarray(np.uint8(np.clip(display*255,0,255))).filter(ImageFilter.GaussianBlur(5)), dtype=np.float32)/255
+        background = np.maximum(broad-.018,0)*.20
+        image = Image.fromarray(np.uint8(np.clip(background*255,0,255)))
+        maxima = luminance > .16
+        for dy in [-1,0,1]:
+            for dx in [-1,0,1]:
+                if dx or dy:
+                    maxima &= luminance >= np.roll(np.roll(luminance,dy,axis=0),dx,axis=1)
+        ys,xs = np.nonzero(maxima)
+        draw = ImageDraw.Draw(image)
+        for y,x in zip(ys,xs):
+            # One compact core, with only the brightest stars spanning two pixels.
+            color = tuple(np.uint8(np.clip(display[y,x]*.72*255,0,190)))
+            draw.point((int(x),int(y)),fill=color)
+            if luminance[y,x] > .8:
+                dim = tuple(int(c*.20) for c in color)
+                for dx,dy in [(1,0),(-1,0),(0,1),(0,-1)]:
+                    if 0<=x+dx<size and 0<=y+dy<size:
+                        draw.point((int(x+dx),int(y+dy)),fill=dim)
         # High-quality WebP keeps stellar detail at a reasonable download size.
-        path=output/f'nasa-2020-clean-v4-{face}.webp'
-        image.save(path, quality=90, method=6)
+        path=output/f'nasa-2020-pinpoint-v5-{face}.webp'
+        image.save(path, quality=95, method=6)
         print(path.name, path.stat().st_size, flush=True)
 
 if __name__ == '__main__':

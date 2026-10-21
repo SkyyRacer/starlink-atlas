@@ -7,6 +7,8 @@
  const root=document.createElement('details');root.id='overview-selection';
  const summary=document.createElement('summary');summary.textContent='Satellites sélectionnés';root.append(summary);
  const panel=document.createElement('div');panel.className='overview-selection-panel';root.append(panel);
+ const visibility=document.createElement('button');visibility.id='overview-visibility';visibility.type='button';visibility.textContent='Masquer les satellites';visibility.setAttribute('aria-pressed','false');
+ visibility.addEventListener('click',()=>{const hidden=visibility.getAttribute('aria-pressed')!=='true';visibility.setAttribute('aria-pressed',String(hidden));visibility.textContent=hidden?'Afficher les satellites':'Masquer les satellites';document.dispatchEvent(new CustomEvent('atlas-satellite-visibility',{detail:{visible:!hidden}}));});
  const rows=[],groups=[];
  function commit(items,value){for(const row of items)row.source.checked=value;items[0]?.source.dispatchEvent(new Event('change',{bubbles:true}));sync();}
  const actions=document.createElement('div');actions.className='overview-selection-actions';
@@ -25,9 +27,9 @@
  function sync(){
   for(const row of rows)row.target.checked=row.source.checked;
   for(const {bulk,members} of groups){const n=members.filter(row=>row.source.checked).length;bulk.checked=n===members.length;bulk.indeterminate=n>0&&n<members.length;}
-  const hidden=$('advanced-model-options').dataset.following==='true';root.hidden=hidden;if(hidden)root.open=false;
+  const hidden=$('advanced-model-options').dataset.following==='true';root.hidden=hidden;visibility.hidden=hidden;if(hidden)root.open=false;
  }
- document.querySelector('.globe-buttons').after(root);
+ document.querySelector('.globe-buttons').after(visibility,root);
  let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;sync();});}
  document.addEventListener('change',schedule);document.addEventListener('click',schedule);
  new MutationObserver(schedule).observe($('atlas-controls'),{subtree:true,childList:true,characterData:true});
