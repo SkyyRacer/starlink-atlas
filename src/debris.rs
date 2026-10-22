@@ -14,10 +14,9 @@ fn filtered(rows:Vec<Value>,catalogue:&[Value])->Result<Vec<u8>,String>{
     serde_json::to_vec(&output.into_values().collect::<Vec<_>>()).map_err(|e|e.to_string())
 }
 pub async fn collect(shared:Shared,dir:PathBuf,once:bool){
-    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).timeout(std::time::Duration::from_secs(120)).build().unwrap();
+    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8)).timeout(std::time::Duration::from_secs(120)).build().unwrap();
     loop {
-        let now=Utc::now().timestamp();let last=std::fs::read_to_string(dir.join("debris-attempt.txt")).ok().and_then(|v|v.parse::<i64>().ok()).unwrap_or(0);
-        if now-last>=7200 {
+        let now=Utc::now().timestamp();if collection_health::due(&dir,"debris",now,7200) {
             let _=std::fs::write(dir.join("debris-attempt.txt"),now.to_string());
             let result:Result<(),String>=async {
                 let file=dir.join("debris-catalog.json");let age=std::fs::metadata(&file).and_then(|m|m.modified()).ok().and_then(|t|t.elapsed().ok()).map(|d|d.as_secs()).unwrap_or(u64::MAX);
@@ -56,9 +55,10 @@ pub async fn collect(shared:Shared,dir:PathBuf,once:bool){
                 sources::atomic(&dir,"debris-coverage.json",&serde_json::to_vec(&json!({"scope":"Public Earth-orbit debris and rocket bodies","catalogued":catalogue.len(),"unavailable_queries":unavailable,"source":CATALOG})).map_err(|e|e.to_string())?)?;
                 Ok(())
             }.await;
-            if let Err(error)=result {eprintln!("Débris : {error}");let _=std::fs::write(dir.join("debris-error.txt"),error);}
+            collection_health::finish(&dir,"debris",result.as_ref().err().map(String::as_str));
+            if let Err(error)=result {eprintln!("Débris : {error}");}
         }
-        if once{return;}tokio::time::sleep(std::time::Duration::from_secs(7200)).await;
+        if once{return;}tokio::time::sleep(std::time::Duration::from_secs(60)).await;
     }
 }
 #[cfg(test)]

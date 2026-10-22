@@ -11,6 +11,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  vm.runInContext(app.slice(app.indexOf("document.querySelectorAll('[data-theme-color]')"),app.indexOf("$('atlas-clear').addEventListener")),context);
  vm.runInContext(app.slice(app.indexOf("$('atlas-reset').addEventListener")),context);
  vm.runInContext(fs.readFileSync('static/desktop-panels.js','utf8'),context);vm.runInContext(fs.readFileSync('static/desktop-tools.js','utf8'),context);vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
+ assert.equal($('advanced-colors-content').childElementCount,0,'Hidden advanced colors are built only on opening');
  assert.ok(document.body.classList.contains('earth-workspace'));assert.equal(document.querySelector('.collection-navigation').parentElement,$('workspace-navigation'));assert.equal($('satellite-panel').inert,true);
  assert.equal($('workspace-navigation').firstElementChild,document.querySelector('.collection-navigation'));
  assert.equal(document.querySelector('.collection-navigation').nextElementSibling,$('workspace-station-control'));
@@ -28,8 +29,8 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  for(const id of ['collection-menu-button','workspace-objects','advanced-tools','orbital-news-button','workspace-debris-button'])assert.ok($(id).classList.contains('workspace-dropdown'));
  assert.equal($('workspace-home').hidden,true);assert.equal($('workspace-iss').getAttribute('href'),'/iss');
  assert.equal(document.querySelector('.atlas-debris-card').parentElement,$('workspace-debris-content'));
- assert.equal($('workspace-debris').parentElement,$('scene-actions'));assert.equal($('globe-home').parentElement,document.querySelector('.globe-buttons'));
- $('advanced-model-options').dataset.following='true';await new Promise(r=>setImmediate(r));assert.equal($('globe-home').parentElement,$('scene-actions'));assert.equal($('workspace-debris').nextElementSibling,$('globe-home'));
+ assert.equal($('workspace-debris').parentElement,document.querySelector('.globe-buttons'));assert.equal($('globe-home').parentElement,document.querySelector('.globe-buttons'));
+ $('advanced-model-options').dataset.following='true';await new Promise(r=>setImmediate(r));assert.equal($('globe-home').parentElement,$('scene-actions'));assert.equal($('globe-home').nextElementSibling,$('workspace-debris'));
  $('advanced-model-options').dataset.following='false';await new Promise(r=>setImmediate(r));assert.equal($('globe-home').parentElement,document.querySelector('.globe-buttons'));assert.equal($('scene-actions').parentElement,$('scene-left-stack'));assert.equal(document.querySelector('.globe-tools').parentElement,$('scene-left-stack'));
  assert.equal($('workspace-debris').closest('#workspace-navigation'),null);
  assert.equal(document.querySelector('.workspace-debris-category a').getAttribute('href'),'/debris');assert.equal(document.querySelector('.atlas-family-list').lastElementChild,document.querySelector('.workspace-debris-category'));
@@ -38,7 +39,9 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  $('workspace-objects').getBoundingClientRect=()=>({left:480,bottom:100});
  $('collection-menu-button').getBoundingClientRect=()=>({left:300,bottom:100});
 
- $('workspace-debris-button').click();assert.equal($('workspace-debris-menu').hidden,false);
+ $('workspace-debris-button').getBoundingClientRect=()=>({left:100,top:500});$('scene-left-stack').getBoundingClientRect=()=>({left:20});document.querySelector('body>header').getBoundingClientRect=()=>({bottom:90});
+ $('workspace-debris-button').click();assert.equal($('workspace-debris-menu').hidden,false);assert.equal($('workspace-debris-menu').parentElement,document.body);assert.equal($('workspace-debris-menu').style.bottom,'410px');
+ $('workspace-debris-content').dispatchEvent(new window.Event('pointerdown',{bubbles:true}));assert.equal($('workspace-debris-menu').hidden,false,'Clicking the portaled content keeps its controls usable');
  $('advanced-tools').click();assert.equal($('workspace-debris-menu').hidden,true);$('advanced-tools').click();
  const menu=document.querySelector('.collection-menu-panel');assert.equal($('object-search').closest('.collection-menu-panel'),menu);assert.equal(menu.hidden,true);assert.equal($('advanced-panel').hidden,true);
  $('collection-menu-button').click();assert.equal(menu.hidden,false);assert.equal(menu.style.top,'100px');assert.equal(menu.style.left,'300px');$('object-search').value='iss';$('object-search').dispatchEvent(new window.Event('input'));assert.equal($('object-search-results').hidden,false);assert.ok($('object-search-results').textContent.includes('ISS'));

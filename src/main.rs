@@ -1,4 +1,6 @@
 mod history;
+mod collection_health;
+mod secondary;
 mod news;
 mod collections;
 mod galileo;
@@ -69,7 +71,7 @@ fn load_gp(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
     let rows:Vec<Value>=serde_json::from_slice(bytes).map_err(|e|e.to_string())?;
     if rows.is_empty(){return Err("Aucun élément orbital pris en charge".into());}
     let mut groups:BTreeMap<&'static str,Vec<Value>>=BTreeMap::new();
-    for row in rows{let source=match row["ATLAS_SOURCE"].as_str(){Some("SatNOGS / Space-Track")=>constellations::BACKUP_SOURCE,Some("N2YO / Space-Track")=>constellations::TRACKER_SOURCE,_=>"CelesTrak GP / Space-Track"};groups.entry(source).or_default().push(row);}
+    for row in rows{let source=match row["ATLAS_SOURCE"].as_str(){Some("SatNOGS / Space-Track")=>constellations::BACKUP_SOURCE,Some("N2YO / Space-Track")=>constellations::TRACKER_SOURCE,Some("SatNOGS / CelesTrak")=>secondary::SATNOGS_CELESTRAK,Some("SatNOGS / autre fournisseur")=>secondary::SATNOGS_OTHER,Some("KeepTrack / fournisseurs multiples")=>secondary::KEEPTRACK,_=>"CelesTrak GP / Space-Track"};groups.entry(source).or_default().push(row);}
     let mut count=0;for (source,rows) in groups{count+=load_gp_source(db,&serde_json::to_vec(&rows).map_err(|e|e.to_string())?,source)?;}Ok(count)
 }
 fn load_gp_source(db: &mut Database, bytes: &[u8], source: &'static str) -> Result<usize, String> {
@@ -175,7 +177,7 @@ async fn satellite_detail(State(s): State<Shared>, Query(q): Query<Q>) -> Result
         Some(key) => snapshots::get(key).ok_or((StatusCode::GONE, "Édition expirée : rechargez la page".into()))?,
         None => snapshots::capture(&*s.read().await).1,
     };
-    Ok(Json(json!({"verification":db.gcat.get(&id),"orbit":orbit_info(&db,id)})))
+    Ok(Json(json!({"verification":db.gcat.get(&id),"orbit":orbit_info(&db,id),"orbit_check":secondary::checks_document(&PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())))["objects"][id.to_string()]})))
 }
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
     catalog_for(db, snapshot, "all")
@@ -262,6 +264,7 @@ async fn positions(
     } else {
         None
     };
+    let recovery_at=if missing>points.len() {recovery_epoch(db.orbits.iter().filter(|(id,_)|in_collection(&db,**id,collection)).flat_map(|(_,rows)|rows.iter()),Utc::now()).filter(|date|(*date-at).num_seconds().abs()>60)}else{None};
     let mut track = Vec::new();
     let mut future_track = Vec::new();
     let mut track_3d = Vec::new();
@@ -297,16 +300,25 @@ async fn positions(
         }
     }
     Ok(Json(
-        json!({"at":at,"points":points,"missing":missing,"track":track,"future_track":future_track,"track_3d":track_3d,"future_track_3d":future_track_3d,"suggested_at":suggested_at}),
+        json!({"at":at,"points":points,"missing":missing,"track":track,"future_track":future_track,"track_3d":track_3d,"future_track_3d":future_track_3d,"suggested_at":suggested_at,"recovery_at":recovery_at}),
     ))
 }
+fn download_error(status:u16,retry_after:Option<&str>,url:&str)->String {
+    if reqwest::Url::parse(url).ok().is_some_and(|u|u.host_str()==Some("celestrak.org")) {
+        return format!("CelesTrak HTTP {status} : collecte suspendue, données de secours conservées · {url}");
+    }
+    let wait=retry_after.and_then(|v|v.parse::<i64>().ok().or_else(||chrono::DateTime::parse_from_rfc2822(v).ok().map(|at|(at.with_timezone(&Utc)-Utc::now()).num_seconds().max(0)))).unwrap_or(0);
+    format!("HTTP {status} : source indisponible retry_after_seconds={wait}")
+}
 async fn download(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, String> {
-    let r = client.get(url).send().await.map_err(|e| e.to_string())?;
+    let celestrak=reqwest::Url::parse(url).ok().is_some_and(|u|u.host_str()==Some("celestrak.org"));
+    let provider_stop=PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())).join("celestrak-stopped.txt");
+    if celestrak {if let Ok(error)=std::fs::read_to_string(&provider_stop){return Err(error);}}
+    let r = client.get(url).send().await.map_err(|e| format!("Réseau temporaire : {e}"))?;
     if r.status() != StatusCode::OK {
-        return Err(format!(
-            "HTTP {} : collecte arrêtée ; intervention requise",
-            r.status()
-        ));
+        let error=download_error(r.status().as_u16(),r.headers().get("retry-after").and_then(|v|v.to_str().ok()),url);
+        if celestrak {let _=std::fs::write(provider_stop,&error);}
+        return Err(error);
     }
     let b = r.bytes().await.map_err(|e| e.to_string())?;
     if b.len() > 30_000_000 {
@@ -317,26 +329,15 @@ async fn download(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, String
 async fn refresh(s: Shared, dir: PathBuf, once: bool) {
     let client = reqwest::Client::builder()
         .user_agent("StarlinkAtlas/0.1 (local educational tracker)")
-        .redirect(reqwest::redirect::Policy::none())
+        .redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8))
         .timeout(std::time::Duration::from_secs(45))
         .build()
         .unwrap();
     loop {
-        if dir.join("collection-stopped.txt").exists() {
-            s.write().await.message="Collecte arrêtée. Consulter data/collection-stopped.txt puis corriger la cause avant de supprimer ce fichier.".into();
-            return;
-        }
-        let now = Utc::now().timestamp();
-        let last = std::fs::read_to_string(dir.join("last-attempt.txt"))
-            .ok()
-            .and_then(|s| s.parse::<i64>().ok())
-            .unwrap_or(0);
-        if now - last < 7200 {
-            if once {
-                return;
-            }
-            tokio::time::sleep(std::time::Duration::from_secs((7200 - (now - last)) as u64)).await;
-            continue;
+        let now=Utc::now().timestamp();
+        if !collection_health::due(&dir,"collection",now,7200) {
+            if once{return;}
+            tokio::time::sleep(std::time::Duration::from_secs(60)).await;continue;
         }
         if let Err(e) = std::fs::write(dir.join("last-attempt.txt"), now.to_string()) {
             s.write().await.message = format!("Cache non accessible : {e}");
@@ -372,12 +373,14 @@ async fn refresh(s: Shared, dir: PathBuf, once: bool) {
         if let Err(e) = result {
             eprintln!("{e}");
             let _ = std::fs::write(dir.join("collection-stopped.txt"), &e);
-            s.write().await.message = e;
-            return;
+            collection_health::finish(&dir,"collection",Some(&e));
+            let retry=collection_health::temporary(&e);
+            s.write().await.message=if retry {format!("Source temporairement inaccessible · cache conservé · nouvelle tentative automatique : {e}")} else {e};
+            if once || !retry{return;}
+            continue;
         }
-        if once {
-            return;
-        }
+        collection_health::finish(&dir,"collection",None);
+        if once {return;}
     }
 }
 async fn config() -> Json<Value> {
@@ -456,6 +459,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     let mut db = Database::default();
     debris::load_cache(&mut db, &dir);
+    if let Ok(bytes)=std::fs::read(dir.join("secondary-catalog.json")){if let Err(error)=load_cat(&mut db,&bytes){eprintln!("Métadonnées secondaires : {error}");}}
     db.message = "Cache local · collecte programmée (intervalle 2 h)".into();
     for file in std::fs::read_dir(&dir)? {
         let p = file?.path();
@@ -521,7 +525,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     galileo::load_cache(&mut db, &dir);
     gps::load_cache(&mut db, &dir);
     constellations::load_cache(&mut db, &dir);
+    secondary::load_metadata(&mut db,&dir);
     db.fetched = std::fs::read_to_string(dir.join("fetched.txt")).ok();
+    secondary::restore_freshness(&mut db,&dir);
     news::update(&dir,&db).map_err(std::io::Error::other)?;
     if args.len() == 3 && args[1] == "--export-web" {
         let target = PathBuf::from(&args[2]);
@@ -534,13 +540,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .map(|o| json!({"elements":o.el,"source":o.source}))
             })
             .collect();
-        let bundle = json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0,"news":news::document(&dir)});
+        let bundle = json!({"catalog_response":catalog_document(&db,"browser-edition"),"raw_catalog":db.catalog.values().collect::<Vec<_>>(),"gcat":db.gcat,"orbits":rows,"config":config().await.0,"sources":sources::status().await.0,"news":news::document(&dir),"orbit_checks":secondary::checks_document(&dir)});
         std::fs::write(target.join("bundle.json"), serde_json::to_vec(&bundle)?)?;
         println!("Export navigateur : {} satellites", db.catalog.len());
         return Ok(());
     }
     let shared = Arc::new(RwLock::new(db));
+    if args.len()==2 && args[1]=="--collect-secondary-once"{secondary::collect(shared.clone(),dir.clone(),true).await;news::update(&dir,&*shared.read().await).map_err(std::io::Error::other)?;return Ok(());}
     if args.len() == 2 && args[1] == "--collect-once" {
+        secondary::collect(shared.clone(),dir.clone(),true).await;
         refresh(shared.clone(), dir.clone(), true).await;
         iss::collect(shared.clone(), dir.clone(), true).await;
         galileo::collect(shared.clone(), dir.clone(), true).await;
@@ -554,6 +562,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     tokio::spawn(news::watch(shared.clone(),dir.clone()));
     if std::env::var("OFFLINE").as_deref() != Ok("1") {
+        tokio::spawn(secondary::collect(shared.clone(),dir.clone(),false));
         tokio::spawn(refresh(shared.clone(), dir.clone(), false));
         tokio::spawn(sources::collect(shared.clone(), dir.clone(), false));
         tokio::spawn(iss_missions::collect(dir.clone(), false));
@@ -605,6 +614,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn recovery_uses_real_past_observations_without_duplicate_bias() {
+        let mut db=Database::default();load_gp(&mut db,include_bytes!("../resources/iss-example.json")).unwrap();
+        let template=db.orbits.values().next().unwrap()[0].clone();let now=Utc::now();let mut rows=Vec::new();
+        for (id,hours) in [(1,96),(2,72),(3,48),(1,-24),(2,1000),(2,1001)] {
+            let mut row=template.clone();row.el.norad_id=id;row.el.datetime=(now-chrono::Duration::hours(hours)).naive_utc();rows.push(row);
+        }
+        assert_eq!(recovery_epoch(rows.iter(),now),Some(now-chrono::Duration::hours(72)));
+        assert!(recovery_epoch(std::iter::empty(),now).is_none());
+    }
+    #[test]
+    fn rate_limit_response_preserves_provider_wait() {
+        let error=download_error(429,Some("10800"),"https://provider.invalid/data");
+        assert!(collection_health::temporary(&error));assert!(error.contains("retry_after_seconds=10800"));
+        let error=download_error(503,None,"https://celestrak.org/NORAD/elements/gp.php");
+        assert!(!collection_health::temporary(&error),"CelesTrak HTTP errors suspend the provider, backup collectors remain independent");
+        assert!(download_error(503,Some("Thu, 01 Jan 1970 00:00:00 GMT"),"https://provider.invalid/data").contains("retry_after_seconds=0"));
+    }
     #[test]
     fn scoped_catalogues_keep_iss_separate() {
         let mut db = Database::default();

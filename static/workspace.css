@@ -45,18 +45,18 @@
  .earth-workspace .globe-help{bottom:26px;left:20px;right:auto;max-width:330px;font-size:10px}
  .earth-workspace .globe-help .creator-credit{font-size:9px;margin-top:5px}
  .earth-workspace .map-creator{bottom:26px!important}
- .earth-workspace .timeline{left:auto;right:20px;bottom:22px;width:min(460px,calc(100% - 400px));padding:0;background:#090909eb;border:1px solid #666;z-index:1600}
- .earth-workspace .timeline[data-expanded=true]{width:min(560px,calc(100% - 400px))}
- .earth-workspace .timeline-summary{gap:10px;padding:10px 13px}
- .earth-workspace #timeline-toggle{gap:13px;min-height:30px}
- .earth-workspace #timeline-summary-label{font-size:12px;line-height:1.5}
- .earth-workspace #timeline-now{padding:7px 9px;font-size:10px}
- .earth-workspace #timeline-content{padding:14px 16px 16px}
- .earth-workspace .timeline time{font-size:17px;line-height:1.4}
- .earth-workspace .timeline .time-top .eyebrow{font-size:8px;letter-spacing:.09em}
- .earth-workspace .timeline .time-controls{margin-top:12px}
- .earth-workspace .timeline .time-controls #date-entry{font-size:14px}
- .earth-workspace .timeline p{font-size:9px;line-height:1.5}
+ :is(.earth-workspace,.lunar-page) .timeline{left:auto;right:20px;bottom:22px;width:min(460px,calc(100% - 400px));padding:0;background:#090909eb;border:1px solid #666;z-index:1600}
+ :is(.earth-workspace,.lunar-page) .timeline[data-expanded=true]{width:min(560px,calc(100% - 400px))}
+ :is(.earth-workspace,.lunar-page) .timeline-summary{gap:10px;padding:10px 13px}
+ :is(.earth-workspace,.lunar-page) #timeline-toggle{gap:13px;min-height:30px}
+ :is(.earth-workspace,.lunar-page) #timeline-summary-label{font-size:12px;line-height:1.5}
+ :is(.earth-workspace,.lunar-page) #timeline-now{padding:7px 9px;font-size:10px}
+ :is(.earth-workspace,.lunar-page) #timeline-content{padding:14px 16px 16px}
+ :is(.earth-workspace,.lunar-page) .timeline time{font-size:17px;line-height:1.4}
+ :is(.earth-workspace,.lunar-page) .timeline .time-top .eyebrow{font-size:8px;letter-spacing:.09em}
+ :is(.earth-workspace,.lunar-page) .timeline .time-controls{margin-top:12px}
+ :is(.earth-workspace,.lunar-page) .timeline .time-controls #date-entry{font-size:14px}
+ :is(.earth-workspace,.lunar-page) .timeline p{font-size:9px;line-height:1.5}
  .earth-workspace #detail{top:calc(var(--workspace-header) + 16px);right:110px;width:280px;padding:18px;max-height:calc(100% - var(--timeline-space,90px) - var(--workspace-header) - 32px)}
  .earth-workspace #detail h2{font-size:19px;line-height:1.3}
  .earth-workspace #detail dl{font-size:11px;line-height:1.45;gap:11px}
@@ -68,10 +68,10 @@
  .earth-workspace #workspace-navigation{gap:7px}.earth-workspace #workspace-navigation>.collection-navigation{width:185px;min-width:130px}
  .earth-workspace #workspace-navigation #advanced-tools,.earth-workspace #workspace-objects,.earth-workspace #workspace-navigation #orbital-news-button{padding:9px;font-size:10px}
  .earth-workspace #workspace-navigation #orbital-news-button svg{display:none}
- .earth-workspace .timeline{width:400px}.earth-workspace .timeline[data-expanded=true]{width:480px}
+ :is(.earth-workspace,.lunar-page) .timeline{width:400px}:is(.earth-workspace,.lunar-page) .timeline[data-expanded=true]{width:480px}
 }
-@media(min-width:901px) and (max-height:650px){.earth-workspace{--workspace-header:56px}.earth-workspace .globe-tools{left:112px;bottom:60px;max-height:calc(100% - 145px)}.earth-workspace .globe-help{bottom:18px}.earth-workspace .timeline{bottom:18px}.earth-workspace>header .atlas-logo{height:48px}}
-@media(min-width:901px){.earth-workspace .timeline[data-expanded=false]{width:max-content;min-width:270px;max-width:calc(100% - 40px)}}
+@media(min-width:901px) and (max-height:650px){:is(.earth-workspace,.lunar-page){--workspace-header:56px}:is(.earth-workspace,.lunar-page) .globe-tools{left:112px;bottom:60px;max-height:calc(100% - 145px)}:is(.earth-workspace,.lunar-page) .globe-help{bottom:18px}:is(.earth-workspace,.lunar-page) .timeline{bottom:18px}:is(.earth-workspace,.lunar-page)>header .atlas-logo{height:48px}}
+@media(min-width:901px){:is(.earth-workspace,.lunar-page) .timeline[data-expanded=false]{width:max-content;min-width:270px;max-width:calc(100% - 40px)}}
 @media(min-width:901px) and (max-height:650px){body.earth-workspace{--workspace-header:56px}}
 /* Primary destinations and thematic satellite navigation. */
 @media(min-width:901px){
@@ -201,17 +201,17 @@
 
 /* Time controls remain compact, with a clear clock symbol. */
 @media(min-width:901px){
- .earth-workspace .timeline{border-color:#777;background:#0c0c0cf2;box-shadow:0 4px 22px #0008}
- .earth-workspace .timeline-summary{padding:12px 16px}
- .earth-workspace #timeline-toggle{gap:11px}
- .earth-workspace .timeline-icon{flex:none;color:#ddd}
- .earth-workspace .timeline-title{font-size:12px;font-weight:600;letter-spacing:.06em;color:#eee;text-transform:uppercase}
- .earth-workspace .timeline[data-expanded=false]{min-width:205px}
- .earth-workspace .timeline[data-expanded=false] #timeline-summary-label{display:none}
+ :is(.earth-workspace,.lunar-page) .timeline{border-color:#777;background:#0c0c0cf2;box-shadow:0 4px 22px #0008}
+ :is(.earth-workspace,.lunar-page) .timeline-summary{padding:12px 16px}
+ :is(.earth-workspace,.lunar-page) #timeline-toggle{gap:11px}
+ :is(.earth-workspace,.lunar-page) .timeline-icon{flex:none;color:#ddd}
+ :is(.earth-workspace,.lunar-page) .timeline-title{font-size:12px;font-weight:600;letter-spacing:.06em;color:#eee;text-transform:uppercase}
+ :is(.earth-workspace,.lunar-page) .timeline[data-expanded=false]{min-width:205px}
+ :is(.earth-workspace,.lunar-page) .timeline[data-expanded=false] #timeline-summary-label{display:none}
 
 }
 
-@media(min-width:901px){.earth-workspace .timeline{bottom:48px}}
+@media(min-width:901px){:is(.earth-workspace,.lunar-page) .timeline{bottom:48px}}
 
 @media(min-width:901px){
  .earth-workspace #scene-actions{display:flex;align-items:flex-start;gap:10px;max-width:100%}
@@ -234,21 +234,21 @@
 }
 
 @media(min-width:901px){
- .earth-workspace #timeline-summary-label{flex:none;min-height:34px;margin:0;padding:8px 12px;border:1px solid #777;border-radius:0;background:#0a0a0a;color:#eee;font-size:12px;font-weight:500;line-height:1.4;letter-spacing:0;transition:background-color .15s,color .15s,border-color .15s}
- .earth-workspace #timeline-summary-label:hover:not(:disabled){background:#eee;color:#080808;border-color:#eee}
- .earth-workspace .timeline #now{display:none}
+ :is(.earth-workspace,.lunar-page) #timeline-summary-label{flex:none;min-height:34px;margin:0;padding:8px 12px;border:1px solid #777;border-radius:0;background:#0a0a0a;color:#eee;font-size:12px;font-weight:500;line-height:1.4;letter-spacing:0;transition:background-color .15s,color .15s,border-color .15s}
+ :is(.earth-workspace,.lunar-page) #timeline-summary-label:hover:not(:disabled){background:#eee;color:#080808;border-color:#eee}
+ :is(.earth-workspace,.lunar-page) .timeline #now{display:none}
 }
 
 @media(min-width:901px){
- .earth-workspace .timeline #timeline-now{display:none}
- .earth-workspace .timeline .time-top{align-items:center;gap:18px}
- .earth-workspace .timeline .time-top>div{min-width:0;flex:1}
- .earth-workspace .timeline #timeline-summary-label{min-height:34px;padding:8px 12px;white-space:nowrap}
- .earth-workspace #timeline-toggle{width:100%}
+ :is(.earth-workspace,.lunar-page) .timeline #timeline-now{display:none}
+ :is(.earth-workspace,.lunar-page) .timeline .time-top{align-items:center;gap:18px}
+ :is(.earth-workspace,.lunar-page) .timeline .time-top>div{min-width:0;flex:1}
+ :is(.earth-workspace,.lunar-page) .timeline #timeline-summary-label{min-height:34px;padding:8px 12px;white-space:nowrap}
+ :is(.earth-workspace,.lunar-page) #timeline-toggle{width:100%}
 }
 @media(max-width:900px){#timeline-summary-label{display:none}}
 
-@media(min-width:901px){.earth-workspace #timeline-summary-label:disabled{background:#0c0c0c;color:#777;border-color:#444;cursor:default}}
+@media(min-width:901px){:is(.earth-workspace,.lunar-page) #timeline-summary-label:disabled{background:#0c0c0c;color:#777;border-color:#444;cursor:default}}
 
 /* Optional photographic Earth, with a compact, keyboard-accessible switch. */
 .earth-style-control{position:absolute;top:72px;left:24px;z-index:560;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
@@ -334,3 +334,84 @@
 #overview-visibility:hover{background:#eee;color:#111}
 #overview-visibility[aria-pressed=true]{border-color:#a7c5d5;color:#a7c5d5}
 @media(max-width:900px){#overview-visibility{display:none}}
+
+/* Lunar inspector and menus stay outside clipped scene panels. */
+#lunar-detail{position:absolute;z-index:1100;top:calc(var(--workspace-header,70px) + 16px);right:110px;width:300px;max-height:calc(100% - 150px);overflow:auto;padding:18px;background:#090909f5;border:1px solid #666;color:#ddd;box-sizing:border-box;font-size:12px}
+#lunar-detail header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+#lunar-detail small{font-size:9px;letter-spacing:.12em;color:#aaa}
+#lunar-detail h2{font-size:22px;margin:8px 0}
+#lunar-detail .lunar-close{display:flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:32px;padding:0;border:1px solid #555;background:#0c0c0c;color:#ddd}
+#lunar-detail dl{display:grid;gap:14px;margin:20px 0}
+#lunar-detail dl>div{display:flex;justify-content:space-between;gap:12px}
+#lunar-detail dt{color:#999}#lunar-detail dd{margin:0;text-align:right;max-width:55%}
+#lunar-detail .lunar-orbit{display:flex;align-items:center;gap:8px;margin:16px 0;color:#d3c6ff}
+#lunar-detail input{accent-color:#bca5ed;width:15px;height:15px}
+#lunar-detail .lunar-travel,#lunar-detail .lunar-earth{width:100%;padding:10px;border:1px solid #7e779a;background:#211e2d;color:#eee}
+#lunar-detail button:hover{background:#eee;color:#111}
+#lunar-detail .lunar-note,#lunar-detail .lunar-credit{font-size:10px;color:#999;line-height:1.5}
+#lunar-detail a{color:#b8b0d4}
+.view:has(#lunar-detail:not([hidden])) #detail{display:none!important}
+#lunar-controls{display:grid;gap:10px;margin-top:10px;border-top:1px solid #444;padding-top:10px}
+#lunar-destination{width:100%;padding:9px 12px;border:1px solid #777;background:#111;color:#eee;font:inherit;cursor:pointer}
+#lunar-destination:hover{background:#eee;color:#111}
+#lunar-controls .lunar-names{display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.5;color:#ddd}
+#lunar-controls .lunar-names[hidden]{display:none}
+#lunar-controls input{accent-color:#bca5ed;width:15px;height:15px;flex-shrink:0}
+.globe-tools:has(#lunar-controls[data-active="true"])>:is(#globe-follow,#follow-state,#satellite-views,#advanced-model-options,#follow-details,#overview-selection,#overview-visibility){display:none!important}
+#lunar-detail{width:320px;max-width:calc(100vw - 40px);padding:18px 20px;max-height:calc(100dvh - var(--workspace-header,84px) - 110px);line-height:1.5}
+#lunar-detail>header{position:static;height:auto;min-height:0;margin:0 0 16px;padding:0 0 14px;background:transparent;border:0;border-bottom:1px solid #333;align-items:flex-start;gap:14px}
+#lunar-detail>header>div{min-width:0;flex:1}
+#lunar-detail h2{font-size:21px;line-height:1.2;margin:6px 0 0;letter-spacing:0}
+#lunar-detail .lunar-close{flex:0 0 28px;width:28px;height:28px;min-height:28px;min-width:28px;border-radius:0}
+#lunar-detail dl{gap:12px;margin:18px 0}
+#lunar-detail dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px;align-items:start}
+#lunar-detail dt,#lunar-detail dd{max-width:none;overflow-wrap:anywhere;font-size:11px;line-height:1.5}
+#lunar-detail .lunar-orbit{font-size:11px;margin:16px 0}
+#lunar-detail .lunar-travel,#lunar-detail .lunar-earth{font-size:12px;min-height:36px;padding:8px 10px;border-radius:0}
+#lunar-detail .lunar-note{margin:14px 0 10px;font-size:10px;line-height:1.5}
+#lunar-jump{position:absolute;z-index:1150;max-width:190px;padding:10px 14px;border:1px solid #aaa;border-radius:0;background:#090909ed;color:#eee;font-size:12px;line-height:1.4;box-shadow:0 5px 20px #0008}
+#lunar-jump:hover{background:#eee;color:#111}
+
+body.earth-workspace > #workspace-debris-menu{position:fixed;z-index:2200;box-sizing:border-box;overflow:auto;overscroll-behavior:contain;background:#0b0b0b;border:1px solid #777;padding:14px;box-shadow:0 12px 36px #000b}
+body.earth-workspace > #workspace-debris-menu[hidden]{display:none}
+.earth-view-controls{width:300px;max-width:calc(100% - 40px)}
+.earth-view-controls .view-switch{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px}
+.earth-view-controls .view-switch button{width:100%;min-width:0;margin:0;padding:9px 10px;text-align:center}
+#celestial-hover,#satellite-hover{position:absolute;z-index:1110;pointer-events:none;max-width:280px;padding:6px 9px;border:1px solid #555;background:#080808ed;color:#eee;font-size:12px;line-height:1.5;white-space:pre-line}
+#celestial-hover[hidden],#satellite-hover[hidden]{display:none}
+.view[data-lunar-view="true"] #scene-actions,.view[data-lunar-view="true"] #overview-selection,.view[data-lunar-view="true"] #overview-visibility{display:none!important}
+.view[data-lunar-view="true"] .globe-tools>:is(.globe-buttons,#globe-follow,#follow-state,#satellite-views,#advanced-model-options,#follow-details){display:none!important}
+
+.catalog-loading-label{font-size:12px;line-height:1.5;color:#b9c2c8;margin:0 0 12px;text-align:center;max-width:320px}
+
+/* Each switch owns its label and track, including the longer Atlas caption. */
+.earth-view-controls .earth-style-control{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:stretch}
+.earth-view-controls #earth-realistic-toggle,.earth-view-controls #sky-toggle{box-sizing:border-box;white-space:normal;height:auto;min-height:38px;gap:7px}
+.earth-view-controls #earth-realistic-toggle>span:first-child,.earth-view-controls #sky-toggle>span:first-child{flex:1;min-width:0;text-align:left;line-height:1.35;overflow-wrap:normal}
+.earth-view-controls .earth-switch-track{box-sizing:border-box;flex:0 0 32px;width:32px;height:19px}
+#celestial-callout{position:absolute;z-index:1150;display:grid;gap:7px;width:max-content;max-width:min(240px,calc(100% - 24px))}
+#celestial-callout:has(#lunar-jump[hidden]):has(#celestial-hover[hidden]){display:none}
+#celestial-callout #celestial-hover,#celestial-callout #lunar-jump{position:static;box-sizing:border-box;width:100%;max-width:none;margin:0;white-space:normal}
+#celestial-callout #celestial-hover{pointer-events:none;line-height:1.5;padding:7px 10px}
+#celestial-callout #lunar-jump{padding:10px 14px;min-height:38px}
+.collection-menu-theme>summary{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.collection-menu-theme>summary::after{content:'';display:block;flex:0 0 7px;width:7px;height:7px;margin-right:4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg)}
+.collection-menu-theme[open]>summary::after{transform:rotate(225deg)}
+
+/* Match the two switch cells to the two view tabs above them. */
+.earth-view-controls .view-switch{padding:2px}
+.earth-view-controls .earth-style-control{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;padding:3px;box-sizing:border-box}
+
+#orbital-news-list .news-theme-item{list-style:none;border-top:1px solid #444}
+#orbital-news-list .news-theme{margin:0}
+#orbital-news-list .news-theme>summary{display:flex;align-items:center;gap:12px;list-style:none;padding:16px 0;cursor:pointer;color:#eee;font-size:13px}
+#orbital-news-list .news-theme>summary::-webkit-details-marker{display:none}
+#orbital-news-list .news-theme>summary::after{content:'';flex:none;width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}
+#orbital-news-list .news-theme[open]>summary::after{transform:rotate(225deg)}
+#orbital-news-list .news-theme-count{margin-left:auto;color:#aaa;font-size:11px}
+#orbital-news-list .news-theme-events{margin:0;padding:0;list-style:none}
+#orbital-news-list .news-item>a{margin-right:14px}
+#orbital-news-list .news-objects a{display:block;color:#a9d2e6;font-size:11px}
+
+#lunar-controls .lunar-orbit{display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.5;color:#79bce5}
+#lunar-controls .lunar-orbit[hidden]{display:none}

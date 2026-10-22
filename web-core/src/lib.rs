@@ -32,7 +32,7 @@ struct Point {
 }
 #[derive(Serialize)]
 struct Positions {
-    at:DateTime<Utc>,points:Vec<Point>,missing:usize,track:Vec<[f64;2]>,future_track:Vec<[f64;2]>,track_3d:Vec<[f64;3]>,future_track_3d:Vec<[f64;3]>,suggested_at:Option<DateTime<Utc>>,
+    at:DateTime<Utc>,points:Vec<Point>,missing:usize,track:Vec<[f64;2]>,future_track:Vec<[f64;2]>,track_3d:Vec<[f64;3]>,future_track_3d:Vec<[f64;3]>,suggested_at:Option<DateTime<Utc>>,recovery_at:Option<DateTime<Utc>>,
 }
 #[derive(Serialize)]
 #[serde(untagged)]
@@ -69,6 +69,9 @@ fn add(
             Some("CelesTrak GP / Space-Track") => "CelesTrak GP / Space-Track",
             Some("SatNOGS / Space-Track") => "SatNOGS / Space-Track",
             Some("N2YO / Space-Track") => "N2YO / Space-Track",
+            Some("SatNOGS / CelesTrak") => "SatNOGS / CelesTrak",
+            Some("SatNOGS / autre fournisseur") => "SatNOGS / autre fournisseur",
+            Some("KeepTrack / fournisseurs multiples") => "KeepTrack / fournisseurs multiples",
             Some("Archive publique Julien Simon / Space-Track") => "Archive publique Julien Simon / Space-Track",
             _ => default_source,
         };
@@ -240,7 +243,8 @@ impl Engine {
         } else {
             None
         };
-        Ok(Positions{at,points,missing,track,future_track:future,track_3d:track3,future_track_3d:future3,suggested_at:suggested})
+        let recovery=if missing>points.len(){recovery_epoch(db.orbits.values().flat_map(|rows|rows.iter()),now).filter(|date|(*date-at).num_seconds().abs()>60)}else{None};
+        Ok(Positions{at,points,missing,track,future_track:future,track_3d:track3,future_track_3d:future3,suggested_at:suggested,recovery_at:recovery})
     }
 }
 static ENGINE: OnceLock<Mutex<Engine>> = OnceLock::new();

@@ -6,7 +6,7 @@
  }
  function mount(){
   const $=id=>document.getElementById(id),desktop=matchMedia('(min-width: 901px)'),panel=$('advanced-panel'),nav=document.querySelector('.collection-navigation'),menu=nav.querySelector('.collection-menu-panel'),menuButton=$('collection-menu-button'),search=document.querySelector('.object-search'),input=$('object-search');
-  const placements=[];let attached=false,isOpen=false,proxies=[];
+  const placements=[];let attached=false,isOpen=false,proxies=[],colorsReady=false;
   function move(node,parent,first=false){const marker=document.createComment('original control position');node.before(marker);placements.push({node,marker});if(first)parent.prepend(node);else parent.append(node);}
   function restore(){for(const {node,marker} of placements.splice(0)){marker.replaceWith(node);}search.classList.remove('integrated-object-search');search.querySelector('label').textContent='Rechercher un objet à observer';input.placeholder='Nom d’un satellite ou d’une constellation…';attached=false;document.body.classList.remove('desktop-panel-layout');}
   function sync(){for(const {source,target} of proxies)target.value=source.value;}
@@ -32,6 +32,7 @@
   }
   root.AtlasAdvanced={setOpen(value){
    const open=desktop.matches&&value;if(!open){panel.hidden=true;panel.inert=true;isOpen=false;return;}
+   if(!colorsReady&&!$('atlas-controls').hidden){colors();colorsReady=true;}
    sync();panel.hidden=false;panel.inert=false;if(!isOpen){isOpen=true;$('advanced-panel-close').focus({preventScroll:true});}
   }};
   function layout(){
@@ -40,7 +41,7 @@
    move(search,menu,true);search.classList.add('integrated-object-search');
    search.querySelector('label').textContent='Rechercher un objet';input.placeholder='ISS, Starlink, Galileo…';
    $('advanced-filter-section').hidden=true;
-   $('advanced-color-section').hidden=$('atlas-controls').hidden;if(!$('atlas-controls').hidden)colors();
+   $('advanced-color-section').hidden=$('atlas-controls').hidden;
    $('advanced-model-section').hidden=true;
    syncModelView();
   }

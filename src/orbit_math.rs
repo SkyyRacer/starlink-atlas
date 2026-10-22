@@ -105,3 +105,11 @@ pub(crate) fn position(o: &Orbit, at: DateTime<Utc>) -> Option<Point> {
         source: o.source,
     })
 }
+
+// Median of the last real observation of each object, never a fabricated current epoch.
+pub(crate) fn recovery_epoch<'a>(rows:impl Iterator<Item=&'a Orbit>,now:DateTime<Utc>)->Option<DateTime<Utc>> {
+    let mut latest=std::collections::BTreeMap::new();
+    for row in rows {let epoch=row.el.datetime.and_utc();if epoch<=now {latest.entry(row.el.norad_id).and_modify(|v:&mut DateTime<Utc>|*v=(*v).max(epoch)).or_insert(epoch);}}
+    let mut dates:Vec<_>=latest.into_values().collect();if dates.is_empty(){return None;}
+    let mid=dates.len()/2;dates.select_nth_unstable(mid);Some(dates[mid])
+}

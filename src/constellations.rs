@@ -34,7 +34,11 @@ pub async fn bulk_catalogue(client:&reqwest::Client,dir:&std::path::Path)->Resul
     let file=dir.join("satcat-all.csv");
     let fresh=std::fs::metadata(&file).and_then(|m|m.modified()).ok().and_then(|t|t.elapsed().ok()).is_some_and(|age|age.as_secs()<86400);
     let bytes=if fresh {std::fs::read(file).map_err(|e|e.to_string())?} else {
-        let bytes=download(client,debris::CATALOG).await?;csv_data::catalogue(&bytes)?;sources::atomic(dir,"satcat-all.csv",&bytes)?;bytes
+        match download(client,debris::CATALOG).await {
+            Ok(bytes)=>{csv_data::catalogue(&bytes)?;sources::atomic(dir,"satcat-all.csv",&bytes)?;bytes},
+            Err(error) if collection_health::temporary(&error)=>{let cached=std::fs::read(&file).map_err(|_|error.clone())?;csv_data::catalogue(&cached)?;cached},
+            Err(error)=>return Err(error)
+        }
     };
     csv_data::catalogue(&bytes)
 }
@@ -77,14 +81,13 @@ async fn backup(def:&collections::Definition,client:&reqwest::Client,shared:&Sha
     Ok(())
 }
 pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
-    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).timeout(std::time::Duration::from_secs(60)).build().unwrap();
+    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8)).timeout(std::time::Duration::from_secs(60)).build().unwrap();
     loop {
         let mut feeds:BTreeMap<String,Result<Vec<Value>,String>>=BTreeMap::new();
         let mut bulk:Option<Vec<Value>>=None;
         for def in added() {
             let now=Utc::now().timestamp();
-            let last=std::fs::read_to_string(dir.join(format!("{}-attempt.txt",def.id))).ok().and_then(|v|v.parse::<i64>().ok()).unwrap_or(0);
-            if now-last<7200 { continue; }
+            if !collection_health::due(&dir,&def.id,now,7200){continue;}
             let _=std::fs::write(dir.join(format!("{}-attempt.txt",def.id)),now.to_string());
             let result:Result<(),String>=async {
                 let file=dir.join(format!("{}-catalog.json",def.id));
@@ -115,10 +118,10 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
                 Ok(())
             }.await;
             let result=match result{Err(primary) if ["proba-2","proba-3","mev-1","mev-2","lares-2","tess","xposat"].contains(&def.id.as_str())=>backup(def,&client,&shared,&dir).await.map_err(|fallback|format!("{primary} · secours : {fallback}")),other=>other};
-            if result.is_ok(){let _=std::fs::remove_file(dir.join(format!("{}-error.txt",def.id)));}
+            collection_health::finish(&dir,&def.id,result.as_ref().err().map(String::as_str));
             if let Err(error)=result { eprintln!("{} : {error}",def.label);let _=std::fs::write(dir.join(format!("{}-error.txt",def.id)),error); }
         }
-        if once { return; }tokio::time::sleep(std::time::Duration::from_secs(7200)).await;
+        if once { return; }tokio::time::sleep(std::time::Duration::from_secs(60)).await;
     }
 }
 #[cfg(test)]

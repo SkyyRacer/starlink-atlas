@@ -1,0 +1,26 @@
+body.lunar-page{margin:0;background:#000;color:#eee;font:13px Arial,sans-serif;overflow:hidden}
+.lunar-page>header{position:fixed;inset:0 0 auto;z-index:1600;box-sizing:border-box;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#000;border-bottom:1px solid #333}
+.lunar-page>header img{width:155px;height:auto;display:block}
+.lunar-page .view{position:absolute;inset:76px 0 0;overflow:hidden}
+.lunar-page #globe-canvas{position:absolute;inset:0}
+.lunar-page :is(button,select,input):not(.timeline *):not(.date-popover *){font:inherit;color:#eee;background:#0b0b0b;border:1px solid #666;border-radius:0;padding:9px 12px;cursor:pointer;box-sizing:border-box}
+.lunar-page button:not(.timeline *):not(.date-popover *):hover{background:#eee;color:#111}
+.lunar-page .globe-tools{position:absolute;z-index:600;bottom:90px;left:24px;padding:12px;border:1px solid #555;background:#090909ed;width:250px;box-sizing:border-box}
+.lunar-page .globe-tools>button{width:100%}
+.lunar-page #lunar-detail{top:20px;right:90px;max-height:calc(100% - 130px)}
+.lunar-page .earth-view-controls{top:20px;left:24px}
+.lunar-page .earth-view-controls .view-switch{grid-template-columns:1fr}
+.lunar-page .view-switch button[aria-pressed=true]{background:#fff;color:#000}
+.lunar-page #notice{max-width:300px;font-size:12px;color:#ccc}
+.lunar-page .lunar-zoom{position:absolute;right:20px;top:20px;z-index:600;display:grid}
+.lunar-page .lunar-zoom button{font-size:24px;width:40px;height:40px;padding:0}
+
+.lunar-page #lunar-shadows-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:38px;background:#0b0b0b;color:#eee;text-align:left}
+.lunar-page #lunar-shadows-toggle[aria-checked=true] .earth-switch-track{background:#a7c5d5;border-color:#a7c5d5}
+.lunar-page #lunar-shadows-toggle[aria-checked=true] .earth-switch-track i{transform:translateX(13px);background:#fff}
+.lunar-page #lunar-shadows-toggle:hover{background:#1b1b1b}
+.lunar-page .view{display:block;min-height:0;height:auto;width:auto}
+.lunar-page .timeline{box-sizing:border-box}
+.lunar-page .timeline #clock{display:block;font-size:20px;font-variant-numeric:tabular-nums;margin-top:5px}
+.lunar-page .timeline #date-entry{border:0;background:transparent;text-align:left}
+.lunar-page .timeline .time-controls{align-items:stretch}

@@ -10,3 +10,6 @@ motion.set([point(1,50,80,500)],3300,false);assert.equal(motion.sample(3300)[0].
 motion.set([],3400,false);assert.equal(motion.sample(3400).length,0,'no invented positions when archives are missing');
 const sweep=new SatelliteMotion();sweep.set([point(3,0,0,500)],0,false);sweep.set([point(3,1,1,500)],1000,true);let last=-1;for(let t=1000;t<=2000;t+=20){const value=sweep.sample(t)[0].lat;assert.ok(value>last);if(last>=0)assert.ok(value-last<.021,'movement must advance in small frame steps');last=value;}
 console.log('Interpolation continue, changement de date et passage ±180° : OK');
+
+// Hidden objects are excluded from per-frame work, then safely rebased if revealed.
+const subset=new SatelliteMotion();subset.set([point(1,0,0,500),point(2,0,0,500)],0,false);subset.set([point(1,10,10,500),point(2,20,20,500)],1000,true);subset.sampleRows(2000,[subset.get(1)]);assert.equal(subset.active,false);assert.equal(subset.get(2).lat,0);subset.set([point(1,11,11,500),point(2,21,21,500)],2000,true);assert.equal(subset.get(2).lat,20,'A hidden object rebases from its completed previous sample');subset.sampleRows(2500,[subset.get(2)]);assert.equal(subset.get(2).lat,20.5);

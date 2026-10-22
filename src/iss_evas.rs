@@ -45,9 +45,10 @@ pub async fn collect(dir:PathBuf,once:bool){
      rows.extend(v["results"].as_array().ok_or("Page de sorties invalide")?.iter().cloned());
      if v["next"].is_null(){complete=true;break;}
     }
+    if full && !complete{return Err("Historique EVA incomplet : cache précédent conservé".into());}
     let mut doc=normalize(&rows,complete,total)?;
     if full{complete=complete&&doc["spacewalks"].as_array().map(|a|a.len() as u64==total).unwrap_or(false);doc["complete"]=json!(complete);}
-    if !full{if let Some(p)=previous{let mut all:BTreeMap<u64,Value>=BTreeMap::new();for row in p["spacewalks"].as_array().into_iter().flatten().chain(doc["spacewalks"].as_array().into_iter().flatten()){if let Some(id)=row["id"].as_u64(){all.insert(id,row.clone());}}doc["spacewalks"]=json!(all.into_values().collect::<Vec<_>>());doc["complete"]=json!(p["complete"]==true);}}
+    if !full{if let Some(p)=previous{let mut all:BTreeMap<u64,Value>=BTreeMap::new();for row in p["spacewalks"].as_array().into_iter().flatten().chain(doc["spacewalks"].as_array().into_iter().flatten()){if let Some(id)=row["id"].as_u64(){all.insert(id,row.clone());}}doc["spacewalks"]=json!(all.into_values().collect::<Vec<_>>());doc["complete"]=json!(p["complete"]==true && doc["spacewalks"].as_array().map_or(0,|rows|rows.len()) as u64==total);}}
     sources::atomic(&dir,"iss-evas.json",&serde_json::to_vec(&doc).map_err(|e|e.to_string())?)?;
     if full && complete{sources::atomic(&dir,"iss-evas-full.txt",now.to_string().as_bytes())?;}Ok(())
    }.await;

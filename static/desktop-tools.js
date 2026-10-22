@@ -6,8 +6,8 @@
   timeline.dataset.expanded=String(!desktop.matches||timeOpen);
   timeButton.setAttribute('aria-expanded',String(timeOpen));$('timeline-content').inert=desktop.matches&&!timeOpen;
   document.body.classList.toggle('advanced-tools-open',toolsOpen);
-  toolsButton.setAttribute('aria-expanded',String(toolsOpen));toolsButton.querySelector('span').textContent=toolsOpen?'−':'+';
-  $('advanced-filters').inert=false;$('advanced-model-options').inert=false;
+  if(toolsButton){toolsButton.setAttribute('aria-expanded',String(toolsOpen));toolsButton.querySelector('span').textContent=toolsOpen?'−':'+';}
+  for(const id of ['advanced-filters','advanced-model-options']){const control=$(id);if(control)control.inert=false;}
   window.AtlasAdvanced?.setOpen(toolsOpen);
   // Reuse the scene's existing layout measurement after folding the chronology.
   window.dispatchEvent(new Event('resize'));
@@ -33,6 +33,6 @@
  });
  $('timeline-now').addEventListener('click',()=>$('now').click());
  $('timeline-summary-label').addEventListener('click',()=>$('now').click());
- toolsButton.addEventListener('click',()=>{toolsOpen=!toolsOpen;apply();});
+ toolsButton?.addEventListener('click',()=>{toolsOpen=!toolsOpen;apply();});
  window.addEventListener('atlas:time',updateTime);desktop.addEventListener('change',apply);updateTime();apply();
 })();

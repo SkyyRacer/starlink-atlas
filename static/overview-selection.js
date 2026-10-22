@@ -32,7 +32,7 @@
  document.querySelector('.globe-buttons').after(visibility,root);
  let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;sync();});}
  document.addEventListener('change',schedule);document.addEventListener('click',schedule);
- new MutationObserver(schedule).observe($('atlas-controls'),{subtree:true,childList:true,characterData:true});
+ // Visibility changes already emit change events; live counters need no resync.
  new MutationObserver(sync).observe($('advanced-model-options'),{attributes:true,attributeFilter:['data-following']});
  document.addEventListener('pointerdown',event=>{if(root.open&&!root.contains(event.target))root.open=false;});
  root.addEventListener('keydown',event=>{if(event.key==='Escape'&&root.open){event.preventDefault();root.open=false;summary.focus({preventScroll:true});}});

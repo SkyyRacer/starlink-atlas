@@ -30,8 +30,19 @@
   for(const key of ['left','top','width','maxHeight'])panel.style[key]=g[key]+'px';
   panel.style.right='auto';panel.style.bottom='auto';
  }
+ function positionDebris(){
+  if(!mounted||debrisMenu.hidden||!Number.isFinite(window.innerHeight))return;
+  const anchor=debrisButton.getBoundingClientRect(),bounds=stack.getBoundingClientRect();
+  const headerBottom=header.getBoundingClientRect().bottom;
+  const width=Math.min(320,window.innerWidth-40);
+  debrisMenu.style.left=Math.max(20,Math.min(bounds.left,window.innerWidth-width-20))+'px';
+  debrisMenu.style.width=width+'px';debrisMenu.style.right='auto';debrisMenu.style.top='auto';
+  debrisMenu.style.bottom=Math.max(20,window.innerHeight-anchor.top+10)+'px';
+  debrisMenu.style.maxHeight=Math.max(80,anchor.top-headerBottom-30)+'px';
+ }
  function positionMenus(){
   if(!mounted)return;
+  positionDebris();
   if(!stationLinks.hidden)positionSubmenu(stationLinks,stationButton,230);
   if(opened)positionSubmenu(rail,objects,350);
   if(menu.getAttribute('aria-expanded')==='true')positionSubmenu(searchMenu,menu,350);
@@ -80,13 +91,14 @@
    move($('workspace-iss'),stationLinks);move($('workspace-tiangong'),stationLinks);
    move(nav,bar);move(tools,bar);move(news,bar);if(isAtlas)move(debris,sceneActions);move($('globe-home'),sceneActions);move(sceneTools,stack);
    tools.hidden=!isAtlas;debris.hidden=!isAtlas;close.hidden=false;
-   if(isAtlas){bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));}
+   if(isAtlas){bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
    else{bar.insertBefore(objects,tools);$('workspace-debris-navigation').hidden=false;}
    objects.before(stationControl);
    menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Catégories':($('iss-controls').hidden?'Liste des objets':'Missions et équipage');
    setObjects(false);syncView();
   }else{
    if(!mounted)return;closeStations();setObjects(false);closeMenu();closeTools();closeDebris();menu.setThematic?.(false);closeNews();
+   debrisMenu.removeAttribute('style');
    for(const {node,marker} of placements.splice(0))marker.replaceWith(node);
    tools.hidden=false;close.hidden=false;document.body.classList.remove('earth-workspace','dedicated-workspace');nav.classList.remove('workspace-primary-menu');mounted=false;
   }
@@ -100,6 +112,7 @@
  menu.addEventListener('click',()=>{if(desktop.matches&&menu.getAttribute('aria-expanded')==='true'){closeStations();setObjects(false);closeTools();closeDebris();closeNews();positionSubmenu(searchMenu,menu,350);}});
  tools.addEventListener('click',()=>{if(desktop.matches&&tools.getAttribute('aria-expanded')==='true'){closeStations();setObjects(false);closeMenu();closeDebris();closeNews();positionSubmenu($('advanced-panel'),tools,360);}});
  news.addEventListener('click',()=>{if(desktop.matches){closeStations();setObjects(false);closeMenu();closeTools();closeDebris();positionSubmenu($('orbital-news-dialog'),news,440);}});
+ document.addEventListener('atlas:lunar-view',()=>closeDebris());
  document.addEventListener('atlas:observe',()=>{if(desktop.matches)setObjects(false);});
  rail.addEventListener('click',event=>{if(desktop.matches&&event.target.closest('.satellite-result'))setObjects(false);});
  document.addEventListener('keydown',event=>{
@@ -111,9 +124,9 @@
   if(!stationLinks.hidden&&!stationControl.contains(event.target))closeStations();
   if(opened&&!rail.contains(event.target)&&!objects.contains(event.target))setObjects(false);
   if(!$('advanced-panel').hidden&&!$('advanced-panel').contains(event.target)&&!tools.contains(event.target))closeTools();
-  if(!debrisMenu.hidden&&!debris.contains(event.target))closeDebris();
+  if(!debrisMenu.hidden&&!debris.contains(event.target)&&!debrisMenu.contains(event.target))closeDebris();
  });
- debrisButton.addEventListener('click',()=>{const open=debrisMenu.hidden;if(open){closeStations();setObjects(false);closeMenu();closeTools();closeNews();}debrisMenu.hidden=!open;debrisButton.setAttribute('aria-expanded',String(open));});
+ debrisButton.addEventListener('click',()=>{const open=debrisMenu.hidden;if(open){closeStations();setObjects(false);closeMenu();closeTools();closeNews();}debrisMenu.hidden=!open;debrisButton.setAttribute('aria-expanded',String(open));if(open)positionDebris();});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!debrisMenu.hidden){event.preventDefault();closeDebris();debrisButton.focus({preventScroll:true});}});
  // Reveal station search results by scrolling the menu, without moving the page.
  let searchRevealQueued=false;
@@ -137,6 +150,8 @@
  }
  new MutationObserver(syncRecenter).observe($('advanced-model-options'),{attributes:true,attributeFilter:['data-following']});
  new MutationObserver(syncView).observe($('view-3d'),{attributes:true,attributeFilter:['aria-pressed']});
+ stack.addEventListener('scroll',positionDebris);
+ window.addEventListener('scroll',positionMenus,{passive:true});
  window.addEventListener('resize',positionMenus);desktop.addEventListener('change',layout);layout();
  if(isAtlas&&new URLSearchParams(window.location?.search||'').get('debris')==='1'){const box=document.querySelector('[data-family="debris"]');if(box&&!box.checked)$('atlas-debris-toggle').click();}
 })();

@@ -77,7 +77,7 @@ pub async fn orbits(at: DateTime<Utc>, collection: &str, allowed: &std::collecti
                 grouped.entry(source).or_default().push(elements.clone());
             }
             for (source,rows) in grouped {
-                let source=if source=="CelesTrak SupGP / SpaceX"{"CelesTrak SupGP / SpaceX"}else if source.contains("Julien Simon"){"Archive publique Julien Simon / Space-Track"}else{"Archive de collectes / GP"};
+                let source=match source.as_str(){"CelesTrak SupGP / SpaceX"=>"CelesTrak SupGP / SpaceX","KeepTrack / fournisseurs multiples"=>crate::secondary::KEEPTRACK,"SatNOGS / Space-Track"=>crate::secondary::SATNOGS,"SatNOGS / CelesTrak"=>crate::secondary::SATNOGS_CELESTRAK,"SatNOGS / autre fournisseur"=>crate::secondary::SATNOGS_OTHER,s if s.contains("Julien Simon")=>"Archive publique Julien Simon / Space-Track",_=>"Archive de collectes / GP"};
                 // A malformed public observation must not discard the other satellites or days.
                 for row in rows {
                     let Ok(el)=serde_json::from_value::<sgp4::Elements>(row) else {continue;};

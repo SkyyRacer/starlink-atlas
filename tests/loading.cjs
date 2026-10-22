@@ -33,3 +33,12 @@ for(const page of ['Atlas','ISS','Starlink'])for(const order of permutations(['c
  assert.ok(values.every((v,i)=>Number.isFinite(v)&&v>=0&&v<=100&&(!i||v>=values[i-1])),page+' must never show negatives or regress');
 }
 console.log('Atlas / ISS / Starlink : 24 ordres de chargement par page, horodatages désynchronisés, 0–100 sans recul OK');
+
+// A later date or destination supersedes older completion callbacks.
+let taskTime=0,taskFrame,taskClosures=[],taskValues=[];
+const tasks=create({now:()=>taskTime,render:v=>taskValues.push(v),close:e=>taskClosures.push(e),frame:fn=>(taskFrame=fn,1),cancelFrame(){},later:fn=>later.push(fn)});
+const lunar=tasks.begin('Lune',{textures:65,scene:35});lunar.done('textures');taskTime+=200;taskFrame();assert.equal(taskValues.at(-1),65);
+const back=tasks.begin('Terre',{positions:70,scene:30});lunar.done('scene');assert.equal(lunar.current,false);assert.equal(taskValues.at(-1),0);back.done('scene');taskTime+=200;taskFrame();assert.equal(taskValues.at(-1),30,'Camera readiness does not imply the satellite data are ready');
+back.done('positions');taskTime+=200;taskFrame();assert.equal(taskValues.at(-1),100);
+const date=tasks.begin('Autre date');for(const cb of later.splice(0))cb();assert.equal(taskClosures.length,0,'Old close callbacks never dismiss the next task');back.fail();assert.equal(date.current,true);date.done('positions');taskTime+=200;taskFrame();for(const cb of later.splice(0))cb();assert.deepEqual(taskClosures,[false]);
+console.log('Transitions : nouvelle date prioritaire, aller/retour lunaire et données attendues, anciens callbacks neutralisés OK');

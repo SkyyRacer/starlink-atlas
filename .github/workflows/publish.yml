@@ -9,7 +9,8 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: '23,53 * * * *'
+    # Every two hours, offset from the hour to reduce scheduler congestion.
+    - cron: '23 */2 * * *'
 permissions:
   contents: read
   pages: write
@@ -64,6 +65,7 @@ jobs:
         env:
           DATA_DIR: data-runtime
           HISTORY_DIR: data-seed/history
+          KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}
         run: |
           target/release/starlink-atlas --collect-once
           for file in data-runtime/*stopped.txt; do

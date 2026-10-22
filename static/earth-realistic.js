@@ -38,27 +38,44 @@
   surface=mix(surface,vec3(0.16,0.26,0.42),haze);
   // Blue-white limb on the lit side, a faint outline on the dark side.
   surface+=pow(grazing,5.0)*vec3(0.095,0.19,0.33)*(0.025+0.975*twilight);
+  surface+=lunarView*pow(grazing,4.0)*vec3(0.07,0.19,0.38)*smoothstep(0.0,0.2,sunlight);
+  surface*=mix(1.0,smoothstep(0.0,0.025,sunlight),lunarView);
   material.diffuse=surface/(vec3(1.0)+surface*0.035);
   material.alpha=1.0;
   return material;
  }`;
+ // Preserve cartographic imagery on the lit hemisphere; replace every unlit pixel with black.
+ const lunarMapSource=`czm_material czm_getMaterial(czm_materialInput inputData){
+  czm_material material=czm_getDefaultMaterial(inputData);
+  vec3 worldPosition=(czm_inverseView*vec4(-inputData.positionToEyeEC,1.0)).xyz;
+  vec3 worldDirection=normalize(worldPosition*vec3(1.0,1.0,1.0067394967));
+  float sunlight=dot(normalize(mat3(czm_view)*worldDirection),normalize(czm_sunDirectionEC));
+  material.diffuse=vec3(0.0);
+  material.alpha=1.0-smoothstep(0.0,0.025,sunlight);
+  return material;
+ }`;
  function create({viewer,imagery,C,onChange=()=>{},loadImage=url=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('Les textures de la Terre sont indisponibles.'));image.src=url;})}){
-  let enabled=false,wanted=false,pending=null,material=null,atmosphere=null,revision=0,night=true,basemap=true,credited=false;
+  let enabled=false,wanted=false,pending=null,material=null,atmosphere=null,revision=0,night=true,basemap=true,credited=false,lunarView=false,lunarMap=null;
   const original={material:viewer.scene.globe.material,atmosphere:viewer.scene.skyAtmosphere};
   const credit=new C.Credit('Terre : NASA Blue Marble / Black Marble',true);
   function update(data){
    if(data){night=data.night;basemap=data.basemap;}
+   if(material)material.uniforms.lunarView=lunarView?1:0;
+   viewer.scene.globe.vertexShadowDarkness=lunarView?0:.35;
    imagery.show=enabled?false:basemap;
-   viewer.scene.globe.material=enabled?material:original.material;
+   if(lunarView&&!enabled&&!lunarMap)lunarMap=new C.Material({fabric:{type:'AtlasLunarMapNight',source:lunarMapSource},translucent:false});
+   viewer.scene.globe.material=enabled?material:lunarView?lunarMap:original.material;
    // The material supplies its own day/night illumination, including city light emission.
-   viewer.scene.globe.enableLighting=enabled?false:night;
-   if(atmosphere)atmosphere.show=enabled;
-   viewer.scene.skyAtmosphere=enabled?atmosphere:original.atmosphere;
+   viewer.scene.globe.enableLighting=enabled?false:(lunarView||night);
+   // In lunar view the photographic surface supplies the sunlit blue limb.
+   // Disable the separate sky shell, which otherwise outlines the dark hemisphere.
+   if(atmosphere){atmosphere.show=enabled&&!lunarView;atmosphere.setDynamicLighting?.(0);atmosphere.atmosphereLightIntensity=22;}
+   viewer.scene.skyAtmosphere=lunarView?undefined:enabled?atmosphere:original.atmosphere;
    if(enabled!==credited){const credits=viewer.scene.frameState.creditDisplay;if(enabled)credits.addStaticCredit(credit);else credits.removeStaticCredit(credit);credited=enabled;}
   }
   function status(loading=false,error=''){onChange({enabled,loading,error});viewer.scene.requestRender();}
   return {
-   get enabled(){return enabled;},update,
+   get enabled(){return enabled;},update,setLunarView(value){lunarView=!!value;update();viewer.scene.requestRender();},
    async setEnabled(value){
     wanted=Boolean(value);const request=++revision;
     if(!wanted){enabled=false;update();status();return false;}
@@ -68,7 +85,7 @@
       if(!pending)pending=Promise.all(['day-4k.webp','night-4k.webp','clouds-4k.webp'].map(file=>loadImage(base+file))).catch(error=>{pending=null;throw error;});
       const [dayMap,nightMap,cloudMap]=await pending;
       if(request!==revision)return enabled;
-      material=new C.Material({fabric:{type:'AtlasRealisticEarth',uniforms:{dayMap,nightMap,cloudMap},source},translucent:false});
+      material=new C.Material({fabric:{type:'AtlasRealisticEarth',uniforms:{dayMap,nightMap,cloudMap,lunarView:lunarView?1:0},source},translucent:false});
       atmosphere=new C.SkyAtmosphere();atmosphere.perFragmentAtmosphere=true;atmosphere.atmosphereLightIntensity=22;atmosphere.atmosphereRayleighScaleHeight=8500;atmosphere.brightnessShift=-0.13;
      }
      if(request!==revision)return enabled;
@@ -78,5 +95,5 @@
    recover(error){if(!enabled||!/shader|compile|texture|material/i.test(String(error?.message||error)))return false;revision++;wanted=false;enabled=false;update();status(false,'Ce rendu n’est pas disponible sur cette configuration.');return true;}
   };
  }
- const api={create,source};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEarth=api;
+ const api={create,source,lunarMapSource};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEarth=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('static/app.js','utf8');
 const fields={status:{value:''},search:{value:''},'debris-type':{value:''},'debris-owner':{value:''}};
-const ctx={AtlasPages:require('../static/pages.js'),collectionMode:'starlink',atlasGroups:new Set(['galileo','gps','iss','starlink']),revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};
+const ctx={document:{addEventListener(){}},AtlasPages:require('../static/pages.js'),collectionMode:'starlink',atlasGroups:new Set(['galileo','gps','iss','starlink']),revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};
 vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
 const station={id:25544,name:'ISS (ZARYA)',designator:'1998-067A'},starlink={id:56910,name:'STARLINK-1',designator:'2023-083A'};
 assert.equal(ctx.matches(station),false);assert.equal(ctx.matches(starlink),true);

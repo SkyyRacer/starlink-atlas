@@ -1,5 +1,5 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');const source=fs.readFileSync('static/app.js','utf8');
-const fields={status:{value:''},search:{value:''}};const ctx={AtlasPages:require('../static/pages.js'),collectionMode:'starlink',atlasGroups:new Set(['iss','starlink']),revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
+const fields={status:{value:''},search:{value:''}};const ctx={document:{addEventListener(){}},AtlasPages:require('../static/pages.js'),collectionMode:'starlink',atlasGroups:new Set(['iss','starlink']),revealedSearchId:null,byId:new Map(),Set,state:()=> 'orbit',$:id=>fields[id]};vm.createContext(ctx);vm.runInContext(source.slice(source.indexOf('const chosenYears='),source.indexOf('\nfunction sun')),ctx);
 const test=d=>ctx.matches({designator:d,name:'STARLINK',id:1});assert.ok(test('2023-001A'));
 vm.runInContext("chosenYears.add('2026');chosenYears.add('2024')",ctx);assert.ok(test('2026-001A'));assert.ok(test('2024-001A'));assert.ok(!test('2025-001A'));
 vm.runInContext("chosenLaunches.add('2024-001');chosenLaunches.add('2026-002')",ctx);assert.ok(test('2024-001A'));assert.ok(test('2026-002A'));assert.ok(!test('2026-001A'));

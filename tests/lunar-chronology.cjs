@@ -1,0 +1,14 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{parseHTML}=require('linkedom');
+const {window}=parseHTML(fs.readFileSync('static/moon.html','utf8')),document=window.document,$=id=>document.getElementById(id),events={};
+let live=false,nowClicks=0;const win={AtlasTimeline:{time:Date.parse('2024-02-29T12:30:00Z'),live},addEventListener:(name,fn)=>events[name]=fn,dispatchEvent(){}};
+$('now').onclick=()=>nowClicks++;
+const context={document,window:win,Event:window.Event,matchMedia:()=>({matches:true,addEventListener(){}}),AtlasTime:require('../static/time.js')};
+vm.runInNewContext(fs.readFileSync('static/desktop-tools.js','utf8'),context);
+const timeline=document.querySelector('.timeline');assert.equal(timeline.dataset.expanded,'false');assert.equal($('timeline-content').inert,true);assert.equal($('timeline-summary-label').disabled,false);
+$('timeline-toggle').click();assert.equal(timeline.dataset.expanded,'true');assert.equal($('timeline-content').inert,false);
+events.pointerdown({target:$('date-entry')});assert.equal(timeline.dataset.expanded,'true','Date field keeps chronology open');events.pointerdown({target:$('globe-canvas')});assert.equal(timeline.dataset.expanded,'false','Clicking the lunar scene folds chronology');
+$('timeline-summary-label').click();assert.equal(nowClicks,1);
+events['atlas:time']({detail:{at:Date.now(),live:true}});assert.equal($('timeline-summary-label').disabled,true);assert.equal($('now').disabled,true);
+const html=fs.readFileSync('static/moon.html','utf8');for(const file of ['date-picker.js','desktop-tools.js','style.css','theme.css','workspace.css'])assert.ok(html.includes('/'+file),'Same shared component asset: '+file);
+for(const id of ['date-entry','date-open','time-zone','clock','play','speed'])assert.ok($(id));assert.equal(document.querySelector('.lunar-timeline'),null,'Remove the bespoke lunar timeline');
+console.log('Chronologie lunaire partagée : calendrier, panneau replié, clic extérieur, retour au présent, état désactivé et aucun outil satellite requis OK.');

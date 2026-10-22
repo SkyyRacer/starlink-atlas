@@ -1,0 +1,17 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{parseHTML}=require('linkedom');
+(async()=>{
+ const {window}=parseHTML(fs.readFileSync('static/moon.html','utf8')),document=window.document;
+ Object.defineProperty(document.getElementById('speed'),'value',{value:'1',writable:true});
+ Object.defineProperty(document,'currentScript',{value:{src:'https://atlas.invalid/starlink-atlas/lunar-page.js'}});
+ const append=document.head.append.bind(document.head);document.head.append=node=>{append(node);queueMicrotask(()=>node.onload());};
+ let shadowSetting=true;let loaded=0,entered=0,recentered=0,provider,at,realistic,skyEnabled;
+ const moon={setShadows:value=>{shadowSetting=value;},update:t=>{at=t;},enter:async()=>{entered++;},recenter:()=>recentered++,setRealistic:async()=>{},zoom(){},orbit(){},hit:()=>false};
+ const C={JulianDate:{fromDate:d=>+d},Color:{BLACK:{}},Viewer:class{constructor(){this.scene={screenSpaceCameraController:{},globe:{},fog:{},moon:{},sun:{},requestRender(){},renderError:{addEventListener(){}}};this.clock={};this.imageryLayers={addImageryProvider:()=>({})};this.canvas=document.createElement('canvas');this.screenSpaceEventHandler={setInputAction(){}};this.camera={};}},EllipsoidTerrainProvider:class{},SunLight:class{},UrlTemplateImageryProvider:class{},Credit:class{},ScreenSpaceEventType:{LEFT_CLICK:0}};
+ const state={at:Date.parse('2024-01-02T03:00:00Z'),live:false,playing:false,speed:'5',realistic:true,sky:true};
+ const ctx={CustomEvent:window.CustomEvent,document,window:{Cesium:C,dispatchEvent(){}},Cesium:C,URL,Date,performance,setInterval(){},AtlasTime:require('../static/time.js'),AtlasJourney:{read:()=>state,bind:p=>{provider=p;},goEarth(){}},AtlasLoading:{fail(){throw Error('Lunar startup failed');}},AtlasMoon:{load:async()=>{loaded++;},create:()=>moon},AtlasEarth:{create:options=>({get enabled(){return realistic;},setEnabled:async enabled=>{realistic=enabled;options.onChange({enabled,loading:false});},setLunarView(){}})},AtlasSky:{create:()=>({setEnabled:async enabled=>{skyEnabled=enabled;}})}};
+ vm.runInNewContext(fs.readFileSync('static/lunar-page.js','utf8'),ctx);for(let i=0;i<8;i++)await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(loaded,1);assert.equal(entered,1);assert.equal(at,state.at);assert.equal(realistic,true);assert.equal(skyEnabled,true);assert.equal(provider().speed,'5');assert.equal(provider().realistic,true);assert.equal(provider().sky,true);
+ const shadows=document.getElementById('lunar-shadows-toggle');assert.equal(shadows.getAttribute('aria-checked'),'true');shadows.click();assert.equal(shadowSetting,false);assert.equal(shadows.getAttribute('aria-checked'),'false');shadows.click();assert.equal(shadowSetting,true);
+ document.getElementById('lunar-recenter').click();assert.equal(recentered,1);
+ console.log('Page lunaire autonome : démarrage, date historique, vitesse, réalisme, ciel et bouton recentrer restaurés OK.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

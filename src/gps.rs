@@ -14,11 +14,10 @@ fn validate(bytes: &[u8]) -> Result<(),String> {
     Ok(())
 }
 pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
-    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).timeout(std::time::Duration::from_secs(45)).build().unwrap();
+    let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8)).timeout(std::time::Duration::from_secs(45)).build().unwrap();
     loop {
         let now=Utc::now().timestamp();
-        let last=std::fs::read_to_string(dir.join("gps-attempt.txt")).ok().and_then(|v|v.parse::<i64>().ok()).unwrap_or(0);
-        if !dir.join("gps-stopped.txt").exists() && now-last>=7200 {
+        if collection_health::due(&dir,"gps",now,7200) {
             let _=std::fs::write(dir.join("gps-attempt.txt"),now.to_string());
             let result: Result<(),String>=async {
                 let bytes=download(&client,GP).await?;validate(&bytes)?;
@@ -38,10 +37,10 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
                 sources::atomic(&dir,"gps-fetched.txt",Utc::now().to_rfc3339().as_bytes())?;
                 Ok(())
             }.await;
-            if let Err(error)=result { eprintln!("GPS : {error}"); let _=std::fs::write(dir.join("gps-stopped.txt"),error); }
+            if let Err(error)=result { eprintln!("GPS : {error}"); collection_health::finish(&dir,"gps",Some(&error)); }else{collection_health::finish(&dir,"gps",None);}
         }
         if once { return; }
-        tokio::time::sleep(std::time::Duration::from_secs(7200)).await;
+        tokio::time::sleep(std::time::Duration::from_secs(60)).await;
     }
 }
 #[cfg(test)]

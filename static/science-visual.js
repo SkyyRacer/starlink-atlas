@@ -23,25 +23,30 @@
   };
   for(const id of info.ids)models.set(id,visual);
  }
- function createLayer(C,viewer,onReady){
-  const records=new Map(),sprites=viewer.scene.primitives.add(new C.BillboardCollection());
+ function createLayer(C,viewer,onReady,parent=viewer.scene.primitives){
+  const records=new Map(),sprites=parent.add(new C.BillboardCollection());
   function size(record){
    const distance=record.collection==='all'&&record.sprite.position&&C.Cartesian3.distance&&viewer.camera.positionWC?C.Cartesian3.distance(viewer.camera.positionWC,record.sprite.position):viewer.camera.positionCartographic.height;
    const pixels=record.visual.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,distance,record.selected,record.collection),dot=record.collection==='all'&&pixels<=7;
+   // A distant symbol needs neither the wire drawing nor the GLB.
+   if(!dot&&record.visible&&!record.suppressed){
+    if(!record.prepared){record.prepared=true;record.visual.prepare().then(()=>{viewer.scene.requestRender();});}
+    if(!record.model&&!record.loading&&(!record.failedAt||Date.now()-record.failedAt>10000)){
+     record.loading=true;record.visual.createModel(C,{primitives:parent},record.id).then(model=>{record.model=model;record.loading=false;onReady();}).catch(error=>{record.loading=false;record.failedAt=Date.now();console.warn(record.visual.name+' : '+error.message);});
+    }
+   }
    record.sprite.width=pixels;record.sprite.height=pixels;record.sprite.image=dot?root.AtlasISS.pointIconURI:record.visual.iconURI;
    record.sprite.show=record.visible&&!record.suppressed&&(dot||!record.model);
    if(record.model){record.model.minimumPixelSize=pixels;record.model.show=record.visible&&!record.suppressed&&!dot;}
   }
-  viewer.scene.preUpdate.addEventListener(()=>{for(const record of records.values())if(record.visible)size(record);});
+  viewer.scene.preUpdate.addEventListener(()=>{if(parent.show!==false)for(const record of records.values())if(record.visible)size(record);});
   return {
    begin(){for(const record of records.values()){record.visible=false;record.suppressed=false;record.sprite.show=false;if(record.model)record.model.show=false;}},
    update(point,{selected,collection,color}){
     const visual=models.get(point.id);if(!visual)return false;
     let record=records.get(point.id);
     if(!record){
-     record={visual,visible:false,selected:false,collection,model:null,sprite:sprites.add({id:point.id,image:visual.iconURI,width:26,height:26,show:false})};records.set(point.id,record);
-     visual.prepare().then(()=>{record.sprite.image=visual.iconURI;viewer.scene.requestRender();});
-     visual.createModel(C,viewer.scene,point.id).then(model=>{record.model=model;onReady();}).catch(error=>{console.warn(visual.name+' : '+error.message);});
+     record={id:point.id,visual,visible:false,selected:false,collection,model:null,sprite:sprites.add({id:point.id,image:visual.iconURI,width:26,height:26,show:false})};records.set(point.id,record);
     }
     record.visible=true;record.selected=point.id===selected;record.collection=collection;record.sprite.show=!record.model;record.sprite.color=color;
     if(record.model){record.model.show=true;record.model.color=color;}

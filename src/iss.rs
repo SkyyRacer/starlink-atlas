@@ -21,17 +21,13 @@ pub fn load_cache(db: &mut Database, dir: &std::path::Path) {
 pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
     let client = reqwest::Client::builder()
         .user_agent("Atlas/0.2 (educational orbital observer)")
-        .redirect(reqwest::redirect::Policy::none())
+        .redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8))
         .timeout(std::time::Duration::from_secs(45))
         .build()
         .unwrap();
     loop {
         let now = Utc::now().timestamp();
-        let last = std::fs::read_to_string(dir.join("iss-attempt.txt"))
-            .ok()
-            .and_then(|v| v.parse::<i64>().ok())
-            .unwrap_or(0);
-        if !dir.join("iss-stopped.txt").exists() && now - last >= 7200 {
+        if collection_health::due(&dir,"iss",now,7200) {
             let _ = std::fs::write(dir.join("iss-attempt.txt"), now.to_string());
             let result: Result<(), String> = async {
                 let bytes = download(&client, GP_ISS).await?;
@@ -59,13 +55,13 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
             .await;
             if let Err(e) = result {
                 eprintln!("ISS : {e}");
-                let _ = std::fs::write(dir.join("iss-stopped.txt"), e);
-            }
+                collection_health::finish(&dir,"iss",Some(&e));
+            }else{collection_health::finish(&dir,"iss",None);}
         }
         if once {
             return;
         }
-        tokio::time::sleep(std::time::Duration::from_secs(7200)).await;
+        tokio::time::sleep(std::time::Duration::from_secs(60)).await;
     }
 }
 #[cfg(test)]

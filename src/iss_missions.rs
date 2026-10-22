@@ -209,6 +209,7 @@ pub async fn collect_for(target:u64,dir: PathBuf, once: bool) {
       raw.extend(array(&v["results"]).iter().cloned());
       if v["next"].is_null(){reached_end=true;break;}
     }
+    if full && !reached_end{return Err("Historique des missions incomplet : cache précédent conservé".into());}
     if target==4 {if let Err(e)=update_tiangong(&dir,&raw){eprintln!("Tiangong (cache conservé) : {e}");}}
     let mut doc=document_for(target,&station,&exp,&raw,previous.as_ref())?;
     doc["history_complete"]=json!((full && reached_end) || (!full && previous.as_ref().map(|p|p["history_complete"]==true).unwrap_or(false)));

@@ -2,6 +2,8 @@
 (function(){
  const $=id=>document.getElementById(id), root=$('iss-controls'), dialog=$('iss-mission-dialog');
  const station=AtlasPages.mode(location.pathname),stationName=station==='tiangong'?'Tiangong':'ISS';
+ // Routes change documents; non-station pages need no crew listeners or timer.
+ if(!AtlasPages.isStation(station))return;
  const stationText=value=>typeof value==='string'&&station==='tiangong'?value.replaceAll('de l’ISS','de Tiangong').replaceAll('à l’ISS','à Tiangong').replaceAll('vers l’ISS','vers Tiangong').replaceAll('ISS','Tiangong'):value;
  if(AtlasPages.isStation(station)){root.setAttribute('aria-label','Missions et équipage '+stationName);$('iss-search-results').setAttribute('aria-label','Résultats de recherche '+stationName);}
  let data=null, pending=null, searchIndex=[], searchItems=[],activeItem=null,refreshing=false;

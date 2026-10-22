@@ -66,6 +66,13 @@ for file in out.glob('*.js'):
  if file.name=='pages.js':text=text.replace("const routeRoot='/'","const routeRoot='./'")
  if file.name=='app.js':text=text.replace('async function getRaw(url){','async function getRaw(url){if(window.AtlasStatic)return window.AtlasStatic.handle(url);')
  file.write_text(text)
+# Lazy station dependencies also use the bytes of the rewritten export.
+station_ui=out/'station-ui.js'
+if station_ui.exists():
+ text=station_ui.read_text()
+ for name in ['iss-search.js','iss-evas.js','station-history.js','iss-missions.js']:
+  text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256((out/name).read_bytes()).hexdigest()[:12],text)
+ station_ui.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');
 # Hash the actual exported files after route and resource rewrites.
 for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',text)):
@@ -75,6 +82,14 @@ index.write_text(text)
 # Distinct static documents share assets via a base URL under /repository/.
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
 index.write_text(root_html)
+# Standalone lunar document shares rendering assets and never loads orbital datasets.
+for extra in out.glob('*.html'):
+ if extra==index:continue
+ html=extra.read_text().replace('href="/','href="./').replace('src="/','src="./')
+ for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',html)):
+  asset=out/name
+  if asset.is_file():html=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256(asset.read_bytes()).hexdigest()[:12],html)
+ extra.write_text(html)
 for page,title in [('atlas','Atlas — Tous les satellites'),*[(row['id'],row['label']+' — '+row['description']) for row in json.loads((ROOT/'resources/constellations.json').read_text())]]:
  folder=out/page;folder.mkdir()
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')

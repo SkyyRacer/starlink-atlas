@@ -13,3 +13,6 @@ assert.equal(close.shadow,.35);assert.equal(close.fadeIn,1);assert.equal(close.f
 assert.equal(far.shadow,close.shadow);assert.equal(far.fadeIn,close.fadeIn);
 for(let height=150000;height<=4e9;height*=2)assert.equal(globe.lighting(height,height+6378137,1e7,2e7).shadow,.35);
 console.log('ISS idle follow and cancellation; constant Earth lighting at all camera distances OK');
+const source=fs.readFileSync('static/globe.js','utf8'),predicate=source.split('\n').find(line=>line.trim().startsWith('canStart:()=>')).trim().replace(/^canStart:/,'').replace(/,$/,'');
+const idleContext={active:true,moonLayer:null,following:true,lastData:{selected:25544,collection:'iss',points:[{id:25544}]},detailedLayer:{loading:false},document:{hidden:false,hasFocus:()=>true,querySelector:()=>null},heldPointers:new Set(),AtlasPages:require('../static/pages.js')};
+const canStart=vm.runInNewContext('('+predicate+')',idleContext);assert.equal(canStart(),false,'Never reset a selected satellite close view after 10 seconds');idleContext.following=false;assert.equal(canStart(),true,'Keep automatic overview follow outside close view');idleContext.moonLayer={active:true};assert.equal(canStart(),false);
