@@ -1,13 +1,14 @@
 /* Actual WebGL smoke test, run before publication on push/manual builds only. */
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),{chromium}=require('playwright'),{PNG}=require('pngjs');
 (async()=>{
+ const deadline=setTimeout(()=>{console.error('WebGL verification exceeded 180 seconds');process.exit(1);},180000);deadline.unref();
  const root=path.resolve(process.argv[2]||'public'),errors=[];
  const html='<!doctype html><html><head><link rel="stylesheet" href="/vendor/cesium/Widgets/widgets.css"><style>html,body,#scene{margin:0;width:100%;height:100%;overflow:hidden}</style><script>window.CESIUM_BASE_URL="/vendor/cesium/"</script><script src="/vendor/cesium/Cesium.js"></script><script src="/point-cloud.js"></script></head><body><div id="scene"></div></body></html>';
  const server=http.createServer((req,res)=>{if(req.url==='/fixture'){res.setHeader('Content-Type','text/html');res.end(html);return;}const file=path.join(root,new URL(req.url,'http://localhost').pathname);if(!file.startsWith(root)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);res.end();return;}const ext=path.extname(file);res.setHeader('Content-Type',ext==='.js'?'text/javascript':ext==='.css'?'text/css':ext==='.wasm'?'application/wasm':ext==='.json'?'application/json':'application/octet-stream');fs.createReadStream(file).pipe(res);});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
  try{
   browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const page=await browser.newPage({viewport:{width:1100,height:800}});page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('http://127.0.0.1:'+server.address().port+'/fixture');
+  await page.goto('http://127.0.0.1:'+server.address().port+'/fixture');console.log('Browser ready; drawing GPU points');
   await page.evaluate(()=>{
    const C=Cesium,v=window.testViewer=new C.Viewer('scene',{baseLayer:false,terrainProvider:new C.EllipsoidTerrainProvider(),animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyBox:false,skyAtmosphere:false,requestRenderMode:false});
    window.renderErrors=[];v.scene.renderError.addEventListener((scene,e)=>renderErrors.push(e.message));v.scene.backgroundColor=C.Color.BLACK;v.scene.globe.baseColor=C.Color.DARKGRAY;v.camera.setView({destination:C.Cartesian3.fromDegrees(0,0,20000000)});
@@ -16,10 +17,11 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
   await page.waitForFunction(()=>testViewer.scene.frameState.frameNumber>5,{},{timeout:30000});
   assert.deepEqual(await page.evaluate(()=>renderErrors),[],'GPU shader compilation and rendering must succeed');assert.equal(await page.evaluate(()=>testCloud.stats.batched),true);
   const png=PNG.sync.read(await page.screenshot());let cyan=0;for(let y=100;y<png.height-100;y++)for(let x=100;x<png.width-100;x++){const i=(y*png.width+x)*4;if(png.data[i+1]>100&&png.data[i+2]>100&&png.data[i+1]>png.data[i]+40)cyan++;}assert.ok(cyan>100,'The GPU point cloud must actually produce visible pixels');
+  console.log('GPU points visible:',cyan,'pixels; loading compressed Hubble');
   const registry=JSON.parse(fs.readFileSync(path.join(root,'images/detailed/manifest.json'))),runtime=JSON.parse(fs.readFileSync(path.join(root,'model-runtime-manifest.json')));const info=runtime.find(r=>r.key==='hubble');assert.ok(registry.some(r=>r.key==='hubble'));
   await page.evaluate(async url=>{const C=Cesium,v=testViewer;testCloud.show=false;v.scene.globe.show=false;const m=window.testModel=await C.Model.fromGltfAsync({url,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:250,releaseGltfJson:true,incrementallyLoadTextures:true});v.scene.primitives.add(m);},'/'+info.runtime_url);
   await page.waitForFunction(()=>testModel.ready,{},{timeout:30000});await page.evaluate(()=>{const C=Cesium;testViewer.camera.lookAt(C.Cartesian3.ZERO,new C.HeadingPitchRange(0,-.5,250));});await page.waitForTimeout(500);assert.deepEqual(await page.evaluate(()=>renderErrors),[],'Compressed textured model must render with the shipped Cesium engine');
   const iss=runtime.find(r=>r.key==='iss');await page.evaluate(async url=>{testViewer.scene.primitives.remove(testModel);const C=Cesium;window.testModel=await C.Model.fromGltfAsync({url,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:250,incrementallyLoadTextures:true});testViewer.scene.primitives.add(testModel);},'/'+iss.runtime_url);await page.waitForFunction(()=>testModel.ready,{},{timeout:30000});assert.deepEqual(await page.evaluate(()=>renderErrors),[],'Balanced ISS must also render');
   console.log(JSON.stringify({gpu:'rendered',visiblePointPixels:cyan,meshopt:'decoded',model:'ready'}));
- }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
+ }finally{clearTimeout(deadline);await browser?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

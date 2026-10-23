@@ -24,5 +24,3 @@ for(const [stage,source] of [['Vertex',vertex],['Fragment',fragment]]){const sha
 assert.equal(layer.recover(new Error('Fragment shader failed to compile')),true);assert.equal(layer.stats.batched,false);assert.equal(layer.recover(new Error('Fragment shader failed to compile')),false);assert.ok(destroyedArrays>0);
 layer.suspend();layer.destroy();assert.equal(layer.isDestroyed(),true);
 console.log('GPU cloud: batched points, precision, one upload per snapshot, continuous motion, filtering, dates, picking, Cesium shader assembly and fallback OK.');
-
-
