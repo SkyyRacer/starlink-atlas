@@ -24,6 +24,7 @@
   await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=new URL('vendor/cesium/Cesium.js',base);script.onload=resolve;script.onerror=()=>reject(Error('Le moteur 3D ne peut pas être chargé.'));document.head.append(script);});
   await AtlasMoon.load();const C=window.Cesium;
   viewer=new C.Viewer($('globe-canvas'),{baseLayer:false,terrainProvider:new C.EllipsoidTerrainProvider(),animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyBox:false,skyAtmosphere:false,shouldAnimate:false,requestRenderMode:true,maximumRenderTimeChange:Infinity});
+  document.addEventListener('visibilitychange',()=>{viewer.useDefaultRenderLoop=!document.hidden;if(!document.hidden)viewer.scene.requestRender();});
   viewer.scene.screenSpaceCameraController.enableInputs=false;viewer.scene.screenSpaceCameraController.enableCollisionDetection=false;
   viewer.scene.backgroundColor=C.Color.BLACK;if(viewer.scene.moon)viewer.scene.moon.show=false;if(viewer.scene.sun)viewer.scene.sun.show=false;
   viewer.scene.light=new C.SunLight({intensity:1});viewer.scene.globe.showGroundAtmosphere=false;viewer.scene.fog.enabled=false;
@@ -42,6 +43,6 @@
   viewer.canvas.tabIndex=0;viewer.canvas.addEventListener('keydown',event=>{const step={ArrowLeft:[-12,0],ArrowRight:[12,0],ArrowUp:[0,-12],ArrowDown:[0,12]}[event.key];if(step){event.preventDefault();moon.orbit(...step);}});
   viewer.screenSpaceEventHandler.setInputAction(e=>{if(viewer.camera.pickEllipsoid(e.position,viewer.scene.globe.ellipsoid))moon.offerEarth();else if(moon.hit(e.position))moon.open();else moon.close();},C.ScreenSpaceEventType.LEFT_CLICK);
   await moon.enter();viewReady=true;
-  setInterval(()=>{const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at=Math.min(Date.now(),at+dt*Number($('speed').value));}clock();if(!document.hidden&&playing)update();},250);
+  setInterval(()=>{if(document.hidden)return;const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at=Math.min(Date.now(),at+dt*Number($('speed').value));}clock();if(!document.hidden&&playing)update();},250);
  }catch(error){AtlasLoading.fail();$('notice').textContent='Lune indisponible : '+error.message;}
 })();

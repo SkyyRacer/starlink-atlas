@@ -12,6 +12,8 @@ function sizeMap(){const bottom=timelineElement.offsetHeight+parseFloat(getCompu
 if(typeof ResizeObserver!=='undefined')new ResizeObserver(sizeMap).observe(timelineElement);window.addEventListener('resize',sizeMap);
 sizeMap();
 window.addEventListener('atlas-science-ready',scheduleDraw);
+document.addEventListener('visibilitychange',()=>globeController?.setRendering(!document.hidden&&displayMode==='3d'));
+window.addEventListener('atlas-ephemeris-ready',()=>{if(collectionMode==='all'&&!document.hidden)loadPositions(true);});
 L.control.zoom({position:'topright'}).addTo(map);
 let tiles=null,overviewAttached=false,planisphereRequested=false;
 // The planisphere is optional: no tile downloads or image reprojection in 3D.
@@ -118,7 +120,7 @@ function updateDetail(){
  if(AtlasStations.has(s.id)||collectionMode==='all')fields=fields.filter(([key])=>!['Code opérationnel actuel','Groupe de lancement','Nom du lancement'].includes(key));
  if(AtlasStations.has(s.id)){fields=fields.map(row=>row[0]==='Lancement'?['Premier module',row[1],s.id===48274?'Date de lancement de Tianhe, premier module de Tiangong.':'Date de lancement du premier module de l’ISS. La station a ensuite été assemblée progressivement.']:row);fields.push(['Représentation','Modèle schématique','Dessin 3D illustratif. Taille amplifiée pour la lisibilité ; orientation et configuration des modules non mesurées.']);}
  if(AtlasScience.has(s.id)){const visual=AtlasScience.model(s.id);fields.push(['Représentation',visual.kind==='nasa-adaptation'?'Modèle NASA adapté':'Modèle schématique',visual.credit+'. Taille amplifiée pour la lisibilité ; attitude et orientation illustratives.']);}
- if(displayMode==='3d'&&globeController?.detailedActive?.(s.id))fields=fields.map(row=>row[0]==='Représentation'?['Représentation','Modèle 3D couleur · '+(AtlasDetailed.definitions.find(info=>info.ids.includes(s.id))?.credit||''),'Géométrie, couleurs et matériaux du modèle source. Taille amplifiée pour la lisibilité ; orientation illustrative.']:row);
+ if(displayMode==='3d'&&globeController?.detailedActive?.(s.id))fields=fields.map(row=>row[0]==='Représentation'?['Représentation','Modèle 3D couleur · '+(globeController?.detailedCredit?.(s.id)||AtlasDetailed.definitions.find(info=>info.ids.includes(s.id))?.credit||''),'Géométrie, couleurs et matériaux du modèle source. Taille amplifiée pour la lisibilité ; orientation illustrative.']:row);
  const check=s.orbit_check;fields.push(['Recoupement actuel',!check?'Non recoupé':check.state==='divergence'?'Écart important entre sources':check.distance_km!=null?check.distance_km.toFixed(1)+' km entre les sources':'Une seule source récente',check?(check.sources||[]).join(' · ')+'. '+(check.note||''):'Aucune comparaison entre deux sources récentes n’est disponible pour cet objet.']);
  const description=collectionMode==='all'?AtlasPages.definition(AtlasPages.family(s))?.description||'':'';
  if(more&&collectionMode==='all'&&p){more.href=AtlasPages.satelliteUrl(s,live?null:at);more.hidden=false;}
@@ -281,7 +283,7 @@ $('now').onclick=()=>{globalThis.AtlasLoading?.begin('Chargement des positions a
 $('play').onclick=()=>{if(playing){live=false;playing=false;}else{playing=true;}lastTick=performance.now();clock();loadPositions(true);};$('speed').onchange=()=>{if(live&&$('speed').value!=='1'){$('speed').value='1';$('notice').textContent='L’accélération est disponible dans le passé.';}};
 
 $('available').onclick=()=>{if(!suggestedAt)return;globalThis.AtlasLoading?.begin('Chargement des positions archivées…');at=Date.parse(suggestedAt);selectionRequest++;focusSelected=selected!==null;live=false;playing=false;points=[];track=[];futureTrack=[];track3d=[];future3d=[];clock();list();draw();loadPositions(true);};
-setInterval(()=>{const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at+=dt*Number($('speed').value);if(at>=Date.now()){at=Date.now();playing=false;live=false;$('speed').value='1';}}clock();},250);
+setInterval(()=>{if(document.hidden)return;const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at+=dt*Number($('speed').value);if(at>=Date.now()){at=Date.now();playing=false;live=false;$('speed').value='1';}}clock();},250);
 setInterval(()=>{if(playing&&!document.hidden)loadPositions();},1000);
 setInterval(async()=>{if(document.hidden||busy||globalThis.AtlasCelestial?.active)return;positionRevision++;await loadCatalog();loadPositions(true);},300000);
 // Data and rendering start independently; a slow 3D engine never blocks the catalogue.

@@ -1,7 +1,7 @@
 /* Official vectors interpolated only inside their published time interval. */
 (function(root){
  const base=typeof document!=='undefined'?new URL('./',document.currentScript.src):null;
- let cached,indexRequest;const archives=new Map();
+ let cached,indexRequest,recent=null,background=null;const archives=new Map();
  function vector(data,at){
   const rows=data.samples,t=at/1000;if(!Number.isFinite(t)||!rows?.length||t<rows[0][0]||t>rows.at(-1)[0])return null;
   if(rows.length===1)return rows[0].slice(1,4);
@@ -34,17 +34,26 @@
    }
   }return result;
  }
- async function apply(url,result){
-  const parsed=new URL(url,base);if(!parsed.pathname.endsWith('/api/positions')||!['all','tess'].includes(parsed.searchParams.get('collection')))return result;
+ async function load(at){
   if(!cached)cached=fetch(new URL('ephemerides/tess.json',base),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Éphémérides indisponibles');return r.json();}).catch(()=>null);
-  const at=Date.parse(parsed.searchParams.get('at'));let data=await cached;
+  let data=await cached;
   if(!data||!vector(data,at)){
    if(!indexRequest)indexRequest=fetch(new URL('ephemerides/tess-index.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
    const index=await indexRequest,entry=index&&Object.values(index.years||{}).find(row=>at>=row.first_epoch*1000&&at<=row.last_epoch*1000);
    if(entry){if(!archives.has(entry.file))archives.set(entry.file,fetch(new URL(entry.file,base)).then(r=>r.ok?r.json():null).catch(()=>null));data=await archives.get(entry.file);}
   }
-  if(!data)return result;
-  return augment(result,data,at,Number(parsed.searchParams.get('id')));
+  return data;
+ }
+ async function apply(url,result){
+  const parsed=new URL(url,base),collection=parsed.searchParams.get('collection');if(!parsed.pathname.endsWith('/api/positions')||!['all','tess'].includes(collection))return result;
+  const at=Date.parse(parsed.searchParams.get('at')),id=Number(parsed.searchParams.get('id'));
+  if(recent&&vector(recent,at))return augment(result,recent,at,id);
+  if(collection==='all'){
+   // One remote object must not delay the full catalogue's first usable frame.
+   if(!background)background=load(at).then(data=>{if(data&&vector(data,at)){recent=data;root.dispatchEvent?.(new CustomEvent('atlas-ephemeris-ready'));}}).finally(()=>{background=null;});
+   return result;
+  }
+  const data=await load(at);if(!data)return result;recent=data;return augment(result,data,at,id);
  }
  const api={vector,point,augment,apply};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
 })(typeof window==='undefined'?globalThis:window);

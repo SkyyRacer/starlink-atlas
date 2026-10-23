@@ -32,7 +32,7 @@
    if(!dot&&record.visible&&!record.suppressed){
     if(!record.prepared){record.prepared=true;record.visual.prepare().then(()=>{viewer.scene.requestRender();});}
     if(!record.model&&!record.loading&&(!record.failedAt||Date.now()-record.failedAt>10000)){
-     record.loading=true;record.visual.createModel(C,{primitives:parent},record.id).then(model=>{record.model=model;record.loading=false;onReady();}).catch(error=>{record.loading=false;record.failedAt=Date.now();console.warn(record.visual.name+' : '+error.message);});
+     record.loading=true;const token=record.generation||0;record.visual.createModel(C,{primitives:parent},record.id).then(model=>{if(token!==(record.generation||0)){parent.remove(model);return;}record.model=model;record.loading=false;onReady();}).catch(error=>{if(token!==(record.generation||0))return;record.loading=false;record.failedAt=Date.now();console.warn(record.visual.name+' : '+error.message);});
     }
    }
    record.sprite.width=pixels;record.sprite.height=pixels;record.sprite.image=dot?root.AtlasISS.pointIconURI:record.visual.iconURI;
@@ -41,6 +41,7 @@
   }
   viewer.scene.preUpdate.addEventListener(()=>{if(parent.show!==false)for(const record of records.values())if(record.visible)size(record);});
   return {
+   release(){for(const record of records.values()){record.generation=(record.generation||0)+1;record.loading=false;record.visible=false;record.sprite.show=false;if(record.model){parent.remove(record.model);record.model=null;}}},
    begin(){for(const record of records.values()){record.visible=false;record.suppressed=false;record.sprite.show=false;if(record.model)record.model.show=false;}},
    update(point,{selected,collection,color}){
     const visual=models.get(point.id);if(!visual)return false;

@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('static/globe.js','utf8');
-const start=source.indexOf('        if(data.selected!==null&&'),end=source.indexOf('\n        if(motion.source',start);
+const start=source.indexOf('        if(data.selected!==null&&'),end=source.indexOf('\n        const motionChanged',start);
 assert.ok(start>=0&&end>start);
 const context={lastSelection:null,lastSelectionRequest:null,following:false,idleController:null,releases:0};context.releaseFollow=()=>context.releases++;
 vm.createContext(context);

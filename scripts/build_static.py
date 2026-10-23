@@ -49,6 +49,7 @@ with tempfile.TemporaryDirectory() as tmp:
  resources,collections=build_resources(out,bundle,history,updates,dt.datetime.now(dt.timezone.utc))
  (out/'edition.json').write_text(json.dumps({'bundle':filename,'edition':stamp,'resources':resources,'collections':collections}))
 if history.exists() and not a.remote_history:shutil.copytree(history,out/'data/history')
+shutil.copyfile(ROOT/'resources/model-runtime-manifest.json',out/'model-runtime-manifest.json')
 (out/'data/observations').mkdir(exist_ok=True)
 for file in versions.glob('*.json.gz'):
  if file.name not in current_versions and time.time()-file.stat().st_mtime>7*86400:file.unlink()
@@ -57,7 +58,8 @@ for file in (ROOT/'browser').glob('*.js'):shutil.copyfile(file,out/file.name)
 shutil.copyfile(wasm,out/'atlas_web_core.wasm')
 # A new asset release invalidates only reusable rendering caches, never page data.
 asset_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static').rglob('*')) if f.is_file() and f.name!='asset-sw.js')+wasm.read_bytes()).hexdigest()[:16]
-sw=out/'asset-sw.js';sw.write_text(sw.read_text().replace('atlas-rendering-v1','atlas-rendering-'+asset_version))
+vendor_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static/vendor').rglob('*')) if f.is_file())).hexdigest()[:16]
+sw=out/'asset-sw.js';sw.write_text(sw.read_text().replace('atlas-rendering-v1','atlas-rendering-'+asset_version).replace('atlas-rendering-vendor-v1','atlas-rendering-vendor-'+vendor_version))
 worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text().replace("importScripts('constellations.js')","importScripts('constellations.js?v="+hashlib.sha256((out/'constellations.js').read_bytes()).hexdigest()[:12]+"')").replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
 transport_file=out/'transport.js';transport_file.write_text(transport_file.read_text().replace("'browser-worker.js'","'browser-worker.js?v="+hashlib.sha256(worker_file.read_bytes()).hexdigest()[:12]+"'"))
 # Project Pages are under /repository/. Keep every local resource relative to that path.

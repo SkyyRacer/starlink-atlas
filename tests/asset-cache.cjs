@@ -31,6 +31,10 @@ class Cache{
  assert.ok(await request(opaqueRequest.url));assert.equal(await tileCache.match(opaqueRequest),undefined,'opaque images must not consume padded storage quota');
  await caches.open('atlas-rendering-old-assets');await caches.open('another-app-cache');
  const activation=[];listeners.activate({waitUntil:p=>activation.push(p)});await Promise.all(activation);
- assert.equal(stores.has('atlas-rendering-old-assets'),false);assert.equal(stores.has('another-app-cache'),true);assert.equal(claimed,true);assert.equal(await shared.match(obsolete),undefined,'activation removes only obsolete progress / bootstrap scripts');assert.ok(await shared.match(new Request('https://example.test/starlink-atlas/vendor/cesium/Cesium.js')),'keep the already downloaded 3D engine');
+ assert.equal(stores.has('atlas-rendering-old-assets'),false);assert.equal(stores.has('another-app-cache'),true);assert.equal(claimed,true);assert.equal(await shared.match(obsolete),undefined,'activation removes only obsolete progress / bootstrap scripts');assert.ok(await (await caches.open('atlas-rendering-vendor-v1')).match(new Request('https://example.test/starlink-atlas/vendor/cesium/Cesium.js')),'keep the already downloaded 3D engine');
+ assert.equal(await request('images/detailed/iss.glb'),null,'Large original must not be duplicated into the service worker cache');
+ context.fetch=async request=>new Response('small fixture',{headers:{'content-length':String(10*1024*1024)}});
+ for(let i=0;i<7;i++)await request('images/detailed/optimized/model-'+i+'.glb');
+ const modelCache=await caches.open('atlas-rendering-v1-models');assert.ok((await modelCache.keys()).length<=4,'Model cache obeys a byte budget, not just a count');
  console.log('Cache partagé : moteur téléchargé une fois, versions distinctes, données / pages exclues, 128 tuiles maximum, réponses opaques exclues, anciennes versions nettoyées OK');
 })().catch(error=>{console.error(error);process.exitCode=1;});
