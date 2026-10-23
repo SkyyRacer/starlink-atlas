@@ -1,25 +1,21 @@
 [
   {
     "key": "hubble",
-    "runtime_url": "images/detailed/optimized/hubble.glb?v=432d4c092658",
-    "runtime_bytes": 799032,
+    "runtime_url": "images/detailed/hubble.glb?v=cde447ffa790",
+    "runtime_bytes": 11463724,
     "original_bytes": 11463724,
     "triangles": 21129,
     "original_triangles": 21129,
-    "texture_limit": 1024,
-    "textures": 7,
-    "compression": "meshopt-16-bit / WebP-90 / browser-LOD"
+    "compression": "original"
   },
   {
     "key": "chandra",
-    "runtime_url": "images/detailed/optimized/chandra.glb?v=60ea6b492bb2",
-    "runtime_bytes": 522756,
+    "runtime_url": "images/detailed/chandra.glb?v=1d9d7c9b3893",
+    "runtime_bytes": 998740,
     "original_bytes": 998740,
     "triangles": 30132,
     "original_triangles": 30132,
-    "texture_limit": 1024,
-    "textures": 6,
-    "compression": "meshopt-16-bit / WebP-90 / browser-LOD"
+    "compression": "original"
   },
   {
     "key": "fermi",
@@ -28,20 +24,25 @@
     "original_bytes": 1379236,
     "triangles": 172788,
     "original_triangles": 172788,
-    "texture_limit": 1024,
-    "textures": 0,
     "compression": "original"
   },
   {
     "key": "tess",
-    "runtime_url": "images/detailed/optimized/tess.glb?v=21d617fc2e8f",
-    "runtime_bytes": 552692,
+    "runtime_url": "images/detailed/tess.glb?v=a3b4bba3dff8",
+    "runtime_bytes": 1693880,
     "original_bytes": 1693880,
     "triangles": 16161,
     "original_triangles": 16161,
-    "texture_limit": 1024,
-    "textures": 6,
-    "compression": "meshopt-16-bit / WebP-90 / browser-LOD"
+    "compression": "original"
+  },
+  {
+    "key": "iss",
+    "runtime_url": "images/detailed/iss.glb?v=ccf3a2a7279e",
+    "runtime_bytes": 95875884,
+    "original_bytes": 95875884,
+    "triangles": 2707621,
+    "original_triangles": 2707621,
+    "compression": "original"
   },
   {
     "key": "tiangong",
@@ -50,20 +51,6 @@
     "original_bytes": 980084,
     "triangles": 128932,
     "original_triangles": 128932,
-    "texture_limit": 1024,
-    "textures": 1,
     "compression": "original"
-  },
-  {
-    "key": "iss",
-    "runtime_url": "images/detailed/optimized/iss.glb?v=fd0476c7e7e6",
-    "runtime_bytes": 1082456,
-    "original_bytes": 95875884,
-    "triangles": 174440,
-    "original_triangles": 2707621,
-    "runtime_credit": "NASA 3D Resources · ISS B",
-    "texture_limit": 512,
-    "textures": 0,
-    "compression": "meshopt-16-bit / WebP-90 / browser-LOD"
   }
 ]

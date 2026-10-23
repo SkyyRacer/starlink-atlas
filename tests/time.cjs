@@ -10,3 +10,5 @@ process.env.TZ='America/New_York';assert.equal(time.input(Date.parse('2026-06-12
 process.env.TZ='Asia/Kathmandu';assert.equal(time.zoneLabel('2026-06-12T13:21:00Z'),'UTC+05:45');
 process.env.TZ='UTC';assert.equal(time.zoneLabel(Date.now()),'UTC');
 console.log('Fuseaux navigateur, été/hiver, passage de jour et précision des sources : OK');
+
+const fs=require('node:fs'),vm=require('node:vm');let constructions=0;const Real=Intl.DateTimeFormat;const sandbox={module:{exports:{}},Date,navigator:{language:'fr-FR'},Intl:{DateTimeFormat:function(...args){constructions++;return new Real(...args);}}};vm.runInNewContext(fs.readFileSync('static/time.js','utf8'),sandbox);for(let i=0;i<100;i++)sandbox.module.exports.instant('2026-10-23T10:00:00Z');assert.ok(constructions<=3,'Timeline updates reuse formatters rather than compiling them repeatedly');

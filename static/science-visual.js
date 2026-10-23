@@ -35,7 +35,7 @@
      record.loading=true;const token=record.generation||0;record.visual.createModel(C,{primitives:parent},record.id).then(model=>{if(token!==(record.generation||0)){parent.remove(model);return;}record.model=model;record.loading=false;onReady();}).catch(error=>{if(token!==(record.generation||0))return;record.loading=false;record.failedAt=Date.now();console.warn(record.visual.name+' : '+error.message);});
     }
    }
-   record.sprite.width=pixels;record.sprite.height=pixels;record.sprite.image=dot?root.AtlasISS.pointIconURI:record.visual.iconURI;
+   record.sprite.width=dot?pixels*1.5:pixels;record.sprite.height=record.sprite.width;record.sprite.image=dot?root.AtlasISS.pointIconURI:record.visual.iconURI;
    record.sprite.show=record.visible&&!record.suppressed&&(dot||!record.model);
    if(record.model){record.model.minimumPixelSize=pixels;record.model.show=record.visible&&!record.suppressed&&!dot;}
   }
@@ -55,7 +55,7 @@
    },
    move(point){const record=records.get(point.id);if(!record?.visible)return;const xyz=C.Cartesian3.fromDegrees(point.lon,point.lat,point.altitude_km*1000);record.sprite.position=xyz;if(record.model)record.model.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(xyz);},
    getModel(id){const model=records.get(id)?.model;return model?.ready&&model.show?model:null;},
-   suppress(id){const record=records.get(id);if(record){record.suppressed=true;record.sprite.show=false;if(record.model)record.model.show=false;}},
+   suppress(id,value=true){const record=records.get(id);if(record){record.suppressed=!!value;if(value){record.sprite.show=false;if(record.model)record.model.show=false;}else size(record);}},
    *hits(){for(const [id,record] of records)if(record.visible)yield {id,position:record.sprite.position};},
    get count(){let n=0;for(const record of records.values())if(record.visible)n++;return n;}
   };

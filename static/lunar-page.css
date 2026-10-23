@@ -1,7 +1,6 @@
-body.lunar-page{margin:0;background:#000;color:#eee;font:13px Arial,sans-serif;overflow:hidden}
-.lunar-page>header{position:fixed;inset:0 0 auto;z-index:1600;box-sizing:border-box;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#000;border-bottom:1px solid #333}
-.lunar-page>header img{width:155px;height:auto;display:block}
-.lunar-page .view{position:absolute;inset:76px 0 0;overflow:hidden}
+body.lunar-page{margin:0;background:#000;color:#eee;font:13px Arial,sans-serif;font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;overflow:hidden}
+.lunar-page>header{position:fixed;inset:0 0 auto;z-index:1900;justify-content:space-between}
+.lunar-page .view{position:absolute;inset:var(--site-header-height,84px) 0 0;overflow:hidden}
 .lunar-page #globe-canvas{position:absolute;inset:0}
 .lunar-page :is(button,select,input):not(.timeline *):not(.date-popover *){font:inherit;color:#eee;background:#0b0b0b;border:1px solid #666;border-radius:0;padding:9px 12px;cursor:pointer;box-sizing:border-box}
 .lunar-page button:not(.timeline *):not(.date-popover *):hover{background:#eee;color:#111}

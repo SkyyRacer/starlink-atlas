@@ -1,3 +1,5 @@
+> Mise à jour : les variantes optimisées des modèles ont été retirées à la demande de l’utilisateur. Les dessins 3D blancs sont conservés ; seuls les modèles détaillés d’origine sont proposés comme option haute résolution, à la demande. Les gains sur le dessin groupé, les chargements différés et les caches restent en place. Le constat chiffré ci-dessous décrit la version précédente.
+
 # Optimisation du rendu — 23 octobre 2026
 
 ## Changements

@@ -10,7 +10,7 @@ source = Path('scripts/build_static.py').read_text()
 ast.parse(source)
 with tempfile.TemporaryDirectory(prefix='atlas-perf-export-') as directory:
     out = Path(directory)
-    for name in ['index.html', 'moon.html', 'station-ui.js', 'iss-search.js', 'iss-evas.js', 'station-history.js', 'iss-missions.js', 'app.js', 'pages.js']:
+    for name in ['index.html', 'moon.html', 'station-ui.js', 'iss-search.js', 'iss-evas.js', 'station-history.js', 'iss-missions.js', 'app.js', 'pages.js', 'render-budget.js', 'geometry.js', 'globe.js', 'point-cloud.js']:
         shutil.copyfile(Path('static') / name, out / name)
     (out / 'transport.js').write_text('// transport fixture')
     portion = source[source.index('# Project Pages are under'):source.index('for page,title in')]
@@ -20,5 +20,9 @@ with tempfile.TemporaryDirectory(prefix='atlas-perf-export-') as directory:
     for name, version in dependencies:
         assert version == hashlib.sha256((out / name).read_bytes()).hexdigest()[:12]
     assert (out / 'moon.html').read_text().count('id="catalog-percent"') == 1
-    assert './station-ui.js?v=' in (out / 'index.html').read_text()
+    html=(out/'index.html').read_text()
+    assert './station-ui.js?v=' in html
+    assert html.index('./render-budget.js?v=')<html.index('./globe.js?v=')
+    version=re.search(r'render-budget.js\?v=([a-f0-9]+)',html)[1]
+    assert version==hashlib.sha256((out/'render-budget.js').read_bytes()).hexdigest()[:12]
 print('Static export: relative station URLs, rewritten dependency hashes and lunar loader verified.')

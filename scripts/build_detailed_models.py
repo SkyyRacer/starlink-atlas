@@ -54,8 +54,5 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
  (OUT/(key+'.glb')).write_bytes(blob)
  manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
 (ROOT/'resources/detailed-model-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(OUT/'manifest.json').write_text(json.dumps(manifest,separators=(',',':')))
-runtime_file=ROOT/'resources/model-runtime-manifest.json'
-runtime={r['key']:r for r in json.loads(runtime_file.read_text())} if runtime_file.exists() else {}
-browser_manifest=[{**row,**{k:v for k,v in runtime.get(row['key'],{}).items() if k in ['runtime_url','runtime_bytes','runtime_credit']}} for row in manifest]
-template=(ROOT/'resources/detailed-models.template.js').read_text();(ROOT/'static/detailed-models.js').write_text(template.replace('__MANIFEST__',json.dumps(browser_manifest,ensure_ascii=False,separators=(',',':'))))
+template=(ROOT/'resources/detailed-models.template.js').read_text();(ROOT/'static/detailed-models.js').write_text(template.replace('__MANIFEST__',json.dumps(manifest,ensure_ascii=False,separators=(',',':'))))
 print('Modèles couleur : '+', '.join(m['key'] for m in manifest)+' — '+str(sum(m['bytes'] for m in manifest))+' octets, chargés à la demande.')

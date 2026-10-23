@@ -207,29 +207,9 @@ impl Engine {
         if let Some(id) = q["id"].as_u64() {
             if self.exists(id,at) {
                 if let Some(o) = select_sources(current.get(&id), history.and_then(|rows| rows.get(&id)), at) {
-                    let period = (1440. / o.el.mean_motion * 60.) as i64;
-                    for i in 0..=120 {
-                        let t = at - chrono::Duration::seconds(period * (120 - i) / 120);
-                        if self.exists(id,t) {
-                            if let Some(p) = position(o, t) {
-                                track.push([p.lat, p.lon]);
-                                track3.push([p.lat, p.lon, p.altitude_km]);
-                            }
-                        }
-                    }
-                    for i in 0..=120 {
-                        let t = at + chrono::Duration::seconds(period * i / 120);
-                        if !self.exists(id,t) {
-                            break;
-                        }
-                        match position(o, t) {
-                            Some(p) => {
-                                future.push([p.lat, p.lon]);
-                                future3.push([p.lat, p.lon, p.altitude_km]);
-                            }
-                            None => break,
-                        }
-                    }
+                    let period=chrono::Duration::milliseconds((86400000.0/o.el.mean_motion).round() as i64);
+                    for (t,p) in orbit_track(o,at-period,at) {if self.exists(id,t){track.push([p.lat,p.lon]);track3.push([p.lat,p.lon,p.altitude_km]);}}
+                    for (t,p) in orbit_track(o,at,at+period) {if !self.exists(id,t){break;}future.push([p.lat,p.lon]);future3.push([p.lat,p.lon,p.altitude_km]);}
                 }
             }
         }

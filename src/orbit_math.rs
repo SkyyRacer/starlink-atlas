@@ -106,10 +106,66 @@ pub(crate) fn position(o: &Orbit, at: DateTime<Utc>) -> Option<Point> {
     })
 }
 
+// WGS84 Earth-fixed position, in kilometres, matching Cesium's geodetic conversion.
+fn track_xyz(p: &Point) -> [f64; 3] {
+    let lat=p.lat.to_radians();let lon=p.lon.to_radians();
+    let n=6378.137/(1.0-6.69437999014e-3*lat.sin().powi(2)).sqrt();
+    [(n+p.altitude_km)*lat.cos()*lon.cos(),(n+p.altitude_km)*lat.cos()*lon.sin(),(n*(1.0-6.69437999014e-3)+p.altitude_km)*lat.sin()]
+}
+// Refine actual SGP4 samples rather than inventing a spline between coarse vertices.
+// Only the selected object's orbit pays this cost. A depth cap bounds extreme cases.
+pub(crate) fn orbit_track(o:&Orbit,start:DateTime<Utc>,end:DateTime<Utc>)->Vec<(DateTime<Utc>,Point)> {
+    fn append(o:&Orbit,a:DateTime<Utc>,xyz:[f64;3],b:DateTime<Utc>,right:Point,depth:u8,out:&mut Vec<(DateTime<Utc>,Point)>) {
+        let mid=a+chrono::Duration::milliseconds((b-a).num_milliseconds()/2);
+        if depth<8 && mid>a && mid<b {
+            if let Some(p)=position(o,mid) {
+                let m=track_xyz(&p);let r=track_xyz(&right);let u=(mid-a).num_milliseconds() as f64/(b-a).num_milliseconds() as f64;
+                let error=(0..3).map(|i|(m[i]-(xyz[i]+(r[i]-xyz[i])*u)).powi(2)).sum::<f64>().sqrt();
+                if error>0.005 {
+                    append(o,a,xyz,mid,p,depth+1,out);
+                    append(o,mid,m,b,right,depth+1,out);return;
+                }
+            }
+        }
+        out.push((b,right));
+    }
+    let mut out=Vec::new();let span=(end-start).num_milliseconds();
+    for i in 0..=120 {
+        let t=start+chrono::Duration::milliseconds(span*i/120);
+        if let Some(p)=position(o,t) {
+            if let Some((a,left))=out.last() {let xyz=track_xyz(left);append(o,*a,xyz,t,p,0,&mut out);}else{out.push((t,p));}
+        }
+    }
+    out
+}
+
 // Median of the last real observation of each object, never a fabricated current epoch.
 pub(crate) fn recovery_epoch<'a>(rows:impl Iterator<Item=&'a Orbit>,now:DateTime<Utc>)->Option<DateTime<Utc>> {
     let mut latest=std::collections::BTreeMap::new();
     for row in rows {let epoch=row.el.datetime.and_utc();if epoch<=now {latest.entry(row.el.norad_id).and_modify(|v:&mut DateTime<Utc>|*v=(*v).max(epoch)).or_insert(epoch);}}
     let mut dates:Vec<_>=latest.into_values().collect();if dates.is_empty(){return None;}
     let mid=dates.len()/2;dates.select_nth_unstable(mid);Some(dates[mid])
+}
+
+#[cfg(test)]
+mod track_tests {
+    use super::*;
+    #[test]
+    fn adaptive_tracks_preserve_sgp4_and_resolve_curvature() {
+        let rows:Vec<Value>=serde_json::from_str(include_str!("../resources/iss-example.json")).unwrap();
+        for (motion,eccentricity) in [(15.48879905,0.00067551),(2.0,0.7)] {
+            let mut row=rows[0].clone();row["MEAN_MOTION"]=serde_json::json!(motion);row["ECCENTRICITY"]=serde_json::json!(eccentricity);
+            let el:sgp4::Elements=serde_json::from_value(row).unwrap();let constants=sgp4::Constants::from_elements(&el).unwrap();let at=el.datetime.and_utc();
+            let o=Orbit{el,constants,source:"Test"};let end=at+chrono::Duration::milliseconds((86400000.0/motion) as i64);
+            let track=orbit_track(&o,at,end);assert!(track.len()>120);assert!(track.len()<=30721);assert_eq!(track.first().unwrap().0,at);assert_eq!(track.last().unwrap().0,end);
+            for pair in track.windows(2) {
+                let (a,p)=&pair[0];let (b,q)=&pair[1];assert!(b>a);
+                let mid=*a+chrono::Duration::milliseconds((*b-*a).num_milliseconds()/2);
+                let actual=track_xyz(&position(&o,mid).unwrap());let left=track_xyz(p);let right=track_xyz(q);let u=(mid-*a).num_milliseconds() as f64/(*b-*a).num_milliseconds() as f64;
+                let error=(0..3).map(|i|(actual[i]-(left[i]+(right[i]-left[i])*u)).powi(2)).sum::<f64>().sqrt();
+                assert!(error<=0.0051,"{} m deviation",error*1000.0);
+                let original=position(&o,*b).unwrap();assert_eq!(q.lat,original.lat);assert_eq!(q.lon,original.lon);assert_eq!(q.altitude_km,original.altitude_km);
+            }
+        }
+    }
 }

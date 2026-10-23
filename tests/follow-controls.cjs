@@ -19,7 +19,7 @@ vm.runInContext(source.slice(source.indexOf('    followButton.onclick='),source.
 ctx.followButton.onclick();assert.equal(ctx.chosen,3,'Follow starts from the overview with the operational object');
 ctx.lastData=data(2);ctx.following=false;ctx.followButton.onclick();assert.equal(ctx.updated.focus,true);assert.equal(ctx.updated.selected,2);
 ctx.followButton.onclick();assert.equal(ctx.following,false,'Second click stops tracking');
-const control=source.slice(source.indexOf('    const updateFollowControl='),source.indexOf('    const position=p=>'));
+const control=source.slice(source.indexOf('    const updateFollowControl='),source.indexOf('    const position='));
 vm.runInContext(control+'\nglobalThis.syncControl=updateFollowControl;',ctx);
 ctx.following=true;ctx.syncControl({id:2});assert.equal(node('advanced-model-options').dataset.following,'true');
 ctx.following=false;ctx.syncControl({id:2});assert.equal(node('advanced-model-options').dataset.following,'false');

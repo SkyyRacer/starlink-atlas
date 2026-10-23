@@ -25,3 +25,6 @@ for(const declination of [-.409,0,.409]){
  assert.equal(polygon.at(-1)[0],declination<0?85.05112878:-85.05112878);
 }
 console.log('Terminaison jour/nuit : OK');
+
+const C=require('../static/vendor/cesium/index.cjs'),out=new C.Cartesian3();
+for(const lat of [-90,-51.6,0,28.5,90])for(const lon of [-180,-30,0,179.99])for(const height of [0,420000,35786000,1e9]){const expected=C.Cartesian3.fromDegrees(lon,lat,height);const actual=require('../static/geometry').geodeticPosition(lon,lat,height,out);assert.equal(actual,out);assert.ok(C.Cartesian3.distance(actual,expected)<1e-5,'Fast conversion preserves WGS84 coordinates');}

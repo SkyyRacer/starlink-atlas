@@ -33,3 +33,5 @@ for(const mode of ['2d','3d'])for(const scale of [0,1,5,20]){
 const defaultColorLine=app.split('\n').find(line=>line.startsWith('const atlasDefaultColor='));
 assert.equal(vm.runInNewContext(defaultColorLine+';atlasDefaultColor("starlink")'),'#c8efff');
 assert.equal(vm.runInNewContext(defaultColorLine+';atlasDefaultColor("debris")'),'#d9a15f');
+
+let projections=0;context.viewer.camera.positionCartographic.height=100000000;context.viewer.camera.getPickRay=p=>{const n=Math.hypot(p.x/1000,p.y/1000,1);return {direction:{x:p.x/1000/n,y:p.y/1000/n,z:1/n}};};context.C.SceneTransforms.worldToWindowCoordinates=(scene,p)=>(projections++,{x:p.x/p.z*1000,y:p.y/p.z*1000});context.viewer.scene.pick=()=>{throw Error('Hover must not trigger a synchronous GPU pick');};context.items=new Map([[4,marker(10,0,1000)],[5,marker(12,0,1000)]]);for(let i=0;i<1000;i++)context.items.set(100+i,marker(1000+i,0,1000));assert.equal(context.satelliteAtGlobeClick({x:0,y:0},false),4);assert.ok(projections<=2,'Ray-cone rejection avoids projecting the entire satellite catalogue');

@@ -65,8 +65,9 @@
     let index=0,radius=0;
     for(const item of records){if(!item.show||item.skipGPU||!item.target)continue;
      const from=item.from,to=item.to,color=item.color;
-     for(const key of ['x','y','z']){const value=from[key],high=value>=0?Math.floor(value/65536)*65536:-Math.floor(-value/65536)*65536;packed[index++]=high;}
-     for(let i=0;i<3;i++){const key=['x','y','z'][i];packed[index++]=from[key]-packed[index-4];}
+     const hx=Math.trunc(from.x/65536)*65536,hy=Math.trunc(from.y/65536)*65536,hz=Math.trunc(from.z/65536)*65536;
+     packed[index++]=hx;packed[index++]=hy;packed[index++]=hz;
+     packed[index++]=from.x-hx;packed[index++]=from.y-hy;packed[index++]=from.z-hz;
      packed[index++]=to.x-from.x;packed[index++]=to.y-from.y;packed[index++]=to.z-from.z;
      packed[index++]=color?.red??1;packed[index++]=color?.green??1;packed[index++]=color?.blue??1;packed[index++]=color?.alpha??1;
      const outline=item.outlineWidth||0;packed[index++]=(item.pixelSize||3)+2*outline;packed[index++]=outline;packed[index++]=item.diameter_m||10;

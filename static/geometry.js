@@ -50,7 +50,22 @@
     // At extreme close-up no free margin may remain: keep the caption legible in a dark panel.
     return {x:pad,y:Math.max(pad,height-h-pad)};
   }
-  const api={splitTrack,shouldRender,nightPolygon,pickRadius,markerScale,nearestHit,labelPlacement};
+  // Cubic Hermite render interpolation: pass through both observed endpoints
+  // and preserve the adjoining path directions rather than adding a chord.
+  function orbitConnector(a,b,startDirection,endDirection,steps=64){
+    const delta=b.map((v,i)=>v-a[i]),length=Math.hypot(...delta);
+    const tangent=direction=>{const n=Math.hypot(...direction);return n>1e-10?direction.map(v=>v*length/n):delta;};
+    const first=tangent(startDirection),last=tangent(endDirection),rows=[a.slice()];
+    for(let i=1;i<steps;i++){const t=i/steps,t2=t*t,t3=t2*t;rows.push(a.map((v,k)=>(2*t3-3*t2+1)*v+(t3-2*t2+t)*first[k]+(-2*t3+3*t2)*b[k]+(t3-t2)*last[k]));}
+    rows.push(b.slice());return rows;
+  }
+  // WGS84 conversion into a reusable output object, with no temporary vectors.
+  function geodeticPosition(lon,lat,height,result){
+    const phi=lat*Math.PI/180,lambda=lon*Math.PI/180,sin=Math.sin(phi),cos=Math.cos(phi);
+    const n=6378137/Math.sqrt(1-.0066943799901413165*sin*sin),radius=n+height;
+    result.x=radius*cos*Math.cos(lambda);result.y=radius*cos*Math.sin(lambda);result.z=(n*(1-.0066943799901413165)+height)*sin;return result;
+  }
+  const api={splitTrack,shouldRender,nightPolygon,pickRadius,markerScale,nearestHit,labelPlacement,orbitConnector,geodeticPosition};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else root.AtlasGeometry=api;
 })(typeof window!=='undefined'?window:this);

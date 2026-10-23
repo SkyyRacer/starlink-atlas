@@ -1,6 +1,6 @@
 const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const rows=JSON.parse(fs.readFileSync('resources/model-runtime-manifest.json')),original=JSON.parse(fs.readFileSync('resources/detailed-model-manifest.json'));
 for(const row of rows){const file='static/'+row.runtime_url.split('?')[0],bytes=fs.readFileSync(file);assert.equal(bytes.length,row.runtime_bytes);assert.ok(row.runtime_bytes<=row.original_bytes);assert.equal(bytes.readUInt32LE(0),0x46546c67);assert.equal(bytes.readUInt32LE(8),bytes.length);assert.ok(row.runtime_url.includes(crypto.createHash('sha256').update(bytes).digest('hex').slice(0,12)));const n=bytes.readUInt32LE(12),doc=JSON.parse(bytes.subarray(20,20+n));assert.ok(doc.meshes.length);assert.ok(doc.materials.length);for(const image of doc.images||[])assert.ok(image.bufferView!==undefined,'Runtime model stays self contained');}
-const iss=rows.find(r=>r.key==='iss');assert.ok(iss.runtime_bytes<1500000);assert.ok(iss.triangles<200000);assert.ok(original.find(r=>r.key==='iss').triangles>2000000,'Full IGOAL remains separately available');
-const source=JSON.parse(fs.readFileSync('resources/iss-balanced-source.json')),blob=fs.readFileSync(source.file);assert.equal(crypto.createHash('sha256').update(blob).digest('hex'),source.sha256);assert.equal(crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob '+blob.length+'\0'),blob])).digest('hex'),source.git_blob_sha);
-console.log('Runtime LODs: GLB/hash/size checks, self-contained materials, original models preserved, ISS B provenance verified.');
+for(const row of rows){const source=original.find(r=>r.key===row.key);assert.equal(row.runtime_url,source.url,'Only original detailed models are offered');assert.equal(row.runtime_bytes,source.bytes);}
+assert.ok(!fs.existsSync('static/images/detailed/optimized'));
+console.log('Original detailed models only: sizes, hashes and GLB/material integrity OK.');

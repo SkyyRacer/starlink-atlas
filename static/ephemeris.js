@@ -29,7 +29,15 @@
   const existed=result.points.some(row=>row.id===data.id);result.points=result.points.filter(row=>row.id!==data.id);result.points.push(p);if(!existed)result.missing=Math.max(0,(result.missing||0)-1);result.suggested_at=null;
   if(id===data.id){
    for(const [key,sign] of [['track',-1],['future_track',1]]){
-    const rows=[];for(let i=0;i<=160;i++){const t=at+sign*data.period_seconds*1000*i/160,v=point(data,t);if(!v)break;rows.push([v.lat,v.lon,v.altitude_km]);}
+    const rows=[];
+    const xyz=p=>{const lat=p.lat*Math.PI/180,lon=p.lon*Math.PI/180,n=6378.137/Math.sqrt(1-.00669437999014*Math.sin(lat)**2);return [(n+p.altitude_km)*Math.cos(lat)*Math.cos(lon),(n+p.altitude_km)*Math.cos(lat)*Math.sin(lon),(n*(1-.00669437999014)+p.altitude_km)*Math.sin(lat)];};
+    function append(a,left,b,right,depth){
+     const mid=(a+b)/2,m=point(data,mid);if(!m)return false;
+     if(depth<8){const x=xyz(left),y=xyz(right),v=xyz(m),error=Math.hypot(...v.map((n,i)=>n-(x[i]+y[i])/2));if(error>.005){return append(a,left,mid,m,depth+1)&&append(mid,m,b,right,depth+1);}}
+     rows.push([right.lat,right.lon,right.altitude_km]);return true;
+    }
+    let previous=null,previousTime=at;
+    for(let i=0;i<=160;i++){const t=at+sign*data.period_seconds*1000*i/160,v=point(data,t);if(!v)break;if(previous){if(!append(previousTime,previous,t,v,0))break;}else rows.push([v.lat,v.lon,v.altitude_km]);previous=v;previousTime=t;}
     if(sign<0)rows.reverse();result[key]=rows.map(p=>p.slice(0,2));result[key==='track'?'track_3d':'future_track_3d']=rows;
    }
   }return result;

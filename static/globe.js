@@ -56,7 +56,7 @@ window.AtlasGlobe={
   },
   async create(container,config,onSelect,onEmptySpace){
     await this.load();const C=window.Cesium;let moonLayer=null;const hasMoon=document.body.dataset.collection==='all';
-    const viewer=new C.Viewer(container,{baseLayer:false,terrainProvider:new C.EllipsoidTerrainProvider(),animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyBox:false,skyAtmosphere:false,shouldAnimate:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,showRenderLoopErrors:false,contextOptions:{webgl:{alpha:false,antialias:true}}});
+    const viewer=new C.Viewer(container,{baseLayer:false,terrainProvider:new C.EllipsoidTerrainProvider(),animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:false,sceneModePicker:false,navigationHelpButton:false,fullscreenButton:false,infoBox:false,selectionIndicator:false,skyBox:false,skyAtmosphere:false,shouldAnimate:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,showRenderLoopErrors:false,orderIndependentTranslucency:false,contextOptions:{webgl:{alpha:false,antialias:false}}});
     viewer.camera.constrainedAxis=C.Cartesian3.UNIT_Z;
     viewer.scene.backgroundColor=C.Color.fromCssColorString('#000000');viewer.scene.globe.baseColor=C.Color.fromCssColorString('#1d3443');
     viewer.scene.globe.preloadSiblings=false;viewer.scene.globe.preloadAncestors=false;viewer.scene.globe.tileCacheSize=100;viewer.scene.globe.maximumScreenSpaceError=3;
@@ -132,15 +132,27 @@ window.AtlasGlobe={
       const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
       if(directions[event.key]){event.preventDefault();rotateJoystick(...directions[event.key],3);}
     });
-    viewer.targetFrameRate=60;viewer.useBrowserRecommendedResolution=false;
-    viewer.resolutionScale=Math.min(1,2/(window.devicePixelRatio||1));
+    // Let requestAnimationFrame follow the monitor, without a second 60 Hz limiter.
+    viewer.targetFrameRate=undefined;viewer.useBrowserRecommendedResolution=false;
+    viewer.scene.msaaSamples=1;
+    viewer.resolutionScale=1/(window.devicePixelRatio||1);
+    const renderBudget=window.AtlasRenderBudget?.create({width:viewer.canvas.clientWidth,height:viewer.canvas.clientHeight,devicePixelRatio:window.devicePixelRatio||1,apply:quality=>{
+      viewer.resolutionScale=quality.resolutionScale;viewer.scene.globe.maximumScreenSpaceError=quality.pixelRatio<.85?5:3;viewer.resize();viewer.scene.requestRender();
+    }});
+    viewer.atlasRenderQuality=renderBudget;
+    let lastCameraActivity=-Infinity;
+    viewer.camera.changed.addEventListener(()=>{lastCameraActivity=performance.now();});
+    viewer.scene.postRender.addEventListener(()=>renderBudget?.sample(performance.now(),active&&!document.hidden&&(motion.active||satellites.active||performance.now()-lastCameraActivity<150||!!viewer.scene.tweens?.length)));
     const satellitePrimitives=viewer.scene.primitives.add(new C.PrimitiveCollection());
     const satellites=satellitePrimitives.add(window.AtlasPointCloud?window.AtlasPointCloud.create(C,viewer):new C.PointPrimitiveCollection()), lines=satellitePrimitives.add(new C.PolylineCollection()), labels=satellitePrimitives.add(new C.LabelCollection());
     const past=lines.add({positions:[],width:1.5,material:C.Material.fromType('Color',{color:C.Color.fromCssColorString('#e0e0e0')})});
     const future=lines.add({positions:[],width:2,material:C.Material.fromType('PolylineDash',{color:C.Color.fromCssColorString('#a9c5df'),dashLength:12})});
+    const pastJoin=lines.add({positions:[],width:1.5,material:past.material});
+    const futureJoin=lines.add({positions:[],width:2,material:future.material});
     const heightLine=lines.add({positions:[],width:2,material:C.Material.fromType('Color',{color:C.Color.WHITE})});
-    const label=labels.add({text:'',show:false,horizontalOrigin:C.HorizontalOrigin.LEFT,verticalOrigin:C.VerticalOrigin.CENTER,showBackground:true,backgroundColor:C.Color.fromCssColorString('#080b10').withAlpha(.82),backgroundPadding:new C.Cartesian2(6,4),disableDepthTestDistance:Infinity,font:'14px sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(12,-12)});
+    const label=labels.add({text:'',show:false,horizontalOrigin:C.HorizontalOrigin.LEFT,verticalOrigin:C.VerticalOrigin.BASELINE,showBackground:true,backgroundColor:C.Color.fromCssColorString('#080b10').withAlpha(.82),backgroundPadding:new C.Cartesian2(6,4),disableDepthTestDistance:Infinity,font:'14px Arial, sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(12,-12)});
     const extraLabels=satellitePrimitives.add(new C.LabelCollection()),nameItems=new Map();
+    const selectedOutline=C.Color.fromCssColorString('#a9c5df'),unselectedOutline=C.Color.fromCssColorString('#1a1d25');
     const selectedMarker=satellitePrimitives.add(new C.PointPrimitiveCollection()).add({show:false,pixelSize:9,outlineWidth:2,outlineColor:C.Color.fromCssColorString('#a9c5df'),color:C.Color.WHITE});
     const issIcon=AtlasISS.iconURI,tiangongIcon=AtlasTiangong.iconURI,pointIcon=AtlasISS.pointIconURI;
     const issFallback=satellitePrimitives.add(new C.BillboardCollection()).add({id:25544,image:issIcon,width:64,height:44,show:false});
@@ -154,11 +166,11 @@ window.AtlasGlobe={
       const size=AtlasISS.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,lastData.collection==='all'&&issFallback.position?C.Cartesian3.distance(viewer.camera.positionWC,issFallback.position):viewer.camera.positionCartographic.height,lastData.selected===25544,lastData.collection);
       issFallback.width=size;issFallback.height=size*.7;if(issModel)issModel.minimumPixelSize=size;
       if(issVisible&&size>7)loadISS();
-      const issDot=lastData.collection==='all'&&size<=7;issFallback.image=issDot?pointIcon:issIcon;issFallback.show=issVisible&&!detailedLayer.replaces(25544)&&(issDot||!issModel);if(issModel)issModel.show=issVisible&&!detailedLayer.replaces(25544)&&!issDot;
+      const issDot=lastData.collection==='all'&&size<=7;if(issDot){issFallback.width=size*1.5;issFallback.height=size*1.5;}issFallback.image=issDot?pointIcon:issIcon;issFallback.show=issVisible&&!detailedLayer.replaces(25544)&&(issDot||!issModel);if(issModel)issModel.show=issVisible&&!detailedLayer.replaces(25544)&&!issDot;
       const tgSize=AtlasTiangong.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,lastData.collection==='all'&&tiangongFallback.position?C.Cartesian3.distance(viewer.camera.positionWC,tiangongFallback.position):viewer.camera.positionCartographic.height,lastData.selected===48274,lastData.collection);
       tiangongFallback.width=tgSize;tiangongFallback.height=tgSize*.7;if(tiangongModel)tiangongModel.minimumPixelSize=tgSize;
       if(tiangongVisible&&tgSize>7)loadTiangong();
-      const tgDot=lastData.collection==='all'&&tgSize<=7;tiangongFallback.image=tgDot?pointIcon:tiangongIcon;tiangongFallback.show=tiangongVisible&&!detailedLayer.replaces(48274)&&(tgDot||!tiangongModel);if(tiangongModel)tiangongModel.show=tiangongVisible&&!detailedLayer.replaces(48274)&&!tgDot;
+      const tgDot=lastData.collection==='all'&&tgSize<=7;if(tgDot){tiangongFallback.width=tgSize*1.5;tiangongFallback.height=tgSize*1.5;}tiangongFallback.image=tgDot?pointIcon:tiangongIcon;tiangongFallback.show=tiangongVisible&&!detailedLayer.replaces(48274)&&(tgDot||!tiangongModel);if(tiangongModel)tiangongModel.show=tiangongVisible&&!detailedLayer.replaces(48274)&&!tgDot;
     }
     viewer.scene.preUpdate.addEventListener(sizeISS);
     const scienceLayer=AtlasScience.createLayer(C,viewer,()=>{if(lastData)api.update({...lastData,focus:false});},satellitePrimitives);
@@ -176,13 +188,20 @@ window.AtlasGlobe={
       viewer.camera.lookAt(position(chosen),new C.HeadingPitchRange(0,followPitch,AtlasGlobe.detailedRange(radius,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy)));
       followReady=true;updateFollowControl(chosen);viewer.scene.requestRender();
     },satellitePrimitives);
+    // Resolve visibility after both layers' animation callbacks, including models
+    // whose asynchronous loading finished between two position snapshots.
+    viewer.scene.preUpdate.addEventListener(()=>{
+      if(!active||!lastData)return;
+      sizeISS();
+      for(const {id} of scienceLayer.hits())scienceLayer.suppress(id,detailedLayer.replaces(id));
+    });
     viewer.scene.renderError.addEventListener((scene,error)=>{
       globalThis.AtlasLoading?.fail();
       if(!earthLayer.recover(error)&&!detailedLayer.recover(error)&&!satellites.recover?.(error)){document.getElementById('notice').textContent='Rendu 3D indisponible : '+(error?.message||error)+'. Le planisphère reste accessible.';return;}
       const rethrow=scene.rethrowRenderErrors;scene.rethrowRenderErrors=false;
       queueMicrotask(()=>{scene.rethrowRenderErrors=rethrow;if(active){viewer.useDefaultRenderLoop=true;scene.requestRender();}});
     });
-    const items=new Map(),lime=C.Color.fromCssColorString('#c8efff'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
+    const items=new Map(),lime=C.Color.fromCssColorString('#c8efff'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',pointColors=new WeakMap(),palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
     let modelZoomTarget=null,overviewZoomTarget=null;
     let followPitch=-.8,following=false,followReady=false,followCurrent=null,lastSelectionRequest=null;
     let idleController=null,idleFlight=false,ignoreOverviewClick=false,overviewPosition=null;
@@ -239,9 +258,25 @@ window.AtlasGlobe={
       followButton.textContent=following||idle?'Arrêter le suivi':debrisTarget()?'Suivre l’objet':'Suivre le satellite';
       document.getElementById('follow-state').textContent=idle?'Vue globale · suivi automatique de '+(lastData?.collection==='tiangong'?'Tiangong':'l’ISS'):following?(chosen?'Caméra centrée · zoom et rotation disponibles':'Suivi suspendu : position indisponible'):(chosen?'Suivre la lecture, même accélérée':target?'Centrer sur '+(lastData.catalog.get(target.id)?.name||target.id):debrisTarget()?'Sélectionne un objet':'Sélectionne un satellite');
     };
-    const position=p=>C.Cartesian3.fromDegrees(p.lon,p.lat,p.altitude_km*1000);
-    const motion=new SatelliteMotion();let motionAt=null,animatedPoints=[],lastPointFrame=-Infinity;
-    const orbit=rows=>rows.map(p=>C.Cartesian3.fromDegrees(p[1],p[0],p[2]*1000));
+    const position=(p,result)=>AtlasGeometry.geodeticPosition(p.lon,p.lat,p.altitude_km*1000,result||new C.Cartesian3());
+    const motion=new SatelliteMotion();let motionAt=null,motionSource=null,motionSmooth=false,animatedPoints=[],lastPointFrame=-Infinity;
+    const orbit=rows=>rows.map(p=>AtlasGeometry.geodeticPosition(p[1],p[0],p[2]*1000,new C.Cartesian3()));
+    let bridgePosition=null;
+    function updateOrbitConnectors(xyz){
+      if(bridgePosition&&C.Cartesian3.equals(bridgePosition,xyz))return;
+      bridgePosition=C.Cartesian3.clone(xyz,bridgePosition||new C.Cartesian3());
+      const a=past.positions.at(-1),b=future.positions[0];
+      const array=p=>[p.x,p.y,p.z],subtract=(p,q)=>[p.x-q.x,p.y-q.y,p.z-q.z];
+      const fallback=a&&b?subtract(b,a):a?subtract(xyz,a):b?subtract(b,xyz):[0,0,0];
+      const before=a&&past.positions.length>1?subtract(a,past.positions.at(-2)):fallback;
+      const after=b&&future.positions.length>1?subtract(future.positions[1],b):fallback;
+      const normalize=v=>{const n=Math.hypot(...v);return v.map(x=>n?x/n:0);},start=normalize(before),end=normalize(after);
+      const u=a&&b?C.Cartesian3.distance(a,xyz)/Math.max(1,C.Cartesian3.distance(a,xyz)+C.Cartesian3.distance(b,xyz)):.5;
+      const direction=start.map((v,i)=>v*(1-u)+end[i]*u);
+      const curve=(p,q,first,last)=>AtlasGeometry.orbitConnector(array(p),array(q),first,last).map(v=>new C.Cartesian3(...v));
+      pastJoin.positions=a?curve(a,xyz,before,direction):[];
+      futureJoin.positions=b?curve(xyz,b,direction,after):[];
+    }
     let overviewAnchor=null;
     const homeView=station=>{
       const collection=lastData?.collection||document.body.dataset.collection;
@@ -306,8 +341,7 @@ window.AtlasGlobe={
       for(const p of rows){detailedLayer.move(p);scienceLayer.move(p);if(p.id===AtlasPages.station(lastData.collection))station=p;if(p.id===48274&&tiangongVisible){tiangongFallback.position=position(p);if(tiangongModel)tiangongModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}if(p.id===25544&&issVisible){issFallback.position=position(p);if(issModel)issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}const point=items.get(p.id);if(point?.show){if(!satellites.commit)point.position=position(p);const name=nameItems.get(p.id);if(name?.show)name.position=point.position;}if(p.id===lastData.selected)chosen=p;}
       if(chosen){followCurrent=position(chosen);label.position=followCurrent;if(selectedMarker.show)selectedMarker.position=followCurrent;
         if(heightLine.positions.length)heightLine.positions=[C.Cartesian3.fromDegrees(chosen.lon,chosen.lat,0),followCurrent];
-        if(past.positions.length){const line=past.positions.slice();line[line.length-1]=followCurrent;past.positions=line;}
-        if(future.positions.length){const line=future.positions.slice();line[0]=followCurrent;future.positions=line;}
+        updateOrbitConnectors(followCurrent);
       }
       if(idleController?.active&&!idleFlight&&station){
         const key=[station.lon,station.lat,viewer.canvas.clientWidth,viewer.canvas.clientHeight].join(':');
@@ -321,7 +355,8 @@ window.AtlasGlobe={
       camera.lookAtTransform(C.Transforms.eastNorthUpToFixedFrame(followCurrent));
       C.Cartesian3.clone(offset,camera.position);C.Cartesian3.clone(direction,camera.direction);C.Cartesian3.clone(up,camera.up);C.Cartesian3.clone(right,camera.right);
     });
-    const labelMeasure=document.createElement('canvas').getContext('2d');labelMeasure.font='14px sans-serif';
+    const labelMeasure=document.createElement('canvas').getContext('2d');labelMeasure.font='14px Arial, sans-serif';
+    let labelTextKey=null,labelMetrics=null;
     function placeSatelliteLabel(){
       if(!label.show||!lastData)return;
       const anchor=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,label.position);if(!anchor)return;
@@ -336,26 +371,36 @@ window.AtlasGlobe={
         const projected=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,edge);
         if(projected&&Number.isFinite(projected.x))radius=Math.max(radius,Math.abs(projected.x-center.x));
       }
-      const raw=`${lastData.catalog.get(id)?.name||id} · ${lastData.points.find(p=>p.id===id)?.altitude_km.toFixed(1)||'—'} km`;
-      const maxWidth=Math.max(80,width-32),lines=[];let line='';
-      for(const word of raw.split(' ')){const next=line?line+' '+word:word;if(line&&labelMeasure.measureText(next).width>maxWidth){lines.push(line);line=word;}else line=next;}
-      lines.push(line);label.text=lines.join('\n');const textWidth=Math.min(maxWidth,Math.max(...lines.map(text=>labelMeasure.measureText(text).width))+12),textHeight=lines.length*18+8;
+      const raw=`${lastData.catalog.get(id)?.name||id} · ${motion.get(id)?.altitude_km.toFixed(1)||'—'} km`;
+      const maxWidth=Math.max(80,width-32),key=raw+'|'+maxWidth;
+      if(key!==labelTextKey){
+        labelTextKey=key;const lines=[];let line='';
+        for(const word of raw.split(' ')){const next=line?line+' '+word:word;if(line&&labelMeasure.measureText(next).width>maxWidth){lines.push(line);line=word;}else line=next;}
+        lines.push(line);label.text=lines.join('\n');labelMetrics={textWidth:Math.min(maxWidth,Math.max(...lines.map(text=>labelMeasure.measureText(text).width))+12),textHeight:lines.length*18+8};
+      }
+      const {textWidth,textHeight}=labelMetrics;
       const layout=AtlasGeometry.labelPlacement({anchor,bounds:{left:center.x-radius,right:center.x+radius,top:center.y-radius,bottom:center.y+radius},width,height,textWidth,textHeight});
       label.pixelOffset=new C.Cartesian2(layout.x-anchor.x,layout.y+textHeight/2-anchor.y);
     }
     viewer.scene.preRender.addEventListener(placeSatelliteLabel);
-    function satelliteAtGlobeClick(click){
-      const exact=viewer.scene.pick(click);if(exact&&typeof exact.id==='number')return exact.id;
+    function satelliteAtGlobeClick(click,precise=true){
+      const exact=precise?viewer.scene.pick(click):null;if(exact&&typeof exact.id==='number')return exact.id;
       const radius=AtlasGeometry.pickRadius({mode:'3d',collection:lastData?.collection,height:viewer.camera.positionCartographic.height,touch:matchMedia('(pointer: coarse)').matches});
       const occluder=new C.EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC),offset=new C.Cartesian3(),pickPosition=new C.Cartesian3();
+      const ray=viewer.camera.getPickRay?.(click);
+      let cone=0;
+      if(ray){cone=1;for(const dx of [-radius,radius])for(const dy of [-radius,radius]){const edge=viewer.camera.getPickRay({x:click.x+dx,y:click.y+dy});cone=Math.min(cone,C.Cartesian3.dot(ray.direction,edge.direction));}cone=Math.max(0,cone-1e-9);}
+      const pickTime=satellites.samplePosition?performance.now():0;
       function* projected(){
         function project(id,xyz){
-          if(!xyz||!occluder.isPointVisible(xyz))return null;
-          C.Cartesian3.subtract(xyz,viewer.camera.positionWC,offset);if(C.Cartesian3.dot(offset,viewer.camera.directionWC)<=0)return null;
+          if(!xyz)return null;
+          C.Cartesian3.subtract(xyz,viewer.camera.positionWC,offset);
+          if(ray){const along=C.Cartesian3.dot(offset,ray.direction);if(along<=0||along*along<C.Cartesian3.dot(offset,offset)*cone*cone)return null;}
+          if(C.Cartesian3.dot(offset,viewer.camera.directionWC)<=0||!occluder.isPointVisible(xyz))return null;
           const xy=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,xyz);
           return xy?{id,x:xy.x,y:xy.y}:null;
         }
-        for(const [id,item] of items){if(!item.show)continue;const hit=project(id,satellites.samplePosition?satellites.samplePosition(item,pickPosition):item.position);if(hit)yield hit;}
+        for(const [id,item] of items){if(!item.show)continue;const hit=project(id,satellites.samplePosition?satellites.samplePosition(item,pickPosition,pickTime):item.position);if(hit)yield hit;}
         for(const marker of scienceLayer.hits()){const hit=project(marker.id,marker.position);if(hit)yield hit;}
         if(issVisible){const hit=project(25544,issFallback.position);if(hit)yield hit;}
         if(tiangongVisible){const hit=project(48274,tiangongFallback.position);if(hit)yield hit;}
@@ -381,13 +426,15 @@ window.AtlasGlobe={
       if(id!==null){hoverLabel.show=false;moonLayer?.close();onSelect(id);return;}
       if(!viewer.camera.pickEllipsoid(event.position,viewer.scene.globe.ellipsoid))closeFromSky();
     },C.ScreenSpaceEventType.LEFT_CLICK);
-    const hoverLabel=labels.add({show:false,font:'13px sans-serif',fillColor:C.Color.WHITE,showBackground:true,backgroundColor:C.Color.fromCssColorString('#080808').withAlpha(.9),backgroundPadding:new C.Cartesian2(6,4),pixelOffset:new C.Cartesian2(14,-18),disableDepthTestDistance:Infinity});
-    let hoverId=null,hoverFrame=null,hoverPosition=null,lastHoverSample=-Infinity;
-    function hoverSatellite(){hoverFrame=null;lastHoverSample=performance.now();if(!active||moonLayer?.active||!lastData||!hoverPosition){hoverLabel.show=false;return;}const id=satelliteAtGlobeClick(hoverPosition);hoverId=id;
+    const hoverLabel=labels.add({show:false,font:'13px Arial, sans-serif',fillColor:C.Color.WHITE,showBackground:true,backgroundColor:C.Color.fromCssColorString('#080808').withAlpha(.9),backgroundPadding:new C.Cartesian2(6,4),pixelOffset:new C.Cartesian2(14,-18),disableDepthTestDistance:Infinity});
+    let hoverId=null,hoverFrame=null,hoverPosition=null,lastHoverSample=-Infinity,hoverBlockedUntil=0;
+    const hoverBlocked=()=>heldPointers.size>0||globeDrag!==null||joyPointer!==null||performance.now()<hoverBlockedUntil;
+    viewer.canvas.addEventListener('wheel',()=>{hoverBlockedUntil=performance.now()+160;hoverLabel.show=false;},{passive:true});
+    function hoverSatellite(){hoverFrame=null;lastHoverSample=performance.now();if(!active||moonLayer?.active||!lastData||!hoverPosition||hoverBlocked()){hoverLabel.show=false;return;}const id=satelliteAtGlobeClick(hoverPosition,false);hoverId=id;
       const point=id!==null&&id!==lastData.selected?lastData.points.find(p=>p.id===id):null;
       hoverLabel.show=!!point;if(point){hoverLabel.position=position(point);hoverLabel.text=lastData.catalog.get(id)?.name||String(id);}viewer.scene.requestRender();
     }
-    viewer.screenSpaceEventHandler.setInputAction(event=>{hoverPosition=event.endPosition;if(hoverFrame===null&&performance.now()-lastHoverSample>=40)hoverFrame=requestAnimationFrame(hoverSatellite);},C.ScreenSpaceEventType.MOUSE_MOVE);
+    viewer.screenSpaceEventHandler.setInputAction(event=>{if(hoverBlocked()){hoverLabel.show=false;return;}hoverPosition=event.endPosition;if(hoverFrame===null&&performance.now()-lastHoverSample>=40)hoverFrame=requestAnimationFrame(hoverSatellite);},C.ScreenSpaceEventType.MOUSE_MOVE);
     viewer.canvas.addEventListener('pointerleave',()=>{hoverPosition=null;hoverId=null;hoverLabel.show=false;viewer.scene.requestRender();});
     const api={
       get lunarActive(){return !!moonLayer?.active;},
@@ -397,25 +444,33 @@ window.AtlasGlobe={
         // A click starts tracking, including a second click on a released target.
         // Ordinary position updates preserve a deliberate camera release.
         if(data.selected!==null&&(data.selected!==lastSelection||data.selectionRequest!==lastSelectionRequest)){idleController?.cancel();if(data.selected!==lastSelection)followPitch=-.8;releaseFollow();following=true;}
-        const motionChanged=motion.source!==data.points;
-        if(motionChanged){motion.set(data.points,performance.now(),data.playing&&!data.focus&&motionAt!==null&&Math.abs(data.at-motionAt)<150000);motionAt=data.at;lastPointFrame=performance.now();}
+        const motionChanged=motionSource!==data.points;
+        if(motionChanged){
+          motionSmooth=data.playing&&!data.focus&&motionAt!==null&&Math.abs(data.at-motionAt)<150000;
+          const rows=satellites.commit?data.points.filter(p=>p.id===data.selected||p.id===25544||p.id===48274||AtlasScience.has(p.id)):data.points;
+          motion.set(rows,performance.now(),motionSmooth);motionSource=data.points;motionAt=data.at;lastPointFrame=performance.now();
+        }else if(data.selected!==null&&!motion.get(data.selected)){
+          const point=data.points.find(p=>p.id===data.selected);if(point)motion.set([...motion.source,point],performance.now(),false);
+        }
         viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));earthLayer.update(data);moonLayer?.update(data.at);if(moonLayer?.active){viewer.scene.requestRender();return;}
-        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette);if(key!==paletteKey){paletteKey=key;palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#c8efff'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
+        const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette)+'|'+[...(data.groups||[])].join(',');if(key!==paletteKey){paletteKey=key;pointColors=new WeakMap();palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#c8efff'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
         issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;tiangongFallback.color=palette.tiangong;if(tiangongModel)tiangongModel.color=palette.tiangong;
         animatedPoints=motion.rows.filter(p=>{const satellite=data.catalog.get(p.id);return satellite&&data.visible(satellite,p.id)&&(!satellites.commit||p.id===data.selected||p.id===25544||p.id===48274||AtlasScience.has(p.id));});
         scienceLayer.begin();
         issVisible=false;issFallback.show=false;if(issModel)issModel.show=false;tiangongVisible=false;tiangongFallback.show=false;if(tiangongModel)tiangongModel.show=false;sizeISS();for(const item of items.values())item.show=false;for(const item of nameItems.values())item.show=false;let nameCount=0;
+        const colorFor=satellite=>{let color=pointColors.get(satellite);if(!color){color=palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];pointColors.set(satellite,color);}return color;};
+        const markerPixels=4.5*AtlasGeometry.markerScale(data.collection,viewer.canvas.clientWidth,viewer.canvas.clientHeight);
         for(const p of data.points){
           const satellite=data.catalog.get(p.id);if(!satellite||!data.visible(satellite,p.id))continue;
-          if(scienceLayer.update(p,{selected:data.selected,collection:data.collection,color:p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)]}))continue;
+          if(scienceLayer.update(p,{selected:data.selected,collection:data.collection,color:p.id===data.selected?white:colorFor(satellite)}))continue;
           if(p.id===48274){tiangongVisible=true;tiangongFallback.position=position(p);tiangongFallback.show=!tiangongModel;if(tiangongModel){tiangongModel.show=true;tiangongModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           if(p.id===25544){issVisible=true;issFallback.position=position(p);issFallback.show=!issModel;if(issModel){issModel.show=true;issModel.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(position(p));}continue;}
           let item=items.get(p.id);if(!item){item=satellites.add({id:p.id,pixelSize:3,color:lime,outlineWidth:0});items.set(p.id,item);}
-          item.show=true;item.skipGPU=p.id===data.selected;item.position=position(p);item.color=p.id===data.selected?white:palette[AtlasPages.displayFamily(satellite,data.colors,data.groups)];item.pixelSize=p.id===data.selected?9:3*AtlasGeometry.markerScale(data.collection,viewer.canvas.clientWidth,viewer.canvas.clientHeight);item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=C.Color.fromCssColorString(p.id===data.selected?'#a9c5df':'#1a1d25');
-          if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
+          item.show=true;item.skipGPU=p.id===data.selected;item.position=position(p,satellites.commit?item.target:undefined);item.color=p.id===data.selected?white:colorFor(satellite);item.pixelSize=p.id===data.selected?9:markerPixels;item.outlineWidth=p.id===data.selected?2:0;item.outlineColor=p.id===data.selected?selectedOutline:unselectedOutline;
+          if(data.names&&p.id!==data.selected&&viewer.camera.positionCartographic.height<2500000&&nameCount<200&&C.Cartesian3.distance(viewer.camera.positionWC,item.position)<3000000){const screen=C.SceneTransforms.worldToWindowCoordinates(viewer.scene,item.position);if(screen&&screen.x>=0&&screen.y>=0&&screen.x<=viewer.canvas.clientWidth&&screen.y<=viewer.canvas.clientHeight){let text=nameItems.get(p.id);if(!text){text=extraLabels.add({id:p.id,font:'11px Arial, sans-serif',fillColor:lime,outlineColor:C.Color.BLACK,outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(5,-5)});nameItems.set(p.id,text);}text.show=true;text.position=item.position;text.text=satellite.name;nameCount++;}}
         }
         const pickedItem=items.get(data.selected);selectedMarker.show=!!satellites.commit&&!!pickedItem?.show;if(selectedMarker.show){selectedMarker.id=data.selected;selectedMarker.position=pickedItem.target;}
-        satellites.commit?.(motionChanged?motion.started:performance.now(),motion.duration>0,!motionChanged);
+        satellites.commit?.(motionChanged?motion.started:performance.now(),motionSmooth,!motionChanged);
         detailedLayer.update(data);
         for(const p of data.points)if(detailedLayer.replaces(p.id)){
           scienceLayer.suppress(p.id);
@@ -423,6 +478,20 @@ window.AtlasGlobe={
           if(p.id===48274){tiangongFallback.show=false;if(tiangongModel)tiangongModel.show=false;}
         }
         past.positions=data.orbits?orbit(data.track):[];future.positions=data.orbits?orbit(data.future):[];
+        pastJoin.positions=[];futureJoin.positions=[];bridgePosition=null;
+        const orbitPoint=data.points.find(p=>p.id===data.selected);
+        if(orbitPoint&&data.orbits){
+          // Bracket the whole interpolation span, including delayed snapshots.
+          // Only the small curved connectors animate; the complete orbit stays static.
+          const xyz=position(orbitPoint),displayed=motion.get(orbitPoint.id);
+          const lag=displayed?C.Cartesian3.distance(position(displayed),xyz):0;
+          const margin=Math.max(1000,(orbitPoint.speed_km_s||8)*2000)+lag;
+          let a=past.positions.length-1,b=0;
+          while(a>0&&C.Cartesian3.distance(past.positions[a],xyz)<margin)a--;
+          while(b<future.positions.length-1&&C.Cartesian3.distance(future.positions[b],xyz)<margin)b++;
+          past.positions=past.positions.slice(0,a+1);future.positions=future.positions.slice(b);
+          updateOrbitConnectors(displayed?position(displayed):xyz);
+        }
         const chosen=data.points.find(p=>p.id===data.selected);label.show=!!chosen;heightLine.positions=[];
         if(data.selected===null)stopFollowing();
         document.getElementById('satellite-views').hidden=data.selected===null;
@@ -448,9 +517,9 @@ window.AtlasGlobe={
         }
         lastSelection=data.selected;lastSelectionRequest=data.selectionRequest;container.dataset.points=String([...items.values()].filter(p=>p.show).length+(issVisible?1:0)+(tiangongVisible?1:0)+scienceLayer.count);container.dataset.altitudeScale='1';if(firstOverview&&data.points.length){firstOverview=false;if(data.selected===null&&data.points.some(p=>(AtlasPages.definition(AtlasPages.family(data.catalog.get(p.id)||p))?.frame_radius||0)>9000000&&data.visible(data.catalog.get(p.id)||p,p.id)))home();}viewer.scene.requestRender();
       },
-      setRendering(value){if(!value&&detailedLayer.loading)detailedLayer.cancel();viewer.useDefaultRenderLoop=active&&value;if(active&&value)viewer.scene.requestRender();},
-      setActive(value){if(!value){satellites.suspend?.();scienceLayer.release?.();moonLayer?.leave();moonLayer?.close();hoverLabel.show=false;detailedLayer.cancel();idleController?.cancel();stopJoystick();pendingX=0;pendingY=0;globeDrag=null;releaseFollow();}active=value;viewer.useDefaultRenderLoop=value;if(value){viewer.resize();viewer.scene.requestRender();}},
-      resize(){if(active){const atHome=resetButton.disabled&&!returningHome&&!moonLayer?.active;viewer.resize();if(atHome){viewer.camera.setView(homeView());rememberHome();updateHomeState();}viewer.scene.requestRender();}},
+      setRendering(value){renderBudget?.reset();if(!value&&detailedLayer.loading)detailedLayer.cancel();viewer.useDefaultRenderLoop=active&&value;if(active&&value)viewer.scene.requestRender();},
+      setActive(value){renderBudget?.reset();if(!value){satellites.suspend?.();scienceLayer.release?.();moonLayer?.leave();moonLayer?.close();hoverLabel.show=false;detailedLayer.cancel();idleController?.cancel();stopJoystick();pendingX=0;pendingY=0;globeDrag=null;releaseFollow();}active=value;viewer.useDefaultRenderLoop=value;if(value){viewer.resize();viewer.scene.requestRender();}},
+      resize(){if(active){const atHome=resetButton.disabled&&!returningHome&&!moonLayer?.active;renderBudget?.resize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,window.devicePixelRatio||1);viewer.resize();if(atHome){viewer.camera.setView(homeView());rememberHome();updateHomeState();}viewer.scene.requestRender();}},
       home,
       detailedCredit(id){return detailedLayer.credit?.(id);},
       detailedActive(id){return detailedLayer.replaces(id);},
