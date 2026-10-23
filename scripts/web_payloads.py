@@ -27,6 +27,18 @@ def prepare_live(bundle,history,updates,now):
     midnight=dt.datetime.combine(day,dt.time(),UTC)
     start=max(midnight,now-dt.timedelta(minutes=1))
     end=midnight+dt.timedelta(days=1)
+    # Exclude elements that cannot be valid anywhere in the live window. Keep
+    # the full observations resource for historical dates; do not drop objects.
+    def usable(row):
+        stamp=epoch(row)
+        padding=dt.timedelta(seconds=1)
+        if row['source']=='CelesTrak SupGP / SpaceX':
+            return stamp<=end+padding and stamp+dt.timedelta(days=1)+padding>=start
+        return stamp-dt.timedelta(days=3)-padding<=end and stamp+dt.timedelta(days=3)+padding>=start
+    # Keep orphan identifiers too: the engine also counts their unavailable
+    # positions, even when no SATCAT lifetime is present for them.
+    known={row['NORAD_CAT_ID'] for row in bundle.get('raw_catalog',[])}
+    rows=[row for row in rows if usable(row) or ('raw_catalog' in bundle and row['elements']['NORAD_CAT_ID'] not in known)]
     # Keep every element that could be closest at any time from the export to the end of this UTC day.
     # A future-dated or obsolete object must not disable the fast path for all pages.
     bounds={}

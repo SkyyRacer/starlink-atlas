@@ -16,3 +16,16 @@ with tempfile.TemporaryDirectory() as tmp:
   for ident in [1,2,3,4]:assert closest(rows,ident,at)==closest(live,ident,at)
  assert len(live)<len(rows)
 print('Fenêtre rapide : époques futures / anciennes isolées, sélection exacte sur toute la fenêtre, SupGP et quasi-égalités conservés OK')
+
+with tempfile.TemporaryDirectory() as tmp:
+ root=pathlib.Path(tmp)
+ ancient=row(99,'2016-01-01T00:00:00');future=row(100,'2030-01-01T00:00:00');expired_supgp=row(101,'2026-10-18T10:00:00','CelesTrak SupGP / SpaceX')
+ valid_at_end=row(102,'2026-10-22T23:59:59');valid_at_start=row(103,'2026-10-16T11:59:00')
+ all_rows=rows+[ancient,future,expired_supgp,valid_at_end,valid_at_start]
+ live,window=prepare_live({'orbits':all_rows,'catalog_response':{}},root,root,today)
+ assert all(r not in live for r in [ancient,future,expired_supgp])
+ assert valid_at_end in live and valid_at_start in live
+ for second in range(12*3600-60,86400,137):
+  at=today.replace(hour=0)+dt.timedelta(seconds=second)
+  for ident in [1,2,3,4,99,100,101,102,103]:assert closest(all_rows,ident,at)==closest(live,ident,at)
+print('Chargement initial : observations toujours périmées exclues, mêmes satellites et choix orbitaux à chaque instant de la fenêtre.')

@@ -79,7 +79,9 @@ jobs:
           path: data-runtime
           key: atlas-collection-${{ github.run_id }}
       - name: Vérifier le moteur WASM
-        run: node tests/wasm.cjs public
+        run: |
+          node tests/wasm.cjs public
+          node tests/publication-coverage.cjs public
       - name: Préparer les fichiers GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
