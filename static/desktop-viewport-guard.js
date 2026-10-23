@@ -7,11 +7,20 @@
  // when a mouse is attached; this mask is exclusively for desktop computers.
  const handheld=!!navigator.userAgentData?.mobile||/Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(agent)||(/Macintosh/i.test(agent)&&navigator.maxTouchPoints>1);
  const isDesktop=()=>!handheld&&!coarse.matches&&mouse.matches;
+ // The requested square must remain achievable on a desktop screen. Subtract
+ // browser chrome from the work area; never require more than a maximized tab.
+ function requiredSize(axis,current){
+  const screen=window.screen,available=Number(screen?.[axis==='Width'?'availWidth':'availHeight']);
+  const outer=Number(window['outer'+axis]);
+  if(!(available>0&&outer>0))return minimum;
+  const chrome=Math.max(0,outer-current);
+  return Math.min(minimum,Math.max(1,available-chrome-16));
+ }
  let mask=null,queued=false;
  function update(){
   queued=false;
   const width=Math.round(window.innerWidth),height=Math.round(window.innerHeight);
-  const blocked=isDesktop()&&(width<minimum||height<minimum);
+  const blocked=isDesktop()&&(width<requiredSize('Width',width)||height<requiredSize('Height',height));
   if(!blocked){if(mask?.open)mask.close();return;}
   if(!mask){
    mask=document.createElement('dialog');mask.id='desktop-viewport-guard';mask.setAttribute('aria-labelledby','desktop-viewport-title');mask.setAttribute('tabindex','-1');
@@ -26,5 +35,8 @@
  function schedule(){if(!queued){queued=true;requestAnimationFrame(update);}}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update,{once:true});else update();
  window.addEventListener('resize',schedule);
+ window.addEventListener('pageshow',schedule);
+ window.addEventListener('focus',schedule);
+ window.visualViewport?.addEventListener('resize',schedule);
  for(const media of [coarse,mouse]){if(media.addEventListener)media.addEventListener('change',schedule);else media.addListener(schedule);}
 })();
