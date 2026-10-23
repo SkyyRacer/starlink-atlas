@@ -7,3 +7,16 @@
 #desktop-viewport-guard .viewport-guard-icon{display:block;width:64px;height:64px;margin:24px auto 18px;color:#c8e3ef}
 #desktop-viewport-guard h1{margin:0;color:#f4f6f7;font-size:clamp(20px,3vw,27px);font-weight:550;letter-spacing:-.025em;line-height:1.25}
 @media(max-width:420px){#desktop-viewport-guard{padding:12px}#desktop-viewport-guard .viewport-guard-card{padding:24px 18px}}
+
+/* First Atlas load shares the size-mask card and its quiet, opaque background. */
+.catalog-entry-logo{display:none}
+html[data-atlas-entry-loading="true"] body::before{content:"";position:fixed;inset:0;z-index:2147483000;background:radial-gradient(ellipse at 50% 42%,#182129 0%,#0d1217 38%,#07090b 78%);pointer-events:auto}
+html[data-atlas-entry-loading="true"] #catalog-loader{position:fixed;inset:0;z-index:2147483001;box-sizing:border-box;padding:24px;background:radial-gradient(ellipse at 50% 42%,#182129 0%,#0d1217 38%,#07090b 78%);transition:none;overflow:auto}
+html[data-atlas-entry-loading="true"] #catalog-loader[data-state="closing"]{opacity:1}
+html[data-atlas-entry-loading="true"] #catalog-loader .loading-earth{display:none}
+html[data-atlas-entry-loading="true"] #catalog-loader .catalog-progress-panel{box-sizing:border-box;width:min(100%,520px);padding:38px 34px 30px;border:1px solid #ffffff32;border-radius:16px;background:#10161b;isolation:isolate;box-shadow:0 24px 80px #0008;line-height:1.65}
+html[data-atlas-entry-loading="true"] #catalog-loader .catalog-entry-logo{display:block;width:min(100%,260px);height:auto;margin:0 auto 30px;filter:contrast(1.12);mix-blend-mode:screen}
+html[data-atlas-entry-loading="true"] #catalog-loader .catalog-loading-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+html[data-atlas-entry-loading="true"] #catalog-loader .catalog-percentage{margin:0 0 20px;font-size:34px;font-variant-numeric:tabular-nums;text-shadow:none;color:#f4f6f7}
+html[data-atlas-entry-loading="true"] #catalog-loader .catalog-progress{height:4px;border-radius:4px;background:#ffffff25}
+@media(max-width:420px){html[data-atlas-entry-loading="true"] #catalog-loader{padding:12px}html[data-atlas-entry-loading="true"] #catalog-loader .catalog-progress-panel{padding:24px 18px}}

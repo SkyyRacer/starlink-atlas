@@ -21,8 +21,19 @@
  }
  if(typeof module!=='undefined'&&module.exports){module.exports={create};return;}
  const overlay=document.getElementById('catalog-loader'),view=overlay.closest('.view'),bar=document.getElementById('catalog-progress'),value=document.getElementById('catalog-percent'),fill=document.getElementById('catalog-progress-fill');
+ // Only the first Atlas arrival uses the branded card. Journeys and later
+ // timeline loads keep their usual loader; no extra data request or fake timer.
+ const loaderParent=overlay.parentNode,loaderNext=overlay.nextSibling;
+ let entry=document.documentElement.dataset.atlasEntryLoading==='true';
+ if(entry)document.body.append(overlay);
+ function releaseEntry(){
+  if(!entry)return;
+  entry=false;loaderParent.insertBefore(overlay,loaderNext?.parentNode===loaderParent?loaderNext:null);
+  delete document.documentElement.dataset.atlasEntryLoading;
+  document.dispatchEvent(new CustomEvent('atlas:entry-ready'));
+ }
  root.AtlasLoading=create({label:title=>{const node=overlay.querySelector('.catalog-loading-label')||overlay.querySelector('h2')||overlay.querySelector('p');if(node)node.textContent=title;overlay.setAttribute('aria-label',title);},now:()=>performance.now(),frame:requestAnimationFrame,cancelFrame:cancelAnimationFrame,later:setTimeout,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,
   render(percent,reopen){percent=Number.isFinite(percent)?Math.max(0,Math.min(100,Math.round(percent))):0;if(reopen){overlay.hidden=false;overlay.dataset.state='';view.dataset.loading='true';view.setAttribute('aria-busy','true');}value.textContent=String(percent);bar.setAttribute('aria-valuenow',String(percent));fill.style.transform=`scaleX(${percent/100})`;},
-  close(error){view.dataset.loading='false';view.setAttribute('aria-busy','false');overlay.dataset.state='closing';if(error)overlay.hidden=true;else setTimeout(()=>{if(overlay.dataset.state==='closing')overlay.hidden=true;},180);}
+  close(error){view.dataset.loading='false';view.setAttribute('aria-busy','false');overlay.dataset.state='closing';if(error){overlay.hidden=true;releaseEntry();}else setTimeout(()=>{if(overlay.dataset.state==='closing'){overlay.hidden=true;releaseEntry();}},180);}
  });
 })(typeof window==='undefined'?globalThis:window);

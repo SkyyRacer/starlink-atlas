@@ -41,3 +41,18 @@ const large=app({width:1516,height:964,screenWidth:2560,screenHeight:1400,chrome
 assert.equal(large.mask.open,true,'Keep the requested 1000 square when the screen can accommodate it');
 large.resize(1516,1000);assert.equal(large.mask.open,false);
 console.log('Small desktop screens: attainable minimum, browser chrome, maximize and shrink OK.');
+
+// A normal window leaves room for the Dock, desktop and other windows. It must
+// not need the green macOS full-screen button to dismiss the guard.
+for(const [screenWidth,screenHeight,width,height,chromeHeight] of [
+ [1512,945,1200,720,100],
+ [1920,1040,1516,864,100],
+ [1440,875,1200,670,90],
+ [1366,728,1100,540,90],
+]){
+ const a=app({width:700,height:400,screenWidth,screenHeight,chromeHeight,agent:'Macintosh Safari'});
+ assert.equal(a.mask.open,true);
+ a.resize(width,height);assert.equal(a.mask.open,false,'A large non-maximized Mac/PC window must unlock');
+ a.resize(700,400);assert.equal(a.mask.open,true,'Small windows remain protected');
+}
+console.log('Normal desktop windows: 15% work-area margin, no full-screen requirement, shrinking blocks again OK.');
