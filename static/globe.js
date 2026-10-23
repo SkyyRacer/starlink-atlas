@@ -154,7 +154,7 @@ window.AtlasGlobe={
     const extraLabels=satellitePrimitives.add(new C.LabelCollection()),nameItems=new Map();
     const selectedOutline=C.Color.fromCssColorString('#a9c5df'),unselectedOutline=C.Color.fromCssColorString('#1a1d25');
     const selectedMarker=satellitePrimitives.add(new C.PointPrimitiveCollection()).add({show:false,pixelSize:9,outlineWidth:2,outlineColor:C.Color.fromCssColorString('#a9c5df'),color:C.Color.WHITE});
-    const issIcon=AtlasISS.iconURI,tiangongIcon=AtlasTiangong.iconURI,pointIcon=AtlasISS.pointIconURI;
+    const issIcon=AtlasISS.iconURI,tiangongIcon=AtlasTiangong.iconURI;
     const issFallback=satellitePrimitives.add(new C.BillboardCollection()).add({id:25544,image:issIcon,width:64,height:44,show:false});
     let issModel=null,issVisible=false,issRequested=false;function loadISS(){if(issRequested)return;issRequested=true;AtlasISS.createModel(C,{primitives:satellitePrimitives}).then(model=>{issModel=model;if(lastData)api.update({...lastData,focus:false});}).catch(error=>{container.dataset.modelError=error.message;console.error('Modèle ISS :',error);});}
     const tiangongFallback=satellitePrimitives.add(new C.BillboardCollection()).add({id:48274,image:tiangongIcon,width:64,height:44,show:false});
@@ -164,13 +164,13 @@ window.AtlasGlobe={
     function sizeISS(){
       if(!lastData||moonLayer?.active)return;
       const size=AtlasISS.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,lastData.collection==='all'&&issFallback.position?C.Cartesian3.distance(viewer.camera.positionWC,issFallback.position):viewer.camera.positionCartographic.height,lastData.selected===25544,lastData.collection);
-      issFallback.width=size;issFallback.height=size*.7;if(issModel)issModel.minimumPixelSize=size;
+      const issPixels=Math.max(16,size);issFallback.width=issPixels;issFallback.height=issPixels*.7;if(issModel)issModel.minimumPixelSize=issPixels;
       if(issVisible&&size>7)loadISS();
-      const issDot=lastData.collection==='all'&&size<=7;if(issDot){issFallback.width=size*1.5;issFallback.height=size*1.5;}issFallback.image=issDot?pointIcon:issIcon;issFallback.show=issVisible&&!detailedLayer.replaces(25544)&&(issDot||!issModel);if(issModel)issModel.show=issVisible&&!detailedLayer.replaces(25544)&&!issDot;
+      const issSymbol=lastData.collection==='all'&&size<=7;issFallback.image=issIcon;issFallback.show=issVisible&&!detailedLayer.replaces(25544)&&(issSymbol||!issModel);if(issModel)issModel.show=issVisible&&!detailedLayer.replaces(25544)&&!issSymbol;
       const tgSize=AtlasTiangong.screenSize(viewer.canvas.clientWidth,viewer.canvas.clientHeight,lastData.collection==='all'&&tiangongFallback.position?C.Cartesian3.distance(viewer.camera.positionWC,tiangongFallback.position):viewer.camera.positionCartographic.height,lastData.selected===48274,lastData.collection);
-      tiangongFallback.width=tgSize;tiangongFallback.height=tgSize*.7;if(tiangongModel)tiangongModel.minimumPixelSize=tgSize;
+      const tgPixels=Math.max(16,tgSize);tiangongFallback.width=tgPixels;tiangongFallback.height=tgPixels*.7;if(tiangongModel)tiangongModel.minimumPixelSize=tgPixels;
       if(tiangongVisible&&tgSize>7)loadTiangong();
-      const tgDot=lastData.collection==='all'&&tgSize<=7;if(tgDot){tiangongFallback.width=tgSize*1.5;tiangongFallback.height=tgSize*1.5;}tiangongFallback.image=tgDot?pointIcon:tiangongIcon;tiangongFallback.show=tiangongVisible&&!detailedLayer.replaces(48274)&&(tgDot||!tiangongModel);if(tiangongModel)tiangongModel.show=tiangongVisible&&!detailedLayer.replaces(48274)&&!tgDot;
+      const tgSymbol=lastData.collection==='all'&&tgSize<=7;tiangongFallback.image=tiangongIcon;tiangongFallback.show=tiangongVisible&&!detailedLayer.replaces(48274)&&(tgSymbol||!tiangongModel);if(tiangongModel)tiangongModel.show=tiangongVisible&&!detailedLayer.replaces(48274)&&!tgSymbol;
     }
     viewer.scene.preUpdate.addEventListener(sizeISS);
     const scienceLayer=AtlasScience.createLayer(C,viewer,()=>{if(lastData)api.update({...lastData,focus:false});},satellitePrimitives);

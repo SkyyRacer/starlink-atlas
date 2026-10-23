@@ -3,12 +3,13 @@
  const base=new URL('./',document.currentScript.src),button=document.getElementById('orbital-news-button'),dialog=document.getElementById('orbital-news-dialog'),list=document.getElementById('orbital-news-list');let request;
  const element=(tag,text,className)=>{const node=document.createElement(tag);if(text)node.textContent=text;if(className)node.className=className;return node;};
  const date=value=>{const day=/^\d{4}-\d{2}-\d{2}$/.test(value||'');const parsed=new Date(day?value+'T12:00:00Z':value);return Number.isFinite(+parsed)?new Intl.DateTimeFormat('fr-FR',{timeZone:day?'UTC':'Europe/Paris',day:'2-digit',month:'2-digit',year:'numeric',...(!day?{hour:'2-digit',minute:'2-digit'}:{})}).format(parsed):'Date non précisée';};
+ const eventTime=item=>{const time=Date.parse(item.at);return Number.isFinite(time)?time:Date.parse(item.observed_at)||0;};
  const themeNames={stations:'Stations, équipages et sorties EVA',science:'Sciences et astronomie',navigation:'Navigation',telecommunications:'Télécommunications',observation:'Observation de la Terre',weather:'Météo et climat',experimental:'Expérimental',debris:'Débris spatiaux',other:'Autres objets'};
  function category(item){return item.category||(item.family==='debris'?'debris':['iss','tiangong'].includes(item.family)?'stations':AtlasPages.definition?.(item.family)?.category)||'other';}
  function render(data){
   const expanded=new Set([...list.querySelectorAll?.('.news-theme[open]')||[]].map(group=>group.dataset.theme));list.replaceChildren();
   const now=Date.now(),cutoff=now-7*86400000;
-  const items=(data.items||[]).filter(item=>{const value=item.observed_at||item.at,t=Date.parse(value);return Number.isFinite(t)&&t<=now&&(t>=cutoff||(/^\d{4}-\d{2}-\d{2}$/.test(value)&&value>=new Date(cutoff).toISOString().slice(0,10)));}).sort((a,b)=>String(b.at).localeCompare(String(a.at)));
+  const items=(data.items||[]).filter(item=>{const value=item.observed_at||item.at,t=Date.parse(value);return Number.isFinite(t)&&t<=now&&(t>=cutoff||(/^\d{4}-\d{2}-\d{2}$/.test(value)&&value>=new Date(cutoff).toISOString().slice(0,10)));}).sort((a,b)=>eventTime(b)-eventTime(a));
   if(!items.length){list.append(element('p','Aucun changement confirmé au cours des sept derniers jours.','news-empty'));return;}
   const groups=new Map();
   for(const [theme,name] of Object.entries(themeNames)){

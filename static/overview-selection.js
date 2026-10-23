@@ -2,8 +2,8 @@
 /* A compact overview selector sharing the original Atlas visibility controls. */
 (()=>{
  const $=id=>document.getElementById(id);
- if(document.body.dataset.collection!=='all'&&$('atlas-controls').hidden)return;
- const sources=[...document.querySelectorAll('.atlas-category[data-category]')];
+ const isAtlas=document.body.dataset.collection==='all'||!$('atlas-controls').hidden;
+ const sources=isAtlas?[...document.querySelectorAll('.atlas-category[data-category]')]:[];
  const root=document.createElement('details');root.id='overview-selection';
  const summary=document.createElement('summary');summary.textContent='Satellites sélectionnés';root.append(summary);
  const panel=document.createElement('div');panel.className='overview-selection-panel';root.append(panel);
@@ -17,6 +17,8 @@
   sync();
  }
  visibility.addEventListener('click',()=>{
+  const state=globalThis.AtlasSatelliteVisibility;
+  if(!isAtlas||state?.focused){state?.toggle();sync();return;}
   const checked=rows.filter(row=>row.source.checked);
   if(checked.length){hiddenSelection=new Set(checked.map(row=>row.source.dataset.family));commit(rows,false,true);}
   else{const restore=hiddenSelection?rows.filter(row=>hiddenSelection.has(row.source.dataset.family)):rows;commit(restore,true,true);hiddenSelection=null;}
@@ -34,14 +36,20 @@
   }
   bulk.addEventListener('change',()=>commit(members,bulk.checked));groups.push({bulk,members});
  }
+ let lastFocused=null;
  function sync(){
-  const hidden=!rows.some(row=>row.source.checked);
-  visibility.setAttribute('aria-pressed',String(hidden));visibility.textContent=hidden?'Afficher les satellites':'Masquer les satellites';
+  const state=globalThis.AtlasSatelliteVisibility,focused=state?.focused??$('advanced-model-options').dataset.following==='true';
+  if(state&&lastFocused!==null&&lastFocused!==focused)state.refresh();lastFocused=focused;
+  const hidden=isAtlas&&!focused?!rows.some(row=>row.source.checked):!!state?.hidden;
+  visibility.setAttribute('aria-pressed',String(hidden));visibility.textContent=focused?(hidden?'Afficher les autres satellites':'Masquer les autres satellites'):(hidden?'Afficher les satellites':'Masquer les satellites');
   for(const row of rows)row.target.checked=row.source.checked;
   for(const {bulk,members} of groups){const n=members.filter(row=>row.source.checked).length;bulk.checked=n===members.length;bulk.indeterminate=n>0&&n<members.length;}
-  const following=$('advanced-model-options').dataset.following==='true';root.hidden=following;visibility.hidden=following;if(following)root.open=false;
+  root.hidden=!isAtlas||focused;visibility.hidden=state?!state.available:!isAtlas;if(root.hidden)root.open=false;
+  const planar=$('view-2d').getAttribute('aria-pressed')==='true',buttons=document.querySelector('.globe-buttons');
+  if(planar&&$('map-creator')){if(visibility.parentElement!==$('map-creator'))$('map-creator').prepend(visibility);}
+  else if(visibility.parentElement!==buttons.parentElement||buttons.nextElementSibling!==visibility)buttons.after(visibility);
  }
- document.querySelector('.globe-buttons').after(visibility,root);
+ document.querySelector('.globe-buttons').after(visibility);if(isAtlas)visibility.after(root);
  let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;sync();});}
  document.addEventListener('change',event=>{if(!applying&&event.target.matches('[data-family]'))hiddenSelection=null;schedule();});
  // Checkbox click default actions dispatch change after click listeners. A sync
@@ -49,7 +57,9 @@
  document.addEventListener('click',event=>{if(!root.contains(event.target)&&!visibility.contains(event.target))schedule();});
  // Visibility changes already emit change events; live counters need no resync.
  new MutationObserver(sync).observe($('advanced-model-options'),{attributes:true,attributeFilter:['data-following']});
- document.addEventListener('pointerdown',event=>{if(root.open&&!root.contains(event.target))root.open=false;});
+ new MutationObserver(sync).observe($('view-2d'),{attributes:true,attributeFilter:['aria-pressed']});
+ document.addEventListener('atlas:satellite-visibility-state',sync);
+ document.addEventListener('pointerdown',event=>{if(root.open&&!root.contains(event.target)&&!visibility.contains(event.target))root.open=false;});
  root.addEventListener('keydown',event=>{if(event.key==='Escape'&&root.open){event.preventDefault();root.open=false;summary.focus({preventScroll:true});}});
  sync();
 })();

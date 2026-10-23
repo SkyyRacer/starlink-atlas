@@ -415,3 +415,8 @@ body.earth-workspace > #workspace-debris-menu[hidden]{display:none}
 
 #lunar-controls .lunar-orbit{display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.5;color:#79bce5}
 #lunar-controls .lunar-orbit[hidden]{display:none}
+
+/* The same switch remains reachable in overview, close view and planisphere. */
+#overview-visibility{display:block;width:100%;min-height:36px;margin:10px 0;padding:8px 10px;white-space:normal;pointer-events:auto}
+#map-creator>#overview-visibility{width:max-content;max-width:calc(100vw - 40px);margin:0 0 8px;background:#0b0b0bef;color:#ddd;border:1px solid #666;font-size:11px}
+#map-creator>#overview-visibility:hover{background:#eee;color:#111}

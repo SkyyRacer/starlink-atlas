@@ -1,0 +1,9 @@
+#desktop-viewport-guard{position:fixed;inset:0;box-sizing:border-box;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:24px;border:0;background:transparent;color:#e9eef1;overflow:auto;outline:none;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:center}
+#desktop-viewport-guard[open]{display:grid;place-items:center}
+/* Opaque, softly graduated backdrop: live scene changes never show through. */
+#desktop-viewport-guard::backdrop{background:radial-gradient(ellipse at 50% 42%,#182129 0%,#0d1217 38%,#07090b 78%);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+#desktop-viewport-guard .viewport-guard-card{box-sizing:border-box;width:min(100%,520px);padding:38px 34px 30px;border:1px solid #ffffff32;border-radius:16px;background:#10161b;isolation:isolate;box-shadow:0 24px 80px #0008;line-height:1.65}
+#desktop-viewport-guard .viewport-guard-logo{display:block;width:min(100%,260px);height:auto;margin:0 auto 12px;filter:contrast(1.12);mix-blend-mode:screen}
+#desktop-viewport-guard .viewport-guard-icon{display:block;width:64px;height:64px;margin:24px auto 18px;color:#c8e3ef}
+#desktop-viewport-guard h1{margin:0;color:#f4f6f7;font-size:clamp(20px,3vw,27px);font-weight:550;letter-spacing:-.025em;line-height:1.25}
+@media(max-width:420px){#desktop-viewport-guard{padding:12px}#desktop-viewport-guard .viewport-guard-card{padding:24px 18px}}

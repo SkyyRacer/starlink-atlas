@@ -23,3 +23,6 @@ body.lunar-page{margin:0;background:#000;color:#eee;font:13px Arial,sans-serif;f
 .lunar-page .timeline #clock{display:block;font-size:20px;font-variant-numeric:tabular-nums;margin-top:5px}
 .lunar-page .timeline #date-entry{border:0;background:transparent;text-align:left}
 .lunar-page .timeline .time-controls{align-items:stretch}
+
+.lunar-page .lunar-creator{left:24px;right:auto;bottom:26px;max-width:calc(100% - 48px)}
+@media(max-width:900px){.lunar-page .lunar-creator{left:12px;bottom:18px;max-width:calc(100% - 24px)}}

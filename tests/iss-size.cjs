@@ -16,4 +16,12 @@ for(const selected of [false,true]){
  assert.ok(size(390,745,200000,selected,'all')>=38);
  let previous=Infinity;for(const distance of [200000,500000,1000000,3500000,12000000,30000000]){const value=size(390,745,distance,selected,'all');assert.ok(value<=previous);previous=value;}
 }
-console.log('Atlas : modèles réduits à 3 px de loin, grossissement continu vers la cible, pages dédiées inchangées.');
+console.log('Atlas : référence de taille progressive selon la distance, pages dédiées inchangées.');
+
+vm.runInNewContext(fs.readFileSync('static/tiangong-visual.js','utf8'),context);
+for(const visual of [context.window.AtlasISS,context.window.AtlasTiangong]){
+ const drawing={save(){},restore(){},translate(){},rotate(){},scale(x){this.size=x;},beginPath(){},moveTo(){},lineTo(){},stroke(){},arc(){throw Error('A white model must never become a dot');}};
+ visual.draw2D(drawing,0,0,3);assert.equal(drawing.strokeStyle,'#fff');assert.ok(drawing.size>0.1);assert.equal(visual.pointIconURI,undefined);
+ assert.match(decodeURIComponent(visual.iconURI),/width="[0-9]+" height="[0-9]+"/);
+}
+console.log('White schematics: explicit image dimensions, readable distant silhouettes and no dot substitution.');
