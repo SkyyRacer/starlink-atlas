@@ -72,6 +72,8 @@ jobs:
             if [ -f "$file" ]; then echo "::warning::Une source a interrompu sa collecte : $file. Le cache validé reste publié."; fi
           done
       - name: Construire le site autonome
+        env:
+          KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}
         run: python3 scripts/build_static.py --output public --data-dir data-runtime --history-dir data-seed/history --compact-cache --remote-history "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_SHA}/data-seed/history/"
       - uses: actions/cache/save@v4
         if: always()
