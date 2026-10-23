@@ -7,7 +7,7 @@ function boot({url='https://example.org/atlas',asset='https://example.org/deskto
  Object.defineProperty(document,'currentScript',{value:{src:asset}});
  Object.defineProperty(document,'readyState',{value:'complete'});
  const browser={sessionStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)},location:{href:url},innerWidth:small?800:1400,innerHeight:small?700:1100,addEventListener(){}};
- const context={window:browser,document,URL,navigator:{userAgent:mobile?'iPhone Mobile':'Windows',maxTouchPoints:mobile?5:0},matchMedia:q=>({matches:q.includes('coarse')?mobile:q.includes('fine')?!mobile:true,addEventListener(){}}),performance:{now:()=>clock},requestAnimationFrame:fn=>(frames.set(++serial,fn),serial),cancelAnimationFrame:id=>frames.delete(id),setTimeout:fn=>timers.push(fn),CustomEvent:window.CustomEvent};
+ const context={window:browser,document,URL,navigator:{userAgent:mobile?'iPhone Mobile':'Windows',maxTouchPoints:mobile?5:0},matchMedia:q=>({matches:q.includes('max-width')?(browser.innerWidth<1000||browser.innerHeight<650):q.includes('coarse')?mobile:q.includes('fine')?!mobile:true,addEventListener(){}}),performance:{now:()=>clock},requestAnimationFrame:fn=>(frames.set(++serial,fn),serial),cancelAnimationFrame:id=>frames.delete(id),setTimeout:fn=>timers.push(fn),CustomEvent:window.CustomEvent};
  vm.createContext(context);vm.runInContext(guard,context);
  const entry=document.documentElement.dataset.atlasEntryLoading==='true';
  vm.runInContext(loading,context);

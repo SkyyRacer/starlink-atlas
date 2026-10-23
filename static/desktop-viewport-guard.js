@@ -20,28 +20,23 @@
   if(!event.target.closest?.('#atlas-home, #earth-home'))return;
   try{window.sessionStorage.setItem(logoKey,'1');}catch{}
  },true);
- const minimum=1000,coarse=matchMedia('(pointer: coarse)'),mouse=matchMedia('(any-pointer: fine)');
+ // CSS pixels, not physical display pixels. Leave room for ordinary browser
+ // windows on smaller screens; outerWidth/outerHeight and browser chrome are
+ // deliberately excluded because their meaning varies with OS and page zoom.
+ const area=window.screen;
+ const limit=(value,maximum)=>Number.isFinite(Number(value))&&Number(value)>0?Math.min(maximum,Math.floor(Number(value)*.8)):maximum;
+ const minimumWidth=limit(area?.availWidth,1000),minimumHeight=limit(area?.availHeight,650);
+ const small=matchMedia(`(max-width: ${minimumWidth-.02}px), (max-height: ${minimumHeight-.02}px)`);
+ const coarse=matchMedia('(pointer: coarse)'),mouse=matchMedia('(any-pointer: fine)');
  const agent=navigator.userAgent||'';
  // iPadOS can advertise a desktop UA. A touch-first device stays exempt even
  // when a mouse is attached; this mask is exclusively for desktop computers.
  const handheld=!!navigator.userAgentData?.mobile||/Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(agent)||(/Macintosh/i.test(agent)&&navigator.maxTouchPoints>1);
  const isDesktop=()=>!handheld&&!coarse.matches&&mouse.matches;
- // Keep the requested square when possible, with room for a normal desktop
- // window: reserve 15% of the work area, then subtract browser chrome.
- // Requiring almost 100% of the screen effectively forced macOS full screen.
- function requiredSize(axis,current){
-  const screen=window.screen,available=Number(screen?.[axis==='Width'?'availWidth':'availHeight']);
-  const outer=Number(window['outer'+axis]);
-  if(!(available>0&&outer>0))return minimum;
-  const chrome=Math.max(0,outer-current);
-  return Math.min(minimum,Math.max(1,available*.85-chrome));
- }
- let mask=null,queued=false;
+ let mask=null;
  function update(){
-  queued=false;
   if(document.documentElement.dataset.atlasEntryLoading==='true')return;
-  const width=Math.round(window.innerWidth),height=Math.round(window.innerHeight);
-  const blocked=isDesktop()&&(width<requiredSize('Width',width)||height<requiredSize('Height',height));
+  const blocked=isDesktop()&&small.matches;
   if(!blocked){if(mask?.open)mask.close();return;}
   if(!mask){
    mask=document.createElement('dialog');mask.id='desktop-viewport-guard';mask.setAttribute('aria-labelledby','desktop-viewport-title');mask.setAttribute('tabindex','-1');
@@ -53,12 +48,11 @@
   }
   if(!mask.open)mask.showModal();
  }
- function schedule(){if(!queued){queued=true;requestAnimationFrame(update);}}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update,{once:true});else update();
  document.addEventListener('atlas:entry-ready',update);
- window.addEventListener('resize',schedule);
- window.addEventListener('pageshow',schedule);
- window.addEventListener('focus',schedule);
- window.visualViewport?.addEventListener('resize',schedule);
- for(const media of [coarse,mouse]){if(media.addEventListener)media.addEventListener('change',schedule);else media.addListener(schedule);}
+ window.addEventListener('resize',update);
+ window.addEventListener('pageshow',update);
+ window.addEventListener('focus',update);
+ window.visualViewport?.addEventListener('resize',update);
+ for(const media of [small,coarse,mouse]){if(media.addEventListener)media.addEventListener('change',update);else media.addListener(update);}
 })();
