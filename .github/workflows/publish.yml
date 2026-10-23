@@ -84,16 +84,12 @@ jobs:
         run: |
           node tests/wasm.cjs public
           node tests/publication-coverage.cjs public
-      - name: Installer le navigateur de vérification
-        if: github.event_name != 'schedule'
-        timeout-minutes: 6
-        run: |
-          npm install --prefix "$RUNNER_TEMP/atlas-render-check" --no-audit --no-fund --fetch-retries=1 --fetch-timeout=60000 playwright@1.56.1 pngjs@7
-          "$RUNNER_TEMP/atlas-render-check/node_modules/.bin/playwright" install chromium --only-shell
       - name: Vérifier le rendu réel des points et modèles 3D
         if: github.event_name != 'schedule'
-        timeout-minutes: 4
-        run: NODE_PATH="$RUNNER_TEMP/atlas-render-check/node_modules" node tests/render-browser.cjs public
+        run: |
+          npm install --prefix "$RUNNER_TEMP/atlas-render-check" --no-audit --no-fund playwright@1.56.1 pngjs@7
+          "$RUNNER_TEMP/atlas-render-check/node_modules/.bin/playwright" install --with-deps chromium
+          NODE_PATH="$RUNNER_TEMP/atlas-render-check/node_modules" node tests/render-browser.cjs public
       - name: Préparer les fichiers GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
