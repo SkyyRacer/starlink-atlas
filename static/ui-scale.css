@@ -1,0 +1,24 @@
+/* UI only: the canvas, satellite picking, rendering resolution and loading masks
+   retain normal viewport coordinates. Each UI subtree is scaled exactly once. */
+html[data-desktop-ui=true]{--site-header-height:84px;--site-header-padding:22px;--site-header-gap:18px;--site-logo-width:175px;--site-logo-height:74px}
+html[data-desktop-ui=true] :is(body>header.site-header,.earth-view-controls,#scene-left-stack,.globe-navigation,.timeline,#detail,#lunar-detail,.globe-help,#map-creator,#satellite-panel,#advanced-panel,body>#workspace-debris-menu,body>#orbital-news-dialog,body>#iss-mission-dialog,body>#date-popover,.leaflet-control-container,.lunar-page .globe-tools,.lunar-zoom,.model-progress-panel){zoom:var(--atlas-ui-scale,1)}
+html[data-desktop-ui=true] body:is(.earth-workspace,.lunar-page){--workspace-header:84px}
+html[data-desktop-ui=true] .lunar-page .view{top:calc(84px * var(--atlas-ui-scale))}
+html[data-desktop-ui=true] .lunar-page .earth-view-controls{top:16px;left:20px}
+html[data-desktop-ui=true] .lunar-page .lunar-zoom{top:16px;right:20px}
+html[data-desktop-ui=true] .lunar-page .lunar-zoom button{width:30px;height:30px;font-size:22px;padding:0}
+html[data-desktop-ui=true] .lunar-page .earth-view-controls button{font-size:10px}
+html[data-desktop-ui=true] .lunar-page #lunar-shadows-toggle{min-height:30px;padding:9px 10px}
+html[data-desktop-ui=true] .lunar-page .globe-tools{left:20px;bottom:74px;width:245px;padding:8px;font-size:11px}
+html[data-desktop-ui=true] .lunar-page .globe-tools>button{min-height:36px;font-size:11px;padding:8px 10px}
+html[data-desktop-ui=true] .lunar-page .lunar-creator{left:20px;bottom:26px;font-size:10px}
+html[data-desktop-ui=true] .earth-workspace #workspace-navigation{gap:9px}
+html[data-desktop-ui=true] .earth-workspace #workspace-navigation>.collection-navigation{width:220px;min-width:150px}
+html[data-desktop-ui=true] .earth-workspace #workspace-navigation :is(#advanced-tools,#workspace-objects,#orbital-news-button){padding:9px 12px;font-size:11px}
+html[data-desktop-ui=true] .earth-workspace #workspace-navigation #orbital-news-button svg{display:block}
+html[data-desktop-ui=true] .earth-workspace .globe-help{bottom:26px}
+html[data-desktop-ui=true] :is(.earth-workspace,.lunar-page) .timeline{bottom:48px}
+html[data-desktop-ui=true] :is(.earth-workspace,.lunar-page) .timeline[data-expanded=true]{width:min(560px,calc(100% - 400px))}
+/* Detached fixed menus receive viewport positions from AtlasUI.place. Menus still
+   nested in the header already inherit its zoom; do not apply a second zoom. */
+html[data-desktop-ui=true] .lunar-page .timeline #clock{font-size:17px}

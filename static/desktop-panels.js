@@ -45,7 +45,7 @@
    $('advanced-model-section').hidden=true;
    syncModelView();
   }
-  function fitMenu(){if(!desktop.matches||menu.hidden||!Number.isFinite(root.innerHeight))return;const available=Math.max(140,root.innerHeight-menu.getBoundingClientRect().top-30);menu.style.maxHeight=available+'px';const list=$('collection-menu-list');list.style.maxHeight=Math.max(80,available-search.offsetHeight-55)+'px';}
+  function fitMenu(){if(!desktop.matches||menu.hidden||!Number.isFinite(root.innerHeight))return;const available=Math.max(140,(root.innerHeight-menu.getBoundingClientRect().top-30)/(root.AtlasUI?.scale||1));menu.style.maxHeight=available+'px';const list=$('collection-menu-list');list.style.maxHeight=Math.max(80,available-search.offsetHeight-55)+'px';}
   menuButton.addEventListener('click',()=>{if(desktop.matches&&!menu.hidden){input.focus({preventScroll:true});fitMenu();}});
   input.addEventListener('input',fitMenu);root.addEventListener('resize',fitMenu);
   input.addEventListener('keydown',event=>{

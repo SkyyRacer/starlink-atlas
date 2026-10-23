@@ -26,19 +26,21 @@
  window.AtlasWorkspace={submenuGeometry};
  function positionSubmenu(panel,trigger,width){
   if(!desktop.matches||!Number.isFinite(window.innerWidth)||!Number.isFinite(window.innerHeight))return;
-  const g=submenuGeometry(trigger.getBoundingClientRect(),window.innerWidth,window.innerHeight,width,header.getBoundingClientRect().bottom);
-  for(const key of ['left','top','width','maxHeight'])panel.style[key]=g[key]+'px';
+  const scale=window.AtlasUI?.scale||1;
+  const g=submenuGeometry(trigger.getBoundingClientRect(),window.innerWidth,window.innerHeight,width*scale,header.getBoundingClientRect().bottom);
+  if(window.AtlasUI)window.AtlasUI.place(panel,g);else for(const key of ['left','top','width','maxHeight'])panel.style[key]=g[key]+'px';
   panel.style.right='auto';panel.style.bottom='auto';
  }
  function positionDebris(){
   if(!mounted||debrisMenu.hidden||!Number.isFinite(window.innerHeight))return;
   const anchor=debrisButton.getBoundingClientRect(),bounds=stack.getBoundingClientRect();
   const headerBottom=header.getBoundingClientRect().bottom;
-  const width=Math.min(320,window.innerWidth-40);
-  debrisMenu.style.left=Math.max(20,Math.min(bounds.left,window.innerWidth-width-20))+'px';
-  debrisMenu.style.width=width+'px';debrisMenu.style.right='auto';debrisMenu.style.top='auto';
-  debrisMenu.style.bottom=Math.max(20,window.innerHeight-anchor.top+10)+'px';
-  debrisMenu.style.maxHeight=Math.max(80,anchor.top-headerBottom-30)+'px';
+  const scale=window.AtlasUI?.scale||1;
+  const width=Math.min(320*scale,window.innerWidth-40);
+  debrisMenu.style.left=Math.max(20,Math.min(bounds.left,window.innerWidth-width-20))/scale+'px';
+  debrisMenu.style.width=width/scale+'px';debrisMenu.style.right='auto';debrisMenu.style.top='auto';
+  debrisMenu.style.bottom=Math.max(20,window.innerHeight-anchor.top+10)/scale+'px';
+  debrisMenu.style.maxHeight=Math.max(80,anchor.top-headerBottom-30)/scale+'px';
  }
  function positionMenus(){
   if(!mounted)return;
@@ -135,13 +137,14 @@
   const input=$('iss-search'),results=$('iss-search-results');if(results.hidden||!results.childElementCount)return;
   const panel=rail.getBoundingClientRect();if(panel.height<=0)return;
   const field=input.getBoundingClientRect(),viewportHeight=window.innerHeight||panel.height;
-  const limit=Math.max(72,Math.min(viewportHeight*.32,panel.height-field.height-80));
+  const scale=window.AtlasUI?.scale||1;
+  const limit=Math.max(72,Math.min(viewportHeight*.32,panel.height-field.height-80)/scale);
   if(results.style.maxHeight!==limit+'px')results.style.maxHeight=limit+'px';
   const top=panel.top+12,bottom=panel.bottom-12;
-  if(field.top<top)rail.scrollTop=Math.max(0,rail.scrollTop+field.top-top);
+  if(field.top<top)rail.scrollTop=Math.max(0,rail.scrollTop+(field.top-top)/scale);
   const current=input.getBoundingClientRect(),list=results.getBoundingClientRect();
   const delta=Math.min(Math.max(0,list.bottom-bottom),Math.max(0,current.top-top));
-  if(delta>0)rail.scrollTop+=delta;
+  if(delta>0)rail.scrollTop+=delta/scale;
  }
  function queueSearchReveal(){if(searchRevealQueued)return;searchRevealQueued=true;queueMicrotask(()=>{searchRevealQueued=false;revealStationResults();});}
  if(isStation){
