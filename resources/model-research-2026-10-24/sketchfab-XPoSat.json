@@ -1,0 +1,5 @@
+{
+  "query": "XPoSat",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=XPoSat&count=12&sort_by=-relevance",
+  "results": []
+}

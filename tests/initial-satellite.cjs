@@ -16,3 +16,5 @@ vm.createContext(delayed);vm.runInContext(fragment+'\nfocusInitialSatellite();',
 console.log('Vue initiale éloignée : orientation sans sélection, sans suivi ni fiche, moteur différé et Atlas préservés.');
 // Previous selection rules still apply to the overview target.
 console.log('Centrage initial : première position en service, repli sur statut inconnu, Atlas et sélection existante préservés, une seule activation.');
+
+const deepChoices=[],deep={collectionMode:'kepler',catalog:[{id:34380,ops:'-'}],points:[{id:34380,lat:1,lon:2,altitude_km:250000000}],selected:null,initialOverviewTarget:null,displayMode:'3d',globeController:null,Set,AtlasPages:require('../static/pages.js'),state:()=> 'orbit',choose:(...args)=>deepChoices.push(args)};vm.createContext(deep);vm.runInContext(fragment+'\nfocusInitialSatellite();focusInitialSatellite();',deep);assert.deepEqual(deepChoices,[[34380,true,'close']],'Kepler is focused once despite inactive operation status when a valid Horizons position exists');

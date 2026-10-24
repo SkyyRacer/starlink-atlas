@@ -151,7 +151,17 @@ Choisir **ISS** dans le menu en haut de la colonne gauche. Les vols sont regroup
 
 Le serveur collecte les faits Launch Library 2 toutes les 6 heures et conserve `data/iss-missions.json`. La visite en cours ne recharge pas ce catalogue ; recharger la page pour obtenir la dernière collecte. En cas d’indisponibilité, le cache est conservé avec sa date de réception visible. Le mode `OFFLINE=1` désactive la collecte. Voir `SOURCES.md` pour la couverture et les limites. Après une mise à jour du programme, arrêter l’ancien processus avec Ctrl+C puis relancer le binaire.
 
-### Pages de l’observatoire
+#### Relancer l’aperçu local sur le port 3003
+
+Après l’ajout de nouvelles pages, le serveur doit être recompilé et relancé : sa liste de routes est chargée au démarrage. Recharger le navigateur actualise les scripts, mais ne remplace pas le serveur déjà ouvert. Sur macOS/Linux :
+
+```sh
+bash scripts/restart_local.sh
+```
+
+Ce script compile d’abord la source actuelle, arrête uniquement le serveur Atlas écoutant sur le port 3003, conserve le dossier de données existant et relance l’aperçu à la même adresse. Il refuse d’arrêter un autre programme.
+
+## Pages de l’observatoire
 
 La version locale fournit trois documents accessibles directement : `/atlas` (tous les satellites), `/iss` et `/starlink`. Le menu **Choisir les satellites à observer** effectue une navigation complète ; recherches, filtres et couleurs reviennent à leurs valeurs initiales sur une nouvelle page. `/` redirige vers `/atlas`, la page d’accueil. Les adresses sont distinctes pour permettre de mesurer séparément les consultations lors d’une future intégration de statistiques ou de publicité ; aucun outil publicitaire n’est installé dans cette version.
 
@@ -228,3 +238,13 @@ Les collecteurs existants restent espacés de deux heures, sous réserve de disp
 L’objectif d’import couvre tout le catalogue de l’application ; la disponibilité d’une position à n’importe quelle date dépend des observations publiques et de leur validité. Les trous d’archives, dates antérieures au lancement ou postérieures à la désorbitation restent signalés. Aucun objet absent des sources n’est simulé pour donner une couverture artificielle de 100 %.
 
 Le bouton « Actualités » de l’en-tête ouvre un fil orbital commun aux pages. Le serveur compare les catalogues collectés, regroupe les objets d’un même lancement et conserve les 60 événements les plus récents dans `data/orbital-news.json`. Il détecte les nouveaux objets, désorbitations documentées et changements de statut explicites ; une simple nouvelle position, l’absence d’éléments orbitaux et les mises à jour logicielles n’annoncent rien. À la première installation, les lancements et désorbitations documentés des trente derniers jours amorcent le fil ; les changements de statut antérieurs ne sont pas reconstitués. L’heure est affichée uniquement si elle est fournie. L’export statique contient `news.json`, renouvelé au prochain export des données.
+
+### Missions historiques et dernières positions
+
+Les familles historiques et opérateurs supplémentaires sont définis par les règles relues de `resources/mission-selection-rules.json`. `python3 scripts/expand_mission_catalog.py` reconstruit les catalogues vérifiés à partir du SATCAT livré et des identités publiques GCAT conservées ; `python3 scripts/generate_constellations.py` synchronise les menus et le registre navigateur, en gardant les URLs existantes.
+
+Après un import d'archives, `python3 scripts/index_retired_positions.py --data-dir /chemin/data` construit le petit index et les observations individuelles du bouton « Voir la dernière position archivée ». Ce travail se fait hors du navigateur. Le clic règle la chronologie, suspend la lecture et centre la caméra sur l'objet ; la publication statique peut ouvrir cette observation sans télécharger des années d'historique. Une date d'arrêt des opérations n'est jamais déduite de la dernière observation.
+
+Les vecteurs officiels des quatre missions lointaines prises en charge se renouvellent avec `python3 scripts/import_mission_ephemerides.py` ; leurs années sont chargées séparément. Les sources, limites de couverture et missions sans trajectoire vérifiée sont documentées dans `SOURCES.md`.
+
+Les bornes horaires publiques se reconstruisent avec `python3 scripts/refresh_mission_lifetimes.py --gcat-satcat /chemin/satcat.tsv --launchlog /chemin/launchlog.tsv`. Les jours sont recoupés avec le SATCAT ; les mentions incertaines restent sans heure. Cela permet notamment de consulter les archives disponibles d'une mission lancée et revenue le même jour. Les précisions d'heure ne créent pas de nouvelle actualité de désorbitation.

@@ -1,0 +1,582 @@
+{
+  "query": "Salyut",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=Salyut&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "2781dd23fab246a7986df4108e8c0fbe",
+      "name": "Saliut",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-2781dd23fab246a7986df4108e8c0fbe",
+      "isDownloadable": false,
+      "vertexCount": 4446,
+      "faceCount": 7495,
+      "license": null,
+      "user": {
+        "uid": "4bf7edd7438b4f15bb1239b4332f7339",
+        "username": "akukaracha",
+        "displayName": "Mihail",
+        "profileUrl": "https://sketchfab.com/akukaracha",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/86c79c60ce7a4cdca79668c5783201be",
+          "images": [
+            {
+              "size": 635,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/86c79c60ce7a4cdca79668c5783201be/638dfa6e510d4737ac6e182e34ce9677.jpeg",
+              "height": 32
+            },
+            {
+              "size": 960,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/86c79c60ce7a4cdca79668c5783201be/aa0d40fe1d114636b1d9976594cba77b.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2230,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/86c79c60ce7a4cdca79668c5783201be/53f9e8c154d44306954e997747d466b4.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2613,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/86c79c60ce7a4cdca79668c5783201be/c11a17338acd45cfb60bb8ac6e31ef76.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/4bf7edd7438b4f15bb1239b4332f7339"
+      },
+      "description": "3D model of the medium format film camera \"Салют\"(Salyut), produced from 1957 to 1972.\nGameready model.\n7.5K Tris, texture size 2K."
+    },
+    {
+      "uid": "1ae8643335ad430e936f65bf443d6bf5",
+      "name": "Soyuz 7k-t",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-1ae8643335ad430e936f65bf443d6bf5",
+      "isDownloadable": false,
+      "vertexCount": 7184,
+      "faceCount": 12912,
+      "license": null,
+      "user": {
+        "uid": "6c9706f7473c4a139c72cae77fa9e12f",
+        "username": "Nika_Cheese",
+        "displayName": "Robert Jubbega",
+        "profileUrl": "https://sketchfab.com/Nika_Cheese",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/19d05184337b4271911ecbc742f8b822",
+          "images": [
+            {
+              "size": 2216,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/19d05184337b4271911ecbc742f8b822/1ca1653e345c4eb9880791783cf706f0.png",
+              "height": 32
+            },
+            {
+              "size": 4411,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/19d05184337b4271911ecbc742f8b822/711306fd44a646ccbd5de2276c9e1ff2.png",
+              "height": 48
+            },
+            {
+              "size": 12833,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/19d05184337b4271911ecbc742f8b822/24b2ed721b984b01b2f52a7e0c2b9a46.png",
+              "height": 90
+            },
+            {
+              "size": 15245,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/19d05184337b4271911ecbc742f8b822/470d79032d7640208145fb7c7cacda62.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6c9706f7473c4a139c72cae77fa9e12f"
+      },
+      "description": "The second generation of the Soyuz spacecraft, the Soyuz 7K-T, comprised Soyuz 12 through Soyuz 40 (1973-1981). In the wake of the Soyuz 11 tragedy, the spacecraft was redesigned to accommodate two cosmonauts who would wear pressure suits at all times during launch, docking, undocking, and reentry. The place of the third cosmonaut was taken by extra life-support systems. Finally, the 7K-T, being intended purely as a space station ferry, had no solar panels, instead sporting two large whip antennas in their place. As a result, it relied on batteries which only provided enough power for two days of standalone flight. The idea was that the Soyuz would recharge while docked with a Salyut space station, but in the event of a docking or other mission failure (which ended up happening on several occasions), the crew was forced to power off everything except communications and life support systems until they could reenter."
+    },
+    {
+      "uid": "68e7ba8008c64e23aa15bd2c0cde80ea",
+      "name": "Tianhe",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-68e7ba8008c64e23aa15bd2c0cde80ea",
+      "isDownloadable": false,
+      "vertexCount": 18178,
+      "faceCount": 34256,
+      "license": null,
+      "user": {
+        "uid": "9b1ba1fb5107458980b172cee8a780d2",
+        "username": "tashtego",
+        "displayName": "tashtego",
+        "profileUrl": "https://sketchfab.com/tashtego",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3d8159a3901f4e2586aea5d29f15dba2",
+          "images": [
+            {
+              "size": 5671,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/5dea1c5f24cf43e6b130a7ab1aeb1374.jpeg",
+              "height": 100
+            },
+            {
+              "size": 4907,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/4971027df16348fe868b948e2c8875bb.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1698,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/93605a6de9c94d93bbe7eeb84830055e.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1012,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/01844998fd014360a97c4bab2090cfc2.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/9b1ba1fb5107458980b172cee8a780d2"
+      },
+      "description": "Tianhe (Chinese: 天和; pinyin: Tiānhé; lit. 'Harmony of the Heavens'), officially the Tianhe core module (Chinese: 天和号核心舱), is the first module to launch of the Tiangong space station. It was launched into orbit on 29 April 2021, as the first launch of the final phase of Tiangong program (Project 921), part of the Chinese space program.\n\nTianhe follows in the footsteps of Salyut, Skylab, Mir, International Space Station, Tiangong-1 and Tiangong-2 space stations. It is the first module of a third-generation Chinese modular space station. Other examples of modular station projects include the Soviet/Russian Mir, Russian OPSEK, and the International Space Station. Operations will be controlled from the Beijing Aerospace Flight Control Center."
+    },
+    {
+      "uid": "d6b616df31f34d1b8b7459b8144d58bc",
+      "name": "Salyut-1 / Салют-1",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-d6b616df31f34d1b8b7459b8144d58bc",
+      "isDownloadable": true,
+      "vertexCount": 42438,
+      "faceCount": 81260,
+      "license": {
+        "uid": "bbfe3f7dbcdd4122b966b85b9786a989",
+        "label": "CC Attribution-NonCommercial"
+      },
+      "user": {
+        "uid": "9b1ba1fb5107458980b172cee8a780d2",
+        "username": "tashtego",
+        "displayName": "tashtego",
+        "profileUrl": "https://sketchfab.com/tashtego",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3d8159a3901f4e2586aea5d29f15dba2",
+          "images": [
+            {
+              "size": 5671,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/5dea1c5f24cf43e6b130a7ab1aeb1374.jpeg",
+              "height": 100
+            },
+            {
+              "size": 4907,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/4971027df16348fe868b948e2c8875bb.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1698,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/93605a6de9c94d93bbe7eeb84830055e.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1012,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3d8159a3901f4e2586aea5d29f15dba2/01844998fd014360a97c4bab2090cfc2.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/9b1ba1fb5107458980b172cee8a780d2"
+      },
+      "description": "Salyut 1 (DOS-1) (Russian: Салют-1) was the first space station launched into low Earth orbit by the Soviet Union on April 19, 1971. The Salyut program followed this with five more successful launches of seven more stations. The final module of the program, Zvezda (DOS-8), became the core of the Russian segment of the International Space Station and remains in orbit. \n\nSalyut 1 was visited by Soyuz 10 and Soyuz 11. The hard-docking of Soyuz 10 failed and the crew had to abort this mission. The Soyuz 11 crew achieved successful hard docking and performed experiments in Salyut 1 for 23 days. However, they were killed by asphyxia caused by failure of a valve just prior to Earth reentry, and are the only known people to have died above the Kármán line. Salyut 1's mission was later terminated, and it reentered on October 11, 1971."
+    },
+    {
+      "uid": "69251e6a04e24606ad9557bbb4f9ea45",
+      "name": "Versatile Manual Electron Beam Tool (VHT)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-69251e6a04e24606ad9557bbb4f9ea45",
+      "isDownloadable": false,
+      "vertexCount": 43465,
+      "faceCount": 86639,
+      "license": null,
+      "user": {
+        "uid": "7c3ca3ba7a6d43258aaffee267b5bff0",
+        "username": "skeiron",
+        "displayName": "SKEIRON",
+        "profileUrl": "https://sketchfab.com/skeiron",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/9cd9ebfc2dc949c5bc872b8ac2061ef5",
+          "images": [
+            {
+              "size": 934,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/9cd9ebfc2dc949c5bc872b8ac2061ef5/4c49a6471eea48689436f04ea511dbfd.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1131,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/9cd9ebfc2dc949c5bc872b8ac2061ef5/06f0b56da7fc452b8c7c68c26ff8746a.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1843,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/9cd9ebfc2dc949c5bc872b8ac2061ef5/23e4d1c289f34b6f95d08e141a0ed8da.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2006,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/9cd9ebfc2dc949c5bc872b8ac2061ef5/70e4750e1e1a479e8742b4da07576d9e.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/7c3ca3ba7a6d43258aaffee267b5bff0"
+      },
+      "description": "VHT is a device for welding, cutting and soldering metals and spraying coatings in open space. Created in the 1980s. at the E. O. Paton Electric Welding Institute.\n\nThe tool is placed in a container 40x45x50 cm in size and weighing 30 kg. The VHT has its own power source and is an autonomous backpack-type vehicle that can be carried behind the back or fixed on the surface of the orbital station. The working head weighing 3.5 kg has the shape of a pistol, the handle of which is adjusted to the size of the suit glove. The “pistol” contains a double-barreled electron gun with an accelerating voltage of 5 kV and a power consumption of 1 kW. One barrel is used for cutting and welding metals, the other is for spraying the coating from a special container.\n\nVHT was used by S. Savitskaya and V. Dzhanibekov at the Salyut-7 orbital station - they welded metal in open space for 3 hours. Later VHT transported to the Mir station."
+    },
+    {
+      "uid": "01483a50d09843208a9dd640dccdd65e",
+      "name": "Space Station 13",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-01483a50d09843208a9dd640dccdd65e",
+      "isDownloadable": false,
+      "vertexCount": 11336,
+      "faceCount": 19486,
+      "license": {
+        "uid": "783b685da9bf457d81e829fa283f3567",
+        "label": "Standard"
+      },
+      "user": {
+        "uid": "3343f62f3f534464a144cf3f90279c06",
+        "username": "kadopl",
+        "displayName": "Kado3D",
+        "profileUrl": "https://sketchfab.com/kadopl",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/a05534298c0a47f88bfab536bc90b98c",
+          "images": [
+            {
+              "size": 763,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/a05534298c0a47f88bfab536bc90b98c/8543bb5591fb45a381f217b10766d29c.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1131,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/a05534298c0a47f88bfab536bc90b98c/244effca3eac4bb1b16d6b4b23223afa.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2453,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/a05534298c0a47f88bfab536bc90b98c/91ed6fb4f28e4a7aa0f3ab237d3bf184.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2727,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/a05534298c0a47f88bfab536bc90b98c/18336c699f004b29ac23a99e49df4c44.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/3343f62f3f534464a144cf3f90279c06"
+      },
+      "description": "Space station mapped with one material. Shading baked to vertex color, ambient sound comes from Salyut-6 -> Electro-cardiogramme transmission on voice channel, 121.75 MHz, May 11, 1979"
+    },
+    {
+      "uid": "818ffb07179f4bbcb61c9c1712e07299",
+      "name": "Salyut 7",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-818ffb07179f4bbcb61c9c1712e07299",
+      "isDownloadable": true,
+      "vertexCount": 9326,
+      "faceCount": 17020,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "79efc90138b5474dac08a5e912e315cf",
+        "username": "uperesito",
+        "displayName": "uperesito",
+        "profileUrl": "https://sketchfab.com/uperesito",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/09174eb2eac64fc6b734e790f3c30019",
+          "images": [
+            {
+              "size": 841,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/09174eb2eac64fc6b734e790f3c30019/77d8a548ffaa403d9f55766baa4670ba.jpeg",
+              "height": 32
+            },
+            {
+              "size": 910,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/09174eb2eac64fc6b734e790f3c30019/5d4102562a0345b7994b44e9cd5bc533.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1406,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/09174eb2eac64fc6b734e790f3c30019/9a2032cd0df349af9fa53aae5357ef0c.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1513,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/09174eb2eac64fc6b734e790f3c30019/5be84ec34b5d4201aa5b71019c7e3538.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/79efc90138b5474dac08a5e912e315cf"
+      },
+      "description": "Modelo 3D del satelite Salyut 7.\n\nEste modelo ha sido descargado desde \"The Celestia Motherlode\", y despues, desde Cinema 4D, extraido a .fbx\n\n/\n\n3D Model of Salyut 7 spacecraft.\n\nThis model has been downloaded from \"The Celestia Motherlode\", and then extracted to .fbx from Cinema 4D\n\n\n\nAqui una foto / Here a picture\n![](http://www.spacefacts.de/graph/photo/photos2/soyuz-t-14_salyut-7_2.jpg)"
+    },
+    {
+      "uid": "06a75138b4474feaaf45e83ec448a3aa",
+      "name": "Salyut Habitation Section",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-06a75138b4474feaaf45e83ec448a3aa",
+      "isDownloadable": false,
+      "vertexCount": 760,
+      "faceCount": 712,
+      "license": null,
+      "user": {
+        "uid": "8e5e83e58e0b4b84b016358a36a399f9",
+        "username": "beale",
+        "displayName": "beale",
+        "profileUrl": "https://sketchfab.com/beale",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/6942fd2ed2ea4b10971564bb5913a143",
+          "images": [
+            {
+              "size": 929,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/6942fd2ed2ea4b10971564bb5913a143/ceddd190c0384b699cc14396ae5751bf.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1974,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/6942fd2ed2ea4b10971564bb5913a143/9e01f29847b24b99b2508e2a1135cb81.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2227,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/6942fd2ed2ea4b10971564bb5913a143/74a0abd289aa42759823b6fc549a4f33.jpeg",
+              "height": 100
+            },
+            {
+              "size": 632,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/6942fd2ed2ea4b10971564bb5913a143/0a047cad93de405d89b2e7fe194aab20.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/8e5e83e58e0b4b84b016358a36a399f9"
+      },
+      "description": ""
+    },
+    {
+      "uid": "6b9809f239e04be9ad37db799a809e24",
+      "name": "KSP: Primitive Orbital Station Complex",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-6b9809f239e04be9ad37db799a809e24",
+      "isDownloadable": true,
+      "vertexCount": 12580,
+      "faceCount": 112700,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "3bf83bbbf7df40e589953d766ad60021",
+        "username": "pandoraskitten",
+        "displayName": "pandoraskitten",
+        "profileUrl": "https://sketchfab.com/pandoraskitten",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/e494f9c36c2e456d8c7e522de787dd37",
+          "images": [
+            {
+              "size": 2747,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/e494f9c36c2e456d8c7e522de787dd37/ae283d98fa724087966c7d949511c47c.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3213,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/e494f9c36c2e456d8c7e522de787dd37/345af59b26be450f870b710d21c77663.jpeg",
+              "height": 100
+            },
+            {
+              "size": 794,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/e494f9c36c2e456d8c7e522de787dd37/91092c2c39d44e8d87ee2948d0c142dc.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1250,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/e494f9c36c2e456d8c7e522de787dd37/aaa4151fd32b4aa78278dc4b4ac53032.jpeg",
+              "height": 48
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/3bf83bbbf7df40e589953d766ad60021"
+      },
+      "description": "The Primitive Orbital Station is a Kerbal parody of the historical Soviet Almaz and Salyut space station programs. Shown here is a \"Cislunar\" orbital complex acting as mothership for 2 mini landers and a micro shuttle supporting the Lunar (KSP: Munar) exploration program. \n\nThe P.O.S. is constructed with parts from Level 1 Research Complex with modules launched using medium lift rockets under 140 tons (i.e., I am too cheap to upgrade the Research Facility with 902,000 funds in a KSP Career game). \n\nThis station is built around a standard Habitation Module with two LK-0 mini-landers and one X-1A Micro Shuttle attached to facilitate orbital rescue or crew recovery during cislunar (KSP: cismunar) operations. Propulsion for the translunar (KSP: transmunar) injection phase of the mission is provided by the POS-2 Propulsion Module which is discarded on a collision course with the Moon (KSP: Mun). \n\nNote: The acronym for this space station is a pun on this being a very small and quite crappy orbital station!"
+    },
+    {
+      "uid": "jsGQY3XnVg4qmPV9tRtNXEj7L7V",
+      "name": "SALYUT-2.blend",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-jsGQY3XnVg4qmPV9tRtNXEj7L7V",
+      "isDownloadable": false,
+      "vertexCount": 1221,
+      "faceCount": 1184,
+      "license": null,
+      "user": {
+        "uid": "4ae690945ff64e089274488594957a0a",
+        "username": "psycho529",
+        "displayName": "Psycho529",
+        "profileUrl": "https://sketchfab.com/psycho529",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b",
+          "images": [
+            {
+              "size": 4098,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/327e2d0a8c1a4c8cb146e1ef89110e98.jpeg",
+              "height": 100
+            },
+            {
+              "size": 3563,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/db69a21875d04dc38fbb7da10ec49d29.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1515,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/6c9a747d0380472ca9c2be262ba206f9.jpeg",
+              "height": 48
+            },
+            {
+              "size": 953,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/75a8e4229cf14bc0a98bc5255ea68e9f.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/4ae690945ff64e089274488594957a0a"
+      },
+      "description": "Lowered polycount."
+    },
+    {
+      "uid": "6pehn4RHleQ2ZGdLDIO24X116Nd",
+      "name": "SALYUT-1.blend",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-6pehn4RHleQ2ZGdLDIO24X116Nd",
+      "isDownloadable": false,
+      "vertexCount": 2845,
+      "faceCount": 3216,
+      "license": null,
+      "user": {
+        "uid": "4ae690945ff64e089274488594957a0a",
+        "username": "psycho529",
+        "displayName": "Psycho529",
+        "profileUrl": "https://sketchfab.com/psycho529",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b",
+          "images": [
+            {
+              "size": 4098,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/327e2d0a8c1a4c8cb146e1ef89110e98.jpeg",
+              "height": 100
+            },
+            {
+              "size": 3563,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/db69a21875d04dc38fbb7da10ec49d29.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1515,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/6c9a747d0380472ca9c2be262ba206f9.jpeg",
+              "height": 48
+            },
+            {
+              "size": 953,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/75a8e4229cf14bc0a98bc5255ea68e9f.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/4ae690945ff64e089274488594957a0a"
+      },
+      "description": "Lowered Polycount."
+    },
+    {
+      "uid": "cX0Psho4QfumNW6ePfk3rAElEmM",
+      "name": "SALYUT-2.blend",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-cX0Psho4QfumNW6ePfk3rAElEmM",
+      "isDownloadable": false,
+      "vertexCount": 3596,
+      "faceCount": 2906,
+      "license": null,
+      "user": {
+        "uid": "4ae690945ff64e089274488594957a0a",
+        "username": "psycho529",
+        "displayName": "Psycho529",
+        "profileUrl": "https://sketchfab.com/psycho529",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b",
+          "images": [
+            {
+              "size": 4098,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/327e2d0a8c1a4c8cb146e1ef89110e98.jpeg",
+              "height": 100
+            },
+            {
+              "size": 3563,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/db69a21875d04dc38fbb7da10ec49d29.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1515,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/6c9a747d0380472ca9c2be262ba206f9.jpeg",
+              "height": 48
+            },
+            {
+              "size": 953,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/aa31cf6cbf8244f79a99eb99ac6dae9b/75a8e4229cf14bc0a98bc5255ea68e9f.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/4ae690945ff64e089274488594957a0a"
+      },
+      "description": ""
+    }
+  ]
+}

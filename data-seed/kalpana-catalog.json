@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "KALPANA-1 (METSAT 1)",
+    "OBJECT_ID": "2002-043A",
+    "NORAD_CAT_ID": 27525,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "IND",
+    "LAUNCH_DATE": "2002-09-12",
+    "LAUNCH_SITE": "SRILR",
+    "DECAY_DATE": "",
+    "PERIOD": "1464.35",
+    "INCLINATION": "13.26",
+    "APOGEE": "36369",
+    "PERIGEE": "36307",
+    "RCS": "0.0030",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

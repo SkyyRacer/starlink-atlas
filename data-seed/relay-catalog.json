@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "RELAY 1 (A-15)",
+    "OBJECT_ID": "1962-068A",
+    "NORAD_CAT_ID": 503,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1962-12-13",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "185.05",
+    "INCLINATION": "47.50",
+    "APOGEE": "7428",
+    "PERIGEE": "1329",
+    "RCS": "0.9221",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "RELAY 2",
+    "OBJECT_ID": "1964-003A",
+    "NORAD_CAT_ID": 737,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1964-01-21",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "194.72",
+    "INCLINATION": "46.45",
+    "APOGEE": "7640",
+    "PERIGEE": "1861",
+    "RCS": "0.7637",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

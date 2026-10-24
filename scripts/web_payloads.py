@@ -68,6 +68,9 @@ def build_resources(out,bundle,history,updates,now):
     scopes={row['id']:row.get('collections',[family(row)]) for row in bundle['catalog_response']['satellites']}
     def belongs(ident,mode):return mode in scopes.get(ident,[])
     archive_days=[(file,json.loads(gzip.decompress(file.read_bytes()))) for file in sorted(updates.glob('*.json.gz'))]
+    from retired_resources import refresh
+    import itertools
+    refresh(out,bundle['catalog_response']['satellites'],itertools.chain(bundle['orbits'],*(rows for _,rows in archive_days)))
     navigation_histories={}
     for definition in definitions:
         constellation=definition['id']

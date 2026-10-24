@@ -3,6 +3,8 @@
 pub struct Numbered {pub prefix:String,pub min:u64,pub max:u64}
 #[derive(serde::Deserialize, Debug)]
 pub struct Definition {
+    #[serde(default)] pub aggregate: bool,
+    #[serde(default)] pub trajectory: Option<String>,
     #[serde(default)] pub parent: Option<String>,
     #[serde(default)] pub numbered: Option<Numbered>,
     pub id: String, pub label: String, pub description: String, pub group: String,
@@ -12,7 +14,10 @@ pub fn definitions() -> &'static [Definition] {
     static DEFINITIONS: std::sync::OnceLock<Vec<Definition>> = std::sync::OnceLock::new();
     DEFINITIONS.get_or_init(||serde_json::from_str(include_str!("../resources/constellations.json")).expect("Invalid constellation registry"))
 }
-pub fn definition(id: &str) -> Option<&'static Definition> { definitions().iter().find(|row|row.id==id) }
+pub fn definition(id: &str) -> Option<&'static Definition> {
+    static BY_ID:std::sync::OnceLock<std::collections::BTreeMap<&'static str,&'static Definition>>=std::sync::OnceLock::new();
+    BY_ID.get_or_init(||definitions().iter().map(|row|(row.id.as_str(),row)).collect()).get(id).copied()
+}
 pub fn source(id: &str) -> Option<String> { if id=="debris" { return Some("https://celestrak.org/pub/satcat.csv".to_owned()); } definition(id).map(|row|format!("https://celestrak.org/NORAD/elements/gp.php?GROUP={}&FORMAT=JSON",row.group)) }
 fn matches(row: &Definition, id: u64, name: &str) -> bool {
     if row.id!="debris" && !row.ids.contains(&id) && (name.contains(" DEB") || name.contains(" AKM") || name.contains(" R/B")) { return false; }
@@ -24,7 +29,7 @@ fn matches(row: &Definition, id: u64, name: &str) -> bool {
 }
 pub fn family(id: u64, name: &str) -> Option<&'static str> {
     static IDENTITIES:std::sync::OnceLock<std::collections::BTreeMap<u64,&'static str>>=std::sync::OnceLock::new();
-    let identities=IDENTITIES.get_or_init(||definitions().iter().filter(|row|row.parent.is_none()).flat_map(|row|row.ids.iter().map(move |id|(*id,row.id.as_str()))).collect());
+    let identities=IDENTITIES.get_or_init(||definitions().iter().filter(|row|row.parent.is_none() && !row.aggregate).flat_map(|row|row.ids.iter().map(move |id|(*id,row.id.as_str()))).collect());
     if let Some(family)=identities.get(&id) {return Some(family);}
     if definition("debris").is_some_and(|row|matches(row,id,name)) { return Some("debris"); }
     if id == 25544 { return Some("iss"); }
@@ -35,18 +40,31 @@ pub fn family(id: u64, name: &str) -> Option<&'static str> {
             && rest.as_bytes().get(4).is_none_or(|c| c.is_ascii_whitespace() || *c == b'(')
     }) || name.starts_with("GIOVE-A") || name.starts_with("GIOVE-B") || name == "GALILEO" || name.starts_with("GALILEO ") || name.starts_with("GALILEO-");
     if galileo { return Some("galileo"); }
-    definitions().iter().find(|row|row.parent.is_none() && matches(row,id,name)).map(|row|row.id.as_str())
+    definitions().iter().find(|row|row.parent.is_none() && !row.aggregate && matches(row,id,name)).or_else(||definitions().iter().find(|row|row.aggregate && matches(row,id,name))).map(|row|row.id.as_str())
 }
 /// A targeted page may share physical objects with its broader constellation.
 pub fn belongs(id:u64,name:&str,collection:&str)->bool {
-    family(id,name)==Some(collection) || definition(collection).is_some_and(|row|row.parent.is_some() && matches(row,id,name) && family(id,name)!=Some("debris"))
+    family(id,name)==Some(collection) || definition(collection).is_some_and(|row|(row.parent.is_some() || row.aggregate || row.ids.contains(&id)) && matches(row,id,name) && family(id,name)!=Some("debris"))
 }
 pub fn memberships(id:u64,name:&str)->Vec<&'static str> {
     let Some(primary)=family(id,name) else {return Vec::new();};
     let mut result=vec![primary];
-    if primary!="debris" {result.extend(definitions().iter().filter(|row|row.parent.is_some() && matches(row,id,name)).map(|row|row.id.as_str()));}
+    if primary=="debris" {return result;}
+    static SCOPES:std::sync::OnceLock<std::collections::BTreeMap<u64,Vec<&'static str>>>=std::sync::OnceLock::new();
+    let scopes=SCOPES.get_or_init(||{let mut map:std::collections::BTreeMap<u64,Vec<&'static str>>=std::collections::BTreeMap::new();for row in definitions(){for id in &row.ids{map.entry(*id).or_default().push(&row.id);}}map});
+    if let Some(keys)=scopes.get(&id){for key in keys{if *key!=primary{result.push(key);}}}
+    // Newly named objects may join a public aggregate before the next identity review.
+    static ALIASES:std::sync::OnceLock<Vec<&'static Definition>>=std::sync::OnceLock::new();
+    for row in ALIASES.get_or_init(||definitions().iter().filter(|row|row.aggregate||row.parent.is_some()).collect()){
+        if (row.prefixes.iter().any(|p|name.starts_with(p))||row.contains.iter().any(|p|name.contains(p))) && !result.contains(&row.id.as_str()){result.push(&row.id);}
+    }
     result
 }
+pub fn requires_ephemeris(id:u64)->bool {
+    static IDS:std::sync::OnceLock<std::collections::BTreeSet<u64>>=std::sync::OnceLock::new();
+    IDS.get_or_init(||definitions().iter().filter(|row|row.trajectory.as_deref()==Some("horizons")).flat_map(|row|row.ids.iter().copied()).collect()).contains(&id)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -75,6 +93,7 @@ mod registry_tests {
         assert_eq!(family(64723,"MTG-S1"),Some("meteosat"));
         assert_eq!(family(31598,"COSMO-SKYMED 1"),Some("cosmo-skymed"));
         assert_eq!(family(41798,"SENTINEL-1A DEB"),Some("debris"));assert_eq!(family(11970,"GOES 4 AKM"),Some("debris"));
-        for (id,name) in [(123,"COSMOS 999"),(38012,"PLEIADES 1A")] { assert_eq!(family(id,name),None); }
+        assert_eq!(family(123,"COSMOS 999"),None);
+        assert_eq!(family(38012,"PLEIADES 1A"),Some("pleiades"));
     }
 }

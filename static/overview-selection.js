@@ -8,6 +8,8 @@
  const summary=document.createElement('summary');summary.textContent='Satellites sélectionnés';root.append(summary);
  const panel=document.createElement('div');panel.className='overview-selection-panel';root.append(panel);
  const visibility=document.createElement('button');visibility.id='overview-visibility';visibility.type='button';visibility.textContent='Masquer les satellites';visibility.setAttribute('aria-pressed','false');
+ const planarActions=document.createElement('div');planarActions.className='map-scene-actions';
+ if($('map-creator')){$('map-creator').prepend(planarActions);if($('map-reset'))planarActions.append($('map-reset'));}
  const rows=[],groups=[];let hiddenSelection=null,applying=false;
  function commit(items,value,preserveHidden=false){
   if(!preserveHidden)hiddenSelection=null;
@@ -46,10 +48,10 @@
   for(const {bulk,members} of groups){const n=members.filter(row=>row.source.checked).length;bulk.checked=n===members.length;bulk.indeterminate=n>0&&n<members.length;}
   root.hidden=!isAtlas||focused;visibility.hidden=state?!state.available:!isAtlas;if(root.hidden)root.open=false;
   const planar=$('view-2d').getAttribute('aria-pressed')==='true',buttons=document.querySelector('.globe-buttons');
-  if(planar&&$('map-creator')){if(visibility.parentElement!==$('map-creator'))$('map-creator').prepend(visibility);}
-  else if(visibility.parentElement!==buttons.parentElement||buttons.nextElementSibling!==visibility)buttons.after(visibility);
+  if(planar&&$('map-creator')){if(visibility.parentElement!==planarActions)planarActions.append(visibility);}
+  else{const anchor=isAtlas?root:buttons;if(visibility.parentElement!==anchor.parentElement||anchor.nextElementSibling!==visibility)anchor.after(visibility);}
  }
- document.querySelector('.globe-buttons').after(visibility);if(isAtlas)visibility.after(root);
+ const buttons=document.querySelector('.globe-buttons');if(isAtlas)buttons.after(root);(isAtlas?root:buttons).after(visibility);
  let queued=false;function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;sync();});}
  document.addEventListener('change',event=>{if(!applying&&event.target.matches('[data-family]'))hiddenSelection=null;schedule();});
  // Checkbox click default actions dispatch change after click listeners. A sync

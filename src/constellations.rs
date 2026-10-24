@@ -7,7 +7,7 @@ pub fn load_cache(db: &mut Database, dir: &std::path::Path) {
     for row in added() { if let Ok(bytes)=std::fs::read(dir.join(format!("{}-catalog.json",row.id))) { if let Err(error)=load_cat(db,&bytes) { eprintln!("{} : {error}",row.label); } } }
 }
 fn filtered_catalog(def: &collections::Definition, rows: &[Value]) -> Vec<Value> {
-    rows.iter().filter(|row|row["OBJECT_TYPE"]=="PAY" && (row["ORBIT_CENTER"].as_str().is_none_or(|center|center=="EA") || (row["ORBIT_TYPE"]=="DOC" && def.ids.contains(&row["NORAD_CAT_ID"].as_u64().unwrap_or(0)))) && collections::belongs(row["NORAD_CAT_ID"].as_u64().unwrap_or(0),row["OBJECT_NAME"].as_str().unwrap_or(""),&def.id)).cloned().collect()
+    rows.iter().filter(|row|row["OBJECT_TYPE"]=="PAY" && (def.trajectory.is_some() || row["ORBIT_CENTER"].as_str().is_none_or(|center|center=="EA") || (row["ORBIT_TYPE"]=="DOC" && def.ids.contains(&row["NORAD_CAT_ID"].as_u64().unwrap_or(0)))) && collections::belongs(row["NORAD_CAT_ID"].as_u64().unwrap_or(0),row["OBJECT_NAME"].as_str().unwrap_or(""),&def.id)).cloned().collect()
 }
 fn filtered_orbits(def: &collections::Definition, rows: &[Value], catalog: &[Value]) -> Result<Vec<u8>,String> {
     let identities: BTreeMap<_,_>=catalog.iter().filter_map(|r|r["NORAD_CAT_ID"].as_u64().map(|id|(id,r))).collect();
@@ -100,6 +100,11 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
                     let bytes=serde_json::to_vec(&catalogue).map_err(|e|e.to_string())?;
                     sources::atomic(&dir,&format!("{}-catalog.json",def.id),&bytes)?;load_cat(&mut *shared.write().await,&bytes)?;
                 }
+                // Historical missions and deep-space trajectories do not need a current GP feed.
+                // The already validated catalogue and lazy historical archives stay available.
+                let today=Utc::now().format("%Y-%m-%d").to_string();
+                let all_retired=!catalogue.is_empty()&&catalogue.iter().all(|row|row["DECAY_DATE"].as_str().is_some_and(|date|!date.is_empty()&&date<=today.as_str()));
+                if def.trajectory.is_some()||all_retired{return Ok(());}
                 let url=collections::source(&def.id).unwrap();
                 if !feeds.contains_key(&url) {
                     let result=match download(&client,&url).await { Ok(bytes)=>serde_json::from_slice(&bytes).map_err(|e|e.to_string()),Err(e)=>Err(e) };

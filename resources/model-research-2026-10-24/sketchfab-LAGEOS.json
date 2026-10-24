@@ -1,0 +1,56 @@
+{
+  "query": "LAGEOS",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=LAGEOS&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "c0ba04384a5d47a9ba7a3031caf04f9f",
+      "name": "Evolution Of Geodesy-illustration",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-c0ba04384a5d47a9ba7a3031caf04f9f",
+      "isDownloadable": true,
+      "vertexCount": 818452,
+      "faceCount": 1612041,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "a9f63e34b6e04734b0b1cb16683cbb3c",
+        "username": "TG13730",
+        "displayName": "TG13730",
+        "profileUrl": "https://sketchfab.com/TG13730",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/46bba251489646f98618fe312afe67e7",
+          "images": [
+            {
+              "size": 1045,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/46bba251489646f98618fe312afe67e7/cb6e34d80f754bb1948c8ec526d68799.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1549,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/46bba251489646f98618fe312afe67e7/a58510dab5224f878448e8dd6b94d0d4.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3579,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/46bba251489646f98618fe312afe67e7/57e03b227c0c49f89ce05468dddf5e68.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4278,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/46bba251489646f98618fe312afe67e7/b214f6ce2991404d8a04c20d3c1bf730.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/a9f63e34b6e04734b0b1cb16683cbb3c"
+      },
+      "description": "In the 1970s, geodesy gradually shifted from traditional methods (triangulation, leveling, theodolites) to electronic techniques such as electronic distance measurement (EDM), early Doppler systems (Transit), and the beginnings of space-based remote sensing. Laser rangefinders (SLRs) and geodetic satellites like LAGEOS (1976) ushered in the era of space-based geodesy, with accuracies already reaching the meter and then the decimeter level.\nIn the 1980s and 1990s, the revolution came from total stations (integrating angle, distance, and digital recording), global reference networks, and especially GNSS (GPS became operational in the 1990s). Positioning became global, rapid, and accurate to the centimeter thanks to RTK and networks of permanent stations.\nIn the 2000s, massive data capture technologies emerged: LiDAR, digital photogrammetry, multi-constellation GPS (GLONASS, Galileo, BeiDou)\nhumorous SketchUp illustration"
+    }
+  ]
+}

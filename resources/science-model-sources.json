@@ -82,5 +82,719 @@
     "credit": "Géométrie originale Atlas · documentation JAXA",
     "page": "https://www.xrism.jaxa.jp/en/technology/",
     "license": "Original project geometry; referenced documentation is not a downloaded 3D model."
+  },
+  "kepler": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Kepler%20%28A%29",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Kepler%20%28A%29/Kepler%20%28A%29.glb",
+    "sha256": "382014d90e2cf3e1f23e931d233547e652fe3629fddfb5acb8a99e2ceb72ff19",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 9042
+  },
+  "spitzer": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Spitzer%20Space%20Telescope",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Spitzer%20Space%20Telescope/Spitzer%20Space%20Telescope.glb",
+    "sha256": "fa0b7c89fd2c8632d981d3a0ad471dc70620dda4e663788409b251e0f6e6f558",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 62256
+  },
+  "swift": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Swift",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Swift/Swift.glb",
+    "sha256": "e7074fe1590550747fbcd6803b0c6086b4f57cafd8e3d93789f0b0b7e59b0372",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 38032
+  },
+  "suzaku": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Suzaku",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Suzaku/Suzaku.glb",
+    "sha256": "cf8432fb9127b4cb7b4ef72d12ccb8aec76f225d4e6cea96dbe53a72b0b129ac",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 40725
+  },
+  "grace": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29.glb",
+    "sha256": "33382f0069d7e84de6d3747a723c2e0ded2cbaf83185d89bdf82c5ca58e1fef1",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 3961,
+    "ids": [
+      27391,
+      27392
+    ],
+    "name": "GRACE-1 / GRACE-2"
+  },
+  "fuse": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Far%20Ultraviolet%20Spectroscopic%20Explorer",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Far%20Ultraviolet%20Spectroscopic%20Explorer/Far%20Ultraviolet%20Spectroscopic%20Explorer.glb",
+    "sha256": "056c26e4f48bc362790ebc42c7c85101037c92b4f50a313bbe2783fc7004cdf8",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 22449
+  },
+  "compton": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gamma%20Ray%20Observatory",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gamma%20Ray%20Observatory/Gamma%20Ray%20Observatory.glb",
+    "sha256": "cb54cbb1ae46edc1da00b3da43922cdd2a011c629f726616b4d535d55026985b",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 4244
+  },
+  "mir": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Mir",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Mir/Mir.glb",
+    "sha256": "afd22638606c5545f6f730f4c663640912b17cedd1f677ca4e8cf01b6d4819e4",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 5836
+  },
+  "skylab": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA 3D Resources · adaptation filaire Atlas",
+    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Skylab",
+    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Skylab/Skylab.glb",
+    "sha256": "6246d3ba63a5950688020609a123c67816b15df1b8b155b43bd8e6a9da8f5b44",
+    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "triangles": 25292
+  },
+  "aditya-l1": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.isro.gov.in/Aditya_L1-MissionDetails.html",
+    "profile": "aditya-l1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "agile": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/agile.html",
+    "profile": "agile",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "almaz": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "profile": "almaz",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "alouette": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.csa-asc.gc.ca/eng/satellites/alouette.asp",
+    "profile": "alouette",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "profile": "ariel-1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      285
+    ],
+    "name": "Ariel 1",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "asca": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/asca.html",
+    "profile": "asca",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "bepposax": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/sax.html",
+    "profile": "bepposax",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "dampe": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/dampe.html",
+    "profile": "dampe",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "elektron": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.orbitaldebris.jsc.nasa.gov/library/HOOSF_16e.pdf",
+    "profile": "elektron",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "euve": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/euve.html",
+    "profile": "euve",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "exosat": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/exosat.html",
+    "profile": "exosat",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "galex": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://science.nasa.gov/mission/galex/",
+    "profile": "galex",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "goce": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.esa.int/Applications/Observing_the_Earth/FutureEO/GOCE/Satellite",
+    "profile": "goce",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "gravity-probe-b": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://einstein.stanford.edu/TECH/technology1.html",
+    "profile": "gravity-probe-b",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "halosat": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/halosat.html",
+    "profile": "halosat",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "heao": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/heao1.html",
+    "profile": "heao-1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "heao",
+    "ids": [
+      10217
+    ],
+    "name": "HEAO-1",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "hxmt": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/hxmt.html",
+    "profile": "hxmt",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "iras": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.jpl.nasa.gov/missions/infrared-astronomical-satellite-iras/",
+    "profile": "iras",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "isis": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.csa-asc.gc.ca/eng/satellites/isis.asp",
+    "profile": "isis",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "iue": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://science.nasa.gov/mission/iue/",
+    "profile": "iue",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "microscope": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://cnes.fr/projets/microscope",
+    "profile": "microscope",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "oao": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-031A",
+    "profile": "oao-2",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "oao",
+    "ids": [
+      2142,
+      3597
+    ],
+    "name": "OAO-1 / OAO-2",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ogo": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1964-054A",
+    "profile": "ogo",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "oso": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-006A",
+    "profile": "oso-early",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "oso",
+    "ids": [
+      255,
+      987,
+      2703,
+      3000,
+      3663,
+      4065
+    ],
+    "name": "OSO-1 à OSO-6",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "proton": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://files.eric.ed.gov/fulltext/ED258832.pdf",
+    "profile": "proton",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "rosat": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/rosat/rosat.html",
+    "profile": "rosat",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "rxte": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/xte/rxte.html",
+    "profile": "rxte",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "salyut": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "profile": "salyut-4",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "salyut",
+    "ids": [
+      7591
+    ],
+    "name": "Saliout 4",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "salyut-1": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "profile": "salyut-1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "san-marco": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://ntrs.nasa.gov/api/citations/19740004978/downloads/19740004978.pdf",
+    "profile": "san-marco",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "sas": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/uhuru.html",
+    "profile": "sas-1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "sas",
+    "ids": [
+      4797
+    ],
+    "name": "Uhuru / SAS-1",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "spektr-r": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.asc.rssi.ru/radioastron/description/Spacecraft_eng.htm",
+    "profile": "spektr-r",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "spektr-rg": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/srg.html",
+    "profile": "spektr-rg",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "tiangong-1": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
+    "profile": "tiangong-1",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "tiangong-2": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
+    "profile": "tiangong-2",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel-2": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "profile": "ariel-2",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      771
+    ],
+    "name": "Ariel 2",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel-3": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "profile": "ariel-3",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      2773
+    ],
+    "name": "Ariel 3",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel-4": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "profile": "ariel-4",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      5675
+    ],
+    "name": "Ariel 4",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel-5": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html",
+    "profile": "ariel-5",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      7471
+    ],
+    "name": "Ariel 5",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "ariel-6": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "profile": "ariel-6",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "ariel",
+    "ids": [
+      11382
+    ],
+    "name": "Ariel 6",
+    "references": [
+      "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+      "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html"
+    ],
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "heao-2": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/heao1.html",
+    "profile": "heao-2",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "heao",
+    "ids": [
+      11101
+    ],
+    "name": "Einstein / HEAO-2",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "heao-3": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/heao1.html",
+    "profile": "heao-3",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "heao",
+    "ids": [
+      11532
+    ],
+    "name": "HEAO-3",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "oao-3": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-031A",
+    "profile": "oao-3",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "oao",
+    "ids": [
+      6153
+    ],
+    "name": "Copernicus / OAO-3",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "oso-7": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-006A",
+    "profile": "oso-7",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "oso",
+    "ids": [
+      5491
+    ],
+    "name": "OSO-7",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "oso-8": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-006A",
+    "profile": "oso-8",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "oso",
+    "ids": [
+      7970
+    ],
+    "name": "OSO-8",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "sas-2": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/uhuru.html",
+    "profile": "sas-2",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "sas",
+    "ids": [
+      6282
+    ],
+    "name": "SAS-2",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "sas-3": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/uhuru.html",
+    "profile": "sas-3",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "sas",
+    "ids": [
+      7788
+    ],
+    "name": "SAS-3",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "salyut-6-7": {
+    "kind": "original-schematic",
+    "credit": "Géométrie originale Atlas · documentation de mission",
+    "page": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "profile": "salyut-6",
+    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
+    "page_id": "salyut",
+    "ids": [
+      10382,
+      13138
+    ],
+    "name": "Saliout 6 / Saliout 7",
+    "enabled": false,
+    "review_status": "pending-geometry-verification",
+    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+  },
+  "grace-fo": {
+    "kind": "nasa-adaptation",
+    "credit": "NASA VTAD · adaptation filaire Atlas",
+    "page": "https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/",
+    "download": "https://gracefo.jpl.nasa.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBYTg9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e44d41f889d987165dc823349b0fd599476c8c73/GRACE-FO.glb?disposition=inline",
+    "sha256": "b5ff33fd000ac0ed21445ec8237a0277396367d033afd171a22dbe7cca665d0a",
+    "license": "NASA media usage guidelines",
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "ids": [
+      43476,
+      43477
+    ]
   }
 }

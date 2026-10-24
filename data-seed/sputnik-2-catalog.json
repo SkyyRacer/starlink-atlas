@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPUTNIK 2",
+    "OBJECT_ID": "1957-002A",
+    "NORAD_CAT_ID": 3,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "1957-11-03",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "1958-04-14",
+    "PERIOD": "103.74",
+    "INCLINATION": "65.33",
+    "APOGEE": "1659",
+    "PERIGEE": "211",
+    "RCS": "0.0800",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

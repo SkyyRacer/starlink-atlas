@@ -1,0 +1,64 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+******************************************************************************
+ Revised: Sep 30, 2026           ACE Spacecraft  / (Earth)                 -92
+                              http://www.srl.caltech.edu/ACE/
+
+ BACKGROUND:
+  The Advanced Composition Explorer (ACE) collects and analyzes particles of 
+  solar, interplanetary, interstellar, and galactic origins. The data advances
+  understanding of the Sun, its interaction with Earth, and the evolution of 
+  the solar system. 
+
+  ACE additionally provides real-time space weather data and advanced warning
+  of geomagnetic storms. 
+
+  ACE was launched 25 August 1997 @ 14:39 UTC. Four hours after launch, the 
+  spacecraft's Delta 2 launch vehicle second stage re-ignited to insert the 
+  satellite into a 177 x 1.37 million-kilometer orbit.
+
+  Upon reaching apogee a month after launch, ACE was maneuvered to a Lissajous 
+  orbit around the Earth-Sun Lagrange 1 point, arriving on December 12, 1997. 
+  L1 lies between the Sun and the Earth at a distance of 1,500,000 km from 
+  Earth, avoiding effects from the Earth's magnetic field. The mission was 
+  declared operational on 1998-Jan-21.
+
+  The spacecraft continues operating from that orbit with enough fuel remaining
+  to potentially support operations until 2024, having functioned significantly 
+  beyond its expected run-time.
+ 
+ SPACECRAFT PHYSICAL CHARACTERISTICS:
+  Total launch mass: 785 kg (incl. 189 kg of hydrazine fuel)
+  Dimensions       : 1.6 x 1 m (excluding 4 solar arrays and magnetometer boom)
+  Solar arrays     : 500 Watts
+  Spin             : 5 rpm, spin axis ~ Earth-Sun line, instruments sunward 
+  Communications   : S-band, 78 & 6.9 kbps, and 434 bps 
+  Storage          : 2 gigabits solid-state on-board
+  Launch vehicle   : Delta II 7920-8 (no. D247)
+
+ SCIENCE INSTRUMENTS
+  The spacecraft carries six high-resolution sensors and three monitoring 
+  instruments that sample low-energy particles of solar origin and high-energy
+  galactic particles:
+
+  * Solar Wind Ion Mass Spectrometer (SWIMS) and Solar Wind Ion Composition
+     Spectrometer (SWICS)
+  * Ultra-Low Energy Isotope Spectrometer (ULEIS)
+  * Solar Energetic Particle Ionic Charge Analyzer (SEPICA)
+     (no data return since Feb 4, 2005)
+  * Solar Isotope Spectrometer (SIS)
+  * Cosmic Ray Isotope Spectrometer (CRIS)
+  * Solar Wind Electron, Proton, and Alpha Monitor (SWEPAM)
+  * Electron, Proton, and Alpha-Particle Monitor (EPAM)
+  * Magnetometer (MAG)
+  * Real Time Solar Wind Experiment (RTSW)
+
+ SPACECRAFT TRAJECTORY: 
+  This trajectory is a concatenation of weekly predictions provided by GSFC.
+  Trajectory data prior to 2006 is not available.
+
+  Trajectory name               Start        Stop
+  ----------------------------  -----------  -----------
+  ACE_merged  (848 files)       2006-Jul-03  2026-Dec-21
+*******************************************************************************

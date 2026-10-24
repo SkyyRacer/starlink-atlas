@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "LIGHTSAIL-A",
+    "OBJECT_ID": "2015-025L",
+    "NORAD_CAT_ID": 40661,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2015-05-20",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2015-06-14",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  },
+  {
+    "OBJECT_NAME": "LIGHTSAIL 2",
+    "OBJECT_ID": "2019-036AC",
+    "NORAD_CAT_ID": 44420,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2019-06-25",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2022-11-17",
+    "PERIOD": "91.87",
+    "INCLINATION": "23.99",
+    "APOGEE": "385",
+    "PERIGEE": "348",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

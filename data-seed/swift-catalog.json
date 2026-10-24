@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SWIFT",
+    "OBJECT_ID": "2004-047A",
+    "NORAD_CAT_ID": 28485,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2004-11-20",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "90.17",
+    "INCLINATION": "20.55",
+    "APOGEE": "284",
+    "PERIGEE": "281",
+    "RCS": "7.6859",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -18,7 +18,7 @@
   if(url.pathname.endsWith('/api/sources'))return resource('sources');
   if(url.pathname.endsWith('/api/catalog'))return e.collections?file(e.collections[collection].catalog):(await ready).catalog_response;
   if(url.pathname.endsWith('/api/satellite')){const id=Number(url.searchParams.get('id')),path=e.resources?.details?.[String(Math.floor(id/1000))];if(path)return (await file(path))[String(id)]||{};if(!e.collections)return {verification:(await ready).catalog_response.satellites.find(s=>s.id===id)?.verification};return {};}
-  if(url.pathname.endsWith('/api/positions')){await ready;return call('positions',{at:url.searchParams.get('at')||new Date().toISOString(),idValue:url.searchParams.has('id')?Number(url.searchParams.get('id')):null,now:new Date().toISOString()});}
+  if(url.pathname.endsWith('/api/positions')){await ready;return call('positions',{at:url.searchParams.get('at')||new Date().toISOString(),idValue:url.searchParams.has('id')?Number(url.searchParams.get('id')):null,archived:url.searchParams.get('last')==='1',now:new Date().toISOString()});}
   throw new Error('Requête non disponible dans cette version.');
  }};
 })();

@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPUTNIK 1",
+    "OBJECT_ID": "1957-001B",
+    "NORAD_CAT_ID": 2,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "1957-10-04",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "1958-01-03",
+    "PERIOD": "96.10",
+    "INCLINATION": "65.00",
+    "APOGEE": "1080",
+    "PERIGEE": "64",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "COURIER 1B",
+    "OBJECT_ID": "1960-013A",
+    "NORAD_CAT_ID": 58,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1960-10-04",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "106.95",
+    "INCLINATION": "28.33",
+    "APOGEE": "1209",
+    "PERIGEE": "962",
+    "RCS": "1.2843",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

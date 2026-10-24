@@ -1,14 +1,19 @@
-"""Preserve source surfaces, materials and embedded textures; normalize placement only."""
+"""Preserve source surfaces/textures; apply explicitly recorded presentation finishes and placement."""
 import gzip,hashlib,json,math,pathlib,struct
 from build_science_models import identity,product,transform,node_matrix
 ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=ROOT/'static/images/detailed';OUT.mkdir(parents=True,exist_ok=True)
 sources=json.loads((ROOT/'resources/science-model-sources.json').read_text());upgrades=json.loads((ROOT/'resources/detailed-model-sources.json').read_text());manifest=[]
-for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess',[43435]),('iss',[25544])]+[(key,source['ids']) for key,source in upgrades.items() if 'ids' in source]:
+for key,source in upgrades.items():
+ if source.get('enabled') is False:(OUT/(key+'.glb')).unlink(missing_ok=True)
+for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess',[43435]),('iss',[25544])]+[(key,source['ids']) for key,source in upgrades.items() if source.get('enabled') is not False and 'ids' in source and key not in {'hubble','chandra','fermi','tess','iss'}]:
  path=ROOT/upgrades[key]['file'] if key in upgrades else ROOT/'resources/science-originals'/(key+'.glb');raw=path.read_bytes();n=struct.unpack_from('<I',raw,12)[0];g=json.loads(raw[20:20+n]);binary=raw[28+n:]
  source=upgrades.get(key,sources.get(key))
  if 'sha256' in source:assert hashlib.sha256(raw).hexdigest()==source['sha256']
+ for material in g.get('materials',[]):
+  finish=source.get('material_finishes',{}).get(material.get('name'))
+  if finish:material.setdefault('pbrMetallicRoughness',{}).update(finish)
  decoded=path.with_suffix('.mesh.json.gz');cache=json.loads(gzip.decompress(decoded.read_bytes())) if decoded.exists() else None
- points=[]
+ points=[];focus_points=[]
  def visit(index,parent):
   node=g['nodes'][index];m=product(parent,node_matrix(node))
   if 'mesh' in node:
@@ -16,11 +21,15 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
     if cache:positions=cache['meshes'][node['mesh']]['primitives'][j]['positions']
     else:
      a=g['accessors'][primitive['attributes']['POSITION']];positions=[[x,y,z] for x in [a['min'][0],a['max'][0]] for y in [a['min'][1],a['max'][1]] for z in [a['min'][2],a['max'][2]]]
-    points.extend(transform(m,p) for p in positions)
+    world_points=[transform(m,p) for p in positions];points.extend(world_points)
+    if node.get('name')==source.get('presentation_focus_node'):focus_points.extend(world_points)
   for child in node.get('children',[]):visit(child,m)
  roots=g['scenes'][g.get('scene',0)]['nodes']
  for root in roots:visit(root,identity())
  bounds=[[min(p[i] for p in points),max(p[i] for p in points)] for i in range(3)];span=max(b-a for a,b in bounds);center=[(a+b)/2 for a,b in bounds];scale=100/span
+ if source.get('presentation_focus_node'):
+  assert focus_points, f'{key}: presentation focus node not found'
+  center=[(min(p[i] for p in focus_points)+max(p[i] for p in focus_points))/2 for i in range(3)]
  normal=identity()
  for i in range(3):normal[i][i]=scale;normal[i][3]=-center[i]*scale
  # Some official exports reference a texture without providing its UV attribute.
@@ -52,7 +61,9 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
  matrix=product(rot,normal);parent=len(g['nodes']);g['nodes'].append({'name':'Atlas presentation transform','children':roots,'matrix':[matrix[i][j] for j in range(4) for i in range(4)]});g['scenes']=[{'nodes':[parent]}];g['scene']=0
  text=json.dumps(g,separators=(',',':')).encode();text+=b' '*(-len(text)%4);blob=struct.pack('<III',0x46546c67,2,28+len(text)+len(binary))+struct.pack('<II',len(text),0x4e4f534a)+text+struct.pack('<II',len(binary),0x004e4942)+binary
  (OUT/(key+'.glb')).write_bytes(blob)
- manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
+ manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'material_finishes':source.get('material_finishes',{}),'presentation_focus_node':source.get('presentation_focus_node'),'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
 (ROOT/'resources/detailed-model-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(OUT/'manifest.json').write_text(json.dumps(manifest,separators=(',',':')))
 template=(ROOT/'resources/detailed-models.template.js').read_text();(ROOT/'static/detailed-models.js').write_text(template.replace('__MANIFEST__',json.dumps(manifest,ensure_ascii=False,separators=(',',':'))))
 print('Modèles couleur : '+', '.join(m['key'] for m in manifest)+' — '+str(sum(m['bytes'] for m in manifest))+' octets, chargés à la demande.')
+
+(ROOT/'resources/model-runtime-manifest.json').write_text(json.dumps([{'key':m['key'],'runtime_url':m['url'],'runtime_bytes':m['bytes'],'original_bytes':m['bytes'],'triangles':m['triangles'],'original_triangles':m['triangles'],'compression':'original'} for m in manifest],ensure_ascii=False,indent=2)+'\n')

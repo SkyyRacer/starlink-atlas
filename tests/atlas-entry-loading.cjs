@@ -20,7 +20,7 @@ for(const [url,asset] of [
  ['https://example.org/starlink-atlas/atlas/','https://example.org/starlink-atlas/desktop-viewport-guard.js'],
  ['https://example.org/starlink-atlas/','https://example.org/starlink-atlas/desktop-viewport-guard.js'],
 ])for(const small of [false,true]){
- const a=boot({url,asset,small});assert.equal(a.entry,true);assert.equal(a.mask,null,'Size guard must wait while data load');
+ const a=boot({url,asset,small});assert.equal(a.entry,true);assert.equal(a.document.documentElement.dataset.atlasResetPreferences,'true','First entry resets display preferences');assert.equal(a.mask,null,'Size guard must wait while data load');
  assert.equal(a.overlay.parentNode,a.document.body,'Splash covers the header and all menus');
  assert.ok(a.overlay.querySelector('.catalog-entry-logo'));
  a.finish();assert.equal(a.document.getElementById('catalog-percent').textContent,'100');assert.equal(a.overlay.hidden,true);

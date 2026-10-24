@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "GOKTURK 2",
+    "OBJECT_ID": "2012-073A",
+    "NORAD_CAT_ID": 39030,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "TURK",
+    "LAUNCH_DATE": "2012-12-18",
+    "LAUNCH_SITE": "JSC",
+    "DECAY_DATE": "",
+    "PERIOD": "97.59",
+    "INCLINATION": "97.68",
+    "APOGEE": "644",
+    "PERIGEE": "642",
+    "RCS": "1.6464",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "GOKTURK 1A",
+    "OBJECT_ID": "2016-073A",
+    "NORAD_CAT_ID": 41875,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "TURK",
+    "LAUNCH_DATE": "2016-12-05",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "98.44",
+    "INCLINATION": "98.15",
+    "APOGEE": "685",
+    "PERIGEE": "683",
+    "RCS": "3.1623",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

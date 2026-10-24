@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "GSAT0001 (GIOVE-A)",
+    "OBJECT_ID": "2005-051A",
+    "NORAD_CAT_ID": 28922,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2005-12-28",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "850.41",
+    "INCLINATION": "58.91",
+    "APOGEE": "23420",
+    "PERIGEE": "23291",
+    "RCS": "6.7228",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "GSAT0002 (GIOVE-B)",
+    "OBJECT_ID": "2008-020A",
+    "NORAD_CAT_ID": 32781,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2008-04-26",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "870.59",
+    "INCLINATION": "60.10",
+    "APOGEE": "23836",
+    "PERIGEE": "23812",
+    "RCS": "4.8855",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

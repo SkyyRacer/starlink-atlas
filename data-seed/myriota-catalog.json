@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "MYRIOTA 7 (TYVAK-0152)",
+    "OBJECT_ID": "2021-023D",
+    "NORAD_CAT_ID": 47968,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "AUS",
+    "LAUNCH_DATE": "2021-03-22",
+    "LAUNCH_SITE": "RLLB",
+    "DECAY_DATE": "2024-12-04",
+    "PERIOD": "89.17",
+    "INCLINATION": "44.97",
+    "APOGEE": "243",
+    "PERIGEE": "225",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

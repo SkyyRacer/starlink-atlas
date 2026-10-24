@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "EUCLID",
+    "OBJECT_ID": "2023-092A",
+    "NORAD_CAT_ID": 57209,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2023-07-01",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EL2",
+    "ORBIT_TYPE": "ORB"
+  }
+]

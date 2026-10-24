@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "SYNCOM 2 (A 26)",
+    "OBJECT_ID": "1963-031A",
+    "NORAD_CAT_ID": 634,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1963-07-26",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "1435.96",
+    "INCLINATION": "29.73",
+    "APOGEE": "35813",
+    "PERIGEE": "35755",
+    "RCS": "2.1538",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "SYNCOM 3",
+    "OBJECT_ID": "1964-047A",
+    "NORAD_CAT_ID": 858,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1964-08-19",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "1435.02",
+    "INCLINATION": "7.26",
+    "APOGEE": "35787",
+    "PERIGEE": "35744",
+    "RCS": "2.5119",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

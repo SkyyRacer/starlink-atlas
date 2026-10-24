@@ -1,4 +1,5 @@
 mod history;
+mod mission_lifetimes;
 mod collection_health;
 mod secondary;
 mod news;
@@ -81,6 +82,7 @@ fn load_gp_source_for(db: &mut Database, bytes: &[u8], source: &'static str, iss
     let els: Vec<sgp4::Elements> = serde_json::from_slice(bytes).map_err(|e| e.to_string())?;
     let mut parsed = Vec::new();
     for el in els {
+        if collections::requires_ephemeris(el.norad_id){continue;}
         if iss_only && el.norad_id != 25544 { continue; }
         if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() && !db.catalog.get(&el.norad_id).is_some_and(debris::is_debris) { continue; }
         let constants = sgp4::Constants::from_elements(&el).map_err(|e| e.to_string())?;
@@ -116,7 +118,8 @@ fn load_cat(db: &mut Database, bytes: &[u8]) -> Result<(), String> {
     if rows.is_empty() {
         return Err("Catalogue vide".into());
     }
-    for v in rows {
+    for mut v in rows {
+        mission_lifetimes::normalize(&mut v);
         if let Some(id) = v["NORAD_CAT_ID"].as_u64() {
             db.catalog.insert(id, v);
         }
@@ -151,7 +154,6 @@ fn object_collections(db:&Database,id:u64)->Vec<&'static str> {
 }
 fn in_collection(db: &Database, id: u64, collection: &str) -> bool {
     if collection=="all" || collections::definition(collection).is_none() || object_family(db,id)==collection {return true;}
-    if !collections::definition(collection).is_some_and(|row|row.parent.is_some()) {return false;}
     object_collections(db,id).contains(&collection)
 }
 async fn catalog(State(s): State<Shared>, Query(q): Query<CollectionQuery>) -> Result<impl axum::response::IntoResponse, (StatusCode, String)> {
@@ -221,6 +223,9 @@ async fn positions(
         None => snapshots::capture(&*s.read().await).1,
     };
     let allowed:std::collections::BTreeSet<u64>=db.catalog.keys().chain(db.orbits.keys()).copied().filter(|id|in_collection(&db,*id,collection)).collect();
+    if collections::definition(collection).is_some_and(|d|d.trajectory.is_some()) || (collection!="all" && !allowed.is_empty() && allowed.iter().all(|id|!exists_in_db(&db,*id,at))) {
+        return Ok(Json(json!({"at":at,"points":[],"missing":allowed.len(),"track":[],"future_track":[],"track_3d":[],"future_track_3d":[],"suggested_at":null,"recovery_at":null})));
+    }
     let historical = history::orbits(at, collection, &allowed).await.map_err(|e| {
         (
             StatusCode::SERVICE_UNAVAILABLE,

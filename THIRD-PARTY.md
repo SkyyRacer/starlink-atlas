@@ -212,3 +212,22 @@ Les modèles ESA CHEOPS et XMM-Newton trouvés sur SciFleet restent dans les fic
 ## Fond céleste NASA Deep Star Maps 2020
 
 NASA/Goddard Space Flight Center Scientific Visualization Studio, Ernie Wright. Source officielle : https://svs.gsfc.nasa.gov/4851/ ; carte céleste 8K HDR convertie en six faces cubiques. Sources, crédits et transformations : [static/images/sky/README.md](static/images/sky/README.md). Les anciennes faces issues de la prévisualisation ESA ont été retirées.
+
+
+### Modèles NASA et schémas supplémentaires — 24 octobre 2026
+
+Kepler (A), Spitzer Space Telescope, Swift, Suzaku, GRACE (B), Far Ultraviolet Spectroscopic Explorer, Gamma Ray Observatory, Mir et Skylab : originaux du dépôt NASA 3D Resources, révision `11ebb4ee043715aefbba6aeec8a61746fad67fa7`. Spitzer détaillé : NASA VTAD, https://science.nasa.gov/resource/spitzer-space-telescope-3d-model/. Les mêmes consignes NASA et les empreintes sources s’appliquent. Les détails des téléchargements, crédits et réparations sont dans `resources/detailed-model-sources.json`. Aucun modèle dont les droits de redistribution ne sont pas établis n’est publié comme modèle détaillé.
+
+Les autres nouvelles silhouettes scientifiques et historiques sont des géométries originales et illustratives Atlas d’après la documentation de mission citée dans `resources/science-model-sources.json` ; les schémas ne reprennent pas les maillages des illustrations ni des modèles à droits non établis. La provenance de chaque dessin et de chaque variante est distinguée des adaptations NASA dans le manifeste.
+
+Révision de qualité : les nouvelles silhouettes procédurales non validées sont exclues des modèles affichés. Swift, Suzaku, FUSE, Compton GRO, Mir et Skylab ne sont plus proposés comme modèles détaillés. GRACE-FO : NASA VTAD, https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/ ; géométrie et textures originales conservées, adaptation filaire et normalisation de présentation uniquement. Empreinte et téléchargement dans les manifestes sources.
+
+### Mir — essai du modèle Celestia (24 octobre 2026)
+
+Mir, © 2025 **DaveBowman2001**, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Source CelestiaContent](https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir), révision `e6d05411f1ab8aecbd8d72173711ae37f228deaf`. Les dix notices individuelles du modèle et de ses neuf textures sont conservées dans `resources/model-research-2026-10-24/mir-source/`. Conversion CMOD vers GLB par Atlas : positions, normales et triangles conservés ; inversion de V pour glTF, adaptation Phong vers PBR et normalisation de présentation. Configuration complète après l’arrivée de Priroda en 1996, sans prétendre représenter chaque état historique. Aucun soutien de l’auteur à Atlas n’est suggéré.
+
+Essai Mir — finition lumineuse Atlas : ajustement des facteurs métal/rugosité (chrome, panneaux solaires, métal peint) et de l’éclairage ambiant/réfléchi. Couleurs et pixels des textures sources conservés ; ces finitions de présentation ne sont pas des mesures physiques des matériaux de vol.
+
+Fermi — finitions Atlas (24 octobre 2026) : facteurs de métal et de rugosité ajustés sur les matériaux dorés, bronze, argentés, le corps central et les cellules solaires. Couleurs et géométrie NASA conservées ; aucune texture image ajoutée. Éclairage et reflets d’environnement renforcés sur le modèle détaillé uniquement. Réglages déclarés dans `resources/detailed-model-sources.json`.
+
+JWST and Voyager colour models: NASA 3D Resources, pinned revision 11ebb4ee043715aefbba6aeec8a61746fad67fa7. JWST: NASA / Christopher R. Meaney, https://science.nasa.gov/3d-resources/james-webb-space-telescope-b/ . Voyager 1 and 2: NASA / Michael D. Carbajal, https://science.nasa.gov/3d-resources/voyager-probe-b/ . Original geometry and textures preserved; reflective material parameters are recorded in resources/detailed-model-sources.json. Use follows NASA Images and Media Usage Guidelines.

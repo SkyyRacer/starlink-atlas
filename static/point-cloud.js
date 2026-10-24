@@ -8,11 +8,15 @@
  in vec4 color;
  in vec3 shape;
  uniform float u_progress;
+ uniform vec3 u_cameraHigh;
+ uniform vec3 u_cameraLow;
+ uniform vec3 u_selectedRelative;
  out vec4 v_atlasColor;
  out float v_atlasInner;
  void main(){
-  vec4 relative=czm_translateRelativeToEye(positionHigh,positionLow);
+  vec4 relative=vec4((positionHigh-u_cameraHigh)+(positionLow-u_cameraLow),1.0);
   relative.xyz+=displacement*u_progress;
+  if(shape.z<0.0)relative=vec4(u_selectedRelative,1.0);
   vec4 eye=czm_modelViewRelativeToEye*relative;
   gl_Position=czm_projection*eye;
   gl_PointSize=clamp(shape.x*czm_pixelRatio,1.0,128.0);
@@ -22,7 +26,7 @@
   // Keep the far side hidden even when globe terrain depth testing is disabled.
   vec3 radii=vec3(6378137.0,6378137.0,6356752.314245);
   vec3 origin=czm_viewerPositionWC/radii;
-  vec3 ray=(positionHigh+positionLow+displacement*u_progress)/radii-origin;
+  vec3 ray=relative.xyz/radii;
   float a=dot(ray,ray);
   float b=dot(origin,ray);
   float discriminant=b*b-a*(dot(origin,origin)-1.0);
@@ -42,7 +46,7 @@
   czm_writeLogDepth();
  }`;
  function create(C,viewer,{now=()=>performance.now()}={}){
-  const records=[],scratch=new C.Cartesian3();let capacity=0,packed=new Float32Array(0),count=0,dirty=false,started=0,duration=0,command=null,buffer=null,array=null,destroyed=false,fallback=null;
+  const records=[],scratch=new C.Cartesian3(),cameraHigh=new C.Cartesian3(),cameraLow=new C.Cartesian3(),selectedRelative=new C.Cartesian3();let relativeItem=null,frameTime=null,drawTime=0;let capacity=0,packed=new Float32Array(0),count=0,dirty=false,started=0,duration=0,command=null,buffer=null,array=null,destroyed=false,fallback=null;
   function fraction(time=now()){return duration?Math.min(1,Math.max(0,(time-started)/duration)):1;}
   function sample(item,result,time=now()){
    const t=fraction(time),a=item.from||item.target,b=item.to||item.target;
@@ -62,29 +66,35 @@
     started=time;duration=preserve?remaining:smooth?1000:0;count=0;
     for(const item of records)if(item.show&&!item.skipGPU&&item.target)count++;
     if(count>capacity){capacity=Math.max(256,2**Math.ceil(Math.log2(count)));packed=new Float32Array(capacity*STRIDE);release();}
-    let index=0,radius=0;
+    let index=0,radius=0;relativeItem=null;
     for(const item of records){if(!item.show||item.skipGPU||!item.target)continue;
      const from=item.from,to=item.to,color=item.color;
-     const hx=Math.trunc(from.x/65536)*65536,hy=Math.trunc(from.y/65536)*65536,hz=Math.trunc(from.z/65536)*65536;
+     const hx=Math.fround(Math.trunc(from.x/65536)*65536),hy=Math.fround(Math.trunc(from.y/65536)*65536),hz=Math.fround(Math.trunc(from.z/65536)*65536);
      packed[index++]=hx;packed[index++]=hy;packed[index++]=hz;
      packed[index++]=from.x-hx;packed[index++]=from.y-hy;packed[index++]=from.z-hz;
      packed[index++]=to.x-from.x;packed[index++]=to.y-from.y;packed[index++]=to.z-from.z;
      packed[index++]=color?.red??1;packed[index++]=color?.green??1;packed[index++]=color?.blue??1;packed[index++]=color?.alpha??1;
-     const outline=item.outlineWidth||0;packed[index++]=(item.pixelSize||3)+2*outline;packed[index++]=outline;packed[index++]=item.diameter_m||10;
+     const outline=item.outlineWidth||0;packed[index++]=(item.pixelSize||3)+2*outline;packed[index++]=outline;packed[index++]=item.cameraRelative?-1:item.diameter_m||10;if(item.cameraRelative)relativeItem=item;
      radius=Math.max(radius,C.Cartesian3.magnitude(from),C.Cartesian3.magnitude(to));
     }
     layer.radius=radius+100;dirty=true;
    },
-   samplePosition(item,result,time=now()){return sample(item,result,time);},
+   setFrameTime(time){frameTime=time;},
+   samplePosition(item,result,time=frameTime??now()){return sample(item,result,time);},
    suspend(){release();dirty=true;},
    get count(){return count;},get active(){return duration>0&&fraction()<1;},
    get stats(){return {points:count,capacity,bytes:packed.byteLength,batched:!fallback};},
    update(frame){
     if(!layer.show||!count||frame.mode!==C.SceneMode.SCENE3D||!frame.passes.render)return;
+    drawTime=frameTime??now();
     if(fallback){
-     for(const item of records){if(!item.native)item.native=fallback.add({id:item.id});const point=item.native;point.show=item.show&&!item.skipGPU;if(!point.show)continue;point.position=sample(item,scratch);point.color=item.color;point.pixelSize=item.pixelSize;point.outlineWidth=item.outlineWidth;point.outlineColor=item.outlineColor;point.scaleByDistance=item.scaleByDistance;}
+     for(const item of records){if(!item.native)item.native=fallback.add({id:item.id});const point=item.native;point.show=item.show&&!item.skipGPU;if(!point.show)continue;point.position=sample(item,scratch,drawTime);point.color=item.color;point.pixelSize=item.pixelSize;point.outlineWidth=item.outlineWidth;point.outlineColor=item.outlineColor;point.scaleByDistance=item.scaleByDistance;}
      fallback.update(frame);return;
     }
+    // Both sides must use the same float32 split, including beyond 2^40 metres.
+    const camera=viewer.camera?.positionWC||frame.camera?.positionWC||C.Cartesian3.ZERO;
+    for(const axis of ['x','y','z']){cameraHigh[axis]=Math.fround(Math.trunc(camera[axis]/65536)*65536);cameraLow[axis]=Math.fround(camera[axis]-cameraHigh[axis]);}
+    if(relativeItem){sample(relativeItem,selectedRelative,drawTime);C.Cartesian3.subtract(selectedRelative,camera,selectedRelative);}
     if(!command){
      buffer=C.Buffer.createVertexBuffer({context:frame.context,typedArray:packed,usage:C.BufferUsage.DYNAMIC_DRAW});
      array=new C.VertexArray({context:frame.context,attributes:[
@@ -95,7 +105,7 @@
       {index:4,vertexBuffer:buffer,componentsPerAttribute:3,componentDatatype:C.ComponentDatatype.FLOAT,offsetInBytes:52,strideInBytes:64}]});
      command=new C.DrawCommand({owner:layer,vertexArray:array,primitiveType:C.PrimitiveType.POINTS,modelMatrix:C.Matrix4.IDENTITY,
       shaderProgram:C.ShaderProgram.fromCache({context:frame.context,attributeLocations:{positionHigh:0,positionLow:1,displacement:2,color:3,shape:4},vertexShaderSource:vertex,fragmentShaderSource:fragment}),
-      uniformMap:{u_progress:()=>fraction()},renderState:C.RenderState.fromCache({depthTest:{enabled:true},depthMask:false,blending:C.BlendingState.ALPHA_BLEND}),pass:C.Pass.TRANSLUCENT});
+      uniformMap:{u_progress:()=>fraction(drawTime),u_cameraHigh:()=>cameraHigh,u_cameraLow:()=>cameraLow,u_selectedRelative:()=>selectedRelative},renderState:C.RenderState.fromCache({depthTest:{enabled:true},depthMask:false,blending:C.BlendingState.ALPHA_BLEND}),pass:C.Pass.TRANSLUCENT});
      dirty=false;
     }
     if(dirty){buffer.copyFromArrayView(packed.subarray(0,count*STRIDE));dirty=false;}

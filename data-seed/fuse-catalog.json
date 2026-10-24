@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "FUSE 1",
+    "OBJECT_ID": "1999-035A",
+    "NORAD_CAT_ID": 25791,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1999-06-24",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "99.69",
+    "INCLINATION": "24.99",
+    "APOGEE": "751",
+    "PERIGEE": "737",
+    "RCS": "7.2197",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

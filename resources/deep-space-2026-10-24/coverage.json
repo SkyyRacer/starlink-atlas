@@ -1,0 +1,206 @@
+{
+  "source": "NASA/JPL Horizons",
+  "url": "https://ssd.jpl.nasa.gov/horizons/",
+  "generated_at": "2026-10-24T20:02:15.239032+00:00",
+  "missions": [
+    {
+      "key": "jwst",
+      "id": 50463,
+      "command": -170,
+      "launch": "2021-12-25",
+      "name": "JWST",
+      "orbit_types": [
+        "L2"
+      ],
+      "frame_radius": 2500000000,
+      "source_sha256": "deb3c78b004c6b22328bbdf3f13a70aa190ee8f3cad2ad55b71c7daacd7b3746",
+      "first_epoch": 1640437260,
+      "last_epoch": 1792954860,
+      "years": 6
+    },
+    {
+      "key": "gaia",
+      "id": 39479,
+      "command": -139479,
+      "launch": "2013-12-19",
+      "name": "GAIA",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "source_sha256": "426b06659636b7b4d428443f0d9c6d0f364dc95ccb8194a14b16419c71441dee",
+      "first_epoch": 1387446919,
+      "last_epoch": 1792965319,
+      "years": 14
+    },
+    {
+      "key": "herschel",
+      "id": 34937,
+      "command": -486,
+      "launch": "2009-05-14",
+      "name": "HERSCHEL",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "source_sha256": "df65e0911710dfc0d6adc66040ea4a44293ba2e3c924a3b71cae8087d3045501",
+      "first_epoch": 1242308338,
+      "last_epoch": 1792957138,
+      "years": 18
+    },
+    {
+      "key": "planck",
+      "id": 34938,
+      "command": -489,
+      "launch": "2009-05-14",
+      "name": "PLANCK",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "source_sha256": "7d0268e29f032875b923f3d724a866870b3499f22ee6e8241aad954e070164b8",
+      "first_epoch": 1242308488,
+      "last_epoch": 1792957288,
+      "years": 18
+    },
+    {
+      "key": "euclid",
+      "id": 57209,
+      "command": -680,
+      "launch": "2023-07-01",
+      "name": "EUCLID",
+      "orbit_types": [
+        "L2"
+      ],
+      "frame_radius": 2500000000,
+      "source_sha256": "8573e4e34474ebf0034449419acf97fa8b5849b86fc893e302d2ce37ca93db2d",
+      "first_epoch": 1688226779,
+      "last_epoch": 1792965179,
+      "years": 4
+    },
+    {
+      "key": "soho",
+      "id": 23726,
+      "command": -21,
+      "launch": "1995-12-02",
+      "name": "SOHO",
+      "orbit_types": [
+        "L1"
+      ],
+      "frame_radius": 2500000000,
+      "source_sha256": "ab4b86cdc05954a9f00b463130c536a5d982d510e7e610d7802d2a7484d43d75",
+      "first_epoch": 817862460,
+      "last_epoch": 1792951260,
+      "years": 32
+    },
+    {
+      "key": "ace",
+      "id": 24912,
+      "command": -92,
+      "launch": "1997-08-25",
+      "name": "ACE",
+      "orbit_types": [
+        "L1"
+      ],
+      "frame_radius": 2500000000,
+      "source_sha256": "b2b0417f733d2586ce78e97736bbf441572b092f5bbb811eeff5841159c4c124",
+      "first_epoch": 1151798460,
+      "last_epoch": 1792951260,
+      "years": 21
+    },
+    {
+      "key": "voyager-1",
+      "id": 10321,
+      "command": -31,
+      "launch": "1977-09-05",
+      "name": "VOYAGER 1",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 40000000000000,
+      "source_sha256": "64170aca4a735afd36e0e6b78c26d0a4526e6c85648217f7f32de846ed0433fb",
+      "first_epoch": 242315976,
+      "last_epoch": 1792958376,
+      "years": 50
+    },
+    {
+      "key": "voyager-2",
+      "id": 10271,
+      "command": -32,
+      "launch": "1977-08-20",
+      "name": "VOYAGER 2",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 40000000000000,
+      "source_sha256": "22bb88e3b758ab721b2bb2d0c93459f8ebdf87d6a80d9e8862d0b2afc0172ad7",
+      "first_epoch": 240939164,
+      "last_epoch": 1792963964,
+      "years": 50
+    },
+    {
+      "key": "cassini",
+      "id": 25008,
+      "command": -82,
+      "launch": "1997-10-15",
+      "name": "CASSINI",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 2000000000000,
+      "stop": "2017-09-15 11:55:00",
+      "source_sha256": "d0296e92a2cd30dd08bfcfa36af33be0f3e88bc2aa8d25e5a828b2c09cfc1cbc",
+      "first_epoch": 876907628,
+      "last_epoch": 1505467628,
+      "years": 21
+    },
+    {
+      "key": "juno",
+      "id": 37773,
+      "command": -61,
+      "launch": "2011-08-05",
+      "name": "JUNO",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 2000000000000,
+      "source_sha256": "a1f643cdefba8484a8c1d75438fed191929a9e11825d0fb5c7be5fd99911ab2e",
+      "first_epoch": 1312564746,
+      "last_epoch": 1792970346,
+      "years": 16
+    },
+    {
+      "key": "new-horizons",
+      "id": 28928,
+      "command": -98,
+      "launch": "2006-01-19",
+      "name": "NEW HORIZONS",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 15000000000000,
+      "source_sha256": "6ee5444095971109cfccebdea456bc80724fe0e45852fe0539dfec775ce051ec",
+      "first_epoch": 1137700273,
+      "last_epoch": 1792957873,
+      "years": 21
+    },
+    {
+      "key": "bepicolombo",
+      "id": 43653,
+      "command": -121,
+      "launch": "2018-10-20",
+      "name": "BEPICOLOMBO",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 500000000000,
+      "source_sha256": "e9ccfa9aae18f92ad83a6b2d893dd5b697ecbc1cf29dd31d723c5772392e62b7",
+      "first_epoch": 1540001599,
+      "last_epoch": 1792959199,
+      "years": 9
+    }
+  ]
+}

@@ -1,0 +1,526 @@
+{
+  "query": "FUSE telescope",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=FUSE+telescope&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "118b6acc449c4197aae4dc9b6aea9e54",
+      "name": "Telescope fitting (1500 TT)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-118b6acc449c4197aae4dc9b6aea9e54",
+      "isDownloadable": false,
+      "vertexCount": 202584,
+      "faceCount": 405275,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The re-designed 1500 series water tight lay-in wireway is a complete system that permits fast and easy installation of multiple wire runs. Each section and accessory include one side completely opened to allow lay-in of wires instead of being restricted to pull through. The wireways are made high quality 14 GA steel complete with bolted flanges. The covers are hinged and several quick release draw pull latches assure a tight closing. A high quality, poured-in-place, seamless gasket is present on the covers. The enhanced flange construction now integrates a gasket embedded directly onto the flange itself. Components are finished with heat fused powder paint, electrostatically applied on a pretreated base. Finish is ANSI/ASA61 smooth gray.\n\nCSA Certified / UL Listed NEMA/EEMAC 4-12 / IP66"
+    },
+    {
+      "uid": "a4427e4977fe4e5ca2c01afe710044a1",
+      "name": "Open adaptor (1100 OA)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-a4427e4977fe4e5ca2c01afe710044a1",
+      "isDownloadable": false,
+      "vertexCount": 318,
+      "faceCount": 644,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "028b4a23ab414b178578f284dd11dcbc",
+      "name": "Elbow sweep 90 degrees (1100 ES)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-028b4a23ab414b178578f284dd11dcbc",
+      "isDownloadable": false,
+      "vertexCount": 40128,
+      "faceCount": 80312,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "edddb65782de4c44a61a9331dc8341a7",
+      "name": "Cross fitting (1100 CF)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-edddb65782de4c44a61a9331dc8341a7",
+      "isDownloadable": false,
+      "vertexCount": 32786,
+      "faceCount": 65628,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "7292565965d3412cab9eff2bb35aa073",
+      "name": "Telescope fitting (1500 TL)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-7292565965d3412cab9eff2bb35aa073",
+      "isDownloadable": false,
+      "vertexCount": 31133,
+      "faceCount": 62324,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The re-designed 1500 series water tight lay-in wireway is a complete system that permits fast and easy installation of multiple wire runs. Each section and accessory include one side completely opened to allow lay-in of wires instead of being restricted to pull through. The wireways are made high quality 14 GA steel complete with bolted flanges. The covers are hinged and several quick release draw pull latches assure a tight closing. A high quality, poured-in-place, seamless gasket is present on the covers. The enhanced flange construction now integrates a gasket embedded directly onto the flange itself. Components are finished with heat fused powder paint, electrostatically applied on a pretreated base. Finish is ANSI/ASA61 smooth gray.\n\nCSA Certified / UL Listed NEMA/EEMAC 4-12 / IP66"
+    },
+    {
+      "uid": "e1ae30bc654a40ad819b72906fcabd97",
+      "name": "Straight sections without knockout (1100SSN)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-e1ae30bc654a40ad819b72906fcabd97",
+      "isDownloadable": false,
+      "vertexCount": 32142,
+      "faceCount": 64384,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "14ee00d325ee40c5afc4f30f391b0aaf",
+      "name": "Straight sections (1100SS)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-14ee00d325ee40c5afc4f30f391b0aaf",
+      "isDownloadable": false,
+      "vertexCount": 66615,
+      "faceCount": 133438,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "740bc908627f4e7db0450a1b812f9c39",
+      "name": "Elbow (1100ELA)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-740bc908627f4e7db0450a1b812f9c39",
+      "isDownloadable": false,
+      "vertexCount": 44732,
+      "faceCount": 89692,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "545ccc0d08b748c1ba60f807f2c2212d",
+      "name": "Closing plate (1100CP)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-545ccc0d08b748c1ba60f807f2c2212d",
+      "isDownloadable": false,
+      "vertexCount": 1160,
+      "faceCount": 2328,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "b1a77ba628934f649c2c7063e56efc3a",
+      "name": "Screw on barrier (1100BA)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-b1a77ba628934f649c2c7063e56efc3a",
+      "isDownloadable": false,
+      "vertexCount": 738,
+      "faceCount": 1488,
+      "license": null,
+      "user": {
+        "uid": "6d89a45c15114a03bb500b238073d86c",
+        "username": "exm_boxcad",
+        "displayName": "EXM Manufacturing Ltd.",
+        "profileUrl": "https://sketchfab.com/exm_boxcad",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/ce25051fd44f44d58d3bda8f3bfb3a50",
+          "images": [
+            {
+              "size": 996,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/eb7082af67fd4dcaa39d2d792480fdad.png",
+              "height": 32
+            },
+            {
+              "size": 1670,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/cc8effaa6e5f4c688bd35b8b1e24a123.png",
+              "height": 48
+            },
+            {
+              "size": 3499,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/2bbf091f5ebe4b39a62ba2cafbc39596.png",
+              "height": 90
+            },
+            {
+              "size": 3956,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/ce25051fd44f44d58d3bda8f3bfb3a50/90e319aaadea4f2cbff4eba0180dfabe.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/6d89a45c15114a03bb500b238073d86c"
+      },
+      "description": "The 1100 series lay-in ducts are made of code gauge steel and designed to permit fast and easy installation of multiple wire runs. The corners of components are aesthetically rounded. The hinged covers are secured by convenient quarter-turn locks, which facilitate access to the contents of the components. Available without knockouts (add suffix “N” to the catalog number). Knockouts are provided on two sides of the body. All accessories for a complete system such as 22½°, 45° and 90° elbows, crosses, T’s, reducers, telescope fittings have removable covers. Joiner plates are linked by carriage bolts and anti-vibration nuts, which can be installed using minimum tooling. All of the painted components are finished with heat fused powder paint, electrostaticaly applied on a pretreated base. Finish is ANSI/ASA 61 smooth gray (other colors available). \n\nCSA Certified / UL Listed NEMA/EEMAC 1 / IP30"
+    },
+    {
+      "uid": "a2485c39852d485ba740472f0c5c55d2",
+      "name": "Interior Pack",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-a2485c39852d485ba740472f0c5c55d2",
+      "isDownloadable": false,
+      "vertexCount": 93027,
+      "faceCount": 170381,
+      "license": {
+        "uid": "783b685da9bf457d81e829fa283f3567",
+        "label": "Standard"
+      },
+      "user": {
+        "uid": "9f129e0feb434eddb424cda6532c1ba0",
+        "username": "3d_Asekas",
+        "displayName": "Kaos3D",
+        "profileUrl": "https://sketchfab.com/3d_Asekas",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/1f00db37a4dc482492342c482773ca8c",
+          "images": [
+            {
+              "size": 1023,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/1f00db37a4dc482492342c482773ca8c/d3b27355b3654d568a82941b70cb53b4.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1411,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/1f00db37a4dc482492342c482773ca8c/82d36b50938944f9bea87f68b3ce8ff1.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3192,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/1f00db37a4dc482492342c482773ca8c/c2422c2754cd4b65a84e8c94034545bd.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3683,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/1f00db37a4dc482492342c482773ca8c/20d26eb41b5243d3b3ace37e2d57b2f8.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/9f129e0feb434eddb424cda6532c1ba0"
+      },
+      "description": "Old Furnitures and ornaments.\nthe zip includes: - fbx and abj model format - Textures conversion to (unreal engine, unity, standard textures)\n\nif need another thing, please contact me, I’ll be glad to help rguerri98@gmail.com"
+    }
+  ]
+}

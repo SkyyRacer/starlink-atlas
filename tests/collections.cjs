@@ -37,7 +37,7 @@ for(const [family,point] of Object.entries(samples)){
  ctx.collectionMode=family;fields.status.value='inactive';assert.equal(ctx.matches({...satellite,ops:'-'}),true);assert.equal(ctx.matches({...satellite,ops:'+'}),false);
 }
 for(const [id,name] of [[41798,'SENTINEL-1A DEB'],[11970,'GOES 4 AKM']])assert.equal(registry.family({id,name}),'debris');
-for(const [id,name] of [[38012,'PLEIADES 1A'],[123,'COSMOS 9999']])assert.equal(registry.family({id,name}),null);
+assert.equal(registry.family({id:38012,name:'PLEIADES 1A'}),'pleiades');assert.equal(registry.family({id:123,name:'COSMOS 9999'}),null);
 console.log('Onze nouvelles familles : alias, exclusion des débris, isolation, filtre hors service et visibilité Atlas OK');
 
 const debris={id:41798,name:'SENTINEL-1A DEB',family:'debris',object_type:'DEB',owner:'ESA',designator:'2014-016B'};

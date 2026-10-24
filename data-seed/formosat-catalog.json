@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "FORMOSAT-2 (ROCSAT 2)",
+    "OBJECT_ID": "2004-018A",
+    "NORAD_CAT_ID": 28254,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "ROC",
+    "LAUNCH_DATE": "2004-05-20",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "102.77",
+    "INCLINATION": "98.86",
+    "APOGEE": "891",
+    "PERIGEE": "888",
+    "RCS": "3.1147",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "FORMOSAT-5",
+    "OBJECT_ID": "2017-049A",
+    "NORAD_CAT_ID": 42920,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "ROC",
+    "LAUNCH_DATE": "2017-08-24",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "99.25",
+    "INCLINATION": "98.22",
+    "APOGEE": "732",
+    "PERIGEE": "714",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

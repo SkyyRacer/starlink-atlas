@@ -1,0 +1,3895 @@
+[
+  {
+    "id": "sputnik-1",
+    "label": "Spoutnik 1",
+    "category": "history",
+    "description": "Premier satellite artificiel terrestre",
+    "match": {
+      "names": [
+        "^SPUTNIK 1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sputnik-2",
+    "label": "Spoutnik 2",
+    "category": "history",
+    "description": "Mission historique de Laïka",
+    "match": {
+      "names": [
+        "^SPUTNIK 2(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sputnik-3",
+    "label": "Spoutnik 3",
+    "category": "history",
+    "description": "Laboratoire géophysique soviétique",
+    "match": {
+      "names": [
+        "^SPUTNIK 3(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "explorer-early",
+    "label": "Explorer 1, 3, 4, 6 et 7",
+    "category": "history",
+    "description": "Premières expériences scientifiques américaines",
+    "match": {
+      "names": [
+        "^EXPLORER (1|3|4|6|7)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "vanguard",
+    "label": "Vanguard 1 à 3",
+    "category": "history",
+    "description": "Premiers satellites géodésiques et scientifiques",
+    "match": {
+      "names": [
+        "^VANGUARD [123](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "score",
+    "label": "SCORE",
+    "category": "history",
+    "description": "Relais vocal expérimental historique",
+    "match": {
+      "names": [
+        "^SCORE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "corona",
+    "label": "Discoverer / CORONA",
+    "category": "defense",
+    "description": "Reconnaissance photographique historique documentée",
+    "match": {
+      "names": [
+        "^DISCOVERER [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [
+        "CORONA"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^CORONA"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "transit",
+    "label": "Transit / NAVSAT",
+    "category": "navigation",
+    "description": "Navigation Doppler historique",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^(Transit|NNS )"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tiros",
+    "label": "TIROS",
+    "category": "weather",
+    "description": "Premiers satellites météorologiques télévisuels",
+    "match": {
+      "names": [
+        "^TIROS [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "echo",
+    "label": "Echo 1 et 2",
+    "category": "history",
+    "description": "Télécommunications par réflexion passive",
+    "match": {
+      "names": [
+        "^ECHO (1|1A|2)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "courier-1b",
+    "label": "Courier 1B",
+    "category": "history",
+    "description": "Relais actif expérimental",
+    "match": {
+      "names": [
+        "^COURIER 1B(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "oso",
+    "label": "OSO",
+    "category": "science",
+    "description": "Observatoires solaires orbitaux",
+    "match": {
+      "names": [
+        "^OSO [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ariel",
+    "label": "Ariel",
+    "category": "science",
+    "description": "Programme scientifique britannique",
+    "match": {
+      "names": [
+        "^ARIEL [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "telstar-historical",
+    "label": "Telstar 1 et 2",
+    "category": "history",
+    "description": "Premières télécommunications transatlantiques",
+    "match": {
+      "names": [
+        "^TELSTAR [12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "alouette",
+    "label": "Alouette 1 et 2",
+    "category": "science",
+    "description": "Satellites scientifiques canadiens",
+    "match": {
+      "names": [
+        "^ALOUETTE [12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "relay",
+    "label": "Relay 1 et 2",
+    "category": "history",
+    "description": "Télécommunications expérimentales historiques",
+    "match": {
+      "names": [
+        "^RELAY [12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "syncom",
+    "label": "Syncom 2 et 3",
+    "category": "history",
+    "description": "Premiers satellites géosynchrones",
+    "match": {
+      "names": [
+        "^SYNCOM [23](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "elektron",
+    "label": "Elektron 1 à 4",
+    "category": "science",
+    "description": "Mesure du rayonnement spatial",
+    "match": {
+      "names": [
+        "^ELEKTRON [1-4](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "san-marco",
+    "label": "San Marco",
+    "category": "science",
+    "description": "Premières missions scientifiques italiennes",
+    "match": {
+      "names": [
+        "^SAN MARCO [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "asterix",
+    "label": "Astérix A1",
+    "category": "history",
+    "description": "Premier satellite français",
+    "match": {
+      "names": [
+        "^(ASTERIX|A-?1(?: \\(ASTERIX\\))?)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "proton",
+    "label": "Proton 1 à 4",
+    "category": "science",
+    "description": "Étude des rayons cosmiques",
+    "match": {
+      "names": [
+        "^PROTON [1-4](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ogo",
+    "label": "OGO",
+    "category": "science",
+    "description": "Observatoires géophysiques orbitaux",
+    "match": {
+      "names": [
+        "^OGO [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ov-experiments",
+    "label": "OV1 / OV2 / OV3",
+    "category": "experimental",
+    "description": "Expérimentations orbitales américaines",
+    "match": {
+      "names": [
+        "^OV[123][- ]"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "essa",
+    "label": "ESSA 1 à 9",
+    "category": "weather",
+    "description": "Satellites météorologiques historiques",
+    "match": {
+      "names": [
+        "^ESSA [1-9](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ats",
+    "label": "ATS 1 à 6",
+    "category": "experimental",
+    "description": "Télécommunications et météorologie expérimentales",
+    "match": {
+      "names": [
+        "^ATS [1-6](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kosmos-science",
+    "label": "Kosmos — séries DS",
+    "category": "experimental",
+    "description": "Séries techniques scientifiques et expérimentales documentées",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^DS-"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "isis",
+    "label": "ISIS 1 et 2",
+    "category": "science",
+    "description": "Étude de l’ionosphère",
+    "match": {
+      "names": [
+        "^ISIS [12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "oao",
+    "label": "OAO",
+    "category": "science",
+    "description": "Premiers observatoires astronomiques orbitaux",
+    "match": {
+      "names": [
+        "^OAO [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dodge",
+    "label": "DODGE",
+    "category": "experimental",
+    "description": "Expérience de stabilisation gravitationnelle",
+    "match": {
+      "names": [
+        "^DODGE(?: 1)?(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "mol",
+    "label": "MOL / OV4-3",
+    "category": "experimental",
+    "description": "Démonstrateur orbital du programme MOL",
+    "match": {
+      "names": [
+        "\\(OV4-3 MOL\\)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {
+        "PLName": [
+          "^OV4-3$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "salyut-1",
+    "label": "Saliout 1",
+    "category": "stations",
+    "description": "Première station spatiale historique",
+    "match": {
+      "names": [
+        "^SALYUT 1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "salyut",
+    "label": "Saliout 2 à 7",
+    "category": "stations",
+    "description": "Stations orbitales soviétiques",
+    "match": {
+      "names": [
+        "^SALYUT [2-7](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "skylab",
+    "label": "Skylab",
+    "category": "stations",
+    "description": "Station spatiale américaine historique",
+    "match": {
+      "names": [
+        "^SKYLAB( 1)?(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "mir",
+    "label": "Mir",
+    "category": "stations",
+    "description": "Station spatiale soviétique puis russe",
+    "match": {
+      "names": [
+        "^MIR(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "almaz",
+    "label": "Almaz / OPS",
+    "category": "stations",
+    "description": "Stations militaires orbitales documentées",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Almaz$"
+      ],
+      "gcat_fields": {
+        "PLName": [
+          "^Almaz OPS"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "vostok",
+    "label": "Vostok 1 à 6",
+    "category": "vehicles",
+    "description": "Premiers vols orbitaux habités soviétiques",
+    "match": {
+      "names": [
+        "^VOSTOK [1-6](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "mercury",
+    "label": "Mercury — vols orbitaux",
+    "category": "vehicles",
+    "description": "Capsules américaines ayant atteint l’orbite",
+    "match": {
+      "names": [
+        "^MERCURY ATLAS [4-9](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "voskhod",
+    "label": "Voskhod 1 et 2",
+    "category": "vehicles",
+    "description": "Véhicules orbitaux habités soviétiques",
+    "match": {
+      "names": [
+        "^VOSKHOD [12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gemini",
+    "label": "Gemini 3 à 12",
+    "category": "vehicles",
+    "description": "Capsules et rendez-vous orbitaux américains",
+    "match": {
+      "names": [
+        "^GEMINI (?:[3-9]|1[0-2])(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "apollo",
+    "label": "Apollo — orbite terrestre",
+    "category": "vehicles",
+    "description": "Phases terrestres des missions Apollo",
+    "match": {
+      "names": [
+        "^APOLLO (?:[4-9]|1[0-7]|ASTP)(?:$| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "soyuz",
+    "label": "Soyouz",
+    "category": "vehicles",
+    "description": "Vaisseaux habités soviétiques et russes",
+    "match": {
+      "names": [
+        "^SOYUZ(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^7K-"
+      ],
+      "gcat_fields": {
+        "PLName": [
+          "^Soyuz"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "progress",
+    "label": "Progress",
+    "category": "vehicles",
+    "description": "Vaisseaux de ravitaillement orbitaux",
+    "match": {
+      "names": [
+        "^PROGRESS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Progress"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^Progress"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "space-shuttle",
+    "label": "Navettes spatiales STS",
+    "category": "vehicles",
+    "description": "Vols orbitaux des navettes américaines",
+    "match": {
+      "names": [
+        "^STS(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {
+        "Bus": [
+          "^Orbiter$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "buran",
+    "label": "Bourane",
+    "category": "vehicles",
+    "description": "Vol orbital de la navette soviétique",
+    "match": {
+      "names": [
+        "^BURAN(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [
+        "^Buran1$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tiangong-1",
+    "label": "Tiangong-1",
+    "category": "stations",
+    "description": "Premier laboratoire orbital chinois",
+    "match": {
+      "names": [
+        "^TIANGONG[- ]1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tiangong-2",
+    "label": "Tiangong-2",
+    "category": "stations",
+    "description": "Deuxième laboratoire orbital chinois",
+    "match": {
+      "names": [
+        "^TIANGONG[- ]2(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "shenzhou",
+    "label": "Shenzhou",
+    "category": "vehicles",
+    "description": "Vaisseaux habités chinois",
+    "match": {
+      "names": [
+        "^SHENZHOU(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tianzhou",
+    "label": "Tianzhou",
+    "category": "vehicles",
+    "description": "Vaisseaux cargos chinois",
+    "match": {
+      "names": [
+        "^TIANZHOU(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "crew-dragon",
+    "label": "Crew Dragon",
+    "category": "vehicles",
+    "description": "Transport d’équipages en orbite terrestre",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Dragon 2$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cargo-dragon",
+    "label": "Cargo Dragon",
+    "category": "vehicles",
+    "description": "Vaisseaux de ravitaillement Dragon",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Dragon(?: 2 Cargo)?$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cygnus",
+    "label": "Cygnus",
+    "category": "vehicles",
+    "description": "Transport cargo vers l’ISS",
+    "match": {
+      "names": [
+        "^CYGNUS(?: |$)"
+      ],
+      "gcat_program": [
+        "^Cygnus$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "starliner",
+    "label": "Starliner",
+    "category": "vehicles",
+    "description": "Véhicule orbital américain",
+    "match": {
+      "names": [
+        "^STARLINER"
+      ],
+      "gcat_program": [
+        "^Starliner"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^CST-100"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "intelsat",
+    "label": "Intelsat / Early Bird",
+    "category": "telecommunications",
+    "description": "Satellites de télécommunications géostationnaires",
+    "match": {
+      "names": [
+        "^(INTELSAT|EARLY BIRD|INTEL?SAT I)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "eutelsat",
+    "label": "Eutelsat GEO",
+    "category": "telecommunications",
+    "description": "Opérateur de télécommunications géostationnaires",
+    "match": {
+      "names": [
+        "^(EUTELSAT|ECS [0-9]|HOT BIRD)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "astra",
+    "label": "SES Astra",
+    "category": "telecommunications",
+    "description": "Satellites géostationnaires Astra",
+    "match": {
+      "names": [
+        "^ASTRA(?: |-|[0-9])"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "telesat",
+    "label": "Telesat / Anik",
+    "category": "telecommunications",
+    "description": "Télécommunications canadiennes",
+    "match": {
+      "names": [
+        "^(ANIK|TELESAT)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "hispasat",
+    "label": "Hispasat",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires espagnoles",
+    "match": {
+      "names": [
+        "^HISPASAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "turksat",
+    "label": "Türksat",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires turques",
+    "match": {
+      "names": [
+        "^TURKSAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "asiasat",
+    "label": "AsiaSat",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires asiatiques",
+    "match": {
+      "names": [
+        "^ASIASAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "chinasat",
+    "label": "Chinasat / Zhongxing",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires chinoises",
+    "match": {
+      "names": [
+        "^(CHINASAT|ZHONGXING)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "jcsat",
+    "label": "JCSAT / SKY Perfect JSAT",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires japonaises",
+    "match": {
+      "names": [
+        "^JCSAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "optus",
+    "label": "Optus",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires australiennes",
+    "match": {
+      "names": [
+        "^(OPTUS|AUSSAT)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "telkom",
+    "label": "Telkom",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires indonésiennes",
+    "match": {
+      "names": [
+        "^TELKOM(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "palapa",
+    "label": "Palapa",
+    "category": "telecommunications",
+    "description": "Satellites de télécommunications indonésiens",
+    "match": {
+      "names": [
+        "^PALAPA(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ekspress",
+    "label": "Express / Ekspress",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires russes",
+    "match": {
+      "names": [
+        "^(EXPRESS|EKSPRESS)(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Ekspress"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "yamal",
+    "label": "Yamal",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires russes",
+    "match": {
+      "names": [
+        "^YAMAL(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gorizont",
+    "label": "Gorizont",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires soviétiques",
+    "match": {
+      "names": [
+        "^GORIZONT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "molniya",
+    "label": "Molniya",
+    "category": "telecommunications",
+    "description": "Télécommunications en orbite fortement elliptique",
+    "match": {
+      "names": [
+        "^MOLNIYA(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "raduga",
+    "label": "Raduga",
+    "category": "telecommunications",
+    "description": "Télécommunications géostationnaires soviétiques et russes",
+    "match": {
+      "names": [
+        "^RADUGA(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ekran",
+    "label": "Ekran",
+    "category": "telecommunications",
+    "description": "Diffusion géostationnaire historique",
+    "match": {
+      "names": [
+        "^EKRAN(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dscs",
+    "label": "DSCS / IDCSP",
+    "category": "telecommunications",
+    "description": "Communications militaires américaines documentées",
+    "match": {
+      "names": [
+        "^(DSCS|IDCSP)(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^(DSCS|IDCSP)"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "milstar",
+    "label": "Milstar",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires protégées",
+    "match": {
+      "names": [
+        "^MILSTAR(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Milstar$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "aehf",
+    "label": "AEHF",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires protégées",
+    "match": {
+      "names": [
+        "^AEHF(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^AEHF$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "wgs",
+    "label": "WGS",
+    "category": "telecommunications",
+    "description": "Communications militaires à large bande",
+    "match": {
+      "names": [
+        "^WGS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^WGS$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "muos",
+    "label": "MUOS",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires mobiles",
+    "match": {
+      "names": [
+        "^MUOS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^MUOS$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "skynet",
+    "label": "Skynet",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires britanniques",
+    "match": {
+      "names": [
+        "^SKYNET(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Skynet$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "syracuse",
+    "label": "Syracuse",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires françaises",
+    "match": {
+      "names": [
+        "^SYRACUSE(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Syracuse$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sicral",
+    "label": "Sicral",
+    "category": "telecommunications",
+    "description": "Télécommunications militaires italiennes",
+    "match": {
+      "names": [
+        "^SICRAL(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "spainsat",
+    "label": "Spainsat / Xtar-EUR",
+    "category": "telecommunications",
+    "description": "Télécommunications gouvernementales",
+    "match": {
+      "names": [
+        "^(SPAINSAT|XTAR-EUR)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "guowang",
+    "label": "Guowang / SatNet",
+    "category": "telecommunications",
+    "description": "Constellation chinoise de télécommunications",
+    "match": {
+      "names": [
+        "^(GUOWANG|SATNET|GW)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "galaxyspace",
+    "label": "GalaxySpace / Yinhe",
+    "category": "telecommunications",
+    "description": "Constellation de télécommunications chinoise",
+    "match": {
+      "names": [
+        "^(YINHE|GALAXYSPACE)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "lynk",
+    "label": "Lynk Global",
+    "category": "telecommunications",
+    "description": "Télécommunications directes vers les mobiles",
+    "match": {
+      "names": [
+        "^(LYNK|LYNKTOWER)(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "hiber",
+    "label": "Hiber",
+    "category": "telecommunications",
+    "description": "Télécommunications pour objets connectés",
+    "match": {
+      "names": [
+        "^HIBER(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kepler-comms",
+    "label": "Kepler Communications",
+    "category": "telecommunications",
+    "description": "Constellation canadienne de télécommunications",
+    "match": {
+      "names": [
+        "^KEPLER[- ][0-9]"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kineis",
+    "label": "Kinéis",
+    "category": "telecommunications",
+    "description": "Constellation française pour objets connectés",
+    "match": {
+      "names": [
+        "^KINEIS(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "myriota",
+    "label": "Myriota",
+    "category": "telecommunications",
+    "description": "Télécommunications pour objets connectés",
+    "match": {
+      "names": [
+        "^MYRIOTA(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "astrocast",
+    "label": "Astrocast",
+    "category": "telecommunications",
+    "description": "Télécommunications pour objets connectés",
+    "match": {
+      "names": [
+        "^ASTROCAST(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "e-space",
+    "label": "E-Space",
+    "category": "telecommunications",
+    "description": "Démonstrateurs orbitaux de télécommunications",
+    "match": {
+      "names": [
+        "^E-SPACE(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^E-Space$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "luch",
+    "label": "Luch — relais",
+    "category": "telecommunications",
+    "description": "Relais de communications orbitaux",
+    "match": {
+      "names": [
+        "^LUCH(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^Luch"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "spot",
+    "label": "SPOT 1 à 7",
+    "category": "observation",
+    "description": "Générations de satellites d’observation SPOT",
+    "match": {
+      "names": [
+        "^SPOT [1-7](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "pleiades",
+    "label": "Pléiades / Pléiades Neo",
+    "category": "observation",
+    "description": "Famille d’imagerie optique à haute résolution",
+    "match": {
+      "names": [
+        "^PLEIADES (?:[12][AB]|NEO [0-9])"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "helios",
+    "label": "Helios 1 et 2",
+    "category": "defense",
+    "description": "Reconnaissance optique française",
+    "match": {
+      "names": [
+        "^HELIOS [12][AB](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cso",
+    "label": "CSO",
+    "category": "defense",
+    "description": "Composante spatiale optique française",
+    "match": {
+      "names": [
+        "^CSO(?:-| )[123](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ceres",
+    "label": "CERES",
+    "category": "defense",
+    "description": "Renseignement électromagnétique français",
+    "match": {
+      "names": [
+        "^CERES(?:-| )[123](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ers",
+    "label": "ERS-1 / ERS-2",
+    "category": "observation",
+    "description": "Télédétection et radar de l’ESA",
+    "match": {
+      "names": [
+        "^ERS[- ][12](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "envisat",
+    "label": "Envisat",
+    "category": "observation",
+    "description": "Observation environnementale européenne",
+    "match": {
+      "names": [
+        "^ENVISAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "terra",
+    "label": "Terra / EOS AM-1",
+    "category": "observation",
+    "description": "Observation multispectrale de la Terre",
+    "match": {
+      "names": [
+        "^(TERRA|EOS AM-1)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "aqua",
+    "label": "Aqua / EOS PM-1",
+    "category": "observation",
+    "description": "Observation environnementale de la Terre",
+    "match": {
+      "names": [
+        "^(AQUA|EOS PM-1)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "suomi-npp",
+    "label": "Suomi NPP",
+    "category": "weather",
+    "description": "Observation météorologique et environnementale",
+    "match": {
+      "names": [
+        "^(SUOMI NPP|NPP)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "eo-1",
+    "label": "EO-1",
+    "category": "experimental",
+    "description": "Observation terrestre expérimentale",
+    "match": {
+      "names": [
+        "^EO[- ]1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ikonos",
+    "label": "IKONOS",
+    "category": "observation",
+    "description": "Imagerie terrestre commerciale",
+    "match": {
+      "names": [
+        "^IKONOS [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "quickbird",
+    "label": "QuickBird",
+    "category": "observation",
+    "description": "Imagerie optique commerciale",
+    "match": {
+      "names": [
+        "^QUICKBIRD [0-9]+(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "geoeye",
+    "label": "GeoEye-1",
+    "category": "observation",
+    "description": "Imagerie optique à haute résolution",
+    "match": {
+      "names": [
+        "^GEOEYE 1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "worldview",
+    "label": "WorldView — toutes générations",
+    "category": "observation",
+    "description": "Générations WorldView et Legion",
+    "match": {
+      "names": [
+        "^WORLDVIEW[- ][1-4](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "rapideye",
+    "label": "RapidEye",
+    "category": "observation",
+    "description": "Constellation d’imagerie multispectrale",
+    "match": {
+      "names": [
+        "^RAPIDEYE(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dmc",
+    "label": "DMC",
+    "category": "observation",
+    "description": "Disaster Monitoring Constellation",
+    "match": {
+      "names": [
+        "^(DMC[ -]|ALSAT 1$|UK-DMC|BILSAT 1$|NIGERIASAT (?:1|2|X)$|BEIJING 1$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "terrasar-x",
+    "label": "TerraSAR-X",
+    "category": "observation",
+    "description": "Observation radar allemande",
+    "match": {
+      "names": [
+        "^TERRASAR-X(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tandem-x",
+    "label": "TanDEM-X",
+    "category": "observation",
+    "description": "Cartographie radar tridimensionnelle",
+    "match": {
+      "names": [
+        "^TANDEM-X(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "paz",
+    "label": "PAZ",
+    "category": "observation",
+    "description": "Observation radar espagnole",
+    "match": {
+      "names": [
+        "^PAZ(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "saocom",
+    "label": "SAOCOM 1A / 1B",
+    "category": "observation",
+    "description": "Observation radar en bande L",
+    "match": {
+      "names": [
+        "^SAOCOM [12][AB](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "risat",
+    "label": "RISAT",
+    "category": "observation",
+    "description": "Observation radar indienne",
+    "match": {
+      "names": [
+        "^RISAT(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cartosat",
+    "label": "Cartosat",
+    "category": "observation",
+    "description": "Cartographie optique indienne",
+    "match": {
+      "names": [
+        "^CARTOSAT(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "resourcesat",
+    "label": "Resourcesat",
+    "category": "observation",
+    "description": "Observation des ressources terrestres",
+    "match": {
+      "names": [
+        "^RESOURCESAT(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gaofen",
+    "label": "Gaofen",
+    "category": "observation",
+    "description": "Famille chinoise d’observation optique et radar",
+    "match": {
+      "names": [
+        "^GAOFEN(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "yaogan",
+    "label": "Yaogan",
+    "category": "defense",
+    "description": "Satellites aux désignations publiques Yaogan",
+    "match": {
+      "names": [
+        "^YAOGAN(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "jilin",
+    "label": "Jilin-1",
+    "category": "observation",
+    "description": "Constellation chinoise d’imagerie",
+    "match": {
+      "names": [
+        "^JILIN(?:-| )"
+      ],
+      "gcat_program": [
+        "^Jilin-1"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "superview",
+    "label": "SuperView / Gaojing",
+    "category": "observation",
+    "description": "Imagerie optique commerciale chinoise",
+    "match": {
+      "names": [
+        "^(SUPERVIEW|GAOJING)(?:-| )"
+      ],
+      "gcat_program": [
+        "^GaoJing$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "egyptsat",
+    "label": "EgyptSat",
+    "category": "observation",
+    "description": "Observation terrestre égyptienne",
+    "match": {
+      "names": [
+        "^EGYPTSAT(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dubaisat",
+    "label": "DubaiSat",
+    "category": "observation",
+    "description": "Observation optique des Émirats arabes unis",
+    "match": {
+      "names": [
+        "^DUBAISAT(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "khalifasat",
+    "label": "KhalifaSat",
+    "category": "observation",
+    "description": "Observation optique des Émirats arabes unis",
+    "match": {
+      "names": [
+        "^KHALIFASAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "mohammed-vi",
+    "label": "Mohammed VI-A / B",
+    "category": "observation",
+    "description": "Observation optique marocaine",
+    "match": {
+      "names": [
+        "^MOHAMMED VI-[AB](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gokturk",
+    "label": "Göktürk",
+    "category": "observation",
+    "description": "Observation et reconnaissance turques",
+    "match": {
+      "names": [
+        "^GOKTURK(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kompsat",
+    "label": "KOMPSAT / Arirang",
+    "category": "observation",
+    "description": "Famille d’observation coréenne",
+    "match": {
+      "names": [
+        "^(KOMPSAT|ARIRANG)(?:-| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "formosat",
+    "label": "FORMOSAT",
+    "category": "observation",
+    "description": "Observation terrestre taïwanaise",
+    "match": {
+      "names": [
+        "^FORMOSAT[- ][25](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "nimbus",
+    "label": "Nimbus 1 à 7",
+    "category": "weather",
+    "description": "Météorologie expérimentale historique",
+    "match": {
+      "names": [
+        "^NIMBUS [1-7](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "noaa-poes",
+    "label": "NOAA / POES",
+    "category": "weather",
+    "description": "Météorologie polaire historique et moderne",
+    "match": {
+      "names": [
+        "^NOAA [-]?[0-9]+(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dmsp",
+    "label": "DMSP",
+    "category": "weather",
+    "description": "Satellites météorologiques militaires",
+    "match": {
+      "names": [
+        "^DMSP(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "meteor",
+    "label": "Meteor / Meteor-M",
+    "category": "weather",
+    "description": "Météorologie polaire soviétique et russe",
+    "match": {
+      "names": [
+        "^METEOR(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "elektro-l",
+    "label": "Elektro-L",
+    "category": "weather",
+    "description": "Météorologie géostationnaire russe",
+    "match": {
+      "names": [
+        "^ELEKTRO(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "insat",
+    "label": "INSAT",
+    "category": "weather",
+    "description": "Météorologie et télécommunications indiennes",
+    "match": {
+      "names": [
+        "^INSAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kalpana",
+    "label": "Kalpana-1",
+    "category": "weather",
+    "description": "Météorologie géostationnaire indienne",
+    "match": {
+      "names": [
+        "^KALPANA[- ]1(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gpm",
+    "label": "GPM Core Observatory",
+    "category": "weather",
+    "description": "Mesure des précipitations",
+    "match": {
+      "names": [
+        "^GPM(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "trmm",
+    "label": "TRMM",
+    "category": "weather",
+    "description": "Précipitations tropicales",
+    "match": {
+      "names": [
+        "^TRMM(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cloudsat",
+    "label": "CloudSat",
+    "category": "weather",
+    "description": "Profil vertical des nuages",
+    "match": {
+      "names": [
+        "^CLOUDSAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "calipso",
+    "label": "CALIPSO",
+    "category": "weather",
+    "description": "Observation des aérosols et des nuages",
+    "match": {
+      "names": [
+        "^CALIPSO(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "jason",
+    "label": "Jason 1 à 3",
+    "category": "weather",
+    "description": "Altimétrie océanique",
+    "match": {
+      "names": [
+        "^JASON[- ][123](?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "topex-poseidon",
+    "label": "TOPEX/Poseidon",
+    "category": "weather",
+    "description": "Topographie des océans",
+    "match": {
+      "names": [
+        "^TOPEX(?:/| )"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "seasat",
+    "label": "Seasat",
+    "category": "weather",
+    "description": "Observation radar historique des océans",
+    "match": {
+      "names": [
+        "^SEASAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "smos",
+    "label": "SMOS",
+    "category": "weather",
+    "description": "Humidité des sols et salinité des océans",
+    "match": {
+      "names": [
+        "^SMOS(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "aeolus",
+    "label": "Aeolus",
+    "category": "weather",
+    "description": "Mesure des vents atmosphériques",
+    "match": {
+      "names": [
+        "^AEOLUS(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "goce",
+    "label": "GOCE",
+    "category": "science",
+    "description": "Mesure du champ gravitationnel terrestre",
+    "match": {
+      "names": [
+        "^GOCE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "grace",
+    "label": "GRACE / GRACE-FO",
+    "category": "science",
+    "description": "Variations du champ gravitationnel",
+    "match": {
+      "names": [
+        "^GRACE(?:[- ](?:[12]|FO(?: [12])?))(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "icesat",
+    "label": "ICESat / ICESat-2",
+    "category": "weather",
+    "description": "Altimétrie laser et cryosphère",
+    "match": {
+      "names": [
+        "^ICESAT(?:[- ]2)?(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "cfosat",
+    "label": "CFOSAT",
+    "category": "weather",
+    "description": "Observation des vents et des vagues",
+    "match": {
+      "names": [
+        "^CFOSAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "saral",
+    "label": "SARAL / AltiKa",
+    "category": "weather",
+    "description": "Altimétrie océanique",
+    "match": {
+      "names": [
+        "^SARAL(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "megha-tropiques",
+    "label": "Megha-Tropiques",
+    "category": "weather",
+    "description": "Étude du cycle de l’eau tropical",
+    "match": {
+      "names": [
+        "^MEGHA[- ]TROPIQUES(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "scatsat",
+    "label": "SCATSAT-1",
+    "category": "weather",
+    "description": "Mesure des vents océaniques",
+    "match": {
+      "names": [
+        "^SCATSAT[- ]1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "oceansat",
+    "label": "Oceansat",
+    "category": "weather",
+    "description": "Observation des océans",
+    "match": {
+      "names": [
+        "^OCEANSAT(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "arctica-m",
+    "label": "Arctica-M",
+    "category": "weather",
+    "description": "Météorologie des hautes latitudes",
+    "match": {
+      "names": [
+        "^ARKTIKA(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dscovr",
+    "label": "DSCOVR",
+    "category": "weather",
+    "description": "Observation depuis le voisinage de Soleil–Terre L1",
+    "match": {
+      "names": [
+        "^DSCOVR(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "spitzer",
+    "label": "Spitzer",
+    "category": "science",
+    "description": "Observatoire infrarouge en orbite héliocentrique",
+    "match": {
+      "names": [
+        "^SPITZER(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kepler",
+    "label": "Kepler — observatoire",
+    "category": "science",
+    "description": "Observatoire d’exoplanètes en orbite héliocentrique",
+    "match": {
+      "names": [
+        "^KEPLER(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "compton",
+    "label": "Compton GRO",
+    "category": "science",
+    "description": "Observatoire historique de rayons gamma",
+    "match": {
+      "names": [
+        "^(CGRO|GRO|COMPTON(?: GRO)?)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sas",
+    "label": "Uhuru / SAS-1 à 3",
+    "category": "science",
+    "description": "Premiers observatoires X et gamma",
+    "match": {
+      "names": [
+        "^(SAS[- ][123]|UHURU)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [
+        "^SAS$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "heao",
+    "label": "HEAO / Einstein",
+    "category": "science",
+    "description": "Observatoires d’astronomie haute énergie",
+    "match": {
+      "names": [
+        "^(HEAO[- ][123AB]|EINSTEIN OBSERVATORY)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "iue",
+    "label": "IUE",
+    "category": "science",
+    "description": "Observatoire ultraviolet international",
+    "match": {
+      "names": [
+        "^IUE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "iras",
+    "label": "IRAS",
+    "category": "science",
+    "description": "Observatoire infrarouge",
+    "match": {
+      "names": [
+        "^IRAS(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "exosat",
+    "label": "EXOSAT",
+    "category": "science",
+    "description": "Astronomie en rayons X",
+    "match": {
+      "names": [
+        "^EXOSAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "rosat",
+    "label": "ROSAT",
+    "category": "science",
+    "description": "Astronomie en rayons X",
+    "match": {
+      "names": [
+        "^ROSAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "asca",
+    "label": "ASCA",
+    "category": "science",
+    "description": "Astronomie en rayons X",
+    "match": {
+      "names": [
+        "^ASCA(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "rxte",
+    "label": "RXTE",
+    "category": "science",
+    "description": "Observation des sources X variables",
+    "match": {
+      "names": [
+        "^RXTE(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "bepposax",
+    "label": "BeppoSAX",
+    "category": "science",
+    "description": "Observation des sursauts gamma",
+    "match": {
+      "names": [
+        "^(SAX|BEPPOSAX)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "euve",
+    "label": "EUVE",
+    "category": "science",
+    "description": "Astronomie dans l’ultraviolet extrême",
+    "match": {
+      "names": [
+        "^EUVE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "fuse",
+    "label": "FUSE",
+    "category": "science",
+    "description": "Spectroscopie ultraviolette",
+    "match": {
+      "names": [
+        "^FUSE(?: 1)?(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "galex",
+    "label": "GALEX",
+    "category": "science",
+    "description": "Cartographie ultraviolette",
+    "match": {
+      "names": [
+        "^GALEX(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "swift",
+    "label": "Swift / Neil Gehrels",
+    "category": "science",
+    "description": "Observation des sursauts gamma",
+    "match": {
+      "names": [
+        "^(SWIFT|NEIL GEHRELS SWIFT)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "suzaku",
+    "label": "Suzaku",
+    "category": "science",
+    "description": "Astronomie en rayons X",
+    "match": {
+      "names": [
+        "^SUZAKU(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "agile",
+    "label": "AGILE",
+    "category": "science",
+    "description": "Astronomie en rayons gamma",
+    "match": {
+      "names": [
+        "^AGILE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "spektr-r",
+    "label": "Spektr-R / RadioAstron",
+    "category": "science",
+    "description": "Radio-interférométrie spatiale",
+    "match": {
+      "names": [
+        "^SPEKTR-R(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "spektr-rg",
+    "label": "Spektr-RG",
+    "category": "science",
+    "description": "Observatoire de rayons X près de Soleil–Terre L2",
+    "match": {
+      "names": [
+        "^SPEKTR-RG(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dampe",
+    "label": "DAMPE",
+    "category": "science",
+    "description": "Observation des rayons cosmiques",
+    "match": {
+      "names": [
+        "^DAMPE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "hxmt",
+    "label": "HXMT / Insight",
+    "category": "science",
+    "description": "Astronomie en rayons X",
+    "match": {
+      "names": [
+        "^HXMT(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "halosat",
+    "label": "HaloSat",
+    "category": "science",
+    "description": "Étude du gaz chaud galactique",
+    "match": {
+      "names": [
+        "^HALOSAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "aditya-l1",
+    "label": "Aditya-L1",
+    "category": "science",
+    "description": "Observation solaire près de Soleil–Terre L1",
+    "match": {
+      "names": [
+        "^ADITYA-L1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gambit-1",
+    "label": "KH-7 / GAMBIT",
+    "category": "defense",
+    "description": "Reconnaissance optique historique documentée",
+    "match": {
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {
+        "Bus": [
+          "^AFP-206 OCV$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gambit-3",
+    "label": "KH-8 / GAMBIT 3",
+    "category": "defense",
+    "description": "Reconnaissance optique historique documentée",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^AFP-110$"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^KH-8(?:-II)?$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "hexagon",
+    "label": "KH-9 / HEXAGON",
+    "category": "defense",
+    "description": "Reconnaissance photographique historique",
+    "match": {
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {
+        "Bus": [
+          "^KH-9$"
+        ],
+        "PLName": [
+          "^HEXAGON"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kh11",
+    "label": "KH-11 / KENNEN",
+    "category": "defense",
+    "description": "Désignations publiques de reconnaissance électro-optique",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^KH-11$"
+      ],
+      "gcat_fields": {
+        "PLName": [
+          "^KENNEN"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "lacrosse",
+    "label": "Lacrosse / Onyx",
+    "category": "defense",
+    "description": "Désignations publiques de reconnaissance radar",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^(LACROSSE|ONYX5)$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "noss",
+    "label": "NOSS / White Cloud",
+    "category": "defense",
+    "description": "Désignations publiques de surveillance navale",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^NOSS[23]$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sbirs",
+    "label": "SBIRS",
+    "category": "defense",
+    "description": "Détection infrarouge de missiles",
+    "match": {
+      "names": [
+        "^SBIRS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^SBIRS GEO$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "dsp",
+    "label": "DSP",
+    "category": "defense",
+    "description": "Satellites documentés d’alerte avancée",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^DSP(?: |-|$)"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "stss",
+    "label": "STSS",
+    "category": "defense",
+    "description": "Démonstrateurs de détection et de suivi",
+    "match": {
+      "names": [
+        "^STSS(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sda-transport",
+    "label": "SDA Transport Layer",
+    "category": "defense",
+    "description": "Couche de transport selon les désignations publiques",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^SDA-TR[01]-TPL"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sda-tracking",
+    "label": "SDA Tracking Layer",
+    "category": "defense",
+    "description": "Couche de suivi selon les désignations publiques",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^SDA-TR[01]-TRL"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "usa-nrol",
+    "label": "USA / NROL — désignations publiques",
+    "category": "defense",
+    "description": "Objets aux missions parfois non divulguées, sans attribution supposée",
+    "match": {
+      "names": [
+        "^(USA |NROL[- ])"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "zenit",
+    "label": "Zenit — séries de reconnaissance",
+    "category": "defense",
+    "description": "Séries techniques identifiées dans GCAT",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Zenit-"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^Zenit-"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "yantar",
+    "label": "Yantar — séries documentées",
+    "category": "defense",
+    "description": "Séries techniques identifiées dans GCAT",
+    "match": {
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {
+        "Bus": [
+          "^Yantar"
+        ],
+        "PLName": [
+          "^Yantar"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "persona",
+    "label": "Persona",
+    "category": "defense",
+    "description": "Désignations documentées de reconnaissance optique",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Persona$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "liana",
+    "label": "Liana / Lotos-S / Pion-NKS",
+    "category": "defense",
+    "description": "Programmes publics de renseignement orbital",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^(Lotos-S|Lotos-S1|Pion-NKS)$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "eks",
+    "label": "EKS / Tundra",
+    "category": "defense",
+    "description": "Programme public d’alerte avancée",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^EKS$"
+      ],
+      "gcat_fields": {
+        "Bus": [
+          "^14F142 EKS$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "kondor",
+    "label": "Kondor",
+    "category": "defense",
+    "description": "Observation radar documentée",
+    "match": {
+      "names": [
+        "^KONDOR(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "meridian",
+    "label": "Meridian",
+    "category": "telecommunications",
+    "description": "Télécommunications russes à haute latitude",
+    "match": {
+      "names": [
+        "^MERIDIAN(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "shijian",
+    "label": "Shijian",
+    "category": "experimental",
+    "description": "Expérimentations aux fonctions publiquement documentées",
+    "match": {
+      "names": [
+        "^SHIJIAN(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "shiyan",
+    "label": "Shiyan",
+    "category": "experimental",
+    "description": "Satellites expérimentaux chinois",
+    "match": {
+      "names": [
+        "^SHIYAN(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tjs",
+    "label": "TJS / Tongxin Jishu Shiyan",
+    "category": "experimental",
+    "description": "Technologies de communication, missions partiellement non divulguées",
+    "match": {
+      "names": [
+        "^TJS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^TJS"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sar-lupe",
+    "label": "SAR-Lupe",
+    "category": "defense",
+    "description": "Reconnaissance radar allemande",
+    "match": {
+      "names": [
+        "^SAR-LUPE(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "sarah",
+    "label": "SARah",
+    "category": "defense",
+    "description": "Reconnaissance radar allemande",
+    "match": {
+      "names": [
+        "^SARAH(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ofek",
+    "label": "Ofek",
+    "category": "defense",
+    "description": "Reconnaissance optique et radar israélienne",
+    "match": {
+      "names": [
+        "^OFEQ(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tecsar",
+    "label": "TecSAR",
+    "category": "defense",
+    "description": "Mission radar israélienne documentée",
+    "match": {
+      "names": [
+        "^TECSAR(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "igs",
+    "label": "IGS",
+    "category": "defense",
+    "description": "Satellites japonais d’observation documentés",
+    "match": {
+      "names": [
+        "^IGS(?: |-|$)"
+      ],
+      "gcat_program": [
+        "^IGS-"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "timation",
+    "label": "Timation",
+    "category": "navigation",
+    "description": "Démonstrateurs précurseurs du GPS",
+    "match": {
+      "names": [
+        "^TIMATION(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "secor",
+    "label": "SECOR",
+    "category": "navigation",
+    "description": "Géodésie satellitaire historique",
+    "match": {
+      "names": [
+        "^SECOR(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "geos",
+    "label": "GEOS 1 à 3",
+    "category": "navigation",
+    "description": "Géodésie satellitaire historique",
+    "match": {
+      "names": [
+        "(?:^GEOS [123]$|\\(GEOS [12]\\))"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "pageos",
+    "label": "PAGEOS",
+    "category": "navigation",
+    "description": "Satellite géodésique passif",
+    "match": {
+      "names": [
+        "^PAGEOS(?: |-|$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "anna-1b",
+    "label": "ANNA 1B",
+    "category": "navigation",
+    "description": "Géodésie satellitaire expérimentale",
+    "match": {
+      "names": [
+        "^ANNA 1B(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "tsikada",
+    "label": "Tsikada",
+    "category": "navigation",
+    "description": "Navigation Doppler soviétique",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Tsikada$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "parus",
+    "label": "Parus / Tsiklon-B",
+    "category": "navigation",
+    "description": "Navigation Doppler soviétique et russe",
+    "match": {
+      "names": [],
+      "gcat_program": [
+        "^Parus$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "beidou-1",
+    "label": "BeiDou-1",
+    "category": "navigation",
+    "description": "Première génération BeiDou",
+    "match": {
+      "names": [
+        "BEIDOU-1 G[1-4]"
+      ],
+      "gcat_program": [
+        "^Beidou-1$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "giove",
+    "label": "GIOVE-A / GIOVE-B",
+    "category": "navigation",
+    "description": "Démonstrateurs du programme Galileo",
+    "match": {
+      "names": [
+        "GIOVE-[AB]"
+      ],
+      "gcat_program": [
+        "^Giove$"
+      ],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "egnos",
+    "label": "EGNOS — relais GEO",
+    "category": "navigation",
+    "description": "Relais géostationnaires documentés d’augmentation GNSS",
+    "match": {
+      "names": [
+        "^(SES[- ]5|ASTRA 5B|EUTELSAT 5 WEST B|INMARSAT 4-F2|HOTBIRD 13G|HOT BIRD 13G|EUTELSAT HOTBIRD 13G)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "waas",
+    "label": "WAAS — relais GEO",
+    "category": "navigation",
+    "description": "Relais géostationnaires documentés d’augmentation GPS",
+    "match": {
+      "names": [
+        "^(ANIK F1R|GALAXY 15(?: \\(.*\\))?|EUTELSAT 117 WEST B|SES[- ]15|GALAXY 30(?: \\(.*\\))?)(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "lares",
+    "label": "LARES",
+    "category": "experimental",
+    "description": "Géodésie laser et relativité",
+    "match": {
+      "names": [
+        "^LARES(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "gravity-probe-b",
+    "label": "Gravity Probe B",
+    "category": "science",
+    "description": "Test orbital de relativité générale",
+    "match": {
+      "names": [
+        "^GRAVITY PROBE B(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {
+        "PLName": [
+          "^GP-B$"
+        ]
+      }
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "microscope",
+    "label": "MICROSCOPE",
+    "category": "science",
+    "description": "Test du principe d’équivalence",
+    "match": {
+      "names": [
+        "^MICROSCOPE(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "step-cube",
+    "label": "STEP Cube Lab",
+    "category": "experimental",
+    "description": "Démonstration technologique coréenne",
+    "match": {
+      "names": [
+        "^STEP CUBE LAB(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "remove-debris",
+    "label": "RemoveDEBRIS",
+    "category": "experimental",
+    "description": "Démonstration de capture de débris",
+    "match": {
+      "names": [
+        "^REMOVEDEBRIS(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "adras-j",
+    "label": "ADRAS-J",
+    "category": "experimental",
+    "description": "Inspection orbitale de débris",
+    "match": {
+      "names": [
+        "^ADRAS-J(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "elsa-d",
+    "label": "ELSA-d",
+    "category": "experimental",
+    "description": "Démonstration de capture et de retrait orbital",
+    "match": {
+      "names": [
+        "^ELSA-D(?: |$)"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "lightsail",
+    "label": "LightSail 1 et 2",
+    "category": "experimental",
+    "description": "Démonstrations de voile solaire",
+    "match": {
+      "names": [
+        "^LIGHTSAIL(?:[- ][12A])?(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ikaros",
+    "label": "IKAROS",
+    "category": "experimental",
+    "description": "Voile solaire interplanétaire",
+    "match": {
+      "names": [
+        "^IKAROS(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "nanosail-d2",
+    "label": "NanoSail-D2",
+    "category": "experimental",
+    "description": "Démonstrateur orbital de voile solaire",
+    "match": {
+      "names": [
+        "^NANOSAIL-D2(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "proba-1",
+    "label": "PROBA-1",
+    "category": "experimental",
+    "description": "Démonstrateur technologique européen",
+    "match": {
+      "names": [
+        "^PROBA[- ]1(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "ops-sat",
+    "label": "OPS-SAT",
+    "category": "experimental",
+    "description": "Expérimentation logicielle spatiale",
+    "match": {
+      "names": [
+        "^OPS-SAT(?: \\([^)]*\\))?$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    },
+    "provenance": [
+      "CelesTrak SATCAT / Space-Track"
+    ]
+  },
+  {
+    "id": "heritage-inactive",
+    "label": "Patrimoine orbital — missions terminées",
+    "category": "heritage",
+    "description": "Satellites historiques inactifs ; objets rentrés visibles uniquement dans les archives",
+    "match": {
+      "names": [
+        "^VANGUARD [123]$",
+        "^TRANSIT 1B$",
+        "^ALOUETTE 1$",
+        "^TELSTAR 1$",
+        "^SYNCOM [23]$",
+        "^ENVISAT$",
+        "^ERS[- ]2$"
+      ],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "jwst",
+    "label": "JWST — James Webb Space Telescope",
+    "description": "Télescope spatial infrarouge au voisinage de L2 Soleil–Terre",
+    "category": "science",
+    "match": {
+      "ids": [
+        50463
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "gaia",
+    "label": "Gaia",
+    "description": "Astrométrie au voisinage de L2 ; mission arrêtée en mars 2025, puis trajectoire héliocentrique de retrait",
+    "category": "science",
+    "match": {
+      "ids": [
+        39479
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "herschel",
+    "label": "Herschel",
+    "description": "Observatoire infrarouge au voisinage de L2 ; mission terminée, puis orbite héliocentrique de retrait",
+    "category": "science",
+    "match": {
+      "ids": [
+        34937
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "planck",
+    "label": "Planck",
+    "description": "Observatoire du fond diffus cosmologique au voisinage de L2 ; mission terminée, puis orbite héliocentrique de retrait",
+    "category": "science",
+    "match": {
+      "ids": [
+        34938
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "euclid",
+    "label": "Euclid",
+    "description": "Télescope cosmologique au voisinage de L2 Soleil–Terre",
+    "category": "science",
+    "match": {
+      "ids": [
+        57209
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "soho",
+    "label": "SOHO",
+    "description": "Observatoire solaire au voisinage de L1 Soleil–Terre",
+    "category": "science",
+    "match": {
+      "ids": [
+        23726
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "ace",
+    "label": "ACE",
+    "description": "Advanced Composition Explorer : vent solaire et particules au voisinage de L1 Soleil–Terre",
+    "category": "science",
+    "match": {
+      "ids": [
+        24912
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "voyager-1",
+    "label": "Voyager 1",
+    "description": "Sonde interplanétaire, puis exploration du milieu interstellaire",
+    "category": "science",
+    "match": {
+      "ids": [
+        10321
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "voyager-2",
+    "label": "Voyager 2",
+    "description": "Sonde interplanétaire, puis exploration du milieu interstellaire",
+    "category": "science",
+    "match": {
+      "ids": [
+        10271
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "cassini",
+    "label": "Cassini",
+    "description": "Exploration de Saturne et de ses lunes ; mission terminée le 15 septembre 2017",
+    "category": "science",
+    "match": {
+      "ids": [
+        25008
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "juno",
+    "label": "Juno",
+    "description": "Sonde planétaire pour l’exploration de Jupiter",
+    "category": "science",
+    "match": {
+      "ids": [
+        37773
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "new-horizons",
+    "label": "New Horizons",
+    "description": "Survol de Pluton, d’Arrokoth et exploration de la ceinture de Kuiper",
+    "category": "science",
+    "match": {
+      "ids": [
+        28928
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  },
+  {
+    "id": "bepicolombo",
+    "label": "BepiColombo",
+    "description": "Mission planétaire ESA/JAXA vers Mercure",
+    "category": "science",
+    "match": {
+      "ids": [
+        43653
+      ],
+      "names": [],
+      "gcat_program": [],
+      "gcat_fields": {}
+    }
+  }
+]

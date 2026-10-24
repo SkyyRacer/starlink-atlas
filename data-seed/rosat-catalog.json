@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "ROSAT",
+    "OBJECT_ID": "1990-049A",
+    "NORAD_CAT_ID": 20638,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "GER",
+    "LAUNCH_DATE": "1990-06-01",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2011-10-23",
+    "PERIOD": "87.11",
+    "INCLINATION": "52.98",
+    "APOGEE": "137",
+    "PERIGEE": "126",
+    "RCS": "6.7973",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

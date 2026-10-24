@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "ARKTIKA-M 1",
+    "OBJECT_ID": "2021-016A",
+    "NORAD_CAT_ID": 47719,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "2021-02-28",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "717.72",
+    "INCLINATION": "63.29",
+    "APOGEE": "39639",
+    "PERIGEE": "713",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "ARKTIKA-M 2",
+    "OBJECT_ID": "2023-198A",
+    "NORAD_CAT_ID": 58584,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "2023-12-16",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "717.87",
+    "INCLINATION": "63.21",
+    "APOGEE": "38509",
+    "PERIGEE": "1850",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

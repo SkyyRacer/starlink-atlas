@@ -1,0 +1,21 @@
+<!-- (C) Copyright European Space Agency 2022 -->
+<!-- This file is subject to the terms and conditions defined in the file 'LICENSE.txt', -->
+<!-- which is part of this Scifleet package. No part of the package, including this file -->
+<!-- may be copied, modified, propagated, or distributed except accodrding to the terms  -->
+<!-- contained in the file 'LICENSE.txt'                                                 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scifleet</title>
+    <script src="static/js/marmoset/marmoset.js"></script>
+    <script type="module" crossorigin src="assets/index.313b998d.js"></script>
+    <link rel="stylesheet" href="assets/index.32e84c9e.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    
+  </body>
+</html>

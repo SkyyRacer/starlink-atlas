@@ -9,7 +9,24 @@
  function url(value){const target=paths[value]||paths.all;return typeof document==='undefined'?target:new URL(target,document.baseURI).href;}
  const objects=[{mode:'all',name:'Tous les satellites',description:'Vue globale Atlas',keywords:'atlas ensemble tous toutes objets'},...definitions.map(row=>({mode:row.id,name:row.label,description:row.description,keywords:row.keywords}))];
  const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
- function search(value){const exact=objects.filter(item=>normalize(item.name)===normalize(value));if(exact.length)return exact;const terms=normalize(value).split(/\s+/).filter(Boolean);return terms.length?objects.filter(item=>terms.every(term=>normalize(item.name+' '+item.description+' '+item.keywords).includes(term))):[];}
+ const order=new Intl.Collator('fr',{sensitivity:'base',numeric:true});
+ const groupNames=objects.map(item=>({item,names:[item.name,...item.name.split(' / '),...(item.mode==='all'?['Atlas']:item.mode==='gps'?['NAVSTAR','Global Positioning System']:[])].map(normalize)})).sort((a,b)=>order.compare(a.item.name,b.item.name));
+ const satelliteIndexes=new WeakMap();
+ function search(value,satellites=[]){
+  const query=normalize(value);if(!query)return [];
+  const groupsFirst=groupNames.filter(row=>row.names.some(name=>name.startsWith(query))).map(row=>row.item);
+  const groupsLater=groupNames.filter(row=>!row.names.some(name=>name.startsWith(query))&&normalize(row.item.name).includes(query)).map(row=>row.item);
+  const cached=satelliteIndexes.get(satellites);let index=cached?.length===satellites.length?cached.index:null;
+  if(!index){const ids=new Set();index=satellites.filter(s=>s.name&&Number.isSafeInteger(s.id)&&!ids.has(s.id)&&ids.add(s.id)).map(s=>({satellite:s,name:normalize(s.name)})).sort((a,b)=>order.compare(a.satellite.name,b.satellite.name)||a.satellite.id-b.satellite.id);satelliteIndexes.set(satellites,{length:satellites.length,index});}
+  const first=[],later=[];
+  for(const row of index){
+   if(!row.name.includes(query))continue;
+   const matches=row.name.startsWith(query)?first:later;if(matches.length>=100)continue;
+   const s=row.satellite,mode=family(s);if(!mode)continue;matches.push({mode,name:s.name,description:'Satellite · NORAD '+s.id,satellite:s});
+   if(first.length>=100)break;
+  }
+  return [...groupsFirst,...first,...groupsLater,...later.slice(0,100-first.length)];
+ }
  function searchAction(key,results){return results.length===1&&(key==='Enter'||key==='Tab')?results[0].mode:null;}
  function family(s){return registry.family(s)||'starlink';}
  function satelliteUrl(s,at=null){

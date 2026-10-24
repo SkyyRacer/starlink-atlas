@@ -1,0 +1,5 @@
+{
+  "query": "Suzaku satellite",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=Suzaku+satellite&count=12&sort_by=-relevance",
+  "results": []
+}

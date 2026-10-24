@@ -10,11 +10,11 @@
   if(['','index.html','atlas'].includes(route)){
    let seen=false,logo=false;
    try{seen=window.sessionStorage.getItem(visitKey)==='1';logo=window.sessionStorage.getItem(logoKey)==='1';window.sessionStorage.removeItem(logoKey);window.sessionStorage.setItem(visitKey,'1');}catch{/* Storage may be disabled; navigation still works. */}
-   if(logo||(!seen&&page.searchParams.get('journey')!=='1'))document.documentElement.dataset.atlasEntryLoading='true';
+   if(logo||(!seen&&page.searchParams.get('journey')!=='1')){document.documentElement.dataset.atlasEntryLoading='true';document.documentElement.dataset.atlasResetPreferences='true';try{window.sessionStorage.removeItem('atlas-display-preferences-v1');}catch{}}
   }
  }
  // Capture before each page's navigation handler (including the lunar journey),
- // so a logo click explicitly asks for the card without losing view preferences.
+ // so a logo click explicitly asks for the card and default display preferences.
  document.addEventListener('click',event=>{
   if(event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||(event.button!==undefined&&event.button!==0))return;
   if(!event.target.closest?.('#atlas-home, #earth-home'))return;

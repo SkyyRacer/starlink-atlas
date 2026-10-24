@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "JUNO",
+    "OBJECT_ID": "2011-040A",
+    "NORAD_CAT_ID": 37773,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2011-08-05",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "JU",
+    "ORBIT_TYPE": "ORB"
+  }
+]

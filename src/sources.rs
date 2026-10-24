@@ -68,7 +68,7 @@ pub fn load_gcat(db: &mut Database, bytes: &[u8]) -> Result<usize, String> {
                 NaiveDateTime::parse_from_str(&format!("{raw}:00"), "%Y %b %d %H%M:%S").ok()
             });
         let Some(time) = exact else { continue }; // No fabricated precision for uncertain dates.
-        if time.date().to_string() != cat["LAUNCH_DATE"].as_str().unwrap_or("") {
+        if time.date().to_string() != cat["LAUNCH_DATE"].as_str().unwrap_or("").get(..10).unwrap_or("") {
             continue;
         }
         verified.insert(*id, json!({"launch_time":time.and_utc().to_rfc3339(),"launch_name":get(mission),"source":"GCAT · Jonathan McDowell","source_url":"https://planet4589.org/space/gcat/","precision":if raw.contains(':'){"second"}else{"minute"}}));

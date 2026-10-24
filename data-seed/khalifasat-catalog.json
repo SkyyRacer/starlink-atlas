@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "KHALIFASAT",
+    "OBJECT_ID": "2018-084F",
+    "NORAD_CAT_ID": 43676,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "UAE",
+    "LAUNCH_DATE": "2018-10-29",
+    "LAUNCH_SITE": "TANSC",
+    "DECAY_DATE": "",
+    "PERIOD": "95.90",
+    "INCLINATION": "98.08",
+    "APOGEE": "566",
+    "PERIGEE": "558",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

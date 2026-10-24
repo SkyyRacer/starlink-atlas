@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "IKAROS",
+    "OBJECT_ID": "2010-020E",
+    "NORAD_CAT_ID": 36577,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "JPN",
+    "LAUNCH_DATE": "2010-05-20",
+    "LAUNCH_SITE": "TANSC",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "SU",
+    "ORBIT_TYPE": "ORB"
+  }
+]

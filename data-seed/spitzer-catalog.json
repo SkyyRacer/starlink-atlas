@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPITZER (SIRTF)",
+    "OBJECT_ID": "2003-038A",
+    "NORAD_CAT_ID": 27871,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2003-08-25",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "15.0000",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "SU",
+    "ORBIT_TYPE": "ORB"
+  }
+]

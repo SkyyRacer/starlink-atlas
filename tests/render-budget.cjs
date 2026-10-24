@@ -8,3 +8,5 @@ const stable=budget.stats.pixelRatio;frames(50,1000,false);assert.equal(budget.s
 budget.resize(3840,2160,2);assert.ok(budget.stats.pixelRatio<.6,'Large displays get a bounded initial pixel workload');assert.ok(applied.every(q=>q.resolutionScale>0&&Number.isFinite(q.resolutionScale)));
 const phone=create({width:390,height:700,devicePixelRatio:3,apply(){}});assert.equal(phone.stats.pixelRatio,1);
 console.log('Adaptive render budget: Retina workload, slow and fast devices, recovery, paused views, resizing and resolution bounds OK.');
+
+const beforeHd=budget.stats.pixelRatio;budget.setDetailed(true);assert.equal(budget.stats.pixelRatio,2,'HD uses Retina pixels');frames(200,1000/20);assert.equal(budget.stats.pixelRatio,2,'Detailed model is never silently downscaled');budget.resize(1600,1000,1);assert.equal(budget.stats.pixelRatio,1,'HD follows the current screen density');budget.resize(1920,1080,2);assert.equal(budget.stats.pixelRatio,2);budget.setDetailed(false);assert.equal(budget.stats.pixelRatio,beforeHd,'Closing HD restores the ordinary rendering budget');

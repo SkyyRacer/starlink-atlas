@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "GPM-CORE",
+    "OBJECT_ID": "2014-009C",
+    "NORAD_CAT_ID": 39574,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "JPN",
+    "LAUNCH_DATE": "2014-02-27",
+    "LAUNCH_SITE": "TANSC",
+    "DECAY_DATE": "",
+    "PERIOD": "93.24",
+    "INCLINATION": "64.97",
+    "APOGEE": "442",
+    "PERIGEE": "425",
+    "RCS": "8.1040",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "BURAN",
+    "OBJECT_ID": "1988-100A",
+    "NORAD_CAT_ID": 19637,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "1988-11-15",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "1988-11-15",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

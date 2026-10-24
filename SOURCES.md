@@ -102,7 +102,7 @@ Audit Débris : 42 703 fragments / étages au catalogue cumulé, dont 14 835 san
 
 ## Représentations scientifiques
 
-Le détail de provenance et des droits est dans THIRD-PARTY.md et `resources/science-model-sources.json`. Les douze modèles représentent treize identifiants, les deux LAGEOS partageant la même géométrie avec des positions et sélections indépendantes. Les quatre adaptations NASA préservent la géométrie source tout en retirant textures et détails superflus. Les huit autres modèles sont des schémas originaux fondés sur la documentation officielle ; aucun fichier 3D officiel réutilisable n’a été identifié pour ces huit missions pendant cette intégration. Ils ne sont donc pas présentés comme des modèles téléchargés des agences. Une représentation ne crée jamais de position : les mêmes règles de validité des éléments orbitaux s’appliquent.
+Le détail de provenance et des droits est dans THIRD-PARTY.md et `resources/science-model-sources.json`. Les modèles actifs et ceux en attente de vérification sont décrits dans `resources/model-coverage.json`. Les nouvelles silhouettes procédurales non vérifiées sont exclues de l’affichage. Les modèles NASA et les dessins originaux existants restent distingués ; aucune représentation ne crée de position orbitale.
 
 ### TESS : trajectoire NASA/JPL Horizons
 
@@ -156,3 +156,38 @@ L’import `scripts/import_public_history.py` sélectionne désormais tous les i
 ISS et Tiangong : complément d’archives publiques IAU CPS SatChecker, provenant de CelesTrak / Space-Track. Documentation : https://satchecker.readthedocs.io/en/latest/tools_data_access.html . Provenance, empreintes des réponses et couverture dans `data/station-history-source.json`. Le script `scripts/import_station_history.py` contrôle les checksums TLE et convertit les champs en OMM ; aucun élément orbital synthétique.
 
 Les séjours historiques sont reconstruits depuis les arrivées et les équipages de retour documentés par Launch Library 2, en tenant compte des changements de véhicule et des retours sans équipage (Starliner CFT, Soyuz MS-22). Les expéditions courantes ne sont pas réutilisées comme des numéros d’expédition passés. Historique d’équipage signalé partiel lorsque les informations de départ manquent.
+
+## Extension historique et missions publiques (23 octobre 2026)
+
+Le registre ajoute des familles vérifiées dans le [SATCAT CelesTrak](https://celestrak.org/pub/satcat.csv) et les tables publiques [GCAT de Jonathan McDowell](https://planet4589.org/space/gcat/web/cat/index.html). Les empreintes et identités ayant servi à la sélection sont conservées dans `resources/mission-identities.json` et `resources/mission-catalog-audit.json`. Une identité de charge utile est exigée : un étage ou un débris portant un nom voisin ne devient pas un satellite du programme. Plusieurs rubriques peuvent désigner le même objet sans créer plusieurs points dans Atlas.
+
+Les noms génériques Cosmos/USA ne permettent pas de déduire une fonction classifiée. Les séries techniques sont rattachées uniquement aux identités publiques recensées. EGNOS/WAAS désignent leurs satellites hôtes documentés, et ne prouvent pas que le relais fonctionne à toutes les dates historiques.
+
+Les dates de fin des opérations GCAT (`TOp`) sont distinctes des dates de rentrée SATCAT. Les horaires exacts de lancement et de retour GCAT sont utilisés uniquement si leur jour concorde avec le SATCAT ; une date vague ou incertaine ne reçoit pas d’heure inventée. Un retour au sol peut être la borne publiée pour un véhicule récupéré. `TLast` signifie uniquement « encore actif à cette date » et n'est jamais présenté comme une fin de mission. La précision des dates vagues et les incertitudes sont conservées : [définition des colonnes GCAT](https://planet4589.org/space/gcat/web/cat/pcols.html). Les pages entièrement désorbitées proposent la dernière observation réellement importée, séparément de la date et du lieu de rentrée. Aucun point n'est fabriqué si les archives manquent.
+
+Spitzer, Kepler, DSCOVR et Aditya-L1 utilisent les vecteurs géocentriques ICRF officiels de [NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/manual.html), et non une propagation TLE terrestre. Les fichiers annuels sont chargés à la demande. Interpolation de Hermite avec les vitesses publiées entre deux échantillons espacés de six heures, sans extrapolation hors de la couverture. Les tracés sont des segments ouverts, sans ellipse fermée artificielle. Certaines éphémérides publiées sont des prédictions après la fin des opérations, pas des mesures de télémétrie. Pour Spektr-RG et IKAROS, aucune éphéméride officielle vérifiée n'a été intégrée : la page le signale et ne représente pas une fausse orbite terrestre.
+
+L'archive publique quotidienne commence en 1959. Elle ne reconstitue donc pas les vols de Spoutnik 1/2 ni les lacunes précédant les premières observations d'autres objets. Les dates et les métadonnées restent consultables. Le SATCAT et l'historique NASA diffèrent d'un jour pour la rentrée de Spoutnik 1 ; cette divergence est indiquée sur sa page.
+
+
+### Extension des modèles scientifiques et des stations — 24 octobre 2026
+
+Les adaptations filaires NASA ajoutées couvrent Kepler, Spitzer, Swift, Suzaku, GRACE-1/2, FUSE, Compton GRO, Mir, Skylab et GRACE-FO. GRACE-FO utilise son propre modèle officiel NASA VTAD : https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/ . Il n’est jamais confondu avec GRACE-1/2.
+
+Les modèles détaillés nouvellement retenus sont Kepler, Spitzer, GRACE-1/2 et GRACE-FO, avec matériaux et textures sources. Les variantes simplifiées sans textures de Swift, Suzaku, FUSE, Compton GRO, Mir et Skylab sont désactivées comme options détaillées. Les six modèles détaillés existants sont conservés. Spitzer garde sa réparation UV transparente vérifiée.
+
+Les 48 nouvelles silhouettes procédurales sans géométrie suffisamment validée, dont Saliout, Almaz, Tiangong-1/2 et les variantes Ariel, HEAO, OAO, OSO et SAS, sont mises en attente dans les sources et exclues des manifestes d’affichage. Les références documentaires ne valent pas une validation de la silhouette. Les modèles déjà disponibles ISS et Tiangong actuelle restent accessibles. Aucun modèle d’un autre véhicule n’est substitué à un objet manquant.
+
+Les fichiers `resources/model-coverage.json` et `resources/model-reference-audit-2026-10-24.json` distinguent disponibilité réelle et références de recherche. Les modèles restent chargés à la demande ; un modèle détaillé activé remplace le dessin blanc et son cache est libéré au changement de cible.
+
+### Essai Mir Celestia — 24 octobre 2026
+
+La nouvelle option détaillée Mir utilise désormais le modèle CC BY 4.0 de DaveBowman2001 : 446 331 triangles, 433 434 sommets, 60 matériaux et neuf textures originales. Le GLB pèse environ 21 Mo et reste chargé à la demande. Le schéma blanc initial reste disponible lorsque le détail est désactivé. `scripts/convert_mir_celestia.py` reconstruit le GLB depuis le CMOD épinglé ; `tests/mir_conversion.py` compare directement géométrie, UV, affectations de matériaux et pixels source. Provenance dans THIRD-PARTY.md et `resources/mir-conversion-audit.json`. Le validateur glTF signale zéro erreur ; un avertissement sur les métadonnées PNG d’une texture source est conservé avec le fichier original.
+
+### Rendu détaillé et missions lointaines — 24 octobre 2026
+
+L’ISS conserve son fichier IGOAL complet. Le mode détaillé rend désormais jusqu’à deux pixels par pixel CSS selon la densité de l’écran, sans baisse adaptative de résolution pendant son activation. MSAA 4 lorsque le moteur le permet, avec repli FXAA ; budget et réglages ordinaires restaurés à la désactivation. Éclairage de présentation ISS ajusté, sans modifier son maillage ni ses textures.
+
+Les pages de missions utilisant Horizons centrent directement leur cible disposant d’une position valide même après la fin des opérations (exemple Kepler). Portée de caméra adaptée aux distances héliocentriques. Hors couverture, une date effectivement couverte est proposée, sans extrapolation de position.
+
+JWST and Voyager colour models: NASA 3D Resources, pinned revision 11ebb4ee043715aefbba6aeec8a61746fad67fa7. JWST: NASA / Christopher R. Meaney, https://science.nasa.gov/3d-resources/james-webb-space-telescope-b/ . Voyager 1 and 2: NASA / Michael D. Carbajal, https://science.nasa.gov/3d-resources/voyager-probe-b/ . Original geometry and textures preserved; reflective material parameters are recorded in resources/detailed-model-sources.json. Use follows NASA Images and Media Usage Guidelines.

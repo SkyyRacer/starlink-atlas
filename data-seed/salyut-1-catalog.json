@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SALYUT 1",
+    "OBJECT_ID": "1971-032A",
+    "NORAD_CAT_ID": 5160,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "1971-04-19",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "1971-10-11",
+    "PERIOD": "88.08",
+    "INCLINATION": "51.59",
+    "APOGEE": "182",
+    "PERIGEE": "177",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

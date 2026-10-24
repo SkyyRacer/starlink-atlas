@@ -21,7 +21,7 @@
   timeButton.title=state.live?'Ouvrir la chronologie':`Date consultée · ${AtlasTime.environment().timeZone} · ouvrir la chronologie`;
  }
  timeButton.addEventListener('click',()=>{
-  timeOpen=!timeOpen;
+  timeOpen=!timeOpen;if(!timeOpen)window.AtlasCollectionMenu?.reset($('timeline-content'));
   if(!timeOpen&&!$('date-popover')?.hidden){$('date-popover')?.querySelector('[data-close]')?.click();timeButton.focus({preventScroll:true});}
   apply();
  });
@@ -29,7 +29,7 @@
   if(!desktop.matches||!timeOpen||timeline.contains(event.target))return;
   const calendar=$('date-popover');if(calendar&&!calendar.hidden&&calendar.contains(event.target))return;
   if(calendar&&!calendar.hidden)calendar.querySelector('[data-close]')?.click();
-  timeOpen=false;apply();
+  timeOpen=false;window.AtlasCollectionMenu?.reset($('timeline-content'));apply();
  });
  $('timeline-now').addEventListener('click',()=>$('now').click());
  $('timeline-summary-label').addEventListener('click',()=>$('now').click());

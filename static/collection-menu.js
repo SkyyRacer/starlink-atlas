@@ -3,6 +3,15 @@
  const normalize=text=>text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr');
  function entries(options){return [...options].map(o=>({value:o.value,label:o.textContent})).sort((a,b)=>a.value==='all'?-1:b.value==='all'?1:a.label.localeCompare(b.label,'fr',{sensitivity:'base',numeric:true}));}
  function match(items,query,active){for(let offset=1;offset<=items.length;offset++){const index=(Math.max(-1,active)+offset)%items.length;if(normalize(items[index].label).startsWith(normalize(query)))return index;}return -1;}
+ function reset(panel){
+  if(!panel)return;
+  // Atlas colours keep their expanded sections and scroll position.
+  const colors=panel.querySelector?.('#advanced-color-section');if(colors&&!colors.hidden)return;
+  for(const input of panel.querySelectorAll?.('#object-search,#deep-mission-search')||[]){if(input.value){input.value='';input.dispatchEvent(new (input.ownerDocument?.defaultView?.Event||root.Event)('input',{bubbles:true}));}}
+  for(const section of panel.querySelectorAll?.('details[open]')||[]){section.open=false;section.removeAttribute('open');}
+  panel.scrollTop=0;panel.scrollLeft=0;
+  for(const child of panel.querySelectorAll?.('*')||[])if(child.scrollTop)child.scrollTop=0;
+ }
  function mount(select){
   let items=entries(select.options);const originalItems=items.slice(),nav=select.parentElement;let themed=false;
   const button=document.createElement('button');button.id='collection-menu-button';button.type='button';button.className='collection-menu-button';button.setAttribute('role','combobox');button.setAttribute('aria-haspopup','listbox');button.setAttribute('aria-controls','collection-menu-list');button.setAttribute('aria-expanded','false');
@@ -13,16 +22,16 @@
   let active=Math.max(0,items.findIndex(item=>item.value===select.value)),query='',group=null,letter='';const options=[],headings=new Map();
   function activate(index,scroll=true,showLetter=false){active=Math.max(0,Math.min(items.length-1,index));options.forEach((option,i)=>{option.classList.toggle('is-active',i===active);});button.setAttribute('aria-activedescendant',options[active].id);const enclosing=options[active].closest?.('details');if(enclosing)enclosing.open=true;if(scroll){const heading=showLetter&&headings.get(normalize(items[active].label).charAt(0));const target=heading||options[active],box=target.getBoundingClientRect(),viewport=list.getBoundingClientRect(),top=box.top-viewport.top+list.scrollTop-list.clientTop;
     if(heading||top<list.scrollTop)list.scrollTop=top;else if(top+box.height>list.scrollTop+list.clientHeight)list.scrollTop=top+box.height-list.clientHeight;}}
-  function close(){panel.hidden=true;button.setAttribute('aria-expanded','false');button.removeAttribute('aria-activedescendant');query='';}
-  function open(){panel.hidden=false;button.setAttribute('aria-expanded','true');const index=items.findIndex(item=>item.value===select.value);if(themed&&index<0){active=-1;options.forEach(option=>option.classList.toggle('is-active',false));button.removeAttribute('aria-activedescendant');}else activate(index);query='';}
-  function choose(index){if(index<0||!items[index])return;select.value=items[index].value;button.textContent=themed?'Types de satellites':items[index].label;options.forEach((option,i)=>option.setAttribute('aria-selected',String(i===index)));close();select.dispatchEvent(new Event('change',{bubbles:true}));}
+  function close(){if(!panel.hidden)reset(panel);panel.hidden=true;button.setAttribute('aria-expanded','false');button.removeAttribute('aria-activedescendant');query='';}
+  function open(){panel.hidden=false;button.setAttribute('aria-expanded','true');const index=items.findIndex(item=>item.value===select.value);if(themed){active=-1;options.forEach(option=>option.classList.toggle('is-active',false));button.removeAttribute('aria-activedescendant');}else activate(index);query='';}
+  function choose(index){if(index<0||!items[index])return;select.value=items[index].value;button.textContent=themed?'Tous les satellites':items[index].label;options.forEach((option,i)=>option.setAttribute('aria-selected',String(i===index)));close();select.dispatchEvent(new Event('change',{bubbles:true}));}
   function option(item,index,parent){
    const node=document.createElement('div');node.id='collection-option-'+item.value;node.className='collection-menu-option';node.setAttribute('role','option');node.setAttribute('aria-selected',String(item.value===select.value));node.textContent=item.label;node.addEventListener('click',()=>{choose(index);button.focus({preventScroll:true});});parent.append(node);options.push(node);
   }
   function render(){
    options.length=0;headings.clear();list.replaceChildren?.();group=null;letter='';
    if(themed){
-    const labels={science:'Satellites scientifiques',navigation:'Navigation',telecommunications:'Télécommunications',observation:'Observation de la Terre',weather:'Météorologie et climat',experimental:'Expérimentaux'};
+    const labels={history:'Premiers satellites',heritage:'Patrimoine orbital',stations:'Stations spatiales',vehicles:'Vaisseaux et capsules',defense:'Défense et surveillance',science:'Satellites scientifiques',navigation:'Navigation',telecommunications:'Télécommunications',observation:'Observation de la Terre',weather:'Météorologie et climat',experimental:'Expérimentaux'};
     const definitions=root.AtlasCollections?.definitions||[];const lookup=new Map(definitions.map(row=>[row.id,row]));
     items=Object.keys(labels).flatMap(category=>originalItems.filter(item=>lookup.get(item.value)?.category===category));
     let category='';
@@ -34,7 +43,7 @@
    active=Math.max(0,items.findIndex(item=>item.value===select.value));
   }
   render();
-  button.setThematic=value=>{if(themed===value)return;close();themed=value;render();help.textContent=themed?'Recherchez un objet ou dépliez un thème.':'Tapez une lettre pour accéder aux objets correspondants.';button.textContent=themed?'Types de satellites':(items.find(item=>item.value===select.value)?.label||'Tous les satellites');};
+  button.setThematic=value=>{if(themed===value)return;close();themed=value;render();help.textContent=themed?'Recherchez un objet ou dépliez un thème.':'Tapez une lettre pour accéder aux objets correspondants.';button.textContent=themed?'Tous les satellites':(items.find(item=>item.value===select.value)?.label||'Tous les satellites');};
   button.textContent=items[active].label;panel.append(help,list);select.hidden=true;select.tabIndex=-1;nav.append(button,panel);
   button.addEventListener('click',()=>panel.hidden?open():close());
   document.addEventListener('keydown',event=>{
@@ -59,5 +68,5 @@
   document.addEventListener('pointerdown',event=>{if(!nav.contains(event.target))close();});
   nav.addEventListener('focusout',event=>{if(event.relatedTarget&&!nav.contains(event.relatedTarget))close();});
  }
- const api={entries,match,mount};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasCollectionMenu=api;
+ const api={entries,match,mount,reset};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasCollectionMenu=api;
 })(globalThis);

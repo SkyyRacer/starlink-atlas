@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "VOYAGER 2",
+    "OBJECT_ID": "1977-076A",
+    "NORAD_CAT_ID": 10271,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "X",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1977-08-20",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "SS",
+    "ORBIT_TYPE": "ORB"
+  }
+]

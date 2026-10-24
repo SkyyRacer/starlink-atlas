@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "AEOLUS",
+    "OBJECT_ID": "2018-066A",
+    "NORAD_CAT_ID": 43600,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2018-08-22",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "2023-07-28",
+    "PERIOD": "86.95",
+    "INCLINATION": "96.70",
+    "APOGEE": "161",
+    "PERIGEE": "85",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

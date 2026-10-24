@@ -1,0 +1,1140 @@
+{
+  "reviewed": "2026-10-24",
+  "scope": "Runtime availability after geometry review. Pending drawings are excluded; no guarantee of complete geometry coverage.",
+  "groups": [
+    {
+      "page": "aditya-l1",
+      "name": "Aditya-L1",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 57754,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "agile",
+      "name": "AGILE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 31135,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "almaz",
+      "name": "Almaz / OPS",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6398,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7342,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 8911,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "alouette",
+      "name": "Alouette 1 et 2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 424,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 1804,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "ariel",
+      "name": "Ariel",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 285,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 771,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2773,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 5675,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7471,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 11382,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "asca",
+      "name": "ASCA",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 22521,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "astrosat",
+      "name": "AstroSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 40930,
+          "white_model": "astrosat",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "bepposax",
+      "name": "BeppoSAX",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 23857,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "chandra",
+      "name": "Chandra",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25867,
+          "white_model": "chandra",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "chandra",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "cheops",
+      "name": "CHEOPS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 44874,
+          "white_model": "cheops",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "compton",
+      "name": "Compton GRO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 21225,
+          "white_model": "compton",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "dampe",
+      "name": "DAMPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 41173,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "elektron",
+      "name": "Elektron 1 à 4",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 746,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 748,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 829,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 830,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "euve",
+      "name": "EUVE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 21987,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "exosat",
+      "name": "EXOSAT",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 14095,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "fermi",
+      "name": "Fermi",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 33053,
+          "white_model": "fermi",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "fermi",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "fuse",
+      "name": "FUSE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25791,
+          "white_model": "fuse",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "galex",
+      "name": "GALEX",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27783,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "goce",
+      "name": "GOCE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 34602,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "grace",
+      "name": "GRACE / GRACE-FO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27391,
+          "white_model": "grace",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "grace",
+          "white_status": "available"
+        },
+        {
+          "norad": 27392,
+          "white_model": "grace",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "grace",
+          "white_status": "available"
+        },
+        {
+          "norad": 43476,
+          "white_model": "grace-fo",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "grace-fo",
+          "white_status": "available"
+        },
+        {
+          "norad": 43477,
+          "white_model": "grace-fo",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "grace-fo",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "gravity-probe-b",
+      "name": "Gravity Probe B",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28230,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "halosat",
+      "name": "HaloSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 43549,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "heao",
+      "name": "HEAO / Einstein",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 10217,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 11101,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 11532,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "hubble",
+      "name": "Hubble",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 20580,
+          "white_model": "hubble",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "hubble",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "hxmt",
+      "name": "HXMT / Insight",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 42758,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "iras",
+      "name": "IRAS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 13777,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "isis",
+      "name": "ISIS 1 et 2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 3669,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 5104,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "iss",
+      "name": "ISS",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 25544,
+          "white_model": "iss",
+          "white_kind": "existing-station",
+          "detailed_model": "iss",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "iue",
+      "name": "IUE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 10637,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "ixpe",
+      "name": "IXPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 49954,
+          "white_model": "ixpe",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "kepler",
+      "name": "Kepler — observatoire",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 34380,
+          "white_model": "kepler",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "kepler",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "lageos",
+      "name": "LAGEOS-1 / LAGEOS-2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 8820,
+          "white_model": "lageos",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        },
+        {
+          "norad": 22195,
+          "white_model": "lageos",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "microscope",
+      "name": "MICROSCOPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 41457,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "mir",
+      "name": "Mir",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 16609,
+          "white_model": "mir",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "mir",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "nustar",
+      "name": "NuSTAR",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 38358,
+          "white_model": "nustar",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "oao",
+      "name": "OAO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 2142,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3597,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 6153,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "ogo",
+      "name": "OGO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 879,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 1620,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2195,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2895,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3138,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3986,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "oso",
+      "name": "OSO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 255,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 987,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2703,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3000,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3663,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 4065,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 5491,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7970,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "proton",
+      "name": "Proton 1 à 4",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 1466,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 1701,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2290,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 3544,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "rosat",
+      "name": "ROSAT",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 20638,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "rxte",
+      "name": "RXTE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 23757,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "salyut",
+      "name": "Saliout 2 à 7",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6398,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7342,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7591,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 8911,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 10382,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 13138,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "salyut-1",
+      "name": "Saliout 1",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 5160,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "san-marco",
+      "name": "San Marco",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 957,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 2761,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 5176,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7154,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 19013,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "sas",
+      "name": "Uhuru / SAS-1 à 3",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 4797,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 6282,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        },
+        {
+          "norad": 7788,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "skylab",
+      "name": "Skylab",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6633,
+          "white_model": "skylab",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "spektr-r",
+      "name": "Spektr-R / RadioAstron",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 37755,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "spektr-rg",
+      "name": "Spektr-RG",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 44432,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "spitzer",
+      "name": "Spitzer",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27871,
+          "white_model": "spitzer",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "spitzer",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "suzaku",
+      "name": "Suzaku",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28773,
+          "white_model": "suzaku",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "swift",
+      "name": "Swift / Neil Gehrels",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28485,
+          "white_model": "swift",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "tess",
+      "name": "TESS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 43435,
+          "white_model": "tess",
+          "white_kind": "nasa-adaptation",
+          "detailed_model": "tess",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "tiangong",
+      "name": "Tiangong",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 48274,
+          "white_model": "tiangong",
+          "white_kind": "existing-station",
+          "detailed_model": "tiangong",
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "tiangong-1",
+      "name": "Tiangong-1",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 37820,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "tiangong-2",
+      "name": "Tiangong-2",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 41765,
+          "white_model": null,
+          "white_kind": null,
+          "detailed_model": null,
+          "white_status": "pending-geometry-verification"
+        }
+      ]
+    },
+    {
+      "page": "xmm-newton",
+      "name": "XMM-Newton",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25989,
+          "white_model": "xmm-newton",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "xposat",
+      "name": "XPoSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 58694,
+          "white_model": "xposat",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    },
+    {
+      "page": "xrism",
+      "name": "XRISM",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 57800,
+          "white_model": "xrism",
+          "white_kind": "original-schematic",
+          "detailed_model": null,
+          "white_status": "available"
+        }
+      ]
+    }
+  ]
+}

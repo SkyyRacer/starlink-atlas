@@ -51,6 +51,9 @@ jobs:
           for file in data-seed/gp-backup-*.json; do
             if [ -f "$file" ] && [ ! -f "data-runtime/$(basename "$file")" ]; then cp "$file" data-runtime/; fi
           done
+          for file in data-seed/*-catalog.json; do
+            if [ ! -f "data-runtime/$(basename "$file")" ]; then cp "$file" data-runtime/; fi
+          done
       - name: Réarmer une source uniquement sur demande explicite
         if: github.event_name == 'workflow_dispatch' && inputs.rearm_sources
         run: find data-runtime -maxdepth 1 -name '*stopped.txt' -delete
@@ -71,6 +74,8 @@ jobs:
           for file in data-runtime/*stopped.txt; do
             if [ -f "$file" ]; then echo "::warning::Une source a interrompu sa collecte : $file. Le cache validé reste publié."; fi
           done
+      - name: Actualiser les trajectoires des missions lointaines
+        run: python3 scripts/import_mission_ephemerides.py --recent --keep-on-error --cache-dir data-runtime/horizons-cache
       - name: Construire le site autonome
         env:
           KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}

@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPEKTR-R",
+    "OBJECT_ID": "2011-037A",
+    "NORAD_CAT_ID": 37755,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "2011-07-18",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "11991.81",
+    "INCLINATION": "19.78",
+    "APOGEE": "328318",
+    "PERIGEE": "6019",
+    "RCS": "4.3330",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -7,7 +7,8 @@
  const debris=$('workspace-debris'),debrisButton=$('workspace-debris-button'),debrisMenu=$('workspace-debris-menu');
  const isAtlas=document.body.dataset.collection==='all'||!$('atlas-controls').hidden;
  const isStation=AtlasPages.isStation(document.body.dataset.collection);
- if(isStation){close.firstChild.textContent='Missions et équipage ';close.setAttribute('aria-label','Fermer Missions et équipage');}
+ close.firstChild.textContent='';
+ if(isStation){close.setAttribute('aria-label','Fermer Missions et équipage');}
  const search=document.querySelector('.object-search'),searchMenu=nav.querySelector('.collection-menu-panel');
  const categorySearch=document.createElement('div');categorySearch.id='workspace-category-search';
  const sceneTools=document.querySelector('.globe-tools'),stack=document.createElement('div');stack.id='scene-left-stack';document.querySelector('.view').append(stack);
@@ -15,19 +16,64 @@
  const stationControl=document.createElement('div');stationControl.id='workspace-station-control';
  const stationButton=document.createElement('button');stationButton.id='workspace-stations-button';stationButton.type='button';stationButton.textContent='Stations spatiales';stationButton.className='workspace-dropdown';stationButton.setAttribute('aria-expanded','false');stationButton.setAttribute('aria-controls','workspace-stations');
  stationControl.append(stationButton,stationLinks);bar.append(stationControl);
+ const deepControl=document.createElement('div');deepControl.id='workspace-deep-control';
+ const deepButton=document.createElement('button');deepButton.id='workspace-deep-button';deepButton.type='button';deepButton.textContent='Missions lointaines';deepButton.className='workspace-dropdown';deepButton.setAttribute('aria-expanded','false');deepButton.setAttribute('aria-controls','workspace-deep-space');
+ const deepLinks=document.createElement('nav');deepLinks.id='workspace-deep-space';deepLinks.hidden=true;deepLinks.setAttribute('aria-label','Missions lointaines');
+ const deepSearchBox=document.createElement('div');deepSearchBox.className='deep-menu-search object-search integrated-object-search';
+ const deepSearchLabel=document.createElement('label');deepSearchLabel.htmlFor='deep-mission-search';deepSearchLabel.textContent='Rechercher une mission';
+ const deepSearch=document.createElement('input');deepSearch.id='deep-mission-search';deepSearch.type='search';deepSearch.autocomplete='off';deepSearch.placeholder='JWST, Cassini, Voyager…';deepSearch.setAttribute('role','combobox');deepSearch.setAttribute('aria-autocomplete','list');deepSearch.setAttribute('aria-expanded','false');deepSearch.setAttribute('aria-controls','workspace-deep-space');deepSearchBox.append(deepSearchLabel,deepSearch);deepLinks.append(deepSearchBox);
+ const distantCategories=new Map();
+ for(const row of AtlasPages.definitions.filter(row=>row.trajectory)){const name=row.deep_category||'Autres missions';if(!distantCategories.has(name))distantCategories.set(name,[]);distantCategories.get(name).push(row);}
+ const alphabetical=(a,b)=>a.localeCompare(b,'fr',{sensitivity:'base',numeric:true});
+ for(const [name,rows] of [...distantCategories].sort(([a],[b])=>alphabetical(a,b))){
+  const section=document.createElement('details');section.className='deep-menu-category atlas-category collection-menu-theme';const title=document.createElement('summary');title.textContent=name;section.append(title);section.setAttribute('aria-label',name);
+  const list=document.createElement('div');list.className='deep-menu-items';list.setAttribute('role','group');list.setAttribute('aria-label',name);
+  for(const row of rows.sort((a,b)=>alphabetical(a.label,b.label))){const link=document.createElement('a');link.href=AtlasPages.url(row.id);link.className='collection-menu-option';link.id='deep-mission-option-'+row.id;link.textContent=row.label;link.dataset.search=row.label+' '+row.description;if(row.id===document.body.dataset.collection)link.setAttribute('aria-current','page');list.append(link);}
+  section.append(list);deepLinks.append(section);
+ }
+ const deepEmpty=document.createElement('p');deepEmpty.className='deep-menu-empty';deepEmpty.textContent='Aucun résultat';deepEmpty.hidden=true;deepEmpty.setAttribute('role','status');deepLinks.append(deepEmpty);
+ const normalizeMission=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').trim();
+ let activeMission=null;
+ function clearMissionChoice(){activeMission=null;deepSearch.removeAttribute('aria-activedescendant');for(const link of deepLinks.querySelectorAll('a'))link.classList.remove('is-active');}
+ function selectMission(link){
+  clearMissionChoice();activeMission=link;link.classList.add('is-active');link.closest('details').open=true;deepSearch.setAttribute('aria-activedescendant',link.id);
+  const box=link.getBoundingClientRect(),viewport=deepLinks.getBoundingClientRect(),sticky=deepSearchBox.getBoundingClientRect();
+  const top=Math.max(viewport.top,sticky.bottom);
+  if(box.top<top)deepLinks.scrollTop-=top-box.top;else if(box.bottom>viewport.bottom)deepLinks.scrollTop+=box.bottom-viewport.bottom;
+ }
+ deepSearch.addEventListener('keydown',event=>{
+  if(event.isComposing||event.ctrlKey||event.metaKey||event.altKey||!deepSearch.value.trim()||!['Tab','ArrowDown','ArrowUp','Enter'].includes(event.key))return;
+  event.preventDefault();event.stopPropagation();const found=[...deepLinks.querySelectorAll('a')].filter(link=>!link.hidden);
+  if(!found.length)return;
+  if(event.key==='Enter'){if(activeMission||found.length===1){(activeMission||found[0]).click();closeDeep();}else selectMission(found[0]);return;}
+  const backwards=event.key==='ArrowUp'||(event.key==='Tab'&&event.shiftKey),index=found.indexOf(activeMission);
+  selectMission(found[index<0?(backwards?found.length-1:0):(index+(backwards?-1:1)+found.length)%found.length]);
+ });
+ deepSearch.addEventListener('input',()=>{clearMissionChoice();deepSearch.setAttribute('aria-expanded',String(!deepLinks.hidden));const query=normalizeMission(deepSearch.value);let total=0;for(const category of deepLinks.querySelectorAll('details')){let matches=0;for(const link of category.querySelectorAll('a')){link.hidden=!!query&&!normalizeMission(link.dataset.search).includes(query);if(!link.hidden)matches++;}category.hidden=matches===0;if(query)category.open=matches>0;else category.open=!!category.querySelector('[aria-current="page"]');total+=matches;}deepEmpty.hidden=total>0;});
+ deepControl.append(deepButton,deepLinks);stationControl.after(deepControl);
+ function closeDeep(restore=false){if(!deepLinks.hidden)globalThis.AtlasCollectionMenu?.reset(deepLinks);clearMissionChoice();deepSearch.setAttribute('aria-expanded','false');deepLinks.hidden=true;deepButton.setAttribute('aria-expanded','false');if(restore)deepButton.focus({preventScroll:true});}
+ deepButton.addEventListener('click',()=>{const open=deepLinks.hidden;closeStations();if(open){setObjects(false);closeMenu();closeTools();closeDebris();closeNews();deepLinks.hidden=false;deepLinks.scrollTop=0;deepSearch.setAttribute('aria-expanded','true');deepButton.setAttribute('aria-expanded','true');positionSubmenu(deepLinks,deepButton,350);}});
+ deepControl.addEventListener('keydown',event=>{if(event.key==='ArrowDown'&&event.target===deepButton){event.preventDefault();if(deepLinks.hidden)deepButton.click();deepSearch.focus({preventScroll:true});}if(event.key==='Escape'){event.preventDefault();closeDeep(true);}});
+
  for(const button of [menu,objects,tools,news,debrisButton])button.classList.add('workspace-dropdown');
  const sceneActions=document.createElement('div');sceneActions.id='scene-actions';stack.append(sceneActions);
  const placements=[];let mounted=false,opened=false;
+ const frozenControls=isAtlas?document.createElement('div'):null;
+ if(frozenControls){frozenControls.id='workspace-frozen-controls';frozenControls.hidden=true;rail.prepend(frozenControls);}
+ const titleRow=!isAtlas?document.createElement('div'):null;
+ if(titleRow){titleRow.id='workspace-title-row';titleRow.hidden=true;document.querySelector('.observation-title').before(titleRow);}
  function submenuGeometry(rect,width,height,preferred=350,headerBottom=0){
   const w=Math.min(preferred,Math.max(160,width-40));
   const top=Math.ceil(Math.max(rect.bottom,headerBottom));
-  return {left:Math.max(20,Math.min(rect.left,width-w-20)),top,width:w,maxHeight:Math.max(100,height-top-20)};
+  return {left:Math.max(20,Math.min(rect.left,width-w-20)),top,width:w,maxHeight:Math.max(100,Math.min(height*.5,height-top-20))};
  }
  window.AtlasWorkspace={submenuGeometry};
  function positionSubmenu(panel,trigger,width){
   if(!desktop.matches||!Number.isFinite(window.innerWidth)||!Number.isFinite(window.innerHeight))return;
   const scale=window.AtlasUI?.scale||1;
-  const g=submenuGeometry(trigger.getBoundingClientRect(),window.innerWidth,window.innerHeight,width*scale,header.getBoundingClientRect().bottom);
+  const rect=trigger.getBoundingClientRect(),headerBottom=header.getBoundingClientRect().bottom;
+  const g=submenuGeometry(rect,window.innerWidth,window.innerHeight,width*scale,headerBottom);
+  if(panel===rail&&!isAtlas){g.left=20;g.width=Math.min(440*scale,window.innerWidth-40);if(Number.isFinite(rect.top)&&rect.top-headerBottom>160){g.top=Math.ceil(headerBottom+10);g.maxHeight=Math.floor(rect.top-g.top-10);}}
   if(window.AtlasUI)window.AtlasUI.place(panel,g);else for(const key of ['left','top','width','maxHeight'])panel.style[key]=g[key]+'px';
   panel.style.right='auto';panel.style.bottom='auto';
  }
@@ -40,12 +86,13 @@
   debrisMenu.style.left=Math.max(20,Math.min(bounds.left,window.innerWidth-width-20))/scale+'px';
   debrisMenu.style.width=width/scale+'px';debrisMenu.style.right='auto';debrisMenu.style.top='auto';
   debrisMenu.style.bottom=Math.max(20,window.innerHeight-anchor.top+10)/scale+'px';
-  debrisMenu.style.maxHeight=Math.max(80,anchor.top-headerBottom-30)/scale+'px';
+  debrisMenu.style.maxHeight=Math.max(80,Math.min(window.innerHeight*.5,anchor.top-headerBottom-30))/scale+'px';
  }
  function positionMenus(){
   if(!mounted)return;
   positionDebris();
   if(!stationLinks.hidden)positionSubmenu(stationLinks,stationButton,230);
+  if(!deepLinks.hidden)positionSubmenu(deepLinks,deepButton,350);
   if(opened)positionSubmenu(rail,objects,350);
   if(menu.getAttribute('aria-expanded')==='true')positionSubmenu(searchMenu,menu,350);
   if(tools.getAttribute('aria-expanded')==='true')positionSubmenu($('advanced-panel'),tools,360);
@@ -53,7 +100,7 @@
  }
  if(isAtlas){
   rail.classList.add('workspace-categories-panel');$('atlas-controls').before(categorySearch);
-  close.firstChild.textContent='Catégories ';close.setAttribute('aria-label','Fermer les catégories');
+  close.setAttribute('aria-label','Fermer Tous les satellites');
   const group=document.createElement('details');group.className='atlas-category workspace-debris-category';
   const summary=document.createElement('summary');summary.textContent='Débris spatiaux';const categoryCount=document.createElement('span');categoryCount.className='atlas-category-total';summary.append(categoryCount);group.append(summary);
   const link=document.createElement('a');link.className='workspace-debris-category-link';link.href=AtlasPages.url('debris');link.append(document.createTextNode('Voir la page Débris spatiaux'));
@@ -66,18 +113,19 @@
  $('workspace-debris-page').textContent='Isoler les débris';
  $('workspace-debris-atlas').href=AtlasPages.url('all')+'?debris=1';$('workspace-home').hidden=isAtlas;
  for(const [id,mode] of [['workspace-iss','iss'],['workspace-tiangong','tiangong']])if(document.body.dataset.collection===mode)$(id).setAttribute('aria-current','page');
- function closeStations(restoreFocus=false){stationLinks.hidden=true;stationButton.setAttribute('aria-expanded','false');if(restoreFocus)stationButton.focus({preventScroll:true});}
- function closeDebris(){debrisMenu.hidden=true;debrisButton.setAttribute('aria-expanded','false');}
+ function closeStations(restoreFocus=false){closeDeep();if(!stationLinks.hidden)globalThis.AtlasCollectionMenu?.reset(stationLinks);stationLinks.hidden=true;stationButton.setAttribute('aria-expanded','false');if(restoreFocus)stationButton.focus({preventScroll:true});}
+ function closeDebris(){if(!debrisMenu.hidden)globalThis.AtlasCollectionMenu?.reset(debrisMenu);debrisMenu.hidden=true;debrisButton.setAttribute('aria-expanded','false');}
  function move(node,parent){const marker=document.createComment('workspace original position');node.before(marker);placements.push({node,marker});parent.append(node);}
  function closeMenu(){if(menu.getAttribute('aria-expanded')==='true')menu.click();}
  function closeTools(){if(tools.getAttribute('aria-expanded')==='true')tools.click();}
  function closeNews(){const dialog=$('orbital-news-dialog');if(dialog.open)dialog.close();}
  function setObjects(open,restoreFocus=false){
   if(open)closeStations();
-  opened=desktop.matches&&open;document.body.classList.toggle('workspace-objects-open',opened);objects.setAttribute('aria-expanded',String(opened));
+  if(opened&&!open)globalThis.AtlasCollectionMenu?.reset(rail);
+  opened=desktop.matches&&open;rail.hidden=desktop.matches&&!opened;document.body.classList.toggle('workspace-objects-open',opened);objects.setAttribute('aria-expanded',String(opened));
   if(desktop.matches)rail.inert=!opened;
   if(isAtlas&&desktop.matches){if(opened)categorySearch.append(search);else searchMenu.prepend(search);}
-  if(opened){positionSubmenu(rail,objects,350);(isAtlas?$('object-search'):isStation?$('iss-search'):close).focus({preventScroll:true});}
+  if(opened){positionSubmenu(rail,objects,350);rail.scrollTop=0;(isAtlas?$('object-search'):close).focus({preventScroll:true});}
   else if(restoreFocus)objects.focus({preventScroll:true});
  }
  function syncRecenter(){
@@ -85,29 +133,33 @@
   const target=$('advanced-model-options').dataset.following==='true'?sceneActions:sceneTools.querySelector('.globe-buttons');
   if($('globe-home').parentElement!==target)target.append($('globe-home'));
   if(isAtlas&&debris.parentElement!==target)target.append(debris);
+  if(!isAtlas){$('globe-home').after(objects);if(opened)positionSubmenu(rail,objects,350);}
  }
  function syncView(){syncRecenter();const view=$('view-3d').getAttribute('aria-pressed')==='true'?'3d':'2d';if(stack.dataset.view!==view)stack.dataset.view=view;}
  function layout(){
   if(desktop.matches){
    if(mounted){positionMenus();return;}mounted=true;document.body.classList.add('earth-workspace');document.body.classList.toggle('dedicated-workspace',!isAtlas);
    move($('workspace-iss'),stationLinks);move($('workspace-tiangong'),stationLinks);
+   if(!stationLinks.querySelector('[data-historical-station]'))for(const row of AtlasPages.definitions.filter(row=>row.category==='stations'&&!row.station_id)){const link=document.createElement('a');link.href=AtlasPages.url(row.id);link.textContent=row.label;link.className='workspace-link';link.dataset.historicalStation=row.id;stationLinks.append(link);}
+   stationLinks.append(...[...stationLinks.querySelectorAll('a')].sort((a,b)=>a.textContent.trim().localeCompare(b.textContent.trim(),'fr',{sensitivity:'base',numeric:true})));
    move(nav,bar);move(tools,bar);move(news,bar);if(isAtlas)move(debris,sceneActions);move($('globe-home'),sceneActions);move(sceneTools,stack);
    tools.hidden=!isAtlas;debris.hidden=!isAtlas;close.hidden=false;
-   if(isAtlas){bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
-   else{bar.insertBefore(objects,tools);$('workspace-debris-navigation').hidden=false;}
-   objects.before(stationControl);
-   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Catégories':($('iss-controls').hidden?'Liste des objets':'Missions et équipage');
+   if(isAtlas){frozenControls.hidden=false;move(close,frozenControls);move(categorySearch,frozenControls);move(document.querySelector('#atlas-controls .atlas-actions'),frozenControls);bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
+   else{titleRow.hidden=false;move(document.querySelector('.observation-title'),titleRow);move(close,titleRow);move(objects,sceneActions);$('workspace-debris-navigation').hidden=false;}
+   if(isAtlas){objects.after(stationControl);nav.hidden=true;}else{nav.after(stationControl);nav.hidden=false;}stationControl.after(deepControl);
+   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les satellites':'Liste des objets';
    setObjects(false);syncView();
   }else{
    if(!mounted)return;closeStations();setObjects(false);closeMenu();closeTools();closeDebris();menu.setThematic?.(false);closeNews();
-   debrisMenu.removeAttribute('style');
+   debrisMenu.removeAttribute('style');nav.hidden=false;
    for(const {node,marker} of placements.splice(0))marker.replaceWith(node);
+   if(frozenControls)frozenControls.hidden=true;if(titleRow)titleRow.hidden=true;
    tools.hidden=false;close.hidden=false;document.body.classList.remove('earth-workspace','dedicated-workspace');nav.classList.remove('workspace-primary-menu');mounted=false;
   }
   window.dispatchEvent(new Event('resize'));
  }
- stationButton.addEventListener('click',()=>{const open=stationLinks.hidden;if(open){setObjects(false);closeMenu();closeTools();closeDebris();closeNews();stationLinks.hidden=false;stationButton.setAttribute('aria-expanded','true');positionSubmenu(stationLinks,stationButton,230);}else closeStations();});
- stationControl.addEventListener('keydown',event=>{if(event.key==='ArrowDown'&&event.target===stationButton){event.preventDefault();if(stationLinks.hidden)stationButton.click();$('workspace-iss').focus({preventScroll:true});}});
+ stationButton.addEventListener('click',()=>{closeDeep();const open=stationLinks.hidden;if(open){setObjects(false);closeMenu();closeTools();closeDebris();closeNews();stationLinks.hidden=false;stationButton.setAttribute('aria-expanded','true');positionSubmenu(stationLinks,stationButton,230);}else closeStations();});
+ stationControl.addEventListener('keydown',event=>{if(event.key==='ArrowDown'&&event.target===stationButton){event.preventDefault();if(stationLinks.hidden)stationButton.click();stationLinks.querySelector('a')?.focus({preventScroll:true});}});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!stationLinks.hidden){event.preventDefault();closeStations(true);}});
  objects.addEventListener('click',()=>{const next=!opened;if(next){closeMenu();closeTools();closeDebris();closeNews();}setObjects(next);});
  close.addEventListener('click',()=>setObjects(false,true));
@@ -124,6 +176,7 @@
  document.addEventListener('pointerdown',event=>{
   if(!desktop.matches||document.querySelector('dialog[open]'))return;
   if(!stationLinks.hidden&&!stationControl.contains(event.target))closeStations();
+  if(!deepLinks.hidden&&!deepControl.contains(event.target))closeDeep();
   if(opened&&!rail.contains(event.target)&&!objects.contains(event.target))setObjects(false);
   if(!$('advanced-panel').hidden&&!$('advanced-panel').contains(event.target)&&!tools.contains(event.target))closeTools();
   if(!debrisMenu.hidden&&!debris.contains(event.target)&&!debrisMenu.contains(event.target))closeDebris();

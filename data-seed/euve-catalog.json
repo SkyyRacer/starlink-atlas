@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "EUVE",
+    "OBJECT_ID": "1992-031A",
+    "NORAD_CAT_ID": 21987,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1992-06-07",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2002-01-31",
+    "PERIOD": "87.26",
+    "INCLINATION": "28.43",
+    "APOGEE": "141",
+    "PERIGEE": "137",
+    "RCS": "18.7856",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

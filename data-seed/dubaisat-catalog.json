@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "DUBAISAT-1",
+    "OBJECT_ID": "2009-041B",
+    "NORAD_CAT_ID": 35682,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "UAE",
+    "LAUNCH_DATE": "2009-07-29",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "97.61",
+    "INCLINATION": "98.02",
+    "APOGEE": "652",
+    "PERIGEE": "636",
+    "RCS": "1.2204",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "DUBAISAT-2",
+    "OBJECT_ID": "2013-066D",
+    "NORAD_CAT_ID": 39419,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "UAE",
+    "LAUNCH_DATE": "2013-11-21",
+    "LAUNCH_SITE": "DLS",
+    "DECAY_DATE": "",
+    "PERIOD": "95.31",
+    "INCLINATION": "97.47",
+    "APOGEE": "540",
+    "PERIGEE": "526",
+    "RCS": "1.7770",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

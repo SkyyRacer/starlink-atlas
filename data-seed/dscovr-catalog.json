@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "DSCOVR",
+    "OBJECT_ID": "2015-007A",
+    "NORAD_CAT_ID": 40390,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2015-02-11",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EL1",
+    "ORBIT_TYPE": "ORB"
+  }
+]

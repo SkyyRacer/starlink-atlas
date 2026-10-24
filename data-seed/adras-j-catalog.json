@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "ADRAS-J",
+    "OBJECT_ID": "2024-034A",
+    "NORAD_CAT_ID": 58992,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "JPN",
+    "LAUNCH_DATE": "2024-02-18",
+    "LAUNCH_SITE": "RLLB",
+    "DECAY_DATE": "",
+    "PERIOD": "91.25",
+    "INCLINATION": "98.20",
+    "APOGEE": "388",
+    "PERIGEE": "283",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

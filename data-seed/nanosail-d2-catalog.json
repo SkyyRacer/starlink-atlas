@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "NANOSAIL-D2",
+    "OBJECT_ID": "2010-062L",
+    "NORAD_CAT_ID": 37361,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2010-11-20",
+    "LAUNCH_SITE": "KODAK",
+    "DECAY_DATE": "2011-09-17",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NIE",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

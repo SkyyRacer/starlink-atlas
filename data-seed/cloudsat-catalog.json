@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "CLOUDSAT",
+    "OBJECT_ID": "2006-016A",
+    "NORAD_CAT_ID": 29107,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2006-04-28",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "96.87",
+    "INCLINATION": "98.38",
+    "APOGEE": "611",
+    "PERIGEE": "606",
+    "RCS": "3.7945",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

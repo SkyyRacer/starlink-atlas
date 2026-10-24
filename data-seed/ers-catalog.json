@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "ERS-1",
+    "OBJECT_ID": "1991-050A",
+    "NORAD_CAT_ID": 21574,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "1991-07-17",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "100.03",
+    "INCLINATION": "98.77",
+    "APOGEE": "782",
+    "PERIGEE": "738",
+    "RCS": "10.3234",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "ERS-2",
+    "OBJECT_ID": "1995-021A",
+    "NORAD_CAT_ID": 23560,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "1995-04-21",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "2024-02-21",
+    "PERIOD": "87.14",
+    "INCLINATION": "98.48",
+    "APOGEE": "140",
+    "PERIGEE": "126",
+    "RCS": "9.5269",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

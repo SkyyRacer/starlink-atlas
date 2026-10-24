@@ -19,3 +19,31 @@ for(const height of [2e5,5e5,1e6,3e6,1e7,2e7,1e8]){const fraction=1-overview(hei
 const below=overview(2999999,1)/2999999,above=overview(3000001,1)/3000001;
 assert.ok(Math.abs(below-above)<1e-6,'No abrupt speed change near Earth');
 assert.ok(1-overview(5e5,1)/5e5<.2,'Nearby Earth remains easy to control');
+
+for(const radius of [18,55,75]){let close=radius*1.5;for(let i=0;i<60;i++)close=zoom(close,1,1,radius,true);assert.equal(close,Math.max(2,radius*.35),'Extra proximity only with detailed model');assert.equal(zoom(close,1,1,radius,false),radius*1.5,'White model restores normal minimum');assert.ok(zoom(radius,1,.1,radius,true)>zoom(radius,1,1,radius,true),'Fine HD zoom remains gradual');}
+
+const distant=ctx.window.AtlasGlobe.distantZoomRange;
+for(const range of [10000,1e7,1e10,2.6e13,1e14]){
+ assert.ok(distant(range,1)<range);assert.ok(distant(range,-1)>range);
+ assert.ok(distant(range,1)/range>.45,'No teleport toward Earth at interstellar distances');
+ assert.ok(distant(range,1,.05)>distant(range,1,1),'Gentle trackpad steps');
+ assert.ok(zoom(range,1,.05,50,true,true)>range*.8,'Detailed distant models also avoid the Earth zoom cap');
+}
+assert.equal(distant(1000,1),1000);assert.equal(distant(1e15,-1),1e15);
+console.log('Distant zoom: continuous from 1 km to 1e15 m, including detailed models and Voyager distances.');
+
+const nearest=ctx.window.AtlasGlobe.nearestModelPixel;
+for(const pixels of [
+ [[30,20],[31,20],[32,20],[60,40]],
+ Array.from({length:41},(_,i)=>[40,i+10]),
+ Array.from({length:50},(_,i)=>[i+20,30]).filter(([x])=>x<35||x>55),
+ [[0,0],[99,79],[20,60]]
+])for(const mouse of [{x:30,y:20},{x:50,y:35},{x:99,y:0},{x:0,y:79}]){
+ let probes=0;const hit=(p,w,h)=>{probes++;return pixels.some(([x,y])=>Math.abs(x-p.x)<=(w-1)/2&&Math.abs(y-p.y)<=(h-1)/2);};
+ const result=nearest(mouse,100,80,hit);assert.ok(result,'Visible model contour is found');
+ const wanted=Math.min(...pixels.map(([x,y])=>Math.hypot(x-mouse.x,y-mouse.y)));
+ assert.ok(Math.abs(Math.hypot(result.x-mouse.x,result.y-mouse.y)-wanted)<1e-8,'Off-model zoom targets the nearest visible part, including thin antennas and gaps');
+ assert.ok(probes<=128,'Bounded geometry picks per wheel gesture');
+}
+assert.equal(nearest({x:5,y:5},100,80,()=>false),null,'No invented surface when model is hidden');
+console.log('Pointer zoom: exact surface pixel, closest silhouette outside the model, thin antennas, holes and bounded picks OK.');

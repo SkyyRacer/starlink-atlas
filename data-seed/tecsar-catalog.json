@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "TECSAR",
+    "OBJECT_ID": "2008-002A",
+    "NORAD_CAT_ID": 32476,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "ISRA",
+    "LAUNCH_DATE": "2008-01-21",
+    "LAUNCH_SITE": "SRILR",
+    "DECAY_DATE": "2024-07-03",
+    "PERIOD": "93.6",
+    "INCLINATION": "41.0",
+    "APOGEE": "504",
+    "PERIGEE": "397",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

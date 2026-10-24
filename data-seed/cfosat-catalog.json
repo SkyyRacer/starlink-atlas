@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "CFOSAT",
+    "OBJECT_ID": "2018-083A",
+    "NORAD_CAT_ID": 43662,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "PRC",
+    "LAUNCH_DATE": "2018-10-29",
+    "LAUNCH_SITE": "JSC",
+    "DECAY_DATE": "",
+    "PERIOD": "94.95",
+    "INCLINATION": "97.37",
+    "APOGEE": "518",
+    "PERIGEE": "514",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

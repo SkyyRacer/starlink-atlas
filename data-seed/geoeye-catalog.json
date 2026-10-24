@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "GEOEYE 1",
+    "OBJECT_ID": "2008-042A",
+    "NORAD_CAT_ID": 33331,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2008-09-06",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "98.31",
+    "INCLINATION": "98.12",
+    "APOGEE": "682",
+    "PERIGEE": "674",
+    "RCS": "4.9370",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

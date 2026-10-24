@@ -1,0 +1,5 @@
+{
+  "query": "IXPE",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=IXPE&count=12&sort_by=-relevance",
+  "results": []
+}

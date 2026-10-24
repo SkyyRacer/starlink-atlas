@@ -19,9 +19,9 @@
   },
   {
     "key": "fermi",
-    "runtime_url": "images/detailed/fermi.glb?v=5338f88c8bea",
-    "runtime_bytes": 1379236,
-    "original_bytes": 1379236,
+    "runtime_url": "images/detailed/fermi.glb?v=f17b62075e0f",
+    "runtime_bytes": 1379036,
+    "original_bytes": 1379036,
     "triangles": 172788,
     "original_triangles": 172788,
     "compression": "original"
@@ -51,6 +51,78 @@
     "original_bytes": 980084,
     "triangles": 128932,
     "original_triangles": 128932,
+    "compression": "original"
+  },
+  {
+    "key": "kepler",
+    "runtime_url": "images/detailed/kepler.glb?v=cd87729e0b40",
+    "runtime_bytes": 2003504,
+    "original_bytes": 2003504,
+    "triangles": 9042,
+    "original_triangles": 9042,
+    "compression": "original"
+  },
+  {
+    "key": "spitzer",
+    "runtime_url": "images/detailed/spitzer.glb?v=3aad2695f7d2",
+    "runtime_bytes": 5560500,
+    "original_bytes": 5560500,
+    "triangles": 10311,
+    "original_triangles": 10311,
+    "compression": "original"
+  },
+  {
+    "key": "grace",
+    "runtime_url": "images/detailed/grace.glb?v=5f4e9d10cc88",
+    "runtime_bytes": 1777836,
+    "original_bytes": 1777836,
+    "triangles": 3961,
+    "original_triangles": 3961,
+    "compression": "original"
+  },
+  {
+    "key": "mir",
+    "runtime_url": "images/detailed/mir.glb?v=3686dd860843",
+    "runtime_bytes": 21055296,
+    "original_bytes": 21055296,
+    "triangles": 446331,
+    "original_triangles": 446331,
+    "compression": "original"
+  },
+  {
+    "key": "skylab",
+    "runtime_url": "images/detailed/skylab.glb?v=9b59b38879ce",
+    "runtime_bytes": 98628,
+    "original_bytes": 98628,
+    "triangles": 25292,
+    "original_triangles": 25292,
+    "compression": "original"
+  },
+  {
+    "key": "grace-fo",
+    "runtime_url": "images/detailed/grace-fo.glb?v=3d747fa1f858",
+    "runtime_bytes": 6987412,
+    "original_bytes": 6987412,
+    "triangles": 3652,
+    "original_triangles": 3652,
+    "compression": "original"
+  },
+  {
+    "key": "jwst",
+    "runtime_url": "images/detailed/jwst.glb?v=6db806c14fd3",
+    "runtime_bytes": 1004292,
+    "original_bytes": 1004292,
+    "triangles": 99239,
+    "original_triangles": 99239,
+    "compression": "original"
+  },
+  {
+    "key": "voyager",
+    "runtime_url": "images/detailed/voyager.glb?v=3bba2b03f3f1",
+    "runtime_bytes": 1721104,
+    "original_bytes": 1721104,
+    "triangles": 20390,
+    "original_triangles": 20390,
     "compression": "original"
   }
 ]

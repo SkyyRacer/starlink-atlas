@@ -1,9 +1,10 @@
 /* Orbit families use mission metadata; individual regimes use complete orbital elements. */
 (function(root){
- const labels={LEO:'LEO · Orbite basse',MEO:'MEO · Orbite moyenne',GEO:'GEO · Géostationnaire',HEO:'HEO · Orbite très elliptique',IGSO:'IGSO · Géosynchrone inclinée',QZO:'QZO · Quasi zénithale',VARIED:'Orbites variées · basses, moyennes, hautes et elliptiques'};
+ const labels={PLANETARY:'Trajectoire planétaire',HELIO:'Orbite héliocentrique',L1:'Autour du point Soleil–Terre L1',L2:'Autour du point Soleil–Terre L2',UNKNOWN:'Régime orbital non renseigné',SU:'Orbite héliocentrique',SS:'Trajectoire interplanétaire',LEO:'LEO · Orbite basse',MEO:'MEO · Orbite moyenne',GEO:'GEO · Géostationnaire',HEO:'HEO · Orbite très elliptique',IGSO:'IGSO · Géosynchrone inclinée',QZO:'QZO · Quasi zénithale',VARIED:'Orbites variées · basses, moyennes, hautes et elliptiques'};
  function nominal(def){const types=def?.orbit_types||[];if(types.includes('LEO')&&types.includes('SSO'))return 'LEO · Orbite basse, héliosynchrone (SSO)';return types.map(code=>labels[code]||code).join(' / ')||'Non renseigné';}
  const number=value=>value===null||value===undefined||value===''?NaN:Number(value);
  function describe(orbit,def){
+  if(def?.trajectory)return nominal(def);
   if(orbit){
    const motion=number(orbit.mean_motion),e=number(orbit.eccentricity),inc=number(orbit.inclination);
    const axis=motion>0?Math.cbrt(398600.4418/Math.pow(motion*2*Math.PI/86400,2)):NaN;

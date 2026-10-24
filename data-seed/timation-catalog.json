@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "TIMATION 1",
+    "OBJECT_ID": "1967-053E",
+    "NORAD_CAT_ID": 2847,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1967-05-31",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "102.64",
+    "INCLINATION": "69.96",
+    "APOGEE": "890",
+    "PERIGEE": "876",
+    "RCS": "0.1694",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "TIMATION 2",
+    "OBJECT_ID": "1969-082C",
+    "NORAD_CAT_ID": 4257,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1969-09-30",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "103.12",
+    "INCLINATION": "70.01",
+    "APOGEE": "923",
+    "PERIGEE": "890",
+    "RCS": "0.9640",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

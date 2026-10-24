@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "ALOUETTE 1 (S-27)",
+    "OBJECT_ID": "1962-049A",
+    "NORAD_CAT_ID": 424,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "CA",
+    "LAUNCH_DATE": "1962-09-29",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "105.14",
+    "INCLINATION": "80.46",
+    "APOGEE": "1018",
+    "PERIGEE": "984",
+    "RCS": "1.0800",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "ALOUETTE 2",
+    "OBJECT_ID": "1965-098A",
+    "NORAD_CAT_ID": 1804,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "CA",
+    "LAUNCH_DATE": "1965-11-29",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "117.22",
+    "INCLINATION": "79.80",
+    "APOGEE": "2612",
+    "PERIGEE": "500",
+    "RCS": "0.9848",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

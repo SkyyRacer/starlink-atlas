@@ -1,0 +1,391 @@
+{
+  "query": "AstroSat",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=AstroSat&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "ef3536a26d5147068bdb07ef93f1af05",
+      "name": "Astrovat",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-ef3536a26d5147068bdb07ef93f1af05",
+      "isDownloadable": false,
+      "vertexCount": 170,
+      "faceCount": 324,
+      "license": null,
+      "user": {
+        "uid": "e5916a63f3d84fc2a9afa8acce4095b8",
+        "username": "green-technologies",
+        "displayName": "Green-Technologies",
+        "profileUrl": "https://sketchfab.com/green-technologies",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/d45ab7455fa84cb1a0489d7fdd7899cf",
+          "images": [
+            {
+              "size": 1166,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/d45ab7455fa84cb1a0489d7fdd7899cf/9f6604c4921f412795fcdd6173c5f7c1.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1705,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/d45ab7455fa84cb1a0489d7fdd7899cf/c6f03fddcda142a3bdb2ae1ad5d93a89.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3839,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/d45ab7455fa84cb1a0489d7fdd7899cf/571779176d524dbebf6fa4a737b37dca.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4423,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/d45ab7455fa84cb1a0489d7fdd7899cf/66eba999570b477da281b665df5b6e50.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/e5916a63f3d84fc2a9afa8acce4095b8"
+      },
+      "description": "A Vision Rooted in the Future\n\nThe vision of FOX24 goes far beyond short-term market movements or temporary popularity. It’s about long-term creation, technological independence, and financial self-reliance.\n\nIn the words of its creator:\n\n“If I can rebuild my life through code, I can inspire others to rebuild theirs through belief.”\n\nFOX24’s philosophy blends three elements:\n\nDetermination — success built not by teams, but by persistence.\n\n\nFinal Thoughts\n\nFOX24 Coin is proof that blockchain innovation doesn’t require massive funding or corporate teams. It requires heart, discipline, and belief.\nIts mission to rebuild life through code stands as an inspiration to those who dream of writing their own story — one transaction, one smart contract at a time.\n\nFrom the ashes of limitation rises FOX24 Coin.\nAnd beyond it, through the stars, awaits ASTROVAT (AVT) — the journey into the future begins here."
+    },
+    {
+      "uid": "92dd614fea0a431199e6075ebdf4d1fe",
+      "name": "Chad Cast Calli",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-92dd614fea0a431199e6075ebdf4d1fe",
+      "isDownloadable": true,
+      "vertexCount": 22830,
+      "faceCount": 44946,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "8a8a25c8c2d24412aa4fd97135aab980",
+        "username": "sc00tsc00t",
+        "displayName": "scootscoot",
+        "profileUrl": "https://sketchfab.com/sc00tsc00t",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/8a8a25c8c2d24412aa4fd97135aab980"
+      },
+      "description": "It's the Rapping Reaper herself, Calliope Mori!\n\nBased on art by AstroSalt: https://twitter.com/AstroSalt"
+    },
+    {
+      "uid": "7db9670656d94a60943bbab5c30c5a3b",
+      "name": "Chad Cast Calli Tpose",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-7db9670656d94a60943bbab5c30c5a3b",
+      "isDownloadable": true,
+      "vertexCount": 23005,
+      "faceCount": 45266,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "8a8a25c8c2d24412aa4fd97135aab980",
+        "username": "sc00tsc00t",
+        "displayName": "scootscoot",
+        "profileUrl": "https://sketchfab.com/sc00tsc00t",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/8a8a25c8c2d24412aa4fd97135aab980"
+      },
+      "description": "The rapping reaper herself! T-posing threateningly at you!\n\nBased on art by AstroSalt: https://twitter.com/AstroSalt"
+    },
+    {
+      "uid": "c18f13a9de7e499ba6a699cf63eb1ccd",
+      "name": "AstroSAM",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-c18f13a9de7e499ba6a699cf63eb1ccd",
+      "isDownloadable": true,
+      "vertexCount": 29379,
+      "faceCount": 57388,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "9b9ebb0665c34885a87694d8de0488ce",
+        "username": "AntScaramuzzino",
+        "displayName": "AntScaramuzzino",
+        "profileUrl": "https://sketchfab.com/AntScaramuzzino",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/9b9ebb0665c34885a87694d8de0488ce"
+      },
+      "description": ""
+    },
+    {
+      "uid": "fd943a8a5bc74f8da6d7ac5688621230",
+      "name": "Astrocat",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-fd943a8a5bc74f8da6d7ac5688621230",
+      "isDownloadable": false,
+      "vertexCount": 12537,
+      "faceCount": 24602,
+      "license": null,
+      "user": {
+        "uid": "7b969e47965a421999cc80d86011ab8b",
+        "username": "Gryfenfer34",
+        "displayName": "Gryfenfer34",
+        "profileUrl": "https://sketchfab.com/Gryfenfer34",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/7b969e47965a421999cc80d86011ab8b"
+      },
+      "description": "Astrocat on the space"
+    },
+    {
+      "uid": "244047f3653449c6b5313f8e95f78c1d",
+      "name": "Astrocat",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-244047f3653449c6b5313f8e95f78c1d",
+      "isDownloadable": false,
+      "vertexCount": 4780,
+      "faceCount": 8560,
+      "license": null,
+      "user": {
+        "uid": "83145af22871448ca50b46b188ae09dd",
+        "username": "jruiz",
+        "displayName": "jruiz",
+        "profileUrl": "https://sketchfab.com/jruiz",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/1494c94377a54f47a7df3bcfabbc181d",
+          "images": [
+            {
+              "size": 614,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/1494c94377a54f47a7df3bcfabbc181d/db1a2bae6e2e473fbd2eab25caa6a6f1.jpeg",
+              "height": 32
+            },
+            {
+              "size": 875,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/1494c94377a54f47a7df3bcfabbc181d/68479deea1f845a29b16d52a0987ec38.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1687,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/1494c94377a54f47a7df3bcfabbc181d/23a5f326e7de4d38bd51fc379de7a1d4.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1888,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/1494c94377a54f47a7df3bcfabbc181d/9ce1fe15af804ee2a56aa4612054ff63.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/83145af22871448ca50b46b188ae09dd"
+      },
+      "description": ""
+    },
+    {
+      "uid": "3ab98e18a21a462d838047445f663e77",
+      "name": "Astromat",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-3ab98e18a21a462d838047445f663e77",
+      "isDownloadable": false,
+      "vertexCount": 39679,
+      "faceCount": 79082,
+      "license": null,
+      "user": {
+        "uid": "b5150b8947244daf84f77a703db5e8dd",
+        "username": "fiveohfive",
+        "displayName": "595",
+        "profileUrl": "https://sketchfab.com/fiveohfive",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/0473d3715cce4ca38fb8e2ea03ab2d87",
+          "images": [
+            {
+              "size": 626,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/0473d3715cce4ca38fb8e2ea03ab2d87/ebc8a345b6c14543bba9c8f75fde8f22.jpeg",
+              "height": 32
+            },
+            {
+              "size": 920,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/0473d3715cce4ca38fb8e2ea03ab2d87/21a5229d525c4336be21a25a20b09577.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2368,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/0473d3715cce4ca38fb8e2ea03ab2d87/9f630aa9ec6d4c23ad46a1ceca6e0e77.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2754,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/0473d3715cce4ca38fb8e2ea03ab2d87/5ba85b2204da4bd59309f1345d6d08a6.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/b5150b8947244daf84f77a703db5e8dd"
+      },
+      "description": "Astronaut for the Meet MAT contest.\n\nReally good exercise - I never realized how strong textures alone can be."
+    },
+    {
+      "uid": "fd9705356f49420b89d4a05b2f6131d4",
+      "name": "Intensity",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-fd9705356f49420b89d4a05b2f6131d4",
+      "isDownloadable": false,
+      "vertexCount": 48843,
+      "faceCount": 0,
+      "license": null,
+      "user": {
+        "uid": "edf7bac26e1c4bd3b71c5d7dcfdfbb50",
+        "username": "astrosat",
+        "displayName": "astrosat",
+        "profileUrl": "https://sketchfab.com/astrosat",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/edf7bac26e1c4bd3b71c5d7dcfdfbb50"
+      },
+      "description": ""
+    }
+  ]
+}

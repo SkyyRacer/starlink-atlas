@@ -1,0 +1,87 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+*******************************************************************************
+ Revised: Sep 30, 2026              BepiColombo / (Sun)                    -121
+                            http://sci.esa.int/bepicolombo/ 
+ 
+ LAUNCH DATE:                                            MERCURY ARRIVAL DATE:
+  2018-Oct-20 01:45 UTC                                      2026-Nov         
+
+  Earth flyby: 2020-Apr-10, 04:24:58 UTC @ 19066 km, 352.85 deg E,-19.70 deg S
+
+ LAUNCH VEHICLE:                                         LAUNCH SITE:
+  Ariane 5                                                Kourou, French Guiana
+
+ Note (2024-Sep-02): Due to unexpected electric currents between MTM's solar 
+  arrays and the power extraction and distribution unit, electric propulsion 
+  is reduced, requiring a one-year delay in Mercury arrival, to November 2026. 
+
+ BACKGROUND:
+  ESA's BepiColombo mission to orbit Mercury for one Earth year (four Mercury
+  years) is composed of two spacecraft: the ESA Mercury Planetary Orbiter (MPO)
+  and the ISAS/JAXA Mercury Magnetospheric Orbiter (MMO).
+
+  MMO will be released once the MMO orbit is reached. MPO will be inserted 
+  using chemical propulsion.
+
+   1) MPO will study the surface and internal composition of Mercury 
+   2) MMO will study the region around the planet influenced by its 
+      magnetic field
+
+  For the 8.2 year launch & cruise phases, MPO and MMO will be carried as part 
+  of the Mercury Composite Spacecraft and released on arrival at Mercury. 
+
+  There will be nine gravity assists during the cruise phase: 
+
+   2020-Apr-10: Earth flyby
+   2020-Oct-15: Venus flyby
+   2021-Aug-11: Venus Flyby
+   2021-Oct-01: First Mercury flyby
+   2022-Jun-23: 2nd Mercury flyby
+   2023-Jun-20: 3rd Mercury flyby
+   2024-Sep-04: 4th Mercury flyby
+   2024-Dec-01: 5th Mercury flyby
+   2025-Jan-08: 6th Mercury flyby
+   ....
+   2026-Nov   : Mercury orbit insertion
+   2028-Apr   : End of nominal mission
+   2029-Apr   : End of extended mission
+
+ OBJECTIVES:
+  Study and understand the composition, geophysics, atmosphere, magnetosphere 
+  and history of Mercury with following science objectives:
+
+   * Investigate origin and evolution of a planet close to the parent star
+   * Study Mercury form, interior structure, geology, composition and craters
+   * Examine composition and dynamics of Mercury's vestigial atmosphere
+   * Probe Mercury's magnetized envelope; structure and dynamics
+   * Determine the origin of Mercury's magnetic field
+   * Investigate polar deposits: their composition and origin
+   * Perform a test of Einstein's theory of general relativity
+ 
+ SPACECRAFT PHYSICAL PROPERTIES:
+  Total launch mass  = 4100 kg
+
+                         MPO                 MMO
+  In Mercury orbit     1150 kg             275 kg  
+  Payload mass           80 kg              45 kg
+  Payload power        100-150 W            90 W
+  Data volume          1550 Gbits/year     160 Gbits/year
+  Average data rate    50 kbits/s            5 kbits/s
+  Antenna              1-m X/Ka-band       0.8 m X-band
+  Orientation          Nadir pointing      Spin axis at 90 deg. to Sun
+  Stabilisation        3-axis stabilized   15-rpm spin-stabilised 
+
+ BASIC ORBIT PARAMETERS AT MERCURY:
+                       MPO (polar)        MMO (polar)
+  peri/apo apses      480 x 1500 km      590 x 11640 km
+  period                 2.3 hr            9.3 hr
+
+ SPACECRAFT TRAJECTORY: 
+  Trajectory from ESA. Data fit through 2026-Sep-28, prediction thereafter.
+
+   Name                                    Start (TDB)          Stop (TDB)
+   --------------------------------------  -----------------  -----------------
+   bc_mpo_fcp_00236_20181020_20270411_v01  2018-Oct-20 02:14  2027-Apr-10 23:59
+*******************************************************************************

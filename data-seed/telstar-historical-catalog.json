@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "TELSTAR 1",
+    "OBJECT_ID": "1962-029A",
+    "NORAD_CAT_ID": 340,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1962-07-10",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "157.74",
+    "INCLINATION": "44.79",
+    "APOGEE": "5638",
+    "PERIGEE": "947",
+    "RCS": "0.5046",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "TELSTAR 2 (A-41)",
+    "OBJECT_ID": "1963-013A",
+    "NORAD_CAT_ID": 573,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1963-05-07",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "225.25",
+    "INCLINATION": "42.75",
+    "APOGEE": "10803",
+    "PERIGEE": "967",
+    "RCS": "0.4760",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

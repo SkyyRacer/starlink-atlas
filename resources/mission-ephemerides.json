@@ -1,0 +1,210 @@
+{
+  "source": "NASA/JPL Horizons",
+  "url": "https://ssd.jpl.nasa.gov/horizons/",
+  "missions": [
+    {
+      "key": "spitzer",
+      "id": 27871,
+      "command": -79,
+      "launch": "2003-08-25",
+      "name": "Spitzer",
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "kepler",
+      "id": 34380,
+      "command": -227,
+      "launch": "2009-03-07",
+      "name": "Kepler",
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "dscovr",
+      "id": 40390,
+      "command": -78,
+      "launch": "2015-02-11",
+      "name": "DSCOVR",
+      "deep_category": "Soleil et météorologie spatiale"
+    },
+    {
+      "key": "aditya-l1",
+      "id": 57754,
+      "command": -156,
+      "launch": "2023-09-02",
+      "name": "Aditya",
+      "deep_category": "Soleil et météorologie spatiale"
+    },
+    {
+      "key": "jwst",
+      "id": 50463,
+      "command": -170,
+      "launch": "2021-12-25",
+      "name": "JWST",
+      "orbit_types": [
+        "L2"
+      ],
+      "frame_radius": 2500000000,
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "gaia",
+      "id": 39479,
+      "command": -139479,
+      "launch": "2013-12-19",
+      "name": "GAIA",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "herschel",
+      "id": 34937,
+      "command": -486,
+      "launch": "2009-05-14",
+      "name": "HERSCHEL",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "planck",
+      "id": 34938,
+      "command": -489,
+      "launch": "2009-05-14",
+      "name": "PLANCK",
+      "orbit_types": [
+        "L2",
+        "HELIO"
+      ],
+      "frame_radius": 250000000000,
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "euclid",
+      "id": 57209,
+      "command": -680,
+      "launch": "2023-07-01",
+      "name": "EUCLID",
+      "orbit_types": [
+        "L2"
+      ],
+      "frame_radius": 2500000000,
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "soho",
+      "id": 23726,
+      "command": -21,
+      "launch": "1995-12-02",
+      "name": "SOHO",
+      "orbit_types": [
+        "L1"
+      ],
+      "frame_radius": 2500000000,
+      "deep_category": "Soleil et météorologie spatiale"
+    },
+    {
+      "key": "ace",
+      "id": 24912,
+      "command": -92,
+      "launch": "1997-08-25",
+      "name": "ACE",
+      "orbit_types": [
+        "L1"
+      ],
+      "frame_radius": 2500000000,
+      "deep_category": "Soleil et météorologie spatiale"
+    },
+    {
+      "key": "voyager-1",
+      "id": 10321,
+      "command": -31,
+      "launch": "1977-09-05",
+      "name": "VOYAGER 1",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 40000000000000,
+      "deep_category": "Milieu interstellaire"
+    },
+    {
+      "key": "voyager-2",
+      "id": 10271,
+      "command": -32,
+      "launch": "1977-08-20",
+      "name": "VOYAGER 2",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 40000000000000,
+      "deep_category": "Milieu interstellaire"
+    },
+    {
+      "key": "cassini",
+      "id": 25008,
+      "command": -82,
+      "launch": "1997-10-15",
+      "name": "CASSINI",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 2000000000000,
+      "stop": "2017-09-15 11:55:00",
+      "deep_category": "Exploration planétaire"
+    },
+    {
+      "key": "juno",
+      "id": 37773,
+      "command": -61,
+      "launch": "2011-08-05",
+      "name": "JUNO",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 2000000000000,
+      "deep_category": "Exploration planétaire"
+    },
+    {
+      "key": "new-horizons",
+      "id": 28928,
+      "command": -98,
+      "launch": "2006-01-19",
+      "name": "NEW HORIZONS",
+      "orbit_types": [
+        "HELIO"
+      ],
+      "frame_radius": 15000000000000,
+      "deep_category": "Exploration planétaire"
+    },
+    {
+      "key": "bepicolombo",
+      "id": 43653,
+      "command": -121,
+      "launch": "2018-10-20",
+      "name": "BEPICOLOMBO",
+      "orbit_types": [
+        "PLANETARY"
+      ],
+      "frame_radius": 500000000000,
+      "deep_category": "Exploration planétaire"
+    }
+  ],
+  "unavailable": [
+    {
+      "key": "spektr-rg",
+      "reason": "Aucune éphéméride officielle identifiée dans Horizons ; aucun TLE terrestre n’est utilisé pour simuler sa trajectoire près de L2.",
+      "deep_category": "Observatoires spatiaux"
+    },
+    {
+      "key": "ikaros",
+      "reason": "Aucune éphéméride officielle identifiée dans Horizons ; aucune trajectoire héliocentrique n’est reconstruite à partir d’un TLE terrestre.",
+      "deep_category": "Technologies spatiales"
+    }
+  ]
+}

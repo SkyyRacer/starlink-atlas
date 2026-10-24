@@ -1,0 +1,588 @@
+{
+  "query": "CHEOPS",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=CHEOPS&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "5ebcf5c936d34baf800291b27b33d106",
+      "name": "Cheops Pyramid Interior Structure_v03",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-5ebcf5c936d34baf800291b27b33d106",
+      "isDownloadable": false,
+      "vertexCount": 874,
+      "faceCount": 1529,
+      "license": null,
+      "user": {
+        "uid": "09fee154f0cf46e9921a56553e45efc3",
+        "username": "Snaack",
+        "displayName": "Snaack",
+        "profileUrl": "https://sketchfab.com/Snaack",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/c62f70403d0c4639bde6552df74aa145",
+          "images": [
+            {
+              "size": 1145,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/dff3f7dd640c48f3a50fb68b6b7074ed.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1750,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/5544bb0030b74031b387d816dfe4b19e.jpeg",
+              "height": 48
+            },
+            {
+              "size": 4465,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/8b82426d15f34ccd824dcee269a38567.jpeg",
+              "height": 90
+            },
+            {
+              "size": 5352,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/21f8f52353e94fbf91c4a96aa35670de.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/09fee154f0cf46e9921a56553e45efc3"
+      },
+      "description": ""
+    },
+    {
+      "uid": "e2821c5f00514195a9210eee46c16181",
+      "name": "Cheops Interior Structure v02",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-e2821c5f00514195a9210eee46c16181",
+      "isDownloadable": false,
+      "vertexCount": 946,
+      "faceCount": 1627,
+      "license": null,
+      "user": {
+        "uid": "09fee154f0cf46e9921a56553e45efc3",
+        "username": "Snaack",
+        "displayName": "Snaack",
+        "profileUrl": "https://sketchfab.com/Snaack",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/c62f70403d0c4639bde6552df74aa145",
+          "images": [
+            {
+              "size": 1145,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/dff3f7dd640c48f3a50fb68b6b7074ed.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1750,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/5544bb0030b74031b387d816dfe4b19e.jpeg",
+              "height": 48
+            },
+            {
+              "size": 4465,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/8b82426d15f34ccd824dcee269a38567.jpeg",
+              "height": 90
+            },
+            {
+              "size": 5352,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/21f8f52353e94fbf91c4a96aa35670de.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/09fee154f0cf46e9921a56553e45efc3"
+      },
+      "description": "Cheops Interior structure according to the newest scans."
+    },
+    {
+      "uid": "13ff433cb9764957b1984d3c8e67b7f1",
+      "name": "Cheops Interior Structure",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-13ff433cb9764957b1984d3c8e67b7f1",
+      "isDownloadable": false,
+      "vertexCount": 260,
+      "faceCount": 406,
+      "license": null,
+      "user": {
+        "uid": "09fee154f0cf46e9921a56553e45efc3",
+        "username": "Snaack",
+        "displayName": "Snaack",
+        "profileUrl": "https://sketchfab.com/Snaack",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/c62f70403d0c4639bde6552df74aa145",
+          "images": [
+            {
+              "size": 1145,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/dff3f7dd640c48f3a50fb68b6b7074ed.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1750,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/5544bb0030b74031b387d816dfe4b19e.jpeg",
+              "height": 48
+            },
+            {
+              "size": 4465,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/8b82426d15f34ccd824dcee269a38567.jpeg",
+              "height": 90
+            },
+            {
+              "size": 5352,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/c62f70403d0c4639bde6552df74aa145/21f8f52353e94fbf91c4a96aa35670de.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/09fee154f0cf46e9921a56553e45efc3"
+      },
+      "description": "Interior Structure of Cheops in accurate scale."
+    },
+    {
+      "uid": "6ed9c8b0d7a14bce8ac8947b7550cbb9",
+      "name": "Giza_Great_Pyramid_Khufu | PAPP",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-6ed9c8b0d7a14bce8ac8947b7550cbb9",
+      "isDownloadable": true,
+      "vertexCount": 72050,
+      "faceCount": 144096,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "10d20d8ed647428ca8e4fcd0e410e2a1",
+        "username": "consciousfractal",
+        "displayName": "consciousfractal",
+        "profileUrl": "https://sketchfab.com/consciousfractal",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/b033d6fc308c496982e54b2a5d831b9d",
+          "images": [
+            {
+              "size": 2410,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/b033d6fc308c496982e54b2a5d831b9d/65367ed22db040f4ac47ca85311ec054.png",
+              "height": 32
+            },
+            {
+              "size": 5044,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/b033d6fc308c496982e54b2a5d831b9d/e43174760c054a26a0c27baa2aa67f27.png",
+              "height": 48
+            },
+            {
+              "size": 15774,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/b033d6fc308c496982e54b2a5d831b9d/05ee17e5554e4e21816465293e06feeb.png",
+              "height": 90
+            },
+            {
+              "size": 19116,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/b033d6fc308c496982e54b2a5d831b9d/fad41a3d2cb04b02b8f1c6c54ffe37a5.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/10d20d8ed647428ca8e4fcd0e410e2a1"
+      },
+      "description": "Giza V2.1 is a watertight “digital bas-relief” of the Khufu plateau, built as a procedural heightfield on a polar disc and extruded into a closed manifold (χ=2). \n\nIt includes the Great Pyramid, Queen pyramids, Sphinx with enclosure trench, mortuary temple + causeway, boat pits, temenos wall, and surrounding desert/bedrock. \n\nThe Great Pyramid uses a true square plan (Chebyshev metric) with linear height falloff, Petrie-slope calibration (~51.844°), and subtle 8-face concavity via a cos(4θ) term. \n\nMasonry is expressed as stepped courses (35 visible bands) plus a casing-to-core transition (smooth lower “Tura” vs rough “Mokattam”). \n\nMicro-engraved cues mark the north entrance and internal axis (Grand Gallery / King’s Chamber hint). \n\nGeology is enriched by PAPP/Hopf-derived stone grain, fault harmonics, and erosion weighting stronger at lower elevations. \n\nMesh: 72,050 verts / 144,096 faces, per-vertex color + normals."
+    },
+    {
+      "uid": "15e7b69efee74a58bbccba491f9a1127",
+      "name": "Mortuary Temple of  Keops  - GIZA | EGYPT",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-15e7b69efee74a58bbccba491f9a1127",
+      "isDownloadable": false,
+      "vertexCount": 850317,
+      "faceCount": 1649999,
+      "license": null,
+      "user": {
+        "uid": "efa61424c76c478eab018abd211dcc15",
+        "username": "juanbrualla",
+        "displayName": "Arqueomodel3D",
+        "profileUrl": "https://sketchfab.com/juanbrualla",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/acc4457dc58f4180b9d2a8146d4367c0",
+          "images": [
+            {
+              "size": 461,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/acc4457dc58f4180b9d2a8146d4367c0/dd10fae6442d407283666e59e155bb6b.jpeg",
+              "height": 32
+            },
+            {
+              "size": 595,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/acc4457dc58f4180b9d2a8146d4367c0/bf7370cc81d548f5998b8185c2a83754.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1229,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/acc4457dc58f4180b9d2a8146d4367c0/ab4aaaa7d48641e09aaf402b8f4557ca.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1479,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/acc4457dc58f4180b9d2a8146d4367c0/021c8c6e7e014d66834bb4c31b462a0c.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/efa61424c76c478eab018abd211dcc15"
+      },
+      "description": "Interior Mortuary Temple of Keops - GIZA | EGYPT\n\nThe “mortuary temple” of Keops, also known as the funerary temple, is a structure that was part of the funerary complex of the Great Pyramid of Giza. This temple, located east of the pyramid, was the site of funeral and ceremonial rituals related to the pharaoh Cheops (or Khufu, in Egyptian).\n\nFab Store : https://www.fab.com/listings/45daca0c-82b4-4799-80af-b42796217764"
+    },
+    {
+      "uid": "bc1a5f63d523428491591fcd24d115aa",
+      "name": "The Pyramid of Cheops",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-bc1a5f63d523428491591fcd24d115aa",
+      "isDownloadable": false,
+      "vertexCount": 1063,
+      "faceCount": 2078,
+      "license": null,
+      "user": {
+        "uid": "1b2614cf064141be88c053eb582ce8a4",
+        "username": "s35483638",
+        "displayName": "s35483638",
+        "profileUrl": "https://sketchfab.com/s35483638",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/51af6a870cce449eb75b0345feebaebb",
+          "images": [
+            {
+              "size": 5719,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/2ef0f894055b4bb69123b2a27fa2d379.jpeg",
+              "height": 90
+            },
+            {
+              "size": 6496,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/ab11eedf96374486acb544f71a23b165.jpeg",
+              "height": 100
+            },
+            {
+              "size": 1359,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/35f6f9b6c9a14a548ce472582d8a9bb5.jpeg",
+              "height": 32
+            },
+            {
+              "size": 2584,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/a8072a51447c4d41ab177b357111b420.jpeg",
+              "height": 48
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/1b2614cf064141be88c053eb582ce8a4"
+      },
+      "description": ""
+    },
+    {
+      "uid": "dc845b71414a4f99a9d96bdd19503e67",
+      "name": "antoniolupi CHEOPE freestanding basin",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-dc845b71414a4f99a9d96bdd19503e67",
+      "isDownloadable": true,
+      "vertexCount": 35520,
+      "faceCount": 71008,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "e81372be9f034be2ad8a1db1f6f4043a",
+        "username": "helios48",
+        "displayName": "helios48",
+        "profileUrl": "https://sketchfab.com/helios48",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/e81372be9f034be2ad8a1db1f6f4043a"
+      },
+      "description": "inspired by the pyramid of CHEOPS（KHUFU）"
+    },
+    {
+      "uid": "f0c3bb1428a14467a060daa263107b39",
+      "name": "Wall Block and Floor Fragment of Khufu",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-f0c3bb1428a14467a060daa263107b39",
+      "isDownloadable": true,
+      "vertexCount": 205169,
+      "faceCount": 409763,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "a1b3eb7c6607473fbe6cba59204ba750",
+        "username": "pmanuelian",
+        "displayName": "pmanuelian",
+        "profileUrl": "https://sketchfab.com/pmanuelian",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/78fa317e46024a5283765aa34df5e508",
+          "images": [
+            {
+              "size": 6421,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/aec92fe9a74e499c98d759362cd7f02f.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2518,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/17fa177ffaa344a2b2fc8e78efd40fbb.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5653,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/02162695bdc840faa3bcb2d418309c5e.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1350,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/6fde876cbded4cd48d36a76029e3aa02.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/a1b3eb7c6607473fbe6cba59204ba750"
+      },
+      "description": "From Egypt, Giza, Pyramid Temple of Khufu\n\nBasalt and granite\n\nTurin, Museo Egizio, S.2064/02\n\nhttps://collezioni.museoegizio.it/en-GB/material/S_2064_02/?description=Cheops&inventoryNumber=&title=&cgt=&yearFrom=&yearTo=&materials=&provenance=&acquisition=&epoch=&dynasty=&pharaoh=&searchLng=en-GB&searchPage=1\n\nTurin, Museo Egizio, S.2064/03\nhttps://collezioni.museoegizio.it/en-GB/material/S_2064_03/?description=Cheops&inventoryNumber=&title=&cgt=&yearFrom=&yearTo=&materials=&provenance=&acquisition=&epoch=&dynasty=&pharaoh=&searchLng=en-GB&searchPage=1\n\nCreated with Polycam by Luke Hollis, with edits by Peter Der Manuelian, ,June 16, 2024\n\nThis model should be used for non-commercial, study purposes only."
+    },
+    {
+      "uid": "d0fbbe506cfa409bbee1b70858110b1b",
+      "name": "Statuette of King Khufu (unsharp image)",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-d0fbbe506cfa409bbee1b70858110b1b",
+      "isDownloadable": true,
+      "vertexCount": 4587,
+      "faceCount": 9098,
+      "license": {
+        "uid": "2628dbe5140a4e9592126c8df566c0b7",
+        "label": "CC Attribution-NonCommercial-ShareAlike"
+      },
+      "user": {
+        "uid": "a1b3eb7c6607473fbe6cba59204ba750",
+        "username": "pmanuelian",
+        "displayName": "pmanuelian",
+        "profileUrl": "https://sketchfab.com/pmanuelian",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/78fa317e46024a5283765aa34df5e508",
+          "images": [
+            {
+              "size": 6421,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/aec92fe9a74e499c98d759362cd7f02f.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2518,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/17fa177ffaa344a2b2fc8e78efd40fbb.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5653,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/02162695bdc840faa3bcb2d418309c5e.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1350,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/6fde876cbded4cd48d36a76029e3aa02.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/a1b3eb7c6607473fbe6cba59204ba750"
+      },
+      "description": "Egyptian, Old Kingdom, Dynasty 4, reign of Khufu, ca. 2585–2550 BCE\n\nFrom Abydos, excavations of Flinders Petrie, 1903\n\nH.: 7.5 cm; w.: 2.5 cm; Depth: 2.9 cm\n\nIvory\n\nThe statuette of King Cheops was found in Abydos in 1903. The name of Horus, with whom this great monarch was identified appears on the right side of the throne. When the statuette was excavated, three weeks elapsed between the discovery of the head and the body.\n\nEgyptian Museum, Cairo, JE 36143\n\nCreated with Polycam and iPhone 15 by Peter Der Manuelian, February 15, 2024\n\nThis model should be used for non-commercial, study purposes only"
+    },
+    {
+      "uid": "cd64915b0dde404bb8f4cb5e1c28cd2e",
+      "name": "3D model of the Pyramid of Cheops",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-cd64915b0dde404bb8f4cb5e1c28cd2e",
+      "isDownloadable": true,
+      "vertexCount": 5,
+      "faceCount": 6,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "5eecbd91a6774e268739e6f0b16d716e",
+        "username": "glebana467",
+        "displayName": "glebana467",
+        "profileUrl": "https://sketchfab.com/glebana467",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/5eecbd91a6774e268739e6f0b16d716e"
+      },
+      "description": "This is a 3D model of the Pyramid of Cheops made in Blender. Special textures were used to imitate the texture of sandstone."
+    },
+    {
+      "uid": "16fa65a910ac4591af6ae8ad7fce6099",
+      "name": "Slab stela of Meretites",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-16fa65a910ac4591af6ae8ad7fce6099",
+      "isDownloadable": true,
+      "vertexCount": 16931,
+      "faceCount": 33593,
+      "license": {
+        "uid": "2628dbe5140a4e9592126c8df566c0b7",
+        "label": "CC Attribution-NonCommercial-ShareAlike"
+      },
+      "user": {
+        "uid": "a1b3eb7c6607473fbe6cba59204ba750",
+        "username": "pmanuelian",
+        "displayName": "pmanuelian",
+        "profileUrl": "https://sketchfab.com/pmanuelian",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/78fa317e46024a5283765aa34df5e508",
+          "images": [
+            {
+              "size": 6421,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/aec92fe9a74e499c98d759362cd7f02f.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2518,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/17fa177ffaa344a2b2fc8e78efd40fbb.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5653,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/02162695bdc840faa3bcb2d418309c5e.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1350,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/6fde876cbded4cd48d36a76029e3aa02.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/a1b3eb7c6607473fbe6cba59204ba750"
+      },
+      "description": "Egyptian, Old Kingdom, Dynasty 4, reign of Khufu (Cheops) 2575–2465 B.C.E.\n\nFindspot: Egypt, Giza, Tomb G 4140\n\nOverall: 51 x 82.5 x 8.3cm (20 1/16 x 32 1/2 x 3 1/4in.) Block (aluminum wall frame/ four wall securement clips): 53 x 82.6 x 5.1 cm (20 7/8 x 32 1/2 x 2 in.)\n\nHarvard University—Boston Museum of Fine Arts Expedition 12.1510\n\nLimestone\n\nhttps://collections.mfa.org/objects/140438/slab-stele-of-meretites?ctx=ee394162-e22f-45ec-8ad3-63a38bc4ab1c&idx=0\n\nCreated with Polycam by Peter Der Manuelian, October 27, 2023\n\nThis model should be used for non-commercial, study purposes only."
+    },
+    {
+      "uid": "745885d507e84406b437847fe5a2e98d",
+      "name": "King Khufu Statuette [Cairo Museum]",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-745885d507e84406b437847fe5a2e98d",
+      "isDownloadable": false,
+      "vertexCount": 36290,
+      "faceCount": 72576,
+      "license": null,
+      "user": {
+        "uid": "5e7acd33dfd94417930c79386fb0d07c",
+        "username": "arqueoartis",
+        "displayName": "Arqueoartis",
+        "profileUrl": "https://sketchfab.com/arqueoartis",
+        "account": "pro",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/c057ce7a5fce4581b979bd9aaf4a73b8",
+          "images": [
+            {
+              "size": 1078,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/c057ce7a5fce4581b979bd9aaf4a73b8/dd9864a938f14d0883922efe748c9cc0.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1563,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/c057ce7a5fce4581b979bd9aaf4a73b8/dffad3efb3ef4c7894b770f796275d82.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3599,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/c057ce7a5fce4581b979bd9aaf4a73b8/f9e00ee70174489ab91611df47955473.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4262,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/c057ce7a5fce4581b979bd9aaf4a73b8/2da0f9cc4a5243e481795e77793f6edf.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/5e7acd33dfd94417930c79386fb0d07c"
+      },
+      "description": "This statuette portrays King Khufu, famously known as Cheops among the Greeks, renowned as the mastermind behind the construction of the Great Pyramid of Giza. Surprisingly, this diminutive 7.5-cm-tall statue stands as the sole authenticated contemporary three-dimensional representation of this revered king. \n\nUpon its initial discovery at Abydos, the statuette was found with its head missing. Recognizing the significance of the find, Sir Flinders Petrie, in chrge of the excavation, discerning that the break was recent, promptly initiated a search for the missing head, which ultimately culminated in its retrieval three weeks later.\n\nOld Kingdom, 4th Dynasty, reign of Khufu (c.2589–2566 BC) / Abydos / Ivory"
+    }
+  ]
+}

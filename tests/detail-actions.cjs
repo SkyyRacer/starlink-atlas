@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),{parseHTML}=require('linkedom');
 const {document}=parseHTML(fs.readFileSync('static/index.html','utf8'));
 const s={id:44235,name:'STARLINK-31',designator:'2019-029A',launch:'2019-05-24',ops:'+'};
-const ctx={document,$:id=>document.getElementById(id),collectionMode:'all',selected:s.id,byId:new Map([[s.id,s]]),points:[{id:s.id,altitude_km:550,speed_km_s:7.6,epoch:'2026-10-20T12:00:00Z'}],state:()=> 'orbit',AtlasPages:require('../static/pages.js'),AtlasTime:require('../static/time.js'),AtlasOrbits:require('../static/orbits.js'),AtlasStations:{has:()=>false},AtlasScience:{has:()=>false},displayMode:'2d',showOrbit:true,live:true,at:Date.parse('2024-02-10T12:00:00Z'),chosenLaunches:new Set(),esc:String,closeSatellite(){},globeController:null};
+const ctx={document,$:id=>document.getElementById(id),catalog:[s],collectionMode:'all',selected:s.id,byId:new Map([[s.id,s]]),points:[{id:s.id,altitude_km:550,speed_km_s:7.6,epoch:'2026-10-20T12:00:00Z'}],state:()=> 'orbit',AtlasPages:require('../static/pages.js'),AtlasTime:require('../static/time.js'),AtlasOrbits:require('../static/orbits.js'),AtlasStations:{has:()=>false},AtlasScience:{has:()=>false},displayMode:'2d',showOrbit:true,live:true,at:Date.parse('2024-02-10T12:00:00Z'),chosenLaunches:new Set(),esc:String,closeSatellite(){},globeController:null};
 vm.createContext(ctx);const source=fs.readFileSync('static/app.js','utf8');vm.runInContext(source.slice(source.indexOf('function updateDetail(){'),source.indexOf('\nasync function get(url)')),ctx);ctx.draw=()=>ctx.updateDetail();ctx.updateDetail();
 assert.equal(ctx.$('detail-orbit-toggle'),null);assert.equal(ctx.$('detail-dedicated'),null);
 assert.equal(ctx.$('follow-details').getAttribute('href'),'/starlink?satellite=44235&view=3d');assert.equal(ctx.$('follow-details').hidden,false);
@@ -9,6 +9,9 @@ assert.ok(ctx.$('follow-details').closest('.globe-tools'));assert.equal(ctx.$('d
 assert.equal(document.querySelectorAll('.globe-tools [data-orbit-toggle]').length,1,'Keep the single existing orbit control');
 ctx.live=false;ctx.updateDetail();assert.ok(ctx.$('follow-details').getAttribute('href').includes('at=2024-02-10'));
 ctx.collectionMode='starlink';ctx.updateDetail();assert.equal(ctx.$('follow-details').hidden,true);
+assert.equal(ctx.$('show-launch-train').hidden,true,'One satellite in a launch does not offer a group action');
+ctx.catalog.push({...s,id:44236,designator:'2019-029B'});ctx.updateDetail();assert.equal(ctx.$('show-launch-train').hidden,false,'The group action appears when a launch companion is added');
+ctx.catalog[1].designator='2019-030A';ctx.updateDetail();assert.equal(ctx.$('show-launch-train').hidden,true,'A satellite on another flight is not a companion');ctx.catalog=[s];
 ctx.collectionMode='all';ctx.selected=null;ctx.updateDetail();assert.equal(ctx.$('follow-details').hidden,true);assert.equal(ctx.$('follow-details').hasAttribute('href'),false);
 console.log('Atlas actions removed from the card; details link in follow box preserves exact object/date and hides without a target.');
 
@@ -18,3 +21,13 @@ ctx.updateDetail();assert.equal(ctx.$('detail').dataset.collapsed,'true','Positi
 ctx.$('detail-reopen').click();assert.equal(ctx.$('detail').dataset.collapsed,'false');assert.equal(ctx.$('detail-reopen').hidden,true);assert.equal(cameraResets,0);
 ctx.$('close').click();const second={...s,id:44236,name:'STARLINK-32'};ctx.byId.set(second.id,second);ctx.selected=second.id;ctx.updateDetail();assert.equal(ctx.$('detail').dataset.collapsed,'false','A new satellite opens its full information card');
 console.log('3D information card collapses/reopens without changing selection or camera, persists during updates, resets for a new satellite.');
+
+vm.runInContext(source.slice(source.indexOf('function dismissSatelliteDetail(onSurface=false){'),source.indexOf('function closeSatellite(){')),ctx);
+ctx.collectionMode='starlink';ctx.updateDetail();let deselections=0;ctx.closeSatellite=()=>{deselections++;ctx.selected=null;ctx.$('detail').hidden=true;};
+assert.equal(ctx.dismissSatelliteDetail(true),false);assert.equal(ctx.selected,second.id);assert.equal(ctx.$('detail').dataset.collapsed,'true');assert.equal(deselections,0,'First outside click keeps selected satellite and model');
+assert.equal(ctx.dismissSatelliteDetail(),true);assert.equal(ctx.selected,null);assert.equal(ctx.$('detail').hidden,true);assert.equal(deselections,1,'Second outside click deselects');
+ctx.collectionMode='all';ctx.selected=s.id;ctx.updateDetail();assert.equal(ctx.dismissSatelliteDetail(),true);assert.equal(deselections,2,'Atlas retains direct deselection');
+assert.match(fs.readFileSync('static/globe.js','utf8'),/if\(onEmptySpace\?\.\(onSurface\)!==false\)detailedLayer.cancel\(\)/);
+console.log('Dedicated satellite pages: outside click collapses card, next click deselects; first click preserves model and camera.');
+const distantSatellite={...s,id:10321,name:'VOYAGER 1',family:'voyager-1'};ctx.byId.set(10321,distantSatellite);ctx.selected=10321;ctx.collectionMode='voyager-1';ctx.points=[{id:10321,altitude_km:123,speed_km_s:17,icrf_km:[300000000,400000000,0],epoch:'2026-10-25T00:00:00Z'}];ctx.updateDetail();
+assert.ok(ctx.$('detail').textContent.includes('Distance de la Terre'));assert.ok(ctx.$('detail').textContent.includes('500000000.0 km'),'Distant card displays geocentric distance from its physical vector');assert.ok(!ctx.$('detail').textContent.includes('Altitude estimée'));

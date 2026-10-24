@@ -6,34 +6,39 @@
  }
  function mount(){
   const $=id=>document.getElementById(id),desktop=matchMedia('(min-width: 901px)'),panel=$('advanced-panel'),nav=document.querySelector('.collection-navigation'),menu=nav.querySelector('.collection-menu-panel'),menuButton=$('collection-menu-button'),search=document.querySelector('.object-search'),input=$('object-search');
-  const placements=[];let attached=false,isOpen=false,proxies=[],colorsReady=false;
+  const placements=[];let attached=false,isOpen=false,proxies=[],colorGroups=[],colorsReady=false;
   function move(node,parent,first=false){const marker=document.createComment('original control position');node.before(marker);placements.push({node,marker});if(first)parent.prepend(node);else parent.append(node);}
   function restore(){for(const {node,marker} of placements.splice(0)){marker.replaceWith(node);}search.classList.remove('integrated-object-search');search.querySelector('label').textContent='Rechercher un objet à observer';input.placeholder='Nom d’un satellite ou d’une constellation…';attached=false;document.body.classList.remove('desktop-panel-layout');}
   function sync(){for(const {source,target} of proxies)target.value=source.value;}
   function syncModelView(){const is3d=$('view-3d').getAttribute('aria-pressed')==='true';panel.dataset.view=is3d?'3d':'2d';$('advanced-model-state').textContent=is3d?'Les options de modèle détaillé apparaissent lorsqu’un objet compatible est sélectionné.':'Les modèles détaillés sont accessibles dans la vue Terre 3D.';}
+  function syncCounts(){
+   const counts=root.AtlasVisibleCounts||{};
+   for(const {row,badge,family} of proxies){if(!family)continue;const n=counts[family]?.visible||0;row.hidden=n===0;badge.textContent=n.toLocaleString('fr')+(n===1?' visible':' visibles');}
+   for(const {group,badge,families} of colorGroups){const n=families.filter(id=>counts[id]?.visible>0).length;group.hidden=n===0;badge.textContent=n.toLocaleString('fr')+(n===1?' visible':' visibles');}
+  }
   function colorRow(source,name,parent){
    const label=document.createElement('label');label.className='panel-color-row';const text=document.createElement('span');text.textContent=name;
-   const target=document.createElement('input');target.type='color';target.setAttribute('aria-label','Couleur : '+name);bindColor(source,target,sync);proxies.push({source,target});label.append(text,target);parent.append(label);
+   const target=document.createElement('input');target.type='color';target.setAttribute('aria-label','Couleur : '+name);bindColor(source,target,sync);const badge=document.createElement('small');badge.className='panel-visible-count';const family=source.id?.startsWith('atlas-color-')?source.id.slice('atlas-color-'.length):null;badge.hidden=!family;proxies.push({source,target,row:label,badge,family});label.append(text,badge,target);parent.append(label);
   }
   function colors(){
-   const host=$('advanced-colors-content');host.replaceChildren();proxies=[];
+   const host=$('advanced-colors-content');host.replaceChildren();proxies=[];colorGroups=[];
    const debris=document.querySelector('.atlas-debris-card input[type=color]');if(debris)colorRow(debris,'Débris spatiaux',host);
-   document.querySelectorAll('.atlas-category').forEach(category=>{
+   document.querySelectorAll('#atlas-controls .atlas-category').forEach(category=>{
     if(category.classList.contains('workspace-debris-category'))return;
-    const group=document.createElement('details');group.className='panel-color-group';const heading=document.createElement('summary');heading.textContent=category.querySelector('summary').childNodes[0].textContent.trim();group.append(heading);
+    const group=document.createElement('details');group.className='panel-color-group';const heading=document.createElement('summary');heading.textContent=category.querySelector('summary').childNodes[0].textContent.trim();const badge=document.createElement('small');badge.className='panel-visible-count';heading.append(badge);group.append(heading);colorGroups.push({group,badge,families:[...category.querySelectorAll('[data-family]')].map(box=>box.dataset.family)});
     const bulk=category.querySelector('[data-theme-color]');if(bulk)colorRow(bulk,'Toute la rubrique',group);
     category.querySelectorAll('.atlas-family-card').forEach(card=>{const source=card.querySelector('input[type=color]');if(source)colorRow(source,card.querySelector('strong').textContent,group);});host.append(group);
    });
   }
   function close(restoreFocus=false){
-   if(!isOpen)return;isOpen=false;panel.hidden=true;panel.inert=true;
+   if(!isOpen)return;root.AtlasCollectionMenu?.reset(panel);isOpen=false;panel.hidden=true;panel.inert=true;
    const button=$('advanced-tools');if(button.getAttribute('aria-expanded')==='true')button.click();
    if(restoreFocus)button.focus({preventScroll:true});
   }
-  root.AtlasAdvanced={setOpen(value){
-   const open=desktop.matches&&value;if(!open){panel.hidden=true;panel.inert=true;isOpen=false;return;}
+  root.AtlasAdvanced={updateCounts:syncCounts,setOpen(value){
+   const open=desktop.matches&&value;if(!open){if(isOpen)root.AtlasCollectionMenu?.reset(panel);panel.hidden=true;panel.inert=true;isOpen=false;return;}
    if(!colorsReady&&!$('atlas-controls').hidden){colors();colorsReady=true;}
-   sync();panel.hidden=false;panel.inert=false;if(!isOpen){isOpen=true;$('advanced-panel-close').focus({preventScroll:true});}
+   sync();syncCounts();panel.hidden=false;panel.inert=false;if(!isOpen){isOpen=true;panel.tabIndex=-1;panel.focus({preventScroll:true});}
   }};
   function layout(){
    if(!desktop.matches){close();if(attached)restore();return;}

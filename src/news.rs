@@ -39,7 +39,7 @@ fn reconcile(store:&mut Store,db:&Database,now:DateTime<Utc>){
     store.events.retain(|event|event["objects"].as_array().is_some_and(|objects|!objects.is_empty()));
     push(store,"launch",id,&row,row["launch"].as_str().unwrap(),now,None);
    }
-   if row["decay"].as_str().is_some_and(|v|!v.is_empty())&&row["decay"]!=old["decay"]{
+   if row["decay"].as_str().is_some_and(|v|!v.is_empty())&&row["decay"].as_str().and_then(|v|v.get(..10))!=old["decay"].as_str().and_then(|v|v.get(..10)){
     push(store,"decay",id,&row,row["decay"].as_str().unwrap(),now,None);
    }else{
     let code=row["ops"].as_str().unwrap_or("");let before=old["ops"].as_str().unwrap_or("");
@@ -117,15 +117,18 @@ pub async fn watch(shared:Shared,dir:PathBuf){
   let mut confirmed=object(99999);confirmed["OBJECT_ID"]=json!("2026-123A");db.catalog.insert(99999,confirmed);reconcile(&mut store,&db,now);
   assert!(store.events.iter().any(|e|e["kind"]=="launch"&&e["objects"].as_array().unwrap().iter().any(|v|v["id"]==99999)));assert!(!store.events.iter().any(|e|e["kind"]=="addition"&&e["objects"].as_array().unwrap().iter().any(|v|v["id"]==99999)));
  }
+ #[test]fn a_more_precise_return_time_is_not_another_deorbit(){
+  let now=DateTime::parse_from_rfc3339("2026-10-20T12:00:00Z").unwrap().with_timezone(&Utc);let mut db=Database::default();let mut row=object(900001);row["DECAY_DATE"]=json!("2020-01-01");row["LAUNCH_DATE"]=json!("2019-01-01");db.catalog.insert(900001,row);let mut store=Store::default();reconcile(&mut store,&db,now);let count=store.events.len();db.catalog.get_mut(&900001).unwrap()["DECAY_DATE"]=json!("2020-01-01T12:34:00Z");reconcile(&mut store,&db,now);assert_eq!(store.events.len(),count);
+ }
  #[test]fn changes_only_grouped_and_retained_for_a_week(){
-  let now=DateTime::parse_from_rfc3339("2026-10-20T12:00:00Z").unwrap().with_timezone(&Utc);let mut db=Database::default();db.catalog.insert(1,object(1));db.catalog.insert(2,object(2));let mut store=Store::default();reconcile(&mut store,&db,now);
+  let now=DateTime::parse_from_rfc3339("2026-10-20T12:00:00Z").unwrap().with_timezone(&Utc);let mut db=Database::default();db.catalog.insert(900001,object(900001));db.catalog.insert(900002,object(900002));let mut store=Store::default();reconcile(&mut store,&db,now);
   assert_eq!(store.events.len(),1);assert_eq!(store.events[0]["objects"].as_array().unwrap().len(),2);
   db.revision+=1;reconcile(&mut store,&db,now);assert_eq!(store.events.len(),1,"Position refresh alone is silent");
-  db.catalog.get_mut(&1).unwrap()["OPS_STATUS_CODE"]=json!("-");reconcile(&mut store,&db,now);assert_eq!(store.events[0]["kind"],"status");
-  db.catalog.get_mut(&1).unwrap()["DECAY_DATE"]=json!("2026-10-20");reconcile(&mut store,&db,now);assert!(store.events.iter().any(|e|e["kind"]=="decay"));
+  db.catalog.get_mut(&900001).unwrap()["OPS_STATUS_CODE"]=json!("-");reconcile(&mut store,&db,now);assert_eq!(store.events[0]["kind"],"status");
+  db.catalog.get_mut(&900001).unwrap()["DECAY_DATE"]=json!("2026-10-20");reconcile(&mut store,&db,now);assert!(store.events.iter().any(|e|e["kind"]=="decay"));
   let count=store.events.len();let mut manual=object(20580);manual["OBJECT_NAME"]=json!("HST");db.catalog.insert(20580,manual);reconcile(&mut store,&db,now);assert_eq!(store.events.len(),count,"A newly configured page/family is silent");
-  db.catalog.remove(&1);reconcile(&mut store,&db,now);assert_eq!(store.events.len(),count,"Disappearance is not deorbiting");
-  for id in 3..90{let mut row=object(id);row["LAUNCH_DATE"]=json!("2020-01-01");row["OBJECT_ID"]=json!(format!("2020-{id:03}A"));db.catalog.insert(id,row);}
+  db.catalog.remove(&900001);reconcile(&mut store,&db,now);assert_eq!(store.events.len(),count,"Disappearance is not deorbiting");
+  for id in 900003..900090{let mut row=object(id);row["LAUNCH_DATE"]=json!("2020-01-01");row["OBJECT_ID"]=json!(format!("2020-{:03}A",id-900000));db.catalog.insert(id,row);}
   reconcile(&mut store,&db,now);assert!(store.events.len()>60,"All changes in the seven-day window must be kept");
   reconcile(&mut store,&db,now+chrono::Duration::days(8));assert!(store.events.iter().all(|event|recent(event,now+chrono::Duration::days(8))));
  }

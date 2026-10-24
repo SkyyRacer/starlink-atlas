@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "HALOSAT",
+    "OBJECT_ID": "1998-067NX",
+    "NORAD_CAT_ID": 43549,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1998-11-20",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "2021-01-04",
+    "PERIOD": "87.89",
+    "INCLINATION": "51.62",
+    "APOGEE": "173",
+    "PERIGEE": "168",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

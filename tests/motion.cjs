@@ -13,3 +13,11 @@ console.log('Interpolation continue, changement de date et passage ±180° : OK'
 
 // Hidden objects are excluded from per-frame work, then safely rebased if revealed.
 const subset=new SatelliteMotion();subset.set([point(1,0,0,500),point(2,0,0,500)],0,false);subset.set([point(1,10,10,500),point(2,20,20,500)],1000,true);subset.sampleRows(2000,[subset.get(1)]);assert.equal(subset.active,false);assert.equal(subset.get(2).lat,0);subset.set([point(1,11,11,500),point(2,21,21,500)],2000,true);assert.equal(subset.get(2).lat,20,'A hidden object rebases from its completed previous sample');subset.sampleRows(2500,[subset.get(2)]);assert.equal(subset.get(2).lat,20.5);
+
+const distant=new SatelliteMotion();
+distant.set([{...point(9,0,0,1e10),icrf_km:[2.5e10,1e9,0]}],0,false);
+distant.set([{...point(9,1,1,1e10),icrf_km:[2.5e10+1000,1e9+400,200]}],1000,true);
+assert.deepEqual(distant.sample(1500)[0].icrf_km,[2.5e10+500,1e9+200,100],'Models and camera interpolate the same inertial observation');
+const beforeVector=distant.sample(1600)[0].icrf_km.slice();
+distant.set([{...point(9,2,2,1e10),icrf_km:[2.5e10+2000,1e9+800,400]}],1600,true);
+assert.deepEqual(distant.sample(1600)[0].icrf_km,beforeVector,'New observations retain the displayed inertial position');

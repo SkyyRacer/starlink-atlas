@@ -76,6 +76,7 @@ fn add(
             _ => default_source,
         };
         let Ok(el)=serde_json::from_value::<sgp4::Elements>(wrapped.clone()) else {continue;};
+        if collections::requires_ephemeris(el.norad_id){continue;}
         if collections::family(el.norad_id,el.object_name.as_deref().unwrap_or("")).is_none() && !allowed.contains(&el.norad_id){continue;}
         let Ok(constants)=sgp4::Constants::from_elements(&el) else {continue;};
         dest.entry(el.norad_id).or_default().push(Orbit {

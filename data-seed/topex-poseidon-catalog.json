@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "TOPEX/POSEIDON",
+    "OBJECT_ID": "1992-052A",
+    "NORAD_CAT_ID": 22076,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1992-08-10",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "112.40",
+    "INCLINATION": "66.04",
+    "APOGEE": "1343",
+    "PERIGEE": "1331",
+    "RCS": "7.7900",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

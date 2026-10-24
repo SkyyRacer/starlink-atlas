@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SEASAT 1",
+    "OBJECT_ID": "1978-064A",
+    "NORAD_CAT_ID": 10967,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1978-06-27",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "99.56",
+    "INCLINATION": "108.01",
+    "APOGEE": "740",
+    "PERIGEE": "736",
+    "RCS": "9.4120",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

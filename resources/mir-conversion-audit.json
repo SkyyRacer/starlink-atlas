@@ -1,0 +1,27 @@
+{
+  "source_sha256": "3645c5312a379a54f8b09b0aea3bc635a95c7b7c1dcf84ac17e9e4974b43ace3",
+  "glb_sha256": "82479b405b20f1c666e0be7c4097c8bbd254d5455bbb9d8825981b3d004c0c0b",
+  "vertices": 433434,
+  "triangles": 446331,
+  "source_meshes": 264,
+  "source_primitive_groups": 264,
+  "runtime_primitives": 60,
+  "materials": 60,
+  "textures": 9,
+  "bytes": 21055016,
+  "bounds": [
+    [
+      -19.045299530029297,
+      -9.779644012451172,
+      -16.52042579650879
+    ],
+    [
+      19.045900344848633,
+      7.976903915405273,
+      18.737085342407227
+    ]
+  ],
+  "uv_conversion": "(u, 1-v)",
+  "geometry": "positions, normals, triangle order and material assignments preserved; groups combined by material",
+  "material_conversion": "Phong to PBR with Atlas presentation finish: chrome .85/.22, solar panels .25/.27, white metal .35/.38 metallic/roughness; source color, emissive, specular and texture pixels retained; opacity clamped to [0,1]"
+}

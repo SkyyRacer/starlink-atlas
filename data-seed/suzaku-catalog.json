@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SUZAKU (ASTRO-EII)",
+    "OBJECT_ID": "2005-025A",
+    "NORAD_CAT_ID": 28773,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "JPN",
+    "LAUNCH_DATE": "2005-07-10",
+    "LAUNCH_SITE": "KSCUT",
+    "DECAY_DATE": "2025-01-05",
+    "PERIOD": "88.04",
+    "INCLINATION": "31.37",
+    "APOGEE": "179",
+    "PERIGEE": "176",
+    "RCS": "4.1445",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

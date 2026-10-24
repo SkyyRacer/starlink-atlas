@@ -1,0 +1,1638 @@
+{
+  "reviewed": "2026-10-24",
+  "scope": "http://127.0.0.1:3003/",
+  "summary": {
+    "pages": 58,
+    "science_pages": 49,
+    "station_pages": 9,
+    "unique_objects": 101,
+    "detailed_and_white": 13,
+    "white_only": 14,
+    "no_model": 74
+  },
+  "pages": [
+    {
+      "id": "aditya-l1",
+      "label": "Aditya-L1",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 57754,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "agile",
+      "label": "AGILE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 31135,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "almaz",
+      "label": "Almaz / OPS",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6398,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7342,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 8911,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "alouette",
+      "label": "Alouette 1 et 2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 424,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 1804,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "ariel",
+      "label": "Ariel",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 285,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 771,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2773,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 5675,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7471,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 11382,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "asca",
+      "label": "ASCA",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 22521,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "astrosat",
+      "label": "AstroSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 40930,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/astrosat.glb?v=e60a3c9df3ed",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "bepposax",
+      "label": "BeppoSAX",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 23857,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "chandra",
+      "label": "Chandra",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25867,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/chandra.glb?v=8aa7d925f329",
+          "detailed": true,
+          "detailed_key": "chandra",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/chandra.glb?v=1d9d7c9b3893",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory",
+          "textures": 6
+        }
+      ]
+    },
+    {
+      "id": "cheops",
+      "label": "CHEOPS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 44874,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/cheops.glb?v=6c2e9a0d5730",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "compton",
+      "label": "Compton GRO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 21225,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/compton.glb?v=19d6f5910bd9",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "dampe",
+      "label": "DAMPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 41173,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "elektron",
+      "label": "Elektron 1 à 4",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 746,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 748,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 829,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 830,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "euve",
+      "label": "EUVE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 21987,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "exosat",
+      "label": "EXOSAT",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 14095,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "fermi",
+      "label": "Fermi",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 33053,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/fermi.glb?v=9759f6d788a6",
+          "detailed": true,
+          "detailed_key": "fermi",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/fermi.glb?v=5338f88c8bea",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope",
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "fuse",
+      "label": "FUSE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25791,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/fuse.glb?v=878c9ae4b4cd",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "galex",
+      "label": "GALEX",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27783,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "goce",
+      "label": "GOCE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 34602,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "grace",
+      "label": "GRACE / GRACE-FO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27391,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/grace.glb?v=eb516a607b24",
+          "detailed": true,
+          "detailed_key": "grace",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/grace.glb?v=5f4e9d10cc88",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29",
+          "textures": 4
+        },
+        {
+          "norad": 27392,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/grace.glb?v=eb516a607b24",
+          "detailed": true,
+          "detailed_key": "grace",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/grace.glb?v=5f4e9d10cc88",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29",
+          "textures": 4
+        },
+        {
+          "norad": 43476,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/grace-fo.glb?v=261df3bc1e91",
+          "detailed": true,
+          "detailed_key": "grace-fo",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/grace-fo.glb?v=3d747fa1f858",
+          "source": "https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/",
+          "textures": 4
+        },
+        {
+          "norad": 43477,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/grace-fo.glb?v=261df3bc1e91",
+          "detailed": true,
+          "detailed_key": "grace-fo",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/grace-fo.glb?v=3d747fa1f858",
+          "source": "https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/",
+          "textures": 4
+        }
+      ]
+    },
+    {
+      "id": "gravity-probe-b",
+      "label": "Gravity Probe B",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28230,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "halosat",
+      "label": "HaloSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 43549,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "heao",
+      "label": "HEAO / Einstein",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 10217,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 11101,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 11532,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "hubble",
+      "label": "Hubble",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 20580,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/hubble.glb?v=928becd70683",
+          "detailed": true,
+          "detailed_key": "hubble",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/hubble.glb?v=cde447ffa790",
+          "source": "https://science.nasa.gov/resource/hubble-space-telescope-3d-model/",
+          "textures": 10
+        }
+      ]
+    },
+    {
+      "id": "hxmt",
+      "label": "HXMT / Insight",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 42758,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "iras",
+      "label": "IRAS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 13777,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "isis",
+      "label": "ISIS 1 et 2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 3669,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 5104,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "iss",
+      "label": "ISS",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 25544,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/iss.glb",
+          "detailed": true,
+          "detailed_key": "iss",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/iss.glb?v=ccf3a2a7279e",
+          "source": "https://www.nasa.gov/integrated-graphics-operations-and-analysis-laboratory/",
+          "textures": 220
+        }
+      ]
+    },
+    {
+      "id": "iue",
+      "label": "IUE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 10637,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "ixpe",
+      "label": "IXPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 49954,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/ixpe.glb?v=c6b8dc99ab40",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "kepler",
+      "label": "Kepler — observatoire",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 34380,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/kepler.glb?v=7878382f0521",
+          "detailed": true,
+          "detailed_key": "kepler",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/kepler.glb?v=cd87729e0b40",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Kepler%20%28A%29",
+          "textures": 10
+        }
+      ]
+    },
+    {
+      "id": "lageos",
+      "label": "LAGEOS-1 / LAGEOS-2",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 8820,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/lageos.glb?v=edea8ea10c49",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 22195,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/lageos.glb?v=edea8ea10c49",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "microscope",
+      "label": "MICROSCOPE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 41457,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "mir",
+      "label": "Mir",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 16609,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/mir.glb?v=da5e782023b0",
+          "detailed": true,
+          "detailed_key": "mir",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/mir.glb?v=3686dd860843",
+          "source": "https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir",
+          "textures": 9
+        }
+      ]
+    },
+    {
+      "id": "nustar",
+      "label": "NuSTAR",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 38358,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/nustar.glb?v=0353e84b3c62",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "oao",
+      "label": "OAO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 2142,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3597,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 6153,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "ogo",
+      "label": "OGO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 879,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 1620,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2195,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2895,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3138,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3986,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "oso",
+      "label": "OSO",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 255,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 987,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2703,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3000,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3663,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 4065,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 5491,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7970,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "proton",
+      "label": "Proton 1 à 4",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 1466,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 1701,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2290,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 3544,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "rosat",
+      "label": "ROSAT",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 20638,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "rxte",
+      "label": "RXTE",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 23757,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "salyut",
+      "label": "Saliout 2 à 7",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6398,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7342,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7591,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 8911,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 10382,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 13138,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "salyut-1",
+      "label": "Saliout 1",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 5160,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "san-marco",
+      "label": "San Marco",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 957,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 2761,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 5176,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7154,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 19013,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "sas",
+      "label": "Uhuru / SAS-1 à 3",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 4797,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 6282,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        },
+        {
+          "norad": 7788,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "skylab",
+      "label": "Skylab",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 6633,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/skylab.glb?v=f2357076604f",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "spektr-r",
+      "label": "Spektr-R / RadioAstron",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 37755,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "spektr-rg",
+      "label": "Spektr-RG",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 44432,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "spitzer",
+      "label": "Spitzer",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 27871,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/spitzer.glb?v=e6c8c089979d",
+          "detailed": true,
+          "detailed_key": "spitzer",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/spitzer.glb?v=3aad2695f7d2",
+          "source": "https://science.nasa.gov/resource/spitzer-space-telescope-3d-model/",
+          "textures": 7
+        }
+      ]
+    },
+    {
+      "id": "suzaku",
+      "label": "Suzaku",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28773,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/suzaku.glb?v=77ae0c7e1b48",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "swift",
+      "label": "Swift / Neil Gehrels",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 28485,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/swift.glb?v=f1310d6b761b",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "tess",
+      "label": "TESS",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 43435,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/tess.glb?v=d0e995bf649d",
+          "detailed": true,
+          "detailed_key": "tess",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/tess.glb?v=a3b4bba3dff8",
+          "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29",
+          "textures": 6
+        }
+      ]
+    },
+    {
+      "id": "tiangong",
+      "label": "Tiangong",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 48274,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/tiangong.glb",
+          "detailed": true,
+          "detailed_key": "tiangong",
+          "detailed_url": "http://127.0.0.1:3003/images/detailed/tiangong.glb?v=82d45acbc3e6",
+          "source": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
+          "textures": 1
+        }
+      ]
+    },
+    {
+      "id": "tiangong-1",
+      "label": "Tiangong-1",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 37820,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "tiangong-2",
+      "label": "Tiangong-2",
+      "category": "stations",
+      "objects": [
+        {
+          "norad": 41765,
+          "white": false,
+          "white_url": null,
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "xmm-newton",
+      "label": "XMM-Newton",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 25989,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/xmm-newton.glb?v=1e7559369c56",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "xposat",
+      "label": "XPoSat",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 58694,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/xposat.glb?v=3e3c5eac9707",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    },
+    {
+      "id": "xrism",
+      "label": "XRISM",
+      "category": "science",
+      "objects": [
+        {
+          "norad": 57800,
+          "white": true,
+          "white_url": "http://127.0.0.1:3003/images/science/xrism.glb?v=31c6d4e5fce1",
+          "detailed": false,
+          "detailed_key": null,
+          "detailed_url": null,
+          "source": null,
+          "textures": 0
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "url": "http://127.0.0.1:3003/images/science/hubble.glb?v=928becd70683",
+      "bytes": 53552,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/chandra.glb?v=8aa7d925f329",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/fermi.glb?v=9759f6d788a6",
+      "bytes": 53544,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/tess.glb?v=d0e995bf649d",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/astrosat.glb?v=e60a3c9df3ed",
+      "bytes": 6180,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/cheops.glb?v=6c2e9a0d5730",
+      "bytes": 3972,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/ixpe.glb?v=c6b8dc99ab40",
+      "bytes": 5376,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/lageos.glb?v=edea8ea10c49",
+      "bytes": 165928,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/nustar.glb?v=0353e84b3c62",
+      "bytes": 7428,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/xmm-newton.glb?v=1e7559369c56",
+      "bytes": 6084,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/xposat.glb?v=3e3c5eac9707",
+      "bytes": 4548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/xrism.glb?v=31c6d4e5fce1",
+      "bytes": 4932,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/kepler.glb?v=7878382f0521",
+      "bytes": 53552,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/spitzer.glb?v=e6c8c089979d",
+      "bytes": 53552,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/swift.glb?v=f1310d6b761b",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/suzaku.glb?v=77ae0c7e1b48",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/grace.glb?v=eb516a607b24",
+      "bytes": 49448,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/fuse.glb?v=878c9ae4b4cd",
+      "bytes": 53556,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/compton.glb?v=19d6f5910bd9",
+      "bytes": 43156,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/mir.glb?v=da5e782023b0",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/skylab.glb?v=f2357076604f",
+      "bytes": 53548,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/science/grace-fo.glb?v=261df3bc1e91",
+      "bytes": 53552,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/hubble.glb?v=cde447ffa790",
+      "bytes": 11463724,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/chandra.glb?v=1d9d7c9b3893",
+      "bytes": 998740,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/fermi.glb?v=5338f88c8bea",
+      "bytes": 1379236,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/tess.glb?v=a3b4bba3dff8",
+      "bytes": 1693880,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/iss.glb?v=ccf3a2a7279e",
+      "bytes": 95875884,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/tiangong.glb?v=82d45acbc3e6",
+      "bytes": 980084,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/kepler.glb?v=cd87729e0b40",
+      "bytes": 2003504,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/spitzer.glb?v=3aad2695f7d2",
+      "bytes": 5560500,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/grace.glb?v=5f4e9d10cc88",
+      "bytes": 1777836,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/mir.glb?v=3686dd860843",
+      "bytes": 21055296,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/detailed/grace-fo.glb?v=3d747fa1f858",
+      "bytes": 6987412,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/iss.glb",
+      "bytes": 6680,
+      "http_status": 200
+    },
+    {
+      "url": "http://127.0.0.1:3003/images/tiangong.glb",
+      "bytes": 4276,
+      "http_status": 200
+    }
+  ]
+}

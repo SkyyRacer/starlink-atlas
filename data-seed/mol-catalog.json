@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "OPS 0855 (OV4-3 MOL)",
+    "OBJECT_ID": "1966-099A",
+    "NORAD_CAT_ID": 2524,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1966-11-03",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "1967-01-09",
+    "PERIOD": "88.28",
+    "INCLINATION": "32.83",
+    "APOGEE": "191",
+    "PERIGEE": "187",
+    "RCS": "0.3900",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

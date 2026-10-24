@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "PAGEOS 1",
+    "OBJECT_ID": "1966-056A",
+    "NORAD_CAT_ID": 2253,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1966-06-24",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "2016-09-02",
+    "PERIOD": "92.37",
+    "INCLINATION": "83.61",
+    "APOGEE": "583",
+    "PERIGEE": "198",
+    "RCS": "1.3945",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

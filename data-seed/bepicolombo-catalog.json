@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "BEPICOLOMBO",
+    "OBJECT_ID": "2018-080A",
+    "NORAD_CAT_ID": 43653,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2018-10-20",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "SU",
+    "ORBIT_TYPE": "ORB"
+  }
+]

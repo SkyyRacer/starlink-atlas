@@ -3,6 +3,7 @@ NASA inputs are pinned public models. Other geometries are original illustrative
 schematics based on the mission documents recorded in science-model-sources.json.
 """
 import collections,gzip,hashlib,json,math,pathlib,struct
+from mission_model_schematics import lines as mission_lines
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'static/images/science';OUT.mkdir(exist_ok=True)
 def minus(a,b):return [a[i]-b[i] for i in range(3)]
@@ -142,10 +143,12 @@ def glb(lines,solid_sphere=False):
 
 def build():
  definitions=json.loads((ROOT/'resources/constellations.json').read_text());sources=json.loads((ROOT/'resources/science-model-sources.json').read_text());manifest=[]
- for row in definitions:
-  if row['category']!='science':continue
-  key=row['id'];source=sources[key];original=ROOT/'resources/science-originals'/f'{key}.glb'
-  lines=nasa_lines(original) if original.exists() else schematic(key)
+ for key,source in sources.items():
+  if source.get('enabled') is False:
+   for suffix in ['.glb','.json']:(OUT/(key+suffix)).unlink(missing_ok=True)
+   continue
+  row=next(r for r in definitions if r['id']==source.get('page_id',key));ids=source.get('ids',row['ids']);original=ROOT/'resources/science-originals'/f'{key}.glb'
+  lines=nasa_lines(original) if original.exists() else mission_lines(Shape,source['profile']) if source.get('profile') else schematic(key)
   blob=glb(lines,key=='lageos');(OUT/f'{key}.glb').write_bytes(blob)
   # Orthographic drawing is derived from the same vertices as the orbiting model.
   project=lambda p:[.866*p[0]+.5*p[2],-.22*p[0]+.84*p[1]+.38*p[2]]
@@ -156,7 +159,7 @@ def build():
    drawing_lines=[edge for edge in lines if dot([(edge[0][i]+edge[1][i])/2 for i in range(3)],view)>0]
   segments=[[project(a),project(b)] for a,b in drawing_lines];xs=[p[0] for edge in segments for p in edge];ys=[p[1] for edge in segments for p in edge];center=[(min(xs)+max(xs))/2,(min(ys)+max(ys))/2];span=max(max(xs)-min(xs),max(ys)-min(ys));segments=[[[round((p[i]-center[i])/span*100,3) for i in range(2)] for p in edge] for edge in segments]
   drawing={'segments':segments};drawing_blob=json.dumps(drawing,separators=(',',':')).encode();(OUT/f'{key}.json').write_bytes(drawing_blob)
-  manifest.append({'key':key,'ids':row['ids'],'name':row['label'],'kind':source['kind'],'credit':source['credit'],'source':source['page'],'glb':f'images/science/{key}.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'drawing':f'images/science/{key}.json?v='+hashlib.sha256(drawing_blob).hexdigest()[:12],'radius':round(max(length(p) for edge in lines for p in edge),3),'segments':len(drawing_lines),'line_segments':len(lines),'bytes':len(blob)+len(drawing_blob)})
+  manifest.append({'key':key,'page_id':row['id'],'ids':ids,'name':source.get('name',row['label']),'kind':source['kind'],'credit':source['credit'],'source':source['page'],'glb':f'images/science/{key}.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'drawing':f'images/science/{key}.json?v='+hashlib.sha256(drawing_blob).hexdigest()[:12],'radius':round(max(length(p) for edge in lines for p in edge),3),'segments':len(drawing_lines),'line_segments':len(lines),'bytes':len(blob)+len(drawing_blob)})
  (ROOT/'resources/science-model-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
  (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':')))
  template=(ROOT/'resources/science-visual.template.js').read_text()

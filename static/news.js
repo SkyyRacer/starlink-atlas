@@ -46,5 +46,5 @@
 
  document.addEventListener('pointerdown',event=>{if(dialog.open&&!dialog.matches(':modal')&&!dialog.contains(event.target)&&!button.contains(event.target))dialog.close();});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dialog.open&&!dialog.matches(':modal')){event.preventDefault();dialog.close();button.focus({preventScroll:true});}});
- document.getElementById('orbital-news-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>button.setAttribute('aria-expanded','false'));dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+ document.getElementById('orbital-news-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{globalThis.AtlasCollectionMenu?.reset(dialog);button.setAttribute('aria-expanded','false');});dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
 })();

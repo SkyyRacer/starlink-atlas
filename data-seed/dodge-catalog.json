@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "DODGE 1",
+    "OBJECT_ID": "1967-066F",
+    "NORAD_CAT_ID": 2867,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1967-07-01",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "1319.07",
+    "INCLINATION": "2.78",
+    "APOGEE": "33676",
+    "PERIGEE": "33251",
+    "RCS": "1.9471",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

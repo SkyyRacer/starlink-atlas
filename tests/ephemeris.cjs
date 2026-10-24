@@ -25,10 +25,10 @@ console.log('TESS : vecteurs officiels UTC, interpolation, altitude/vitesse, orb
 })().catch(error=>{console.error(error);process.exitCode=1;});
 
 (async()=>{
- const vm=require('node:vm');let resolveFetch,fetches=0,events=0;
- const context={URL,CustomEvent:class{constructor(type){this.type=type;}},document:{currentScript:{src:'https://atlas.test/ephemeris.js'}},window:{dispatchEvent(){events++;}},fetch:()=>{fetches++;return new Promise(resolve=>{resolveFetch=resolve;});}};
+ const vm=require('node:vm');const resolvers=[];let fetches=0,events=0;
+ const context={URL,CustomEvent:class{constructor(type){this.type=type;}},document:{currentScript:{src:'https://atlas.test/ephemeris.js'}},window:{dispatchEvent(){events++;}},fetch:()=>{fetches++;return new Promise(resolve=>{resolvers.push(resolve);});}};
  vm.runInNewContext(fs.readFileSync('static/ephemeris.js','utf8'),context);const browser=context.window.AtlasEphemeris,url='https://atlas.test/api/positions?collection=all&at='+new Date(at).toISOString(),base={points:[{id:1}],missing:1};
- const result=await Promise.race([browser.apply(url,base),new Promise((_,reject)=>setTimeout(()=>reject(Error('Optional ephemerides block Atlas')),100))]);assert.equal(result,base);await browser.apply(url,base);assert.equal(fetches,1,'Coalesce the optional background request');
- resolveFetch({ok:true,json:async()=>data});await new Promise(r=>setImmediate(r));assert.equal(events,1);const complete=await browser.apply(url,{points:[],missing:1});assert.equal(complete.points[0].id,43435);assert.equal(fetches,1);
+ const result=await Promise.race([browser.apply(url,base),new Promise((_,reject)=>setTimeout(()=>reject(Error('Optional ephemerides block Atlas')),100))]);assert.equal(result,base);await browser.apply(url,base);assert.equal(fetches,18,'Coalesce the optional TESS and 17 deep-mission requests');
+ resolvers[0]({ok:true,json:async()=>data});for(const resolve of resolvers.slice(1))resolve({ok:false});await new Promise(r=>setImmediate(r));assert.equal(events,1);const complete=await browser.apply(url,{points:[],missing:1});assert.equal(complete.points[0].id,43435);assert.equal(fetches,18);
  console.log('Atlas first positions are not blocked by optional TESS data; background request coalesced and augmentation restored.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

@@ -22,3 +22,12 @@ html[data-desktop-ui=true] :is(.earth-workspace,.lunar-page) .timeline[data-expa
 /* Detached fixed menus receive viewport positions from AtlasUI.place. Menus still
    nested in the header already inherit its zoom; do not apply a second zoom. */
 html[data-desktop-ui=true] .lunar-page .timeline #clock{font-size:17px}
+
+/* Dedicated-page header actions share one size and fit their labels. */
+@media(min-width:901px){
+ html .earth-workspace.dedicated-workspace #workspace-navigation{gap:10px;align-items:center}
+ html .earth-workspace.dedicated-workspace #workspace-navigation>.collection-navigation{flex:0 1 auto;width:auto;min-width:0;max-width:none}
+ html .earth-workspace.dedicated-workspace #workspace-navigation :is(#workspace-home,#collection-menu-button,#workspace-stations-button,#orbital-news-button){display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:auto;height:36px;min-height:36px;margin:0;padding:0 12px;gap:10px;font-size:11px;line-height:1.4;letter-spacing:0;white-space:nowrap}
+ html .earth-workspace.dedicated-workspace #workspace-navigation #workspace-home[hidden]{display:none}
+ html .earth-workspace.dedicated-workspace #workspace-navigation #orbital-news-button svg{width:14px;height:14px;flex:0 0 14px}
+}

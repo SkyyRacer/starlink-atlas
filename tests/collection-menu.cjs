@@ -3,7 +3,7 @@ const registry=require('../static/constellations').definitions;
 const items=menu.entries([{value:'all',textContent:'Tous les satellites'},...registry.map(row=>({value:row.id,textContent:row.label}))]);
 assert.equal(items[0].value,'all');assert.equal(items.length,registry.length+1);
 for(let i=2;i<items.length;i++)assert.ok(items[i-1].label.localeCompare(items[i].label,'fr',{sensitivity:'base',numeric:true})<=0);
-assert.equal(items[menu.match(items,'gal',0)].value,'galileo');assert.equal(items[menu.match(items,'plei',0)].value,'pleiades-neo');
+assert.equal(items[menu.match(items,'galil',0)].value,'galileo');assert.equal(items[menu.match(items,'pléiades neo',0)].value,'pleiades-neo');
 class Node{
  constructor(){this.children=[];this.attrs={};this.events={};this.hidden=false;this.scrollTop=0;this.clientTop=0;this.clientHeight=120;this.classList={toggle(){}};}
  append(...nodes){this.children.push(...nodes);}
@@ -13,7 +13,7 @@ class Node{
  querySelector(){return this.label;}dispatchEvent(event){this.lastEvent=event.type;}
 }
 const doc=new Node();doc.createElement=()=>new Node();global.document=doc;
-const select=new Node(),nav=new Node();nav.label=new Node();nav.append(select);select.parentElement=nav;select.options=items.map(item=>({value:item.value,textContent:item.label}));select.value='starlink';
+const select=new Node(),nav=new Node();nav.label=new Node();nav.append(select);select.parentElement=nav;select.options=items.filter(item=>item.value==='all'||JSON.parse(fs.readFileSync('resources/collection-baseline.json')).existing_group_ids.includes(item.value)).map(item=>({value:item.value,textContent:item.label}));select.value='starlink';
 menu.mount(select);const button=nav.children[1],panel=nav.children[2],list=panel.children[1];
 assert.equal(select.hidden,true);assert.equal(button.textContent,'Starlink');assert.equal(panel.hidden,true);
 const key=(key,target=button,extra={})=>doc.events.keydown({key,target,preventDefault(){},stopPropagation(){},...extra});
@@ -23,7 +23,7 @@ key('Enter');assert.equal(select.value,'galileo');assert.equal(select.lastEvent,
 key('ArrowDown');key('ArrowDown');key('Enter');assert.equal(select.value,'gaofen-3');
 key('g');assert.equal(button.attrs['aria-activedescendant'],'collection-option-galileo');key('g');assert.equal(button.attrs['aria-activedescendant'],'collection-option-gaofen-3');
 key('Escape');assert.equal(panel.hidden,true);assert.equal(select.value,'gaofen-3');
-key('End');key('Enter');assert.equal(select.value,items.at(-1).value);
+key('End');key('Enter');assert.equal(select.value,menu.entries(select.options).at(-1).value);
 button.events.click();key('Tab');assert.equal(panel.hidden,true);
 button.events.click();doc.events.pointerdown({target:new Node()});assert.equal(panel.hidden,true);
 button.events.click();

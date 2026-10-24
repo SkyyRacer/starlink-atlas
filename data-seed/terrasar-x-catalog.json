@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "TERRASAR-X",
+    "OBJECT_ID": "2007-026A",
+    "NORAD_CAT_ID": 31698,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "GER",
+    "LAUNCH_DATE": "2007-06-15",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "94.79",
+    "INCLINATION": "97.45",
+    "APOGEE": "510",
+    "PERIGEE": "507",
+    "RCS": "2.2673",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

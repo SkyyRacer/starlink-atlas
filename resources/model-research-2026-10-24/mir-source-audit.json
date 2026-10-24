@@ -1,0 +1,172 @@
+{
+  "revision": "e6d05411f1ab8aecbd8d72173711ae37f228deaf",
+  "files": [
+    {
+      "path": "extras-standard/mir/models/mir.cmod",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/models/mir.cmod",
+      "bytes": 19238836,
+      "sha256": "3645c5312a379a54f8b09b0aea3bc635a95c7b7c1dcf84ac17e9e4974b43ace3",
+      "header": "#celmodel_binary"
+    },
+    {
+      "path": "extras-standard/mir/models/mir.cmod.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/models/mir.cmod.license",
+      "bytes": 83,
+      "sha256": "c10d85052b7303a6bc0b3f562ad88bd49a5c9014aca39e9d6ec5f1f5f0a1f91b",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/ODS_collar.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/ODS_collar.png",
+      "bytes": 544,
+      "sha256": "d4697ff81549570d0e47ae0844e09ab3f6b40918b2f2e6be54c10bdd7230e117",
+      "dimensions": [
+        512,
+        64
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/ODS_collar.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/ODS_collar.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/chrome.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/chrome.png",
+      "bytes": 677,
+      "sha256": "933e8863b9d8f6021e6cf07d40d44e4cbba87d1610f73121bedcfdc8ff43bfbd",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/chrome.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/chrome.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/dock.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/dock.png",
+      "bytes": 82921,
+      "sha256": "38eafc016b7e5b7a86bb03e57172b5909f35ce8660d36c9fed651476ea1784df",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/dock.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/dock.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/docking_ring.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/docking_ring.png",
+      "bytes": 162658,
+      "sha256": "0312682c711de1b12c6954c344d7743b9ace2a626cb37db26a899cb886b98af0",
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/docking_ring.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/docking_ring.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/dockkr.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/dockkr.png",
+      "bytes": 128726,
+      "sha256": "d74991660fef683871a73a08eb75f2a994e978769e55000ac10c26e06648fb36",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/dockkr.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/dockkr.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/metallwhite.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/metallwhite.png",
+      "bytes": 677,
+      "sha256": "31adc0f1036a5840e44369590c60df1f4c0698c9c49fa148cba05cbffe92de3a",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/metallwhite.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/metallwhite.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/mir.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/mir.png",
+      "bytes": 444016,
+      "sha256": "129d656800d6c6bb72b1ad441b0c43917188ce5fa2d4e5ab42c8a8182a93e973",
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/mir.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/mir.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/multi.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/multi.png",
+      "bytes": 103826,
+      "sha256": "e4377d40b9f0af5fb464d0607905ae7e382d07406579d39118cc8373a256a614",
+      "dimensions": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/multi.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/multi.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/paneliss3.png",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/paneliss3.png",
+      "bytes": 851951,
+      "sha256": "858b096b0a4427792a74cc73ebd2dfcbaaf0dae965f490c32203c03eb359a981",
+      "dimensions": [
+        1024,
+        512
+      ]
+    },
+    {
+      "path": "extras-standard/mir/textures/medres/paneliss3.png.license",
+      "url": "https://raw.githubusercontent.com/CelestiaProject/CelestiaContent/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir/textures/medres/paneliss3.png.license",
+      "bytes": 82,
+      "sha256": "9f1193081368f5592624fdc44045a8f32d63560c63f716cbf02f6821fdada7aa",
+      "license": "# SPDX-FileCopyrightText: 2025 DaveBowman2001\n# SPDX-License-Identifier: CC-BY-4.0"
+    }
+  ]
+}

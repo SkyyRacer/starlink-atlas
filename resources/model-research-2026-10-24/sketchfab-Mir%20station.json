@@ -1,0 +1,594 @@
+{
+  "query": "Mir station",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=Mir+station&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "c8472e2c6b864ea0a933286d5bae6989",
+      "name": "Papa's Freezeria Deluxe For PC",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-c8472e2c6b864ea0a933286d5bae6989",
+      "isDownloadable": true,
+      "vertexCount": 515743,
+      "faceCount": 973346,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "042ec5ca6c7c40a4a5c168f49edd9709",
+        "username": "FineHamster2089",
+        "displayName": "FineHamster2089",
+        "profileUrl": "https://sketchfab.com/FineHamster2089",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/78fa317e46024a5283765aa34df5e508",
+          "images": [
+            {
+              "size": 6421,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/aec92fe9a74e499c98d759362cd7f02f.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2518,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/17fa177ffaa344a2b2fc8e78efd40fbb.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5653,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/02162695bdc840faa3bcb2d418309c5e.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1350,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/6fde876cbded4cd48d36a76029e3aa02.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/042ec5ca6c7c40a4a5c168f49edd9709"
+      },
+      "description": "## [Papa's Freezeria Deluxe](https://maanda.site/)\n\n\n\n## Game Review\nAfter starting a relaxing job at the oceanfront ice cream shop on Calypso Island, things get hectic when all of Papa Louie's crazy customers arrive on the island! Now it's up to you to single-handedly craft and serve tasty sundae treats throughout the year. You'll whip up delicious Freezer sundaes by pouring ice cream, adding mixables and syrups, blending sundaes, and finally adding whipped cream and toppings for that perfect summertime treat. You'll need to multitask between each area of the restaurant, where each station is a unique hands-on experience.\n\nGame Features\nHands-on gameplay for building, mixing, and topping sundaes\nCustom chefs and delivery drivers\nFood Truck for open-ended free play mode\n12 separate holidays to unlock, each with more ingredients"
+    },
+    {
+      "uid": "476ba11ab4f747e996a763e5a3324a47",
+      "name": "Live Streaming Audio Mixer Sound Control Station",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-476ba11ab4f747e996a763e5a3324a47",
+      "isDownloadable": false,
+      "vertexCount": 46350,
+      "faceCount": 88539,
+      "license": null,
+      "user": {
+        "uid": "1d5fa58a906344b796e134fb7f36a25f",
+        "username": "AdmiredBoa5082",
+        "displayName": "AdmiredBoa5082",
+        "profileUrl": "https://sketchfab.com/AdmiredBoa5082",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/51af6a870cce449eb75b0345feebaebb",
+          "images": [
+            {
+              "size": 5719,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/2ef0f894055b4bb69123b2a27fa2d379.jpeg",
+              "height": 90
+            },
+            {
+              "size": 6496,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/ab11eedf96374486acb544f71a23b165.jpeg",
+              "height": 100
+            },
+            {
+              "size": 1359,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/35f6f9b6c9a14a548ce472582d8a9bb5.jpeg",
+              "height": 32
+            },
+            {
+              "size": 2584,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/a8072a51447c4d41ab177b357111b420.jpeg",
+              "height": 48
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/1d5fa58a906344b796e134fb7f36a25f"
+      },
+      "description": "# Live Streaming Audio Mixer & Sound Control Station – 3D Model\n\n## Description\n\n**Live Streaming Audio Mixer & Sound Control Station** is a modern 3D concept designed for streamers, podcasters, broadcasters, gamers, and digital content creators. This professional audio workspace features a sound mixer, audio control equipment, headphones, microphones, and a technology-inspired workstation for managing sound during live broadcasts and recordings.\n\n## 🌐 Featured Website – GitApp Download\n\n**Visit [GitApp Download](http://gitapp.download/) to explore the website and discover available digital resources.**\n\n## ✨ Project Highlights\n\n- 🎚️ Professional audio mixer and sound control station\n- 🎙️ Microphone and voice recording equipment\n- 🎧 Headphones and audio monitoring setup\n- 🔊 Sound mixing and live broadcasting workstation\n- 🎮 Ideal for gaming streams, podcasts, and online content\n- 💻 Modern technology-inspired studio design"
+    },
+    {
+      "uid": "e85ab6f910b14d2298bf341f146fd847",
+      "name": "Papa's Freezeria Deluxe For PC",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-e85ab6f910b14d2298bf341f146fd847",
+      "isDownloadable": true,
+      "vertexCount": 25277,
+      "faceCount": 50074,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "2d15fac82a574245bd6698cc0c20f358",
+        "username": "MidDormouse5940",
+        "displayName": "MidDormouse5940",
+        "profileUrl": "https://sketchfab.com/MidDormouse5940",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/78fa317e46024a5283765aa34df5e508",
+          "images": [
+            {
+              "size": 6421,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/aec92fe9a74e499c98d759362cd7f02f.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2518,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/17fa177ffaa344a2b2fc8e78efd40fbb.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5653,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/02162695bdc840faa3bcb2d418309c5e.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1350,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/78fa317e46024a5283765aa34df5e508/6fde876cbded4cd48d36a76029e3aa02.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/2d15fac82a574245bd6698cc0c20f358"
+      },
+      "description": "## [Papa's Freezeria Deluxe](https://maanda.site/)\n\n\n## Game Review\nAfter starting a relaxing job at the oceanfront ice cream shop on Calypso Island, things get hectic when all of Papa Louie's crazy customers arrive on the island! Now it's up to you to single-handedly craft and serve tasty sundae treats throughout the year. You'll whip up delicious Freezer sundaes by pouring ice cream, adding mixables and syrups, blending sundaes, and finally adding whipped cream and toppings for that perfect summertime treat. You'll need to multitask between each area of the restaurant, where each station is a unique hands-on experience.\n\n## Game Features\nHands-on gameplay for building, mixing, and topping sundaes\nCustom chefs and delivery drivers\nFood Truck for open-ended free play mode"
+    },
+    {
+      "uid": "8c3925570f3e4fbdaf79ca4b1954e413",
+      "name": "Download MIO Memories in Orbit Free For PC",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-8c3925570f3e4fbdaf79ca4b1954e413",
+      "isDownloadable": true,
+      "vertexCount": 974,
+      "faceCount": 1644,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "df35755680a849da9070f7d810f32415",
+        "username": "GreyEchidna1893",
+        "displayName": "GreyEchidna1893",
+        "profileUrl": "https://sketchfab.com/GreyEchidna1893",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/51af6a870cce449eb75b0345feebaebb",
+          "images": [
+            {
+              "size": 5719,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/2ef0f894055b4bb69123b2a27fa2d379.jpeg",
+              "height": 90
+            },
+            {
+              "size": 6496,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/ab11eedf96374486acb544f71a23b165.jpeg",
+              "height": 100
+            },
+            {
+              "size": 1359,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/35f6f9b6c9a14a548ce472582d8a9bb5.jpeg",
+              "height": 32
+            },
+            {
+              "size": 2584,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/51af6a870cce449eb75b0345feebaebb/a8072a51447c4d41ab177b357111b420.jpeg",
+              "height": 48
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/df35755680a849da9070f7d810f32415"
+      },
+      "description": "## Game Overview\nMIO: Memories in Orbit is a visually striking action-adventure Metroidvania game that blends fast-paced combat, emotional storytelling, and deep exploration. Developed by Douze Dixièmes, the game takes players into a mysterious, decaying space station filled with forgotten memories, dangerous machines, and haunting environments.\n\n## [Download MIO Memories in Orbit](https://yandisk.site/) \n\nPlayers assume the role of MIO, a small but agile android exploring a massive orbital structure that has fallen into ruin. As MIO navigates through interconnected zones, players uncover fragments of the past while fighting hostile enemies and restoring lost systems. The game combines fluid movement, precise combat, and narrative depth to deliver an immersive sci-fi experience. Dinkum Download for PC ( Nintendo Switch)"
+    },
+    {
+      "uid": "bd50fe1201054683b5504af82e7d8397",
+      "name": "Metro \"Zona PacoCity 3124\"",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-bd50fe1201054683b5504af82e7d8397",
+      "isDownloadable": true,
+      "vertexCount": 222,
+      "faceCount": 247,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "a9702eef67e9488bb88bed60990218c6",
+        "username": "pacocity3124",
+        "displayName": "pacocity3124",
+        "profileUrl": "https://sketchfab.com/pacocity3124",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/32ede8c8aac046939e2966263a4abbb5",
+          "images": [
+            {
+              "size": 2606,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/32ede8c8aac046939e2966263a4abbb5/a6bb059603e04a5b90e8a1f605f27787.png",
+              "height": 32
+            },
+            {
+              "size": 5127,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/32ede8c8aac046939e2966263a4abbb5/5aa800509cfe4072970b1288652b4478.png",
+              "height": 48
+            },
+            {
+              "size": 14309,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/32ede8c8aac046939e2966263a4abbb5/e88bb7a90adf40e3963ac49b87808687.png",
+              "height": 90
+            },
+            {
+              "size": 16708,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/32ede8c8aac046939e2966263a4abbb5/17dd302dcddd463b8908f902a18e0524.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/a9702eef67e9488bb88bed60990218c6"
+      },
+      "description": "Hola gente, hoy les quiero compartir este modelo en 3D de una estación ficticia llamada \"Zona PacoCity 3124\", que utilizé en uno de los videos de mi antiguo canal de YouTube \"PacoCityLoquendero 3124\". Igualmente se puede modificar el modelo cambiando sus texturas por otras para crear un andén personalizado de una estación de Metro. Hecho en SweetHome 3D\n\nEspero que les guste!\n\n------------------------------------\n\nHi guys, today i want to share with you this 3D model of a fictional subway station called \"Zona PacoCity3124\", used by me in one of my YouTube videos of the old channel \"PacoCityLoquendero 3124\". Also you can modify it and use it with other textures and make a custom platform of a subway station. Made in SweetHome 3D.\n\nHope you like it!"
+    },
+    {
+      "uid": "5de7d5c29b0a4bf99f20a9af03587fb5",
+      "name": "RadioBOSS Ultimate 7.2.5.0 Download Latest 2026",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-5de7d5c29b0a4bf99f20a9af03587fb5",
+      "isDownloadable": false,
+      "vertexCount": 33800,
+      "faceCount": 62095,
+      "license": null,
+      "user": {
+        "uid": "f295535574c24a0ca8f49506f33f31ab",
+        "username": "PowderyDisk7007",
+        "displayName": "PowderyDisk7007",
+        "profileUrl": "https://sketchfab.com/PowderyDisk7007",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e",
+          "images": [
+            {
+              "size": 680,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/116042a0854e40538adab302b593683d.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1253,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/efea16be51d04eb7a00cb9ea0b43b87f.jpeg",
+              "height": 48
+            },
+            {
+              "size": 2797,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/ac9b469ccec74caf923a81fb2f0be3ed.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3215,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/3ef1bd11d3eb4b57a0b353e8f2e5fc3e/a075e1d43d2f446c949b5967b470c757.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/f295535574c24a0ca8f49506f33f31ab"
+      },
+      "description": "🎙️ **RadioBOSS Ultimate – Professional Radio Broadcasting!** 📻\n# [🆓✔️Download Link✔️🆓](https://fullsetup.pro/)\nTake your radio station to the next level with RadioBOSS Ultimate! 🚀 This powerful broadcasting software helps you manage playlists, automate music scheduling, mix audio, and deliver smooth, professional radio shows. Perfect for online radio stations, DJs, and broadcasters! 🎶✨\n\n🌟 **Key Features** 🔥 🎵 Automated music playback and scheduling 📂 Smart playlist management 🎚️ Professional audio mixing and transitions 🎙️ Live broadcasting support ⏰ Advanced scheduling tools 🔊 High-quality audio output 📡 Internet radio streaming support 🎧 Flexible controls for smooth broadcasting 💻 User-friendly interface for efficient station management\n\n🛠️ **How to Install** 💿 1️⃣ Download RadioBOSS Ultimate from a trusted source. 2️⃣ Run the installer and follow the setup instructions. 3️⃣ Launch the software and configure your audio devices, playlists, and streaming settings. 4️⃣ Start broadcasting! 🎉"
+    },
+    {
+      "uid": "6f9a34d9b0f8498faa8a24e0238768db",
+      "name": "MOVING GALLERY · ROUTE 2001–2004",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-6f9a34d9b0f8498faa8a24e0238768db",
+      "isDownloadable": true,
+      "vertexCount": 8180,
+      "faceCount": 8612,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "e5843c8781ee4575aa11fa1d07aacabc",
+        "username": "mwintersberger",
+        "displayName": "MWintersberger",
+        "profileUrl": "https://sketchfab.com/mwintersberger",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/5730a73d7bac4ab88f82e7a6965f1582",
+          "images": [
+            {
+              "size": 825,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/ab864556c23842e8b56c748ce75913de.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1501,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/fcb2ead6eba841c7b9665b341c731dc9.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5018,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/4fd72785583948719610d4a085d3b197.jpeg",
+              "height": 90
+            },
+            {
+              "size": 5995,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/288ec91cdeb4496b9f8f2aff63206397.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/e5843c8781ee4575aa11fa1d07aacabc"
+      },
+      "description": "MOVING GALLERY · ROUTE 2001–2004 — Reise als Datenskulptur\n\nDie Reisen der MOVING GALLERY (medienwerkstatt006 × PILOTTANZT) als räumliche Datenskulptur: 18 Stationen der Tour 2001–2004.\n\nDer Grundriss ist Geografie – Küsten und Grenzen nach Natural Earth –, die Höhe ist Zeit: Jedes Jahr bildet eine eigene Ebene, 2001 unten, 2004 oben. An jeder Station steht das Modul als Marke, ein Lot verbindet es mit dem Ort auf der Karte. Eine Röhre zeichnet die Fahrtroute nach.\n\nIn der Animation „Route 30 s“ fährt ein Läufer die Strecke in zeitlicher Folge ab; der Weg schraubt sich als Linie aus Ort und Zeit nach oben – vier Jahre mobile Bühne in einem Blick.\n\nDaten aus dem Projektarchiv; die Reihenfolge 2003/04 ist angenähert.\n\nTeil von TRANSIT 2026 / FALTRAUM 3D\nmedienwerkstatt006.at/mg-transit-2026-seite/mg_transit2026_3d.htm"
+    },
+    {
+      "uid": "56f15dcb3d404a2ca132657e65851d87",
+      "name": "KARL-MARX-HOF · AR-Walk „Neue Nachbar*innen“",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-56f15dcb3d404a2ca132657e65851d87",
+      "isDownloadable": true,
+      "vertexCount": 376376,
+      "faceCount": 691280,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "e5843c8781ee4575aa11fa1d07aacabc",
+        "username": "mwintersberger",
+        "displayName": "MWintersberger",
+        "profileUrl": "https://sketchfab.com/mwintersberger",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/5730a73d7bac4ab88f82e7a6965f1582",
+          "images": [
+            {
+              "size": 825,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/ab864556c23842e8b56c748ce75913de.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1501,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/fcb2ead6eba841c7b9665b341c731dc9.jpeg",
+              "height": 48
+            },
+            {
+              "size": 5018,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/4fd72785583948719610d4a085d3b197.jpeg",
+              "height": 90
+            },
+            {
+              "size": 5995,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/5730a73d7bac4ab88f82e7a6965f1582/288ec91cdeb4496b9f8f2aff63206397.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/e5843c8781ee4575aa11fa1d07aacabc"
+      },
+      "description": "KARL-MARX-HOF · AR-Walk „Neue Nachbar*innen“ – 3D-Modell des gesamten Walks: OpenStreetMap-Bebauung, Karl-Marx-Hof (Karl Ehn, 1927–1930) mit Mittelfront, vier Bögen, Türmen und fotografischer Fassade, 583 m Route, fünf Stationen und die vier Riedl-Figuren (1930) als geriggte, animierte Avatare: Kinderfürsorge, Körperkultur, Aufklärung, Befreiung – Finale „Begegnung“ am 12.-Februar-Platz mit allen vier (180 s). Fünf Animationsclips, Meter, Y-up.\n\nVorschau auf den AR-Audio-Walk zum Festivaltag Döbling, 5. 12. 2026, Wien – vor Ort per Smartphone in der Web-AR-Plattform K1_ARt (DE/EN): medienwerkstatt006.at/K1AR\n\nKooperation: K1_ARt · Basis Kultur Wien · Volkstheater Wien · Waschsalon Karl Marx Hof\nKonzept & Umsetzung: Markus Wintersberger / medienwerkstatt006\n3D-Basis der Figuren, Stimmen und Musik KI-generiert. Simulation, kein Realbild.\n\nEN: Full 3D model of the AR walk “New Neighbours” at Vienna’s Karl-Marx-Hof – five stations, four animated Riedl figures, finale at 12.-Februar-Platz."
+    },
+    {
+      "uid": "0e29fc1736df4052ba598ebddd6e4715",
+      "name": "Chiseling Station",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-0e29fc1736df4052ba598ebddd6e4715",
+      "isDownloadable": true,
+      "vertexCount": 640,
+      "faceCount": 854,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "db235d02689848e09b55bca7a2ea88c3",
+        "username": "Petramond",
+        "displayName": "Petramond",
+        "profileUrl": "https://sketchfab.com/Petramond",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/af68b360a96a4c84ab12870e6d38c0ea",
+          "images": [
+            {
+              "size": 2104,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/af68b360a96a4c84ab12870e6d38c0ea/515df8236b3345eca4c1580dc5575988.png",
+              "height": 32
+            },
+            {
+              "size": 3965,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/af68b360a96a4c84ab12870e6d38c0ea/8f9ed1e1cd0442d98988188b26257e83.png",
+              "height": 48
+            },
+            {
+              "size": 9843,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/af68b360a96a4c84ab12870e6d38c0ea/bded03d5371d4e84bfe5ec709f685d15.png",
+              "height": 90
+            },
+            {
+              "size": 11486,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/af68b360a96a4c84ab12870e6d38c0ea/fc8d9b46bca04d419977cfa039e93d63.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/db235d02689848e09b55bca7a2ea88c3"
+      },
+      "description": "Chiseling station model used in Petramond\n\nDownload and play the game for free: https://github.com/shinyvision/petramond\n\nAll code and assets used in Petramond are MIT licensed."
+    },
+    {
+      "uid": "ba424a4744ed40bb8e17e68eeb7b2e3a",
+      "name": "T-90m Min Battale Tank  Low-poly model",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-ba424a4744ed40bb8e17e68eeb7b2e3a",
+      "isDownloadable": false,
+      "vertexCount": 36602,
+      "faceCount": 70544,
+      "license": null,
+      "user": {
+        "uid": "ce4c3fdcad7444cb85fd0240329da14c",
+        "username": "candragemilang07",
+        "displayName": "Prisma 3d Story",
+        "profileUrl": "https://sketchfab.com/candragemilang07",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/417107da5d72437c91cbb1e89fcfea25",
+          "images": [
+            {
+              "size": 1124,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/417107da5d72437c91cbb1e89fcfea25/24a343f43152405ba49c443ed0b14b04.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1634,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/417107da5d72437c91cbb1e89fcfea25/ab2a8a6b906a48f49cc2e09ddf0fa452.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3621,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/417107da5d72437c91cbb1e89fcfea25/c0f6072a67f6450ea2315f88df00f4fd.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4182,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/417107da5d72437c91cbb1e89fcfea25/2927ce72c3f44d41b667d197d6c7b5ca.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/ce4c3fdcad7444cb85fd0240329da14c"
+      },
+      "description": "Title \nLow Poly Russian T-90M Proryv Main Battle Tank - Game Ready 3D Model\n​Description:\nA clean, stylized low-poly 3D model of the modern Russian T-90M Proryv Main Battle Tank, designed specifically for mobile projects, games, and real-time visualization.\nThis model captures the upgraded T-90M turret, Relikt armor layout, and sleek military silhouette while keeping performance lightweight, clean, and optimized.\n​Key Features:\n​Exterior Focused: Detailed exterior shell emphasizing the upgraded T-90M turret, Relikt ERA packages, side skirts, and remote weapon station (no interior included).\n​Game-Ready Geometry: Lightweight topology optimized for smooth rendering on mobile devices, AR/VR, or low-spec indie game engines.\n​Material-Based & PBR Friendly: Clean material layout making color customization effortless while keeping memory usage extremely low.\n​Universal Compatibility: Converted and packaged into standard industry formats ready to import straight into Blender, 3ds Max, Unity, or Unreal Engine."
+    },
+    {
+      "uid": "f7e29bb3d4674015803b71e405ff3ed8",
+      "name": "Stylized Antennas",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-f7e29bb3d4674015803b71e405ff3ed8",
+      "isDownloadable": false,
+      "vertexCount": 43149,
+      "faceCount": 69817,
+      "license": null,
+      "user": {
+        "uid": "802a8c564fa34b14989bbc32a03fae83",
+        "username": "M3Drender",
+        "displayName": "M3D",
+        "profileUrl": "https://sketchfab.com/M3Drender",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/2f3c62f2447b4988a6e19f1089930d5b",
+          "images": [
+            {
+              "size": 928,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/2f3c62f2447b4988a6e19f1089930d5b/a450431c83544831a3c6802dc48bb905.jpeg",
+              "height": 32
+            },
+            {
+              "size": 997,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/2f3c62f2447b4988a6e19f1089930d5b/33e3d01e5fc64cf6bfb044330cfb8f11.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1621,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/2f3c62f2447b4988a6e19f1089930d5b/5d3cb3cf473f44548dbf578f2db2952b.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1717,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/2f3c62f2447b4988a6e19f1089930d5b/d5bb3ec2da3949e6b62041a5b4aefff4.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/802a8c564fa34b14989bbc32a03fae83"
+      },
+      "description": "Add gritty urban rooftop atmosphere to your scenes with this stylized set of 13 communication towers and rooftop tech props, built for cyberpunk, sci-fi, and modern-city environments.\n\nThe \"Stylized Antennas\" pack includes:\n\nLarge Structures (3): Full-scale lattice and truss communication towers, plus a large satellite dish station for skyline-defining silhouettes.\nMedium Antennas & Equipment (5): Mid-size antenna poles, dish antennas, and signal units for mid-ground rooftop detailing.\nSmall Rooftop Props (5): Compact utility pieces — solar panels, warning signs, control boxes, and cameras — for close-up set dressing.\n\nPerfect for cyberpunk cityscapes, rooftop environments, and sci-fi or urban game scenes.\n\nAvailable now on [FAB](https://www.fab.com/listings/6a125101-2dd0-4302-9895-3794890a3f34)."
+    },
+    {
+      "uid": "7cf3daf6ded24d2c8af0d74ed323d92a",
+      "name": "Professional Podcast Studio Microphone",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-7cf3daf6ded24d2c8af0d74ed323d92a",
+      "isDownloadable": true,
+      "vertexCount": 658609,
+      "faceCount": 1317249,
+      "license": {
+        "uid": "322a749bcfa841b29dff1e8a1bb74b0b",
+        "label": "CC Attribution"
+      },
+      "user": {
+        "uid": "fa5c066dce27490f89548147ed5c3776",
+        "username": "alaaeldeen_23",
+        "displayName": "alaaeldeen",
+        "profileUrl": "https://sketchfab.com/alaaeldeen_23",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/5b290d9e540347cfa03b474e023970bb",
+          "images": [
+            {
+              "size": 1247,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/5b290d9e540347cfa03b474e023970bb/cebedc7869bd4b62bdb379eaa3fbd1d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 2000,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/5b290d9e540347cfa03b474e023970bb/33b95005cee64f2b9b5015aeb41c4e03.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3821,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/5b290d9e540347cfa03b474e023970bb/f2a1aaf714f740628ce15cc718af5b00.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4333,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/5b290d9e540347cfa03b474e023970bb/af460f0f3b814033bc2998e3e1091e5a.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fa5c066dce27490f89548147ed5c3776"
+      },
+      "description": "A detailed 3D model of a professional studio condenser microphone setup. Features a foam windscreen, custom shock mount, XLR cable connection, and an adjustable articulated boom arm. Ideal for podcast studio scenes, streaming setups, radio stations, and modern interior visualization.\n\nTechnical Details:\nCategory: Audio Equipment / Studio Hardware\nFeatures: Separate modular parts (Microphone, Shock Mount, Arm, Cable)\nOptimization: Clean Topology & Low-Poly Geometry ready for PBR Texturing"
+    }
+  ]
+}

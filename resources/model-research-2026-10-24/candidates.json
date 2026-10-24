@@ -1,0 +1,458 @@
+{
+  "reviewed": "2026-10-24",
+  "scope": "22 current white science models plus existing ISS and current Tiangong: 24 vehicle types / 27 distinct NORAD identifiers. Historical withdrawn station drawings are extra research, not part of this denominator.",
+  "existing_detailed_options": [
+    {
+      "key": "hubble",
+      "ids": [
+        20580
+      ],
+      "url": "images/detailed/hubble.glb?v=cde447ffa790",
+      "bytes": 11463724,
+      "source": "https://science.nasa.gov/resource/hubble-space-telescope-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/h/Hubble.glb",
+      "sha256": "e6a40640d6846e8f5d9438821ebe2d7de730c8dadba1cc9dfdbcc148ff1052cd",
+      "uv_repairs": [
+        {
+          "mesh": 10,
+          "primitive": 0,
+          "texcoord": 0,
+          "reason": "clear.png.001 is a uniform RGBA (255,255,255,0) image; constant UV preserves full transparency.",
+          "count": 24
+        }
+      ],
+      "credit": "NASA VTAD",
+      "original_file": "resources/detailed-originals/hubble-vtad.glb",
+      "version": "NASA VTAD texturé",
+      "triangles": 21129,
+      "textures": 10,
+      "materials": 10
+    },
+    {
+      "key": "chandra",
+      "ids": [
+        25867
+      ],
+      "url": "images/detailed/chandra.glb?v=1d9d7c9b3893",
+      "bytes": 998740,
+      "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Chandra%20X-ray%20Observatory/Chandra%20X-ray%20Observatory.glb",
+      "sha256": "9383f44fc4c6eba73c40b0c2cfe33c08c90f1fb5230274bfdaa98e0c9f116a34",
+      "uv_repairs": [],
+      "credit": "NASA 3D Resources · adaptation filaire Atlas",
+      "original_file": "resources/science-originals/chandra.glb",
+      "version": "NASA original",
+      "triangles": 30132,
+      "textures": 6,
+      "materials": 5
+    },
+    {
+      "key": "fermi",
+      "ids": [
+        33053
+      ],
+      "url": "images/detailed/fermi.glb?v=5338f88c8bea",
+      "bytes": 1379236,
+      "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope/Fermi%20Gamma-ray%20Large%20Area%20Space%20Telescope.glb",
+      "sha256": "d345f3b0595f7792f699acf33b28d7401cb53cc2a20b735bca00e95644e3813c",
+      "uv_repairs": [],
+      "credit": "NASA 3D Resources · adaptation filaire Atlas",
+      "original_file": "resources/science-originals/fermi.glb",
+      "version": "NASA original",
+      "triangles": 172788,
+      "textures": 0,
+      "materials": 27
+    },
+    {
+      "key": "tess",
+      "ids": [
+        43435
+      ],
+      "url": "images/detailed/tess.glb?v=a3b4bba3dff8",
+      "bytes": 1693880,
+      "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29/Transiting%20Exoplanet%20Survey%20Satellite%20%28TESS%29%20%28B%29.glb",
+      "sha256": "94e9ce15b02924175f1c0b33c0aaa7a33ee5e1fcbf933642ab933c1b04a1a238",
+      "uv_repairs": [],
+      "credit": "NASA 3D Resources",
+      "original_file": "resources/detailed-originals/tess-b.glb",
+      "version": "NASA B texturé",
+      "triangles": 16161,
+      "textures": 6,
+      "materials": 5
+    },
+    {
+      "key": "iss",
+      "ids": [
+        25544
+      ],
+      "url": "images/detailed/iss.glb?v=ccf3a2a7279e",
+      "bytes": 95875884,
+      "source": "https://www.nasa.gov/integrated-graphics-operations-and-analysis-laboratory/",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/International%20Space%20Station%20%28ISS%29%20%28D%29%20%28IGOAL%29/International%20Space%20Station%20%28ISS%29.glb",
+      "sha256": "57cecfaf332efb2127d07796c4b65ca570d95a11516c8e046feb5a12efee491d",
+      "uv_repairs": [],
+      "credit": "NASA IGOAL",
+      "original_file": "resources/detailed-originals/iss-igoal.glb",
+      "version": "NASA IGOAL D",
+      "triangles": 2707621,
+      "textures": 220,
+      "materials": 49
+    },
+    {
+      "key": "tiangong",
+      "ids": [
+        48274
+      ],
+      "url": "images/detailed/tiangong.glb?v=82d45acbc3e6",
+      "bytes": 980084,
+      "source": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
+      "download": "https://raw.githubusercontent.com/Buggy1111/earth-pulse/be3a16addde8a5d59c73e7a1c5e512f3f8963ae0/public/models/sats/tiangong.glb",
+      "sha256": "d0e2ee481e63dfd28397346ce3802508136187e10263a2c3e1d203825eb2a3b5",
+      "uv_repairs": [],
+      "credit": "w29572227 · CC BY 4.0",
+      "original_file": "resources/detailed-originals/tiangong-sketchfab.glb",
+      "version": "tianGong — maillage et matériaux de w29572227",
+      "triangles": 128932,
+      "textures": 1,
+      "materials": 22
+    },
+    {
+      "key": "kepler",
+      "ids": [
+        34380
+      ],
+      "url": "images/detailed/kepler.glb?v=cd87729e0b40",
+      "bytes": 2003504,
+      "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Kepler%20%28A%29",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Kepler%20%28A%29/Kepler%20%28A%29.glb",
+      "sha256": "382014d90e2cf3e1f23e931d233547e652fe3629fddfb5acb8a99e2ceb72ff19",
+      "uv_repairs": [],
+      "credit": "NASA 3D Resources",
+      "original_file": "resources/science-originals/kepler.glb",
+      "version": "NASA original · géométrie complète",
+      "triangles": 9042,
+      "textures": 10,
+      "materials": 6
+    },
+    {
+      "key": "spitzer",
+      "ids": [
+        27871
+      ],
+      "url": "images/detailed/spitzer.glb?v=3aad2695f7d2",
+      "bytes": 5560500,
+      "source": "https://science.nasa.gov/resource/spitzer-space-telescope-3d-model/",
+      "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/SPITZER.glb",
+      "sha256": "56b39ca3bbb7fdf8b5e20f73bd34ee318b657046bbe4ea52732edbc6d6132a59",
+      "uv_repairs": [
+        {
+          "mesh": 7,
+          "primitive": 0,
+          "texcoord": 0,
+          "reason": "clear.png.001 is byte-identical to the reviewed uniform transparent Hubble image; constant UV preserves transparency.",
+          "count": 8
+        }
+      ],
+      "credit": "NASA VTAD",
+      "original_file": "resources/detailed-originals/spitzer-vtad.glb",
+      "version": "NASA VTAD texturé",
+      "triangles": 10311,
+      "textures": 7,
+      "materials": 8
+    },
+    {
+      "key": "grace",
+      "ids": [
+        27391,
+        27392
+      ],
+      "url": "images/detailed/grace.glb?v=5f4e9d10cc88",
+      "bytes": 1777836,
+      "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29",
+      "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29/Gravity%20Recovery%20and%20Climate%20Experiment%20%28GRACE%29%20%28B%29.glb",
+      "sha256": "33382f0069d7e84de6d3747a723c2e0ded2cbaf83185d89bdf82c5ca58e1fef1",
+      "uv_repairs": [],
+      "credit": "NASA 3D Resources",
+      "original_file": "resources/science-originals/grace.glb",
+      "version": "NASA original · géométrie complète",
+      "triangles": 3961,
+      "textures": 4,
+      "materials": 13
+    },
+    {
+      "key": "grace-fo",
+      "ids": [
+        43476,
+        43477
+      ],
+      "url": "images/detailed/grace-fo.glb?v=3d747fa1f858",
+      "bytes": 6987412,
+      "source": "https://gracefo.jpl.nasa.gov/resources/86/grace-fo-3d-model/",
+      "download": "https://gracefo.jpl.nasa.gov/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBYTg9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e44d41f889d987165dc823349b0fd599476c8c73/GRACE-FO.glb?disposition=inline",
+      "sha256": "b5ff33fd000ac0ed21445ec8237a0277396367d033afd171a22dbe7cca665d0a",
+      "uv_repairs": [
+        {
+          "mesh": 2,
+          "primitive": 0,
+          "texcoord": 0,
+          "reason": "clear.png.001 is byte-identical to the reviewed uniform transparent Hubble image; constant UV preserves transparency.",
+          "count": 8
+        }
+      ],
+      "credit": "NASA VTAD",
+      "original_file": "resources/science-originals/grace-fo.glb",
+      "version": "NASA VTAD texturé",
+      "triangles": 3652,
+      "textures": 4,
+      "materials": 4
+    }
+  ],
+  "new_candidates": [
+    {
+      "key": "mir",
+      "label": "Mir",
+      "status": "free-source-verified-conversion-required",
+      "source": "https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir",
+      "creator": "DaveBowman2001",
+      "license": "CC BY 4.0, verified separately for CMOD and all nine images",
+      "formats": [
+        "CMOD binary",
+        "PNG"
+      ],
+      "verified": "Actual model downloaded: 19,238,836 bytes; nine textures inspected; largest 1024×512. SHA-256 and file-level license audit saved.",
+      "limits": "Not yet converted or rendered in Atlas. Texture resolution is below modern 4K assets. Full station after Priroda, not every historical assembly state.",
+      "next": "Convert original CMOD surfaces, normals, materials and UVs to GLB; retain all credits; compare with actual station configuration before enabling.",
+      "trial_status": "integrated-locally-2026-10-24",
+      "conversion_audit": "resources/mir-conversion-audit.json",
+      "preview": "resources/model-research-2026-10-24/mir-preview.png"
+    },
+    {
+      "key": "cheops",
+      "label": "CHEOPS",
+      "status": "official-textured-source-license-unresolved",
+      "source": "https://scifleet.esa.int/#/model-downloads",
+      "creator": "ESA / ESAC SciFleet",
+      "license": "Download guide links ESA general terms; no explicit model redistribution license established",
+      "formats": [
+        "FBX",
+        "OBJ",
+        "texture ZIP"
+      ],
+      "verified": "Existing official OBJ inspected: 3,329 vertices, 2,547 face records, 4,681 texture coordinates; material-library reference present. Official guide documents 4K color/metalness/normal maps.",
+      "limits": "OBJ alone does not provide the intended textured appearance. No runtime permission assumed from public download.",
+      "next": "Use official FBX and textures, resolve model-specific redistribution terms, then compare GLB render."
+    },
+    {
+      "key": "xmm-newton",
+      "label": "XMM-Newton",
+      "status": "official-textured-source-license-unresolved",
+      "source": "https://scifleet.esa.int/#/model-downloads",
+      "creator": "ESA / ESAC SciFleet",
+      "license": "Same unresolved model-specific terms as CHEOPS",
+      "formats": [
+        "FBX",
+        "OBJ",
+        "texture ZIP"
+      ],
+      "verified": "Existing official OBJ inspected: 10,050 vertices, 17,178 face records, 11,592 UV records. Official guide describes textured FBX and separate 4K texture sets.",
+      "limits": "Sketchfab reupload cd53b781d479466ebceb388bc3169cc5 has no enabled download or license in the public API; not a substitute for ESA permission.",
+      "next": "Resolve terms on the official model; preserve telescope geometry and textures in GLB."
+    },
+    {
+      "key": "nustar",
+      "label": "NuSTAR",
+      "status": "paid-textured-candidate-not-downloaded",
+      "source": "https://www.cgtrader.com/3d-models/space/spaceship/nustar-satellite",
+      "alternate_source": "https://www.turbosquid.com/3d-models/3d-nustar-nuclear-array-model-1304098",
+      "creator": "GR33D / TurboDDD (marketplace listings)",
+      "license": "CGTrader royalty-free label; TurboSquid editorial label; public web distribution not cleared",
+      "formats": [
+        "MAX",
+        "FBX",
+        "OBJ",
+        "ABC",
+        "textures"
+      ],
+      "declared_polygons": 46736,
+      "declared_texture_resolution": "4K",
+      "verified": "Creator listing describes individually unwrapped pieces and material maps; not independently rendered or downloaded.",
+      "limits": "4K maps are diffuse/glossiness/IOR/reflection variants; conversion to a browser PBR material requires inspection. Listings may offer the same underlying asset.",
+      "next": "Confirm exact licensed web use and textures included in chosen format before any purchase."
+    },
+    {
+      "key": "ixpe",
+      "label": "IXPE",
+      "status": "paid-textured-candidate-not-downloaded",
+      "source": "https://www.turbosquid.com/FullPreview/2262337",
+      "creator": "vakir",
+      "license": "Editorial / Standard marketplace label; browser distribution not cleared",
+      "formats": [
+        "MAX",
+        "BLEND",
+        "FBX",
+        "OBJ",
+        "DAE",
+        "glTF (listed)"
+      ],
+      "declared_polygons": 21190,
+      "declared_texture_resolution": "4K PBR",
+      "verified": "Creator lists PBR metallic/roughness maps and deployed observatory geometry. File-format list includes glTF; description focuses on MAX/DAE/OBJ/FBX.",
+      "limits": "Available paid archive and glTF contents not inspected. Paper kits and printable objects are not a comparable textured asset.",
+      "next": "Verify glTF export, translucency and mast configuration, plus public web rights."
+    },
+    {
+      "key": "xrism",
+      "label": "XRISM",
+      "status": "paid-textured-candidate-not-downloaded",
+      "source": "https://www.turbosquid.com/3d-models/xrism-jaxa-x-ray-space-telescope-2516416",
+      "creator": "See marketplace creator listing",
+      "license": "Editorial / Standard marketplace label; browser distribution not cleared",
+      "formats": [
+        "BLEND",
+        "FBX",
+        "glTF",
+        "USD",
+        "USDZ",
+        "OBJ",
+        "DAE"
+      ],
+      "declared_polygons": 54245,
+      "declared_texture_resolution": "PBR; exact texture image size not independently checked",
+      "verified": "Creator listing describes UV-mapped textured real-time asset and StemCell certification.",
+      "limits": "Certification is the platform claim, not an Atlas render test. Do not substitute Hitomi or Suzaku for XRISM.",
+      "next": "Inspect GLB conversion, instrument layout and PBR maps after rights clearance."
+    },
+    {
+      "key": "swift",
+      "label": "Swift / Neil Gehrels",
+      "status": "paid-textured-candidate-not-downloaded",
+      "source": "https://www.cgtrader.com/3d-models/space/spaceship/swift-satellite",
+      "creator": "john-macneill",
+      "license": "Royalty Free License (no AI) displayed; browser distribution not cleared",
+      "formats": [
+        "LWO",
+        "OBJ",
+        "FBX"
+      ],
+      "declared_polygons": 36814,
+      "declared_texture_resolution": "Textures declared; resolution not verified",
+      "verified": "Creator provides textured UV-mapped asset listing. Existing NASA GLB has colored materials but zero embedded texture images.",
+      "limits": "NASA 2025 Swift animation pages offer videos, not a confirmed downloadable source mesh. Do not infer mesh availability from animation quality.",
+      "next": "Check texture pack and color fidelity; confirm web license before considering purchase."
+    },
+    {
+      "key": "skylab",
+      "label": "Skylab",
+      "status": "paid-procedural-candidate-needs-baking",
+      "source": "https://www.cgtrader.com/3d-models/space/spaceship/skylab",
+      "creator": "muklis-sadewo88",
+      "license": "Editorial License (no AI) displayed; browser distribution not cleared",
+      "formats": [
+        "BLEND",
+        "FBX",
+        "OBJ",
+        "3DS",
+        "DAE"
+      ],
+      "declared_polygons": 117964,
+      "declared_texture_resolution": "Mixed procedural/tileable; not a ready uniform PBR set",
+      "verified": "Creator explicitly says only USA decal and flag are UV-mapped; full preview appearance depends on Blender Cycles native materials.",
+      "limits": "FBX/OBJ exports reportedly have basic materials without textures. Native appearance needs baking; cannot promise the same look from direct FBX export.",
+      "next": "Native Blender material audit and baking; inspect deployed configuration and CSM inclusion."
+    },
+    {
+      "key": "compton",
+      "label": "Compton GRO",
+      "status": "paid-textured-candidate-not-downloaded",
+      "source": "https://www.turbosquid.com/3d-models/3d-cgro-compton-gamma-observatory-model-1477627",
+      "creator": "BaronDaler",
+      "license": "Editorial / Standard marketplace label; browser distribution not cleared",
+      "formats": [
+        "BLEND",
+        "FBX",
+        "OBJ",
+        "DAE",
+        "3DS"
+      ],
+      "declared_polygons": 8237,
+      "declared_texture_resolution": "2K PBR",
+      "verified": "Creator lists three material sets (body, details, instruments), each with AO, base color, height, metallic, normal and roughness images.",
+      "limits": "Mesh has fewer polygons than some other candidates; surface quality cannot be judged from polygon count alone. No paid download or render test.",
+      "next": "Inspect source PBR materials, telescope arrangement and lossless browser conversion after rights clearance."
+    }
+  ],
+  "no_verified_improvement": [
+    {
+      "key": "astrosat",
+      "label": "AstroSat",
+      "status": "no-better-downloadable-textured-model-verified",
+      "next": "ISRO spacecraft references and paper model found, but no detailed downloadable colored mesh verified. Original modeling from technical references remains an option."
+    },
+    {
+      "key": "xposat",
+      "label": "XPoSat",
+      "status": "no-better-downloadable-textured-model-verified",
+      "next": "ISRO references found; third-party trackers use representative shapes. No faithful downloadable detailed mesh verified."
+    },
+    {
+      "key": "lageos",
+      "label": "LAGEOS-1 / LAGEOS-2",
+      "status": "no-better-downloadable-textured-model-verified",
+      "next": "ILRS documentation describes real construction and a research CAD model, but a publication image is not an accessible reusable mesh. Preserve the specific reflector arrangement; do not accept an arbitrary studded sphere."
+    },
+    {
+      "key": "suzaku",
+      "label": "Suzaku",
+      "status": "no-better-downloadable-textured-model-verified",
+      "next": "Official NASA source exists but has zero embedded texture images. No higher-quality downloadable textured replacement verified; JAXA technical descriptions are references only."
+    },
+    {
+      "key": "fuse",
+      "label": "FUSE",
+      "status": "no-better-downloadable-textured-model-verified",
+      "next": "Existing NASA official model has zero embedded textures. No superior colored textured download verified in the searches."
+    }
+  ],
+  "historical_station_extras": [
+    {
+      "key": "salyut-7",
+      "source": "https://sketchfab.com/3d-models/salyut-7-818ffb07179f4bbcb61c9c1712e07299",
+      "status": "downloadable-reupload-origin-license-pending",
+      "license": "Uploader declares CC BY 4.0",
+      "faces": 17020,
+      "note": "Public API confirms downloadable, but uploader says model came from Celestia Motherlode. Verify original creator and original license before reuse; do not map to other Saliout/Almaz generations."
+    },
+    {
+      "key": "salyut-1",
+      "source": "https://sketchfab.com/3d-models/salyut-1-d6b616df31f34d1b8b7459b8144d58bc",
+      "status": "downloadable-noncommercial-license",
+      "creator": "tashtego",
+      "license": "CC BY-NC 4.0",
+      "faces": 81260,
+      "note": "Public API confirms license and download; source archive not downloaded. Not an unrestricted replacement."
+    },
+    {
+      "key": "tiangong-1",
+      "source": "https://www.turbosquid.com/3d-models/tiangong-1-satellite-3d-model/1243902",
+      "status": "paid-textured-candidate-not-downloaded",
+      "creator": "TurboDDD",
+      "license": "Editorial / Standard marketplace label",
+      "polygons": 42059,
+      "textures": "4K",
+      "note": "Different vehicle from current Tiangong. Tashtego alternate has 2,413 faces and download disabled."
+    },
+    {
+      "key": "tiangong-2",
+      "status": "no-validated-download",
+      "note": "WWT educational demonstration located but no accessible licensed source model verified; Tiangong-1 cannot stand in for Tiangong-2."
+    },
+    {
+      "key": "almaz-and-other-salyut",
+      "status": "no-validated-download",
+      "note": "No faithful reusable detailed geometry established for Almaz, Saliout-4 or Saliout-6. Saliout-7 is not a universal station mesh."
+    }
+  ],
+  "method": "Inventory local manifests; query official NASA/ESA/ISRO/JAXA source pages, creator marketplace listings, public Sketchfab search/detail metadata, and pinned Celestia files. Inspect public license metadata and existing local geometry. Candidate quality claims from creator listings are not independent visual validation. No paid purchase, outbound contact or production model changes."
+}

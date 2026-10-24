@@ -6,5 +6,5 @@ for(const [key,ids] of Object.entries(expected)){
  for(const r of catalog){assert.ok(registry.belongs(r,key));assert.equal(registry.family(r),key);}
  assert.equal(registry.family({id:99999,name:def.prefixes[0]+' DEB',object_type:'DEB'}),'debris');
 }
-assert.equal(pages.search('proba').length,2);assert.equal(pages.search('mev').length,2);assert.equal(pages.search('relativité')[0].mode,'lares-2');
+assert.equal(pages.search('proba').length,3);assert.equal(pages.search('mev').length,2);assert.ok(pages.search('relativité').some(row=>row.mode==='lares-2'));assert.ok(pages.search('relativité').some(row=>row.mode==='gravity-probe-b'));
 console.log('Expérimental : cinq pages, six objets SATCAT, recherche, séparation des débris et fiches correctement associés.');

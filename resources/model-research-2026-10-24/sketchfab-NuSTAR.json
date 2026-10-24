@@ -1,0 +1,288 @@
+{
+  "query": "NuSTAR",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=NuSTAR&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "1ab82d28ab4f4c3f8d67668b6f8482fd",
+      "name": "Nustar Resort and Casino Cebu - vector logo",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-1ab82d28ab4f4c3f8d67668b6f8482fd",
+      "isDownloadable": false,
+      "vertexCount": 7698,
+      "faceCount": 15220,
+      "license": null,
+      "user": {
+        "uid": "716383c1f7a64a4280a656dc2b303fb3",
+        "username": "budots.media.philippines",
+        "displayName": "budots.media.philippines",
+        "profileUrl": "https://sketchfab.com/budots.media.philippines",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160",
+          "images": [
+            {
+              "size": 2936,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/d9f9de0f4ce0411dab7a6799acba8a45.png",
+              "height": 32
+            },
+            {
+              "size": 5116,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/11fe17b1c78446baa9df24191fc2e08d.png",
+              "height": 48
+            },
+            {
+              "size": 12179,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/b2139adfe6424ab2a548481c16055736.png",
+              "height": 90
+            },
+            {
+              "size": 13993,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/910058076b4f4f2c959183bcc7e1b841.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/716383c1f7a64a4280a656dc2b303fb3"
+      },
+      "description": "Nustar Resort and Casino Cebu - vector logo \n\n\nproduced by Bart, Budots Media Philippines"
+    },
+    {
+      "uid": "2343626a41384f0abd732c59080615b4",
+      "name": "Nustar Resort and Casino Vector Logo",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-2343626a41384f0abd732c59080615b4",
+      "isDownloadable": false,
+      "vertexCount": 7698,
+      "faceCount": 15220,
+      "license": null,
+      "user": {
+        "uid": "716383c1f7a64a4280a656dc2b303fb3",
+        "username": "budots.media.philippines",
+        "displayName": "budots.media.philippines",
+        "profileUrl": "https://sketchfab.com/budots.media.philippines",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160",
+          "images": [
+            {
+              "size": 2936,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/d9f9de0f4ce0411dab7a6799acba8a45.png",
+              "height": 32
+            },
+            {
+              "size": 5116,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/11fe17b1c78446baa9df24191fc2e08d.png",
+              "height": 48
+            },
+            {
+              "size": 12179,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/b2139adfe6424ab2a548481c16055736.png",
+              "height": 90
+            },
+            {
+              "size": 13993,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/6449f6f2e81e44c7a1ae3d41b4ae8160/910058076b4f4f2c959183bcc7e1b841.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/716383c1f7a64a4280a656dc2b303fb3"
+      },
+      "description": ""
+    },
+    {
+      "uid": "86e6a12cf2e04d09abdd47290425dd42",
+      "name": "PHILIPPINES, CEBU, SRP",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-86e6a12cf2e04d09abdd47290425dd42",
+      "isDownloadable": false,
+      "vertexCount": 169242,
+      "faceCount": 336840,
+      "license": null,
+      "user": {
+        "uid": "5fb1a53a76cc45e1a6c05df0de330c3b",
+        "username": "dataops",
+        "displayName": "Dataops Philippines",
+        "profileUrl": "https://sketchfab.com/dataops",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/fc17d325a91249a9b368f5e8cef8ad3b",
+          "images": [
+            {
+              "size": 2809,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/fc17d325a91249a9b368f5e8cef8ad3b/964f0c7e8aee44788875c4aede99d084.png",
+              "height": 32
+            },
+            {
+              "size": 5512,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/fc17d325a91249a9b368f5e8cef8ad3b/bde9408120554b6bbe817c12e6e4447f.png",
+              "height": 48
+            },
+            {
+              "size": 14720,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/fc17d325a91249a9b368f5e8cef8ad3b/cc872c3ae7e7456b852bec97f7f9d97a.png",
+              "height": 90
+            },
+            {
+              "size": 17537,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/fc17d325a91249a9b368f5e8cef8ad3b/14cc55b1c21c4399acde495152963643.png",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/5fb1a53a76cc45e1a6c05df0de330c3b"
+      },
+      "description": "featuring:\nMonterazzas Estate, \nGuadelupe\nNUSTAR\n\n\n* Digital Elevation Model: [AW3D30 OpenTopography](https://opentopography.org/)\n* Imagery: [MapBox Satellite](https://www.mapbox.com)\n\ncebumetro.com"
+    },
+    {
+      "uid": "f853fea6ce42472f994d65f96a107df5",
+      "name": "PHILIPPINES CEBU SRP, NUSTAR HOTEL RESORT CASINO",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-f853fea6ce42472f994d65f96a107df5",
+      "isDownloadable": false,
+      "vertexCount": 844347,
+      "faceCount": 1495218,
+      "license": null,
+      "user": {
+        "uid": "4746f0eb30d04aef94c087881113a8ef",
+        "username": "bart.sakwerda",
+        "displayName": "Bart Sakwerda - 3d models and research",
+        "profileUrl": "https://sketchfab.com/bart.sakwerda",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/94d49ac5474743698c02f3768c8c916e",
+          "images": [
+            {
+              "size": 1068,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/94d49ac5474743698c02f3768c8c916e/cd7c767782c14f40b2ebad8e1e894a58.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1494,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/94d49ac5474743698c02f3768c8c916e/ee39d042838e455ab30b4320233f5cd5.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3296,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/94d49ac5474743698c02f3768c8c916e/48439cb8319341638c50850454a304ec.jpeg",
+              "height": 90
+            },
+            {
+              "size": 3608,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/94d49ac5474743698c02f3768c8c916e/82fe8791ed26459eb0111bd25590adaf.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/4746f0eb30d04aef94c087881113a8ef"
+      },
+      "description": "2023-05 scan of the building NUSTAR\n 1 drone (dji mini 3 pro) orbit 200 photos , 57 glb\nscanned by : Bart Sakwerda"
+    },
+    {
+      "uid": "fcb25425c7c148668d94a97ce025ef30",
+      "name": "A pulsar beats in the heart of SN 1987A",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-fcb25425c7c148668d94a97ce025ef30",
+      "isDownloadable": false,
+      "vertexCount": 520107,
+      "faceCount": 1033671,
+      "license": null,
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "Analysis of  X-ray data of supernova 1987A collected with NASA observatories NuSTAR and Chandra, mixed with information from a 3D MHD model of this object (Orlando et al. 2020, A&A 636, id.A22), provided **a clear indication that a pulsar wind nebula is emitting synchrotron emission at the center of SN 1987A** ([NASA press release](https://chandra.harvard.edu/photo/2021/pwn1987a/) available). Astronomers searched for this elusive object since the supernova explosion occurred on February 23, 1987. The semitransparent panel shows the Chandra observation; 3D spatial distribution of the absorbing cold ejecta (white structure in the center of the remnant) reconstructed from the model and the X-ray emission (3D red/yellow ring structure) synthesized by the model are also shown. The center of the explosion and the position of the pulsar as predicted by the model are indicated by the 2 dots close to the center. \n\n**Reference: [Greco et al. 2021, ApJL 908, L45](https://ui.adsabs.harvard.edu/abs/2021ApJ...908L..45G)**"
+    },
+    {
+      "uid": "12450df4b2794c4a87e0b7bc0a2109d0",
+      "name": "Evidence of a pulsar wind nebula in SN 1987A",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-12450df4b2794c4a87e0b7bc0a2109d0",
+      "isDownloadable": false,
+      "vertexCount": 520107,
+      "faceCount": 1033671,
+      "license": null,
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "X-ray emission of the remnant of SN 1987A as observed in 2014. Left panel: combined NuSTAR (blue/white) and Chandra (red/yellow; at the center of the NuSTAR image) count images of the remnant. Center panel: a zoom of the Chandra image together with the 3D spatial distribution of absorbing cold ejecta (white) and X-ray emission (red/yellow) synthesized from a 3D MHD model of SN 1987A ([Orlando et al. 2020, A&A 636, id.A22](https://ui.adsabs.harvard.edu/abs/2020A%26A...636A..22O)). The center of the explosion and the position of the compact relic of the star predicted by the model are indicated at the center of the panel. Right panel: a zoom of the compact object representing a pulsar wind nebula (PWN). The simultaneous analysis of Chandra and NuSTAR observations mixed with the information from the MHD model provided a clear indication that a PWN is emitting synchrotron emission at the center of SN 1987A.\n\n**Reference: [Greco et al. 2021, ApJL 908, L45](https://ui.adsabs.harvard.edu/abs/2021ApJ...908L..45G)**"
+    }
+  ]
+}

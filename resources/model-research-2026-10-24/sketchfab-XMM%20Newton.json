@@ -1,0 +1,338 @@
+{
+  "query": "XMM Newton",
+  "url": "https://api.sketchfab.com/v3/search?type=models&q=XMM+Newton&count=12&sort_by=-relevance",
+  "results": [
+    {
+      "uid": "e77f1e764aa14bfb9ca1b2052cd0a15f",
+      "name": "The \"coronal hole\" star GJ 745b",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-e77f1e764aa14bfb9ca1b2052cd0a15f",
+      "isDownloadable": false,
+      "vertexCount": 284580,
+      "faceCount": 781314,
+      "license": null,
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "The model is an artist's illustration of **GJ 745b** an M dwarf star belonging to a binary system consisting of two nearly twin stars (*GJ 745 a and b*) with equal radii (*R∗ = 0.34 R⊙* ) and masses (*M∗ = 0.34M⊙*).\n\nThe two stars were the targets of an observation campaign with the *XMM-Newton* X-ray observatory of the *European Space Agency*. Both showed exceptionally low X-ray emission values consistent with the emission of *solar coronal holes* (regions of relatively cold, low-density plasma in the solar corona that appear as dark areas in X-ray images of the Sun), suggesting that the level of activity of the coronae of these stars is very low and compatible with that of our Sun at the minimum of its activity. \n\nThe model shows the coronal structure of GJ 745b in the X-band, consisting of an isolated active region hosting a flare, as inferred from the analysis of the X-ray observations.\n\n**Reference:** Caramazza et al. 2023, A&A [676, id.A14](https://ui.adsabs.harvard.edu/abs/2023A%26A...676A..14C)"
+    },
+    {
+      "uid": "cd53b781d479466ebceb388bc3169cc5",
+      "name": "The XMM-Newton satellite from ESA",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-cd53b781d479466ebceb388bc3169cc5",
+      "isDownloadable": false,
+      "vertexCount": 10050,
+      "faceCount": 17178,
+      "license": null,
+      "user": {
+        "uid": "73b908806d0742d1b7aef8451c0022ee",
+        "username": "gnaz",
+        "displayName": "Ignazio Pillitteri",
+        "profileUrl": "https://sketchfab.com/gnaz",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/9d00197e29b54670b7132de167eb73d2",
+          "images": [
+            {
+              "size": 569,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/d57479befb594639bc43e4595375ee45.jpeg",
+              "height": 32
+            },
+            {
+              "size": 824,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/84769e4c452a4b58ae38273c9ec6fb87.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1852,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/94ae518bbbfc4d6a92f867350c32df12.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2139,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/7166382572ea48998311f18ac007ab7d.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/73b908806d0742d1b7aef8451c0022ee"
+      },
+      "description": "The European Space Agency (ESA) lauched the XMM-Newton satellite on Dec. 12 1999. XMM-Newton is a satellite for observing the X-ray emission of the Universe (stars, compact objects, clusters of galaxies).\n3D model from  https://scifleet.esa.int/model-downloads"
+    },
+    {
+      "uid": "4a6b6b8050a54fb0b9a0c18682fbcac7",
+      "name": "Coronal loop in young star with a planet",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-4a6b6b8050a54fb0b9a0c18682fbcac7",
+      "isDownloadable": false,
+      "vertexCount": 10614,
+      "faceCount": 21120,
+      "license": null,
+      "user": {
+        "uid": "73b908806d0742d1b7aef8451c0022ee",
+        "username": "gnaz",
+        "displayName": "Ignazio Pillitteri",
+        "profileUrl": "https://sketchfab.com/gnaz",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/9d00197e29b54670b7132de167eb73d2",
+          "images": [
+            {
+              "size": 569,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/d57479befb594639bc43e4595375ee45.jpeg",
+              "height": 32
+            },
+            {
+              "size": 824,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/84769e4c452a4b58ae38273c9ec6fb87.jpeg",
+              "height": 48
+            },
+            {
+              "size": 1852,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/94ae518bbbfc4d6a92f867350c32df12.jpeg",
+              "height": 90
+            },
+            {
+              "size": 2139,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/9d00197e29b54670b7132de167eb73d2/7166382572ea48998311f18ac007ab7d.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/73b908806d0742d1b7aef8451c0022ee"
+      },
+      "description": "A simple model of a coronal loop in a young star hosting a planet. I used the star DS Tucanae A and its planet as a template for the model. The mass of the planet is less than 14 Earth masses, its age is about 40 millions of years, the distance between the star and the planet is about 17 times the solar radius (which is about 696,000 km). The loop size is derived from the analysis of XMM-Newton observations during flares in X-ray band."
+    },
+    {
+      "uid": "511396f33dca45a5af7d2f55c8637cdc",
+      "name": "Cassiopeia A: Interaction with a dense shell",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-511396f33dca45a5af7d2f55c8637cdc",
+      "isDownloadable": false,
+      "vertexCount": 488395,
+      "faceCount": 1103990,
+      "license": null,
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "Hydrodynamic modeling of the evolution of a neutrino-driven core-collapse supernova to the phase of supernova remnant at the age of Cassiopeia A suggests that some features observed in the remnant are due to its interaction with an asymmetric circumstellar shell. The scene shows the isosurface of the distribution of iron (corresponding to a value of iron density which is at 5% of the peak density) at the age of Cassiopeia A for one of these models; the colors give the radial velocity on the isosurface (color coding defined at the bottom). The semi-transparent quasi-spherical surfaces indicate the forward (green) and reverse (yellow) shocks. The shocked shell is visualized through a volume rendering that uses the blue color palette (color coding on the right); the opacity is proportional to the plasma density.\n\n**Reference:** Orlando et al. 2022, in preparation"
+    },
+    {
+      "uid": "4c3421a983c0439da40508b637e89725",
+      "name": "The young accreting star DG Tauri B",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-4c3421a983c0439da40508b637e89725",
+      "isDownloadable": false,
+      "vertexCount": 1405440,
+      "faceCount": 2977666,
+      "license": {
+        "uid": "783b685da9bf457d81e829fa283f3567",
+        "label": "Standard"
+      },
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "Artist's impression of *DG Tauri B* , a baby star on its formation located 450 light-years from Earth, in the constellation Taurus. The star (at the center of the scene) is in the phase of mass accretion from the circumstellar disk (the dark/red torus around the protostar) made up of dense gas and dusty material. The stellar magnetic field guides gas from the inner edge of the disk to the stellar surface in distinct colum-like flows. The star is not directly visible in [observations collected with the Hubble Space Telescope](https://esahubble.org/images/opo9905k/) because it is hidden by the disk (that is observed edge on) which absorbs its light; this explains the dark central lane in Hubble observations. A bipolar outflow is driven by dense collimated gas jets (marked purple in the scene) that originate from the poles of the protostar and extend for a distance of ~150 billion kilometers.\n\nCredits: based on a MHD model available [here](https://skfb.ly/6RPnX); INAF-Osservatorio Astronomico di Palermo"
+    },
+    {
+      "uid": "fb5a271bbb6f4c1c9f0492fcaf28b95e",
+      "name": "An interstellar cloud shocked by a blast wave",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-fb5a271bbb6f4c1c9f0492fcaf28b95e",
+      "isDownloadable": false,
+      "vertexCount": 1613954,
+      "faceCount": 3243180,
+      "license": null,
+      "user": {
+        "uid": "fc9093a04d864023bc58800ddfb3a82b",
+        "username": "sorlando",
+        "displayName": "Salvatore Orlando",
+        "profileUrl": "https://sketchfab.com/sorlando",
+        "account": "prem",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/935674d94f714d89a32c696fab6b46e1",
+          "images": [
+            {
+              "size": 821,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/4e826b34236c448298abfbe511fa02d8.jpeg",
+              "height": 32
+            },
+            {
+              "size": 1367,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/e9b2a854ef9747ce89b319fa94acb289.jpeg",
+              "height": 48
+            },
+            {
+              "size": 3752,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/d6e5fc7c0a7446a1a95a8860b2c1de52.jpeg",
+              "height": 90
+            },
+            {
+              "size": 4465,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/935674d94f714d89a32c696fab6b46e1/6a864fab9d8340dbb143cd3c82789158.jpeg",
+              "height": 100
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/fc9093a04d864023bc58800ddfb3a82b"
+      },
+      "description": "This is the result of a hydrodynamic simulation describing the interaction of a blast wave with an isolated cloud of the interstellar medium. The shocked cloud is at the center of the scene and is clipped to allow easy inspection of its internal structure. The color indicates the distribution of mass density: the highest density is in red, the lowest density is in blue. The streamlines indicate the direction of plasma flow. The cloud is heated up to temperatures of tens of million degrees by the blast wave. The shock may have been generated by a supernova explosion or by the fast wind from a nearby massive star. \n\nHydro simulation performed with the FLASH code.\n\nReference: [Orlando et al. 2005, A&A 444, 505](https://ui.adsabs.harvard.edu/abs/2005A%26A...444..505O). \n\nCredits: INAF - Osservatorio Astronomico di Palermo."
+    },
+    {
+      "uid": "a8a1640e8262406682049c2d3ebba988",
+      "name": "XMM-Newton 3D model | X-ray space telescope",
+      "viewerUrl": "https://sketchfab.com/3d-models/none-a8a1640e8262406682049c2d3ebba988",
+      "isDownloadable": false,
+      "vertexCount": 34267,
+      "faceCount": 19638,
+      "license": null,
+      "user": {
+        "uid": "44de8b6acd4f4e94b4680b24d6547f0b",
+        "username": "nilsausta",
+        "displayName": "nilsausta",
+        "profileUrl": "https://sketchfab.com/nilsausta",
+        "account": "basic",
+        "avatar": {
+          "uri": "https://api.sketchfab.com/v3/avatars/055a7b0550f541db95d655fc9cb6df66",
+          "images": [
+            {
+              "size": 2899,
+              "width": 100,
+              "url": "https://media.sketchfab.com/avatars/055a7b0550f541db95d655fc9cb6df66/25bd44ebf32f46338b674ee0ca117aaf.jpeg",
+              "height": 100
+            },
+            {
+              "size": 2428,
+              "width": 90,
+              "url": "https://media.sketchfab.com/avatars/055a7b0550f541db95d655fc9cb6df66/51d22b85c1fc487fac36f189277d088a.jpeg",
+              "height": 90
+            },
+            {
+              "size": 1088,
+              "width": 48,
+              "url": "https://media.sketchfab.com/avatars/055a7b0550f541db95d655fc9cb6df66/5f3486e1f5a646259c2130437317f910.jpeg",
+              "height": 48
+            },
+            {
+              "size": 716,
+              "width": 32,
+              "url": "https://media.sketchfab.com/avatars/055a7b0550f541db95d655fc9cb6df66/f9cce96fcffe46359c686f7af47ef827.jpeg",
+              "height": 32
+            }
+          ]
+        },
+        "uri": "https://api.sketchfab.com/v3/users/44de8b6acd4f4e94b4680b24d6547f0b"
+      },
+      "description": "This is a X-ray space observatory"
+    }
+  ]
+}

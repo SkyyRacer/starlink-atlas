@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "GALEX",
+    "OBJECT_ID": "2003-017A",
+    "NORAD_CAT_ID": 27783,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2003-04-28",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "98.22",
+    "INCLINATION": "28.99",
+    "APOGEE": "676",
+    "PERIGEE": "671",
+    "RCS": "1.1606",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

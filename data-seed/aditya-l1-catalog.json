@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "ADITYA-L1",
+    "OBJECT_ID": "2023-132A",
+    "NORAD_CAT_ID": 57754,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "IND",
+    "LAUNCH_DATE": "2023-09-02",
+    "LAUNCH_SITE": "SRILR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EL1",
+    "ORBIT_TYPE": "ORB"
+  }
+]

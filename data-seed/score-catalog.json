@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SCORE",
+    "OBJECT_ID": "1958-006A",
+    "NORAD_CAT_ID": 10,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1958-12-18",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "1959-01-21",
+    "PERIOD": "98.21",
+    "INCLINATION": "32.29",
+    "APOGEE": "1187",
+    "PERIGEE": "159",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

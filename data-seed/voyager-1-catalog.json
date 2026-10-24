@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "VOYAGER 1",
+    "OBJECT_ID": "1977-084A",
+    "NORAD_CAT_ID": 10321,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "X",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1977-09-05",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "SS",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -1,0 +1,6 @@
+Mir © 2025 DaveBowman2001 — CC BY 4.0
+https://creativecommons.org/licenses/by/4.0/
+Source: https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir
+Atlas adaptation: CMOD to glTF conversion, V texture-coordinate inversion, Phong-to-PBR material approximation, presentation normalization.
+Original geometry and nine texture images retained. Full configuration after Priroda (1996). No endorsement implied.
+Atlas presentation update: surface metallic/roughness factors and environment lighting adjusted; original texture pixels retained.

@@ -1,6 +1,6 @@
 if(typeof AtlasCollections==='undefined')importScripts('constellations.js');
 'use strict';
-let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all',catalogIds=new Set();const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
+let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all',catalogIds=new Set(),catalogLifetimes=[];const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
 async function jsonFile(path,compressed=false){const response=await fetch(new URL(path,self.location.href),{cache:compressed?'default':'no-store'});if(!response.ok)throw new Error(`Données indisponibles (HTTP ${response.status})`);const bytes=compressed?await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():await response.arrayBuffer();return JSON.parse(decoder.decode(bytes));}
 function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=engine.atlas_alloc(bytes.length);new Uint8Array(engine.memory.buffer,ptr,bytes.length).set(bytes);let result;
  try{result=engine.atlas_call(ptr,bytes.length);}finally{engine.atlas_free(ptr,bytes.length);}
@@ -12,7 +12,7 @@ function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=en
 const BATCH=256;
 function loadPacked(data,target){compute({op:'orbits-start',target});const rows=data.packed_orbits||[];for(let i=0;i<rows.length;i+=BATCH)compute({op:'orbits-add',target,data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:rows.slice(i,i+BATCH)}});}
 function loadRows(rows,target,reset=true){if(reset)compute({op:'orbits-start',target});for(let i=0;i<rows.length;i+=BATCH)compute({op:'orbits-add',target,rows:rows.slice(i,i+BATCH)});}
-function initialize(data){catalogIds=new Set((data.raw_catalog||[]).map(r=>r.NORAD_CAT_ID));
+function initialize(data){catalogLifetimes=data.raw_catalog||[];catalogIds=new Set((data.raw_catalog||[]).map(r=>r.NORAD_CAT_ID));
  if(!data.orbit_fields){compute({op:'init',data:{...data,orbits:[],raw_catalog:[],gcat:{}}});}
  else compute({op:'init',data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:[],packed_live:[],raw_catalog:[],gcat:{},live_window:data.live_window}});
  const rows=data.raw_catalog||[],gcat=Object.entries(data.gcat||{});
@@ -66,9 +66,18 @@ async function dispatch(message){if(message.op==='init'){
   return {catalog_response:bundle.catalog_response,config:bundle.config,sources:bundle.sources,iss_missions:bundle.iss_missions,iss_evas:bundle.iss_evas};
  }
  if(message.op==='positions'){
+  if(AtlasCollections.byId.get(collection)?.trajectory)return {at:message.at,points:[],missing:catalogIds.size,track:[],future_track:[],track_3d:[],future_track_3d:[],suggested_at:null,recovery_at:null};
+  if(message.archived&&Number.isSafeInteger(message.idValue)){
+   const row=await jsonFile('retired-observations/'+message.idValue+'.json'),element=row.elements||row;
+   if(element.NORAD_CAT_ID!==message.idValue||Math.abs(Date.parse(element.EPOCH.replace(/Z?$/,'Z'))-Date.parse(message.at))>1)throw Error('La dernière observation ne correspond pas à la date demandée.');
+   loadRows([row],'history');historyKey=null;
+   return compute({op:'positions',at:message.at,now:message.now,id:message.idValue,use_history:true});
+  }
+  const time=Date.parse(message.at);
+  if(collection!=='all'&&time<=Date.parse(message.now)&&catalogLifetimes.length&&catalogLifetimes.every(row=>Date.parse(row.DECAY_DATE)<=time||Date.parse(row.LAUNCH_DATE)>time))return {at:message.at,points:[],missing:0,track:[],future_track:[],track_3d:[],future_track_3d:[],suggested_at:null,recovery_at:null};
   const live=liveWindow&&Date.parse(message.at)>=Date.parse(liveWindow.from)&&Date.parse(message.at)<Date.parse(liveWindow.until);
   if(!live)await loadHistory(message.at);let result=compute({op:'positions',at:message.at,now:message.now,id:message.idValue,use_history:!live});
-  if(live&&!result.points.length){await loadHistory(message.at);result=compute({op:'positions',at:message.at,now:message.now,id:message.idValue,use_history:true});}
+  // A certified live window already contains every usable candidate; an empty page needs no archive download.
   if(!result.points.length&&manifest?.days){const candidates=[result.suggested_at,...Object.keys(manifest.days).map(day=>day+'T12:00:00Z')].filter(v=>v&&Date.parse(v)<=Date.parse(message.now));result.suggested_at=candidates.sort((a,b)=>Math.abs(Date.parse(a)-Date.parse(message.at))-Math.abs(Date.parse(b)-Date.parse(message.at)))[0]||null;}
   return result;
  }

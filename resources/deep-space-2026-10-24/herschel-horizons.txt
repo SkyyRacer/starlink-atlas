@@ -1,0 +1,74 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+*******************************************************************************
+ Revised: Jan 29, 2014           Herschel Space Observatory                -486
+                http://sci.esa.int/science-e/www/area/index.cfm?fareaid=16
+
+ UPDATE: 2014-Jan-29
+  Final update from Herschel nav includes all reported optical astrometric
+  measurements. Currently dimmer than 26th magnitude, it is unlikely more 
+  data will be reported prior to 2027.
+
+ UPDATE: 2013-Aug-26
+  This update from Herschel nav includes eight post-maneuver optical 
+  astrometric points from June 26-28 and July 1, as published by the 
+  Minor Planet Center.
+
+  Closest approaches to Earth before 2050:
+     MJD2000(TDB)   DISTANCE (KM)   DATE (UTC)
+     10147.87293    8236194.184     2027/10/13_20:55:54
+     15590.11110    4996395.239     2042/09/07_02:38:52
+
+ UPDATE: 2013-Jul-08
+  Subsequent to end-of-helium condition on April 29, the Herschel mission 
+  performed a burn to empty fuel tanks. The spacecraft is currently tumbling 
+  without attitude control.
+
+  A trajectory prediction extending over 40 years was provided by the ESA 
+  flight dynamics team, based on a revised orbit solution incorporating the 
+  best estimate of the drain burn, but without post-burn ranging or optical. 
+  An updated prediction is expected to be released in the future.
+
+ UPDATE: 2013-Apr-29
+  The Herschel project declared the end-of-helium condition has been reached.
+
+ BACKGROUND:
+  The European Space Agency's Herschel Space Observatory will cover the full 
+  far infrared and sub-millimetre waveband. It will be located 1.2-1.8 million 
+  kilometres away from Earth in a Lissajous orbit around the second Lagrange 
+  point (L2) of the Earth-Sun system, which is about 1.5 million km from Earth. 
+
+ OBJECTIVES:
+  * Study the formation of galaxies in the early universe and their 
+     subsequent evolution
+  * Investigate the creation of stars and their interaction with the 
+     interstellar medium
+  * Observe the chemical composition of the atmospheres and surfaces 
+     of comets, planets and satellites
+  * Examine the molecular chemistry of the universe
+
+ SPACECRAFT:
+  Launch (Ariane-5ECA)= 2009-May-14
+  Mission end         = 2011-2012 (3.5 year nominal after launch)
+  Telescope mirror    = 3.5 meters
+  Wavelength          = Far infrared/sub-millimeter: 60 to 670 (10^-6 m)
+  Dimensions          = 7.5m high, 4m x 4m overall cross section
+  Launch Mass         = 3300 kg 
+
+ INSTRUMENTS:
+  * HIFI  - Heterodyne Instrument for the Far Infrared
+  * PACS  - Photodetector Array Camera and Spectrometer
+  * SPIRE - Spectral and Photometric Imaging Receiver
+
+ ORBIT:
+  Herschel and Planck were launched together, then separated while being 
+  injected into transfer orbits. The spacecraft will proceed independently 
+  to their operational orbits. About 100 days after launch, Herschel 
+  will arrive in an orbit around Earth-Sun L2.
+
+ POST-LAUNCH SPACECRAFT TRAJECTORY (from ESA/IPAC 2014-Jan-29):
+  Trajectory name (ESA)         Start        Stop
+  ----------------------------  -----------  -----------
+  H20140117_0001                2009-May-14  2050-Jan-01
+*******************************************************************************

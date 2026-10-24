@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPEKTR-RG",
+    "OBJECT_ID": "2019-040A",
+    "NORAD_CAT_ID": 44432,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "2019-07-13",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EL2",
+    "ORBIT_TYPE": "ORB"
+  }
+]

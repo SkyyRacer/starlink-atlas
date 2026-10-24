@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "MOHAMMED VI-A",
+    "OBJECT_ID": "2017-070A",
+    "NORAD_CAT_ID": 43005,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "MA",
+    "LAUNCH_DATE": "2017-11-08",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "97.49",
+    "INCLINATION": "97.94",
+    "APOGEE": "639",
+    "PERIGEE": "638",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  },
+  {
+    "OBJECT_NAME": "MOHAMMED VI-B",
+    "OBJECT_ID": "2018-095A",
+    "NORAD_CAT_ID": 43717,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "MA",
+    "LAUNCH_DATE": "2018-11-21",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "97.49",
+    "INCLINATION": "97.94",
+    "APOGEE": "640",
+    "PERIGEE": "637",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

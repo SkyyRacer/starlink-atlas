@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "RXTE (XTE)",
+    "OBJECT_ID": "1995-074A",
+    "NORAD_CAT_ID": 23757,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1995-12-30",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2018-04-30",
+    "PERIOD": "87.65",
+    "INCLINATION": "22.97",
+    "APOGEE": "162",
+    "PERIGEE": "154",
+    "RCS": "6.8345",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

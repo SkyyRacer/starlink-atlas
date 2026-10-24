@@ -1,0 +1,20 @@
+# Missions lointaines — ajout du 24 octobre 2026
+
+13 nouvelles fiches : JWST, Gaia, Herschel, Planck, Euclid, SOHO, ACE, Voyager 1 et 2, Cassini, Juno, New Horizons, BepiColombo. Le menu « Missions lointaines », après « Stations spatiales », inclut aussi les missions lointaines déjà présentes.
+
+Identités NORAD vérifiées dans `data-seed/satcat-all.csv`. Commandes Horizons et descriptions des trajectoires vérifiées sur les fiches NASA/JPL conservées dans ce dossier. Les fichiers annuels utilisent des vecteurs géocentriques ICRF, en kilomètres, aux dates UTC publiées, interpolés par position et vitesse. Aucun TLE terrestre ne sert à positionner ces missions. Aucun point n’est extrapolé hors des intervalles disponibles.
+
+Les trajectoires de retrait de Gaia, Herschel et Planck restent consultables après l’arrêt des instruments. Cassini ne possède pas de position actuelle : le panneau propose une date de son archive avant la fin de mission. Les archives ACE publiées commencent en juillet 2006. Les prédictions de navigation des sources sont conservées comme telles ; ce ne sont pas des mesures en temps réel.
+
+Le rendu des positions ICRF, du fond stellaire et de la direction du Soleil emploie la même transformation IAU de Cesium. Les tables IAU 2006 sont locales ; pendant leur chargement, le même repli de précession IAU 1976 et de rotation sidérale est appliqué aux trois éléments. Le Soleil utilise l’éphéméride astronomique de Cesium (Simon 1994), avec la parallaxe depuis la caméra. Les modèles blancs utilisent les mêmes coordonnées géodésiques que les marqueurs. Les surfaces et tailles illustratives des modèles ne deviennent pas des mesures d’attitude de la mission.
+
+Le ciel étoilé reste activé sur les 19 pages de missions lointaines et la Terre réaliste est activée à l’ouverture. Le repère flottant Terre est remplacé par un instrument spatial 3D, placé dans la colonne de la boussole. La mission en est le centre physique ; la direction Terre est calculée à partir de sa position, puis projetée selon les axes de la caméra. La grille représente trois plans du repère inertiel et la ligne passe en pointillés lorsque la Terre est derrière la vue. Le cadran minimaliste conserve une description accessible de la direction et de la distance entre les centres. Seul le message « Vue alignée avec la Terre » apparaît sous le cadran lorsque la vue est alignée ; le point Terre utilise la texture terrestre existante. Une position manquante masque le cadran, sans inventer de direction. Le centre est un octaèdre à facettes projeté dans le même repère, avec une pulsation discrète désactivée lorsque les animations réduites sont demandées. Le bouton de retour Terre est placé dans le menu inférieur gauche. Les pages de missions lointaines proposent uniquement la vue 3D. Les menus regroupent les 19 missions en cinq catégories de programme ; catégories et liens sont triés alphabétiquement.
+
+Le workflow GitHub existant actualise aussi les éphémérides récentes avant chaque export. Les années historiques sont conservées ; une source indisponible conserve son archive validée sans inventer de positions futures.
+
+Sources :
+- [NASA/JPL Horizons : système et précision des trajectoires](https://ssd.jpl.nasa.gov/horizons/manual.html#spacecraft)
+- [ESA : arrêt de Gaia et transfert sur une orbite héliocentrique, 27 mars 2025](https://www.esa.int/Enabling_Support/Operations/Farewell_Gaia%21_Spacecraft_operations_come_to_an_end)
+- Fiches de trajectoire NASA/JPL de chaque mission : fichiers `*-horizons.txt` de ce dossier ; couverture exacte et empreintes des imports : `coverage.json`.
+
+Vérifications : tests des 17 résolveurs de trajectoire, cohérence numérique ICRF/IAU des marqueurs et modèles, limites des archives, récupération de Cassini, contrôles d’orbite, menu, retour Terre et restauration de l’éclairage. Vérification HTTP des 13 routes, catalogues et index en local. Le rendu GPU n’a pas été vérifié visuellement dans un navigateur automatisé pendant cette modification.

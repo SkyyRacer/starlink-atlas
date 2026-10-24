@@ -1,0 +1,99 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+*******************************************************************************
+ Revised: Sep 01, 2026           SOHO Spacecraft  / (Earth)                 -21
+                       http://sohowww.nascom.nasa.gov/about/about.html
+
+ BACKGROUND:
+  SOHO, the Solar & Heliospheric Observatory, is a collaboration between ESA 
+   and NASA to study the Sun, from deep core to the outer corona, and solar 
+   particle wind.
+
+  SOHO was launched by an Atlas II-AS (AC-121) from Cape Canaveral Air Station 
+   on December 2, 1995, at 08:08 UT.
+
+  SOHO orbits the Sun with the Earth, slowly looping around the First 
+   Lagrangian Point (L1). At L1, the combined gravity of the Earth and Sun 
+   balance, keeping the spacecraft on an Earth-Sun line. L1 is approximately 
+   1.5 million km from Earth in the direction of the Sun (about four times 
+   the distance of the Moon). SOHO therefore has a continuous view of the Sun. 
+
+  An unexpected loss of contact with SOHO occurred on 25 June 1998. The mission
+   was recovered and normal operations resumed in mid-November 1998. Despite 
+   subsequent failures of all three gyroscopes (the last in December 1998), 
+   new gyro-less control software installed by February 1999, allowing SOHO to 
+   resume normal operations (and making SOHO the first 3-axis-stabilised 
+   spacecraft to operate without a gyroscope).
+
+ MISSION ACCOMPLISHMENTS:
+  * Provided the first images of structures and flows below the Sun's surface 
+     and of activity on the far side
+  * Revealed the Sun's extremely dynamic atmosphere
+  * Provided evidence for the transfer of magnetic energy from the surface to
+     the outer solar atmosphere, the corona, through a "magnetic carpet"
+  * Identified the source regions of the fast solar wind
+  * New understanding of solar-terrestrial interactions and dramatic
+     improvement of space weather-forecasting based on its continuous stream 
+     of images covering the atmosphere, extended corona, and far side
+  * Findings are in over 2500 papers in refereed journals since launch, 
+     representing the work of over 2300 individual scientists. 
+  * Discovery of over 1100 Sun-grazing comets
+  * Easily accessible data sets
+
+ SPACECRAFT PHYSICAL CHARACTERISTICS:
+  SOHO has two modules: 
+   - Service Module: forms the lower portion of the spacecraft.
+     Provides power, thermal control, pointing, telecommunications,
+      and support for the solar panels. 
+   - Payload Module: above Service Module, housing all scientific 
+      instruments.
+   * Dimensions (height, breadth, width): 4.3 x 2.7 x 3.7 m
+   * Width with solar array deployed: 9.5 m
+   * Total mass at launch: 1850 kg
+   * Payload: 610 kg
+   * Telemetry during real-time operation: 200 Kbits/s
+   * Telemetry during on-board storage mode: 40 Kbits/s
+  Science instruments (12)
+   * CDS (Coronal Diagnostic Spectrometer)
+   * CELIAS (Charge, Element, and Isotope Analysis System)
+   * COSTEP (Comprehensive Suprathermal and Energetic Particle Analyzer)
+   * EIT (Extreme ultraviolet Imaging Telescope)
+   * ERNE (Energetic and Relativistic Nuclei and Electron experiment)
+   * GOLF (Global Oscillations at Low Frequencies)
+   * LASCO (Large Angle and Spectrometric Coronagraph)
+   * MDI (Michelson Doppler Imager)
+   * SUMER (Solar Ultraviolet Measurements of Emitted Radiation)
+   * SWAN (Solar Wind Anisotropies)
+   * UVCS (Ultraviolet Coronagraph Spectrometer)
+   * VIRGO (Variability of Solar Irradiance and Gravity Oscillations)
+
+ SPACECRAFT TRAJECTORY (concatenated trajectories from GSFC FDF):
+
+  For the time-span 1998-Aug-19 to 1998-Sep-25, there is no official 
+  trajectory information due to the recovery effort. Therefore, the initial 
+  state at resumption of operations 1998-Sep-25 was integrated back to 
+  August 19 assuming a purely ballistic trajectory. Trajectory errors 
+  during this interval may be significant due to unmodeled dynamics.
+
+  Trajectory name             Start        Stop
+  --------------------------  -----------  -----------
+  soho_1995                   1995-Dec-02  1996-Jan-01
+  soho_1996                   1996-Jan-01  1997-Jan-01
+  soho_1997                   1997-Jan-01  1998-Jan-01
+  soho_1998a                  1998-Jan-01  1998-Aug-19
+  soho_1998a-b_gap            1998-Aug-19  1998-Sep-25 (ballistic filler)
+  soho_1998b                  1998-Sep-25  1999-Jan-01 (recovery of contact)
+  soho_1999                   1999-Jan-01  2000-Jan-01
+  soho_20**                   2000-Jan-01  2017-Jan-01
+  soho_2017                   2017-Jan-01  2018-Jan-01 (prediction Dec20-Jan01)
+  soho_2018                   2018-Jan-01  2019-Jan-01 (prediction Dec17-Jan01)
+  soho_2019                   2019-Jan-01  2020-Jan-01
+  soho_2020                   2020-Jan-01  2021-Jan-01 
+  soho_2021                   2021-Jan-01  2022-Jan-01 (prediction Dec14-Jan01)
+  soho_2022                   2022-Jan-01  2023-Jan-01
+  soho_2023                   2023-Jan-01  2023-Jan-01 (prediction > Dec 13)
+  soho_2024                   2024-Jan-01  2025-Jan-01 (prediction > Dec 16)
+  soho_2025                   2025-Jan-01  2026-Jan-01 (prediction > Nov 04)
+  soho_2026                   2026-Jan-01  2026-Nov-02 (prediction > Aug 26)
+*******************************************************************************

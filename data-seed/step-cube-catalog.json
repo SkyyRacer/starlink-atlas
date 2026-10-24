@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "STEP CUBE LAB",
+    "OBJECT_ID": "2018-004AD",
+    "NORAD_CAT_ID": 43138,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "SKOR",
+    "LAUNCH_DATE": "2018-01-12",
+    "LAUNCH_SITE": "SRILR",
+    "DECAY_DATE": "2023-05-20",
+    "PERIOD": "87.31",
+    "INCLINATION": "97.30",
+    "APOGEE": "152",
+    "PERIGEE": "131",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

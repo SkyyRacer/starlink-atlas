@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "EO-1",
+    "OBJECT_ID": "2000-075A",
+    "NORAD_CAT_ID": 26619,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2000-11-21",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "98.00",
+    "INCLINATION": "98.13",
+    "APOGEE": "670",
+    "PERIGEE": "656",
+    "RCS": "1.7210",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

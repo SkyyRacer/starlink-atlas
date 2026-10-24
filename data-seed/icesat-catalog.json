@@ -1,0 +1,40 @@
+[
+  {
+    "OBJECT_NAME": "ICESAT",
+    "OBJECT_ID": "2003-002A",
+    "NORAD_CAT_ID": 27642,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2003-01-13",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "2010-08-30",
+    "PERIOD": "87.17",
+    "INCLINATION": "93.97",
+    "APOGEE": "139",
+    "PERIGEE": "129",
+    "RCS": "3.3439",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  },
+  {
+    "OBJECT_NAME": "ICESAT-2",
+    "OBJECT_ID": "2018-070A",
+    "NORAD_CAT_ID": 43613,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2018-09-15",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "94.22",
+    "INCLINATION": "92.00",
+    "APOGEE": "484",
+    "PERIGEE": "478",
+    "RCS": "",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

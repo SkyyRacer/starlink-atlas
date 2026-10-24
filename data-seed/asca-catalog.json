@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "ASCA (ASTRO-D)",
+    "OBJECT_ID": "1993-011A",
+    "NORAD_CAT_ID": 22521,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "JPN",
+    "LAUNCH_DATE": "1993-02-20",
+    "LAUNCH_SITE": "KSCUT",
+    "DECAY_DATE": "2001-03-02",
+    "PERIOD": "87.33",
+    "INCLINATION": "31.07",
+    "APOGEE": "146",
+    "PERIGEE": "138",
+    "RCS": "5.6368",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

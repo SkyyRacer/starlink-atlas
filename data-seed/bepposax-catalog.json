@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "BEPPOSAX",
+    "OBJECT_ID": "1996-027A",
+    "NORAD_CAT_ID": 23857,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "IT",
+    "LAUNCH_DATE": "1996-04-30",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "2003-04-29",
+    "PERIOD": "87.87",
+    "INCLINATION": "3.95",
+    "APOGEE": "169",
+    "PERIGEE": "169",
+    "RCS": "1.5848",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

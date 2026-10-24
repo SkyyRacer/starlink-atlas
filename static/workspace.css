@@ -172,26 +172,26 @@
  .earth-workspace .workspace-dropdown::after{content:'';display:inline-block!important;flex:0 0 6px;width:6px;height:6px;margin-left:7px;border:0;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s ease}
  .earth-workspace .workspace-dropdown[aria-expanded=true]::after{transform:translateY(2px) rotate(225deg)}
  .earth-workspace #advanced-tools>span{display:none}
- .earth-workspace #workspace-station-control{position:relative;display:block}
- .earth-workspace #workspace-stations-button{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:8px 10px;background:#000;color:#ddd;border:1px solid #555;border-radius:0;font-size:11px;line-height:1.4;white-space:nowrap}
- .earth-workspace #workspace-stations-button:hover,.earth-workspace #workspace-stations-button[aria-expanded=true]{background:#eee;color:#080808;border-color:#eee}
- .earth-workspace #workspace-stations{position:fixed;z-index:2000;display:flex;flex-direction:column;gap:0;padding:6px;margin:0;background:#090909;border:1px solid #666;box-shadow:0 12px 30px #0009;overflow:auto}
- .earth-workspace #workspace-stations[hidden]{display:none}
- .earth-workspace #workspace-stations .workspace-link{display:flex;justify-content:flex-start;padding:12px 14px;border:0;font-size:12px;color:#ddd;text-decoration:none;background:#090909}
- .earth-workspace #workspace-stations .workspace-link:hover{background:#eee;color:#080808}
+ .earth-workspace :is(#workspace-station-control,#workspace-deep-control){position:relative;display:block}
+ .earth-workspace :is(#workspace-stations-button,#workspace-deep-button){display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:8px 10px;background:#000;color:#ddd;border:1px solid #555;border-radius:0;font-size:11px;line-height:1.4;white-space:nowrap}
+ .earth-workspace :is(#workspace-stations-button,#workspace-deep-button):hover,.earth-workspace :is(#workspace-stations-button,#workspace-deep-button)[aria-expanded=true]{background:#eee;color:#080808;border-color:#eee}
+ .earth-workspace :is(#workspace-stations,#workspace-deep-space){position:fixed;z-index:2000;display:flex;flex-direction:column;gap:0;padding:6px;margin:0;background:#090909;border:1px solid #666;box-shadow:0 12px 30px #0009;overflow:auto}
+ .earth-workspace :is(#workspace-stations,#workspace-deep-space)[hidden]{display:none}
+ .earth-workspace :is(#workspace-stations,#workspace-deep-space) .workspace-link{display:flex;justify-content:flex-start;padding:12px 14px;border:0;font-size:12px;color:#ddd;text-decoration:none;background:#090909}
+ .earth-workspace :is(#workspace-stations,#workspace-deep-space) .workspace-link:hover{background:#eee;color:#080808}
 
 }
 
-@media(max-width:900px){#workspace-station-control{display:none}}
+@media(max-width:900px){:is(#workspace-station-control,#workspace-deep-control){display:none}}
 
 @media(min-width:901px){
  .earth-workspace .atlas-category>summary{flex-wrap:wrap;gap:8px}
  .earth-workspace .atlas-category-total{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
 }
 
-.earth-workspace #workspace-stations .workspace-link[hidden]{display:none}
+.earth-workspace :is(#workspace-stations,#workspace-deep-space) .workspace-link[hidden]{display:none}
 
-.earth-workspace #workspace-navigation #workspace-stations .workspace-link[aria-current=page]:not(:hover){background:#090909;color:#ddd;border-color:transparent}
+.earth-workspace #workspace-navigation :is(#workspace-stations,#workspace-deep-space) .workspace-link[aria-current=page]:not(:hover){background:#090909;color:#ddd;border-color:transparent}
 
 @media(min-width:901px){
  .earth-workspace #workspace-navigation #workspace-home{background:#fff;color:#080808;border-color:#fff;font-weight:600}
@@ -420,3 +420,121 @@ body.earth-workspace > #workspace-debris-menu[hidden]{display:none}
 #overview-visibility{display:block;width:100%;min-height:36px;margin:10px 0;padding:8px 10px;white-space:normal;pointer-events:auto}
 #map-creator>#overview-visibility{width:max-content;max-width:calc(100vw - 40px);margin:0 0 8px;background:#0b0b0bef;color:#ddd;border:1px solid #666;font-size:11px}
 #map-creator>#overview-visibility:hover{background:#eee;color:#111}
+
+.earth-workspace #workspace-navigation>.collection-navigation[hidden]{display:none}
+
+@media(min-width:901px){
+ .earth-workspace :is(#satellite-panel,:is(#workspace-stations,#workspace-deep-space),#advanced-panel,#orbital-news-dialog,.collection-menu-panel){max-height:50vh;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#777 #151515;scrollbar-gutter:stable}
+}
+
+/* Keep Atlas search and selection actions visible while categories scroll. */
+@media(min-width:901px){
+ .earth-workspace #workspace-frozen-controls{position:sticky;top:0;z-index:20;margin:0 -20px;padding:0 20px;background:#090909;border-bottom:1px solid #333;isolation:isolate}
+ .earth-workspace #workspace-frozen-controls[hidden]{display:none}
+ .earth-workspace #workspace-frozen-controls #workspace-close{position:static;margin-bottom:0}
+ .earth-workspace #workspace-frozen-controls #workspace-category-search .object-search{margin:0;padding:12px 0;background:#090909}
+ .earth-workspace #workspace-frozen-controls .atlas-actions{position:static;margin:0;padding:12px 0;border-bottom:0;background:#090909}
+ .earth-workspace #workspace-frozen-controls .atlas-actions::before{display:none}
+}
+
+@media(min-width:901px){
+ .earth-workspace.dedicated-workspace :is(.globe-buttons,#scene-actions):has(>#workspace-objects){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);align-items:stretch;gap:10px;width:100%}
+ .earth-workspace.dedicated-workspace :is(.globe-buttons,#scene-actions)>:is(#globe-home,#workspace-objects){min-width:0;width:100%;height:auto;min-height:36px;margin:0;padding:8px 10px;box-sizing:border-box;font-size:11px;line-height:1.4}
+ .earth-workspace.dedicated-workspace #workspace-objects{white-space:normal}
+}
+
+@media(min-width:901px){.earth-workspace #workspace-close{justify-content:flex-end}.earth-workspace.dedicated-workspace #satellite-panel{z-index:1800}}
+
+@media(min-width:901px){
+ .earth-workspace #workspace-title-row{display:flex;align-items:center;gap:12px;margin:18px 0 12px}
+ .earth-workspace #workspace-title-row[hidden]{display:none}
+ .earth-workspace #workspace-title-row .observation-title{flex:1;min-width:0;margin:0}
+ .earth-workspace #workspace-title-row #workspace-close{position:static;display:flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;min-width:32px;max-width:32px;height:32px;min-height:32px;margin:0;padding:0;border:1px solid #555;border-radius:2px;background:#0c0c0c;color:#ddd}
+ .earth-workspace #workspace-title-row #workspace-close:hover{background:#252525;color:#fff}
+ .earth-workspace #workspace-title-row #workspace-close>span{display:grid;place-items:center}
+}
+
+/* Side margins scroll the panel; the central lists keep their own scroll. */
+@media(min-width:901px){
+ .earth-workspace #satellite-panel :is(#results,#iss-search-results,#iss-flight-years){width:calc(100% - 40px);min-width:0;margin-left:20px;margin-right:20px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-gutter:stable}
+ .earth-workspace #satellite-panel #results .satellite-result{width:100%;box-sizing:border-box}
+ .earth-workspace #satellite-panel #results .satellite-result strong{overflow-wrap:anywhere}
+ .earth-workspace #workspace-title-row #workspace-close{margin-left:auto}
+}
+
+@media(min-width:901px){.earth-workspace #workspace-objects[aria-controls="satellite-panel"][aria-expanded="true"]::after{transform:translateY(2px) rotate(225deg)}}
+
+#overview-visibility{text-align:center}
+.earth-workspace .globe-tools>#overview-visibility{box-sizing:border-box;width:100%;margin-left:0;margin-right:0;padding:7px 9px;line-height:1.4}
+
+#overview-selection>summary{position:relative;justify-content:center;padding-left:28px;padding-right:28px;text-align:center}
+#overview-selection>summary::after{position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(45deg)}
+#overview-selection[open]>summary::after{transform:translateY(-50%) rotate(225deg)}
+
+/* Atlas overview controls use a consistent grid, rhythm and button size. */
+@media(min-width:901px){
+ .earth-workspace:not(.dedicated-workspace) .globe-buttons:has(>#workspace-debris){grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .earth-workspace:not(.dedicated-workspace) .globe-tools :is(#globe-home,#workspace-debris-button,#overview-visibility,#lunar-destination),.earth-workspace #overview-selection>summary{box-sizing:border-box;min-height:36px;padding-top:8px;padding-bottom:8px;font-size:11px;line-height:1.4}
+ .earth-workspace:not(.dedicated-workspace) #overview-selection{margin-top:8px}
+ .earth-workspace:not(.dedicated-workspace) .globe-tools>#overview-visibility{margin:8px 0 0}
+ .earth-workspace:not(.dedicated-workspace) #lunar-controls{margin-top:8px;padding-top:8px;gap:8px}
+ .earth-workspace:not(.dedicated-workspace) #lunar-destination{font-weight:400}
+}
+
+/* Dropdown triggers, outside clicks and Escape already provide dismissal. */
+@media(min-width:901px){
+ .earth-workspace #satellite-panel.workspace-categories-panel #workspace-close,.earth-workspace #advanced-panel>header,.earth-workspace #orbital-news-dialog>header{display:none}
+ .earth-workspace #advanced-panel .advanced-panel-body{padding-top:16px}
+}
+
+#advanced-panel .panel-visible-count{margin-left:auto;color:#aebcc5;font-size:10px;white-space:nowrap;font-weight:400}
+#advanced-panel .panel-color-group>summary>.panel-visible-count{float:right;margin-left:12px}
+#advanced-panel .panel-color-row>span{min-width:0;overflow-wrap:anywhere}
+
+/* The status stays outside the circular SVG so it cannot be clipped by aside styles. */
+.deep-earth-instrument{box-sizing:border-box;flex:none;align-self:flex-start;width:190px;min-height:110px;max-width:100%;padding:0;border:0;border-radius:0;overflow:visible;background:transparent;color:#dbeaf2}
+.deep-earth-instrument[hidden],.deep-earth-instrument [hidden],.deep-earth-return-control[hidden]{display:none!important}
+.deep-earth-instrument svg{display:block;width:110px;max-width:100%;margin:auto;height:auto;aspect-ratio:1;overflow:visible}
+.spatial-alignment-status{box-sizing:border-box;width:100%;margin:6px 0 0;padding:5px 4px;border-radius:4px;background:#07141ce6;color:#d5f7ff;text-align:center;font:11px/1.5 system-ui;white-space:normal;overflow:visible;overflow-wrap:normal}
+.deep-earth-instrument[data-facing-earth=true] .spatial-core{visibility:hidden}
+.deep-earth-instrument[data-facing-earth=true] .spatial-earth{filter:drop-shadow(0 0 3px #9eeaff)}
+.deep-earth-instrument[data-facing-earth=true] .spatial-alignment-wash{opacity:.22;animation:spatial-aligned-wash 1.8s ease-in-out infinite}
+.deep-earth-instrument[data-facing-earth=true] .spatial-alignment-halo{opacity:1;filter:drop-shadow(0 0 5px #62dfff);animation:spatial-aligned-halo 1.8s ease-in-out infinite}
+.spatial-core{animation:spatial-core-pulse 2.6s ease-in-out infinite}
+@keyframes spatial-core-pulse{0%,100%{opacity:.95}50%{opacity:.35}}
+@keyframes spatial-aligned-wash{0%,100%{opacity:.16}50%{opacity:.38}}
+@keyframes spatial-aligned-halo{0%,100%{opacity:.65}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.spatial-core,.deep-earth-instrument[data-facing-earth=true] .spatial-alignment-wash,.deep-earth-instrument[data-facing-earth=true] .spatial-alignment-halo{animation:none}}
+.deep-earth-return-control{width:100%;margin-top:8px;padding-top:8px;border-top:1px solid #444}
+.globe-tools .deep-earth-return{display:block;box-sizing:border-box;width:100%;min-height:34px;padding:8px 10px;border:1px solid #777;border-radius:0;background:#101010;color:#ddd;font:inherit;line-height:1.4;cursor:pointer;text-align:center}
+.globe-tools .deep-earth-return:hover{background:#eee;color:#080808}
+.globe-tools .deep-earth-return:focus-visible{outline:2px solid #c8efff;outline-offset:2px}
+.view[data-deep-space=true] #compass,.view:has(#view-3d[aria-pressed=false]) .deep-earth-instrument{display:none!important}
+
+.earth-workspace #workspace-deep-space{padding:0 16px 12px}
+.deep-menu-search{position:sticky;top:0;z-index:2;margin:0;padding:14px 0;background:#090909;border-bottom:1px solid #333}
+.deep-menu-search>label{font-size:11px;color:#aaa;margin-bottom:7px}
+.deep-menu-search>input{box-sizing:border-box;width:100%;min-width:0;border-radius:0}
+.earth-workspace #workspace-deep-space .deep-menu-category{border:0;border-bottom:1px solid #333;background:transparent;margin:0;padding:0}
+.earth-workspace #workspace-deep-space .deep-menu-category>summary{display:flex;align-items:center;justify-content:flex-start;gap:9px;padding:17px 2px;background:transparent;color:#ddd;font-size:12px;line-height:1.5;list-style:none;cursor:pointer}
+.earth-workspace #workspace-deep-space .deep-menu-category>summary::before{content:'+';flex:none;width:13px;color:#999;font-size:18px;line-height:1}
+.earth-workspace #workspace-deep-space .deep-menu-category[open]>summary::before{content:'−'}
+.earth-workspace #workspace-deep-space .deep-menu-category>summary::after{display:none}
+.earth-workspace #workspace-deep-space .deep-menu-category>summary:hover{color:#fff;background:#151515}
+.earth-workspace #workspace-deep-space .deep-menu-category>summary:focus-visible{outline:1px solid #ddd;outline-offset:-1px}
+.earth-workspace #workspace-deep-space .collection-menu-option{display:block;padding:12px 10px 12px 22px;text-decoration:none;border-left:2px solid transparent;font-size:12px;line-height:1.5;color:#ddd}
+.earth-workspace #workspace-deep-space .collection-menu-option:hover{background:#202020;border-left-color:#b9d8e9;color:#fff}
+.earth-workspace #workspace-deep-space .collection-menu-option[aria-current=page]{color:#c5e4f6;font-weight:600}
+#workspace-deep-space [hidden]{display:none!important}
+.deep-menu-empty{padding:16px 0;margin:0;color:#aaa;font-size:12px}
+
+body[data-deep-mission=true] .view-switch,body[data-deep-mission=true] #view-2d{display:none!important}
+
+/* Planisphere actions share one bottom-left column and identical button boxes. */
+#map-creator .map-scene-actions{display:grid;gap:8px;width:max-content;min-width:180px;max-width:calc(100vw - 40px);margin:0 0 8px}
+#map-creator .map-scene-actions>:is(#map-reset,#overview-visibility){position:static;box-sizing:border-box;display:block;width:100%;max-width:none;min-height:36px;margin:0;padding:8px 10px;border:1px solid #666;border-radius:0;background:#0b0b0bef;color:#ddd;font-size:11px;font-weight:400;line-height:1.4;text-align:center;white-space:normal;box-shadow:none;pointer-events:auto}
+#map-creator .map-scene-actions>:is(#map-reset,#overview-visibility):hover:not(:disabled){background:#eee;color:#111}
+#map-creator .map-scene-actions>#map-reset:disabled{color:#888;border-color:#444;cursor:default}
+
+.distant-satellite-label{position:absolute;top:0;left:0;z-index:10;box-sizing:border-box;max-width:calc(100% - 20px);padding:4px 6px;background:#080b10d1;border-radius:2px;color:#fff;font:14px/18px Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none;text-shadow:0 1px 2px #000}
+#workspace-deep-space .collection-menu-option.is-active{background:#e8eef2;color:#080808;outline:1px solid #c8efff;outline-offset:-1px}

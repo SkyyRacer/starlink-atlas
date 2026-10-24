@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SPUTNIK 3",
+    "OBJECT_ID": "1958-004B",
+    "NORAD_CAT_ID": 8,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "D",
+    "OWNER": "CIS",
+    "LAUNCH_DATE": "1958-05-15",
+    "LAUNCH_SITE": "TYMSC",
+    "DECAY_DATE": "1960-04-06",
+    "PERIOD": "88.43",
+    "INCLINATION": "65.06",
+    "APOGEE": "255",
+    "PERIGEE": "139",
+    "RCS": "11.8400",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "IMP"
+  }
+]

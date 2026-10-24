@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "A-1 (ASTERIX)",
+    "OBJECT_ID": "1965-096A",
+    "NORAD_CAT_ID": 1778,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "",
+    "OWNER": "FR",
+    "LAUNCH_DATE": "1965-11-26",
+    "LAUNCH_SITE": "HGSTR",
+    "DECAY_DATE": "",
+    "PERIOD": "106.67",
+    "INCLINATION": "34.26",
+    "APOGEE": "1623",
+    "PERIGEE": "522",
+    "RCS": "0.3870",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

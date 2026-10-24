@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "GAIA",
+    "OBJECT_ID": "2013-074A",
+    "NORAD_CAT_ID": 39479,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2013-12-19",
+    "LAUNCH_SITE": "FRGUI",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EL2",
+    "ORBIT_TYPE": "ORB"
+  }
+]

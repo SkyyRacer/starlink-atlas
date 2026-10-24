@@ -1,0 +1,51 @@
+API VERSION: 1.2
+API SOURCE: NASA/JPL Horizons API
+
+*******************************************************************************
+ Revised: Oct 27, 2013            Planck Space Observatory                -489
+               http://planck.esa.int/science-e/www/area/index.cfm?fareaid=17
+
+ NOTE: Mission nearing end; Planck is being moved away from Earth-Sun L2 to a
+       heliocentric orbit. Oct 23 is the last scheduled contact.
+
+       A 50-year prediction was provided by the flight project (ESA).
+
+ BACKGROUND:
+  The European Space Agency's Planck mission is designed to image the 
+  anisotropies of the Cosmic Microwave Background (CMB) Radiation Field by 
+  performing two complete sky surveys with the highest sensitivity and 
+  angular resolution to-date. Planck will rotate once per minute, scanning
+  such that the complete sky will have been covered twice after 15 months. 
+ 
+  Planck launched 2009-May-14 together with the Herschel satellite.  After 
+  launch, Planck and Herschel separated and will be placed in different 
+  orbits around the second Lagrangian point of the Earth-Moon-Sun System (L2).
+
+ OBJECTIVES: 
+  * Mapping of Cosmic Microwave Background anisotropies
+  * Determination of Hubble constant
+  * Testing inflationary models of the early universe
+  * Measuring amplitude of structures in Cosmic Microwave Background
+ 
+ SPACECRAFT:
+  Launch (Ariane-5)= 2009-May-14
+  Mission end      = (1.5 year nominal lifetime after launch)
+  Telescope mirror = 1.5 meters
+  Dimensions       = 3.8m high x 4.5m wide
+  Launch Mass      =  1800 kg 
+
+ INSTRUMENTS:
+  * LFI   - Low Frequency Instrument (30-70 GHz)
+  * HFI   - High Frequency Instrument (100-857 GHz)
+
+ ORBIT:
+  Herschel and Planck will be launched together, then separate while being 
+  injected into transfer orbits. The spacecraft will proceed independently 
+  to their operational orbits. About 100 days after launch, Planck will 
+  arrive in an orbit around Earth-Sun L2.
+
+ SPACECRAFT TRAJECTORY (from ESA/IPAC 2013-Oct-25):
+  Trajectory name (HSC/ESA)       Start        Stop
+  ----------------------------  -----------  -----------
+  P20131024_0001                2009-May-14  2050-Jan-01
+*******************************************************************************

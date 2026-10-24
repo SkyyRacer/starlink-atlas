@@ -90,6 +90,15 @@ window.AtlasMoon={
   const hover=document.createElement('div');hover.id='celestial-hover';hover.hidden=true;view.append(hover);
   const callout=document.createElement('div');callout.id='celestial-callout';callout.append(hover,jump);view.append(callout);
   hover.setAttribute('role','tooltip');
+  let calloutHideTimer=null;
+  function keepCallout(){if(calloutHideTimer!==null){clearTimeout(calloutHideTimer);calloutHideTimer=null;}}
+  function dismissMoonCallout(){
+   if(active||calloutHideTimer!==null)return;
+   calloutHideTimer=setTimeout(()=>{calloutHideTimer=null;hover.hidden=true;jump.hidden=true;title.show=false;viewer.scene.requestRender();},180);
+  }
+  callout.addEventListener('pointerenter',keepCallout);
+  callout.addEventListener('pointerleave',dismissMoonCallout);
+
   function hoverBody(target){
    const distance=(lastData?.distance||0).toLocaleString('fr-FR',{maximumFractionDigits:0});
    hover.textContent=(target==='earth'?'Terre':'Lune')+' · '+distance+' km';hover.hidden=false;
@@ -104,12 +113,13 @@ window.AtlasMoon={
    callout.style.left=Math.max(12,Math.min(viewer.canvas.clientWidth-width-12,xy.x+22))+'px';
    callout.style.top=Math.max(topLimit,Math.min(viewer.canvas.clientHeight-height-12,xy.y-42))+'px';
   }
-  function offer(target){jumpTarget=target;jump.textContent=target==='earth'?'Aller vers la Terre':'Aller vers la Lune';jump.hidden=false;placeJump();viewer.scene.requestRender();}
+  function offer(target){keepCallout();jumpTarget=target;jump.textContent=target==='earth'?'Aller vers la Terre':'Aller vers la Lune';jump.hidden=false;placeJump();viewer.scene.requestRender();}
   jump.onclick=()=>{jump.hidden=true;if(jumpTarget==='earth')returnEarth();else if(navigateMoon)navigateMoon();else travel();};
   const controls=document.createElement('div');controls.id='lunar-controls';controls.dataset.active='false';
   controls.innerHTML='<button type="button" id="lunar-destination">Aller vers la Lune</button><label class="lunar-names" hidden><input type="checkbox"> Afficher les noms des cratères et régions lunaires</label>';
   (document.querySelector('.globe-tools')||viewer.container).append(controls);
   const destination=controls.querySelector('button'),names=controls.querySelector('label');
+  destination.hidden=Boolean(window.AtlasSatelliteVisibility?.hasSelection);
   const orbitControl=card.querySelector('.lunar-orbit');orbitControl.hidden=true;controls.append(orbitControl);
   function syncNames(){
    const input=names.querySelector('input');input.checked=showNames;input.disabled=false;
@@ -119,7 +129,7 @@ window.AtlasMoon={
   }
   syncNames();
   names.querySelector('input').onchange=e=>{showNames=e.target.checked;syncNames();if(showNames)loadNames();viewer.scene.requestRender();};
-  function syncControls(){syncNames();controls.dataset.active=String(active);destination.textContent=active?'Retour à la Terre':'Aller vers la Lune';names.hidden=!active;orbitControl.hidden=!active||!allowOrbit;}
+  function syncControls(){destination.hidden=!active&&Boolean(window.AtlasSatelliteVisibility?.hasSelection);syncNames();controls.dataset.active=String(active);destination.textContent=active?'Retour à la Terre':'Aller vers la Lune';names.hidden=!active;orbitControl.hidden=!active||!allowOrbit;}
   destination.onclick=()=>{if(active)returnEarth();else if(navigateMoon)navigateMoon();else travel();};
   const field=k=>card.querySelector('[data-lunar="'+k+'"]');
   const dateFormatter=new Intl.DateTimeFormat('fr-FR',{dateStyle:'medium',timeStyle:'short'});
@@ -212,10 +222,10 @@ window.AtlasMoon={
    const rect=viewer.canvas.getBoundingClientRect();pointer={x:event.clientX-rect.left,y:event.clientY-rect.top};
    if(drag)return;
    const overMoon=!active&&center&&nearMoon(pointer)&&visible(),overEarth=active&&!!viewer.camera.pickEllipsoid(new C.Cartesian2(pointer.x,pointer.y),viewer.scene.globe.ellipsoid);
-   if(overMoon||overEarth)hoverBody(overEarth?'earth':'moon');else hover.hidden=true;
+   if(overMoon||overEarth)hoverBody(overEarth?'earth':'moon');else if(!active)dismissMoonCallout();else hover.hidden=true;
    viewer.scene.requestRender();
   },{passive:true});
-  viewer.canvas.addEventListener('pointerleave',event=>{if(event.relatedTarget&&callout.contains(event.relatedTarget))return;pointer=null;hover.hidden=true;title.show=false;viewer.scene.requestRender();},{passive:true});
+  viewer.canvas.addEventListener('pointerleave',event=>{if(event.relatedTarget&&callout.contains(event.relatedTarget))return;pointer=null;if(!active)dismissMoonCallout();else hover.hidden=true;title.show=false;viewer.scene.requestRender();},{passive:true});
   function visible(){const to=C.Cartesian3.subtract(center,viewer.camera.positionWC,new C.Cartesian3());return C.Cartesian3.dot(to,viewer.camera.directionWC)>0&&new C.EllipsoidalOccluder(viewer.scene.globe.ellipsoid,viewer.camera.positionWC).isPointVisible(center);}
   function nearMoon(point){
    const xy=projected();if(!xy)return false;

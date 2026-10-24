@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "GP-B",
+    "OBJECT_ID": "2004-014A",
+    "NORAD_CAT_ID": 28230,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "-",
+    "OWNER": "US",
+    "LAUNCH_DATE": "2004-04-20",
+    "LAUNCH_SITE": "AFWTR",
+    "DECAY_DATE": "",
+    "PERIOD": "97.07",
+    "INCLINATION": "89.86",
+    "APOGEE": "620",
+    "PERIGEE": "617",
+    "RCS": "10.1780",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "SMOS",
+    "OBJECT_ID": "2009-059A",
+    "NORAD_CAT_ID": 36036,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "ESA",
+    "LAUNCH_DATE": "2009-11-02",
+    "LAUNCH_SITE": "PLMSC",
+    "DECAY_DATE": "",
+    "PERIOD": "100.02",
+    "INCLINATION": "98.44",
+    "APOGEE": "760",
+    "PERIGEE": "759",
+    "RCS": "2.8692",
+    "DATA_STATUS_CODE": "",
+    "ORBIT_CENTER": "EA",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -16,16 +16,18 @@ window.AtlasSky={
      const shaderProgram=C.ShaderProgram.fromCache({context:frame.context,attributeLocations:{position:0},
       vertexShaderSource:'in vec2 position; out vec2 v_clip; void main(){v_clip=position;gl_Position=vec4(position,1.0,1.0);}',
       fragmentShaderSource:`uniform sampler2D u_stars;
+       uniform mat3 u_fixedToIcrf;
+       uniform vec3 u_sunPosition;
        uniform float u_aspect;
        uniform float u_mood;
        in vec2 v_clip;
        void main(){
         vec3 ray=normalize((czm_inverseProjection*vec4(v_clip,-1.0,1.0)).xyz);
         vec3 fixedRay=transpose(czm_viewRotation)*ray;
-        vec3 celestial=transpose(czm_temeToPseudoFixed)*fixedRay;
+        vec3 celestial=u_fixedToIcrf*fixedRay;
         vec2 uv=vec2(fract(0.5-atan(celestial.y,celestial.x)/czm_twoPi),0.5+asin(clamp(celestial.z,-1.0,1.0))/czm_pi);
         vec3 color=texture(u_stars,uv).rgb*0.68;
-        vec3 sunVector=czm_viewRotation*(czm_sunPositionWC-czm_viewerPositionWC);
+        vec3 sunVector=czm_viewRotation*(u_sunPosition-czm_viewerPositionWC);
         vec3 sunDirection=normalize(sunVector);
         float solarRadius=asin(clamp(695700000.0/length(sunVector),0.0,1.0));
         float separation=clamp(dot(ray,sunDirection),-1.0,1.0);
@@ -72,7 +74,7 @@ window.AtlasSky={
         color+=((solar+flare)*warmTint+haze)*visible;
         out_FragColor=vec4(color,1.0);
        }`});
-     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
+     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_fixedToIcrf:()=>window.AtlasCelestialFrame.fixedToIcrf(C,viewer.clock.currentTime),u_sunPosition:()=>window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
     }
     return command;
    },

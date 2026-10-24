@@ -1,0 +1,320 @@
+[
+  {
+    "url": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "status": 200,
+    "resolved": "https://airandspace.si.edu/collection-objects/ariel-1-satellite/nasm_A19751410000",
+    "title": "Ariel 1 Satellite | National Air and Space Museum",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "7dccf5627c4658562f84907796b16cb0250d6ea79f4e921e73a9e86606210963"
+  },
+  {
+    "url": "https://cnes.fr/projets/microscope",
+    "status": 200,
+    "resolved": "https://cnes.fr/projets/microscope",
+    "title": "Microscope | CNES",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "58e72e9a70cfb63b0640ae300002c8954a06da25f2a8bdf053ad4c334530823d"
+  },
+  {
+    "url": "https://einstein.stanford.edu/TECH/technology1.html",
+    "status": 200,
+    "resolved": "https://einstein.stanford.edu/TECH/technology1.html",
+    "title": "Gravity Probe B &mdash; Extraordinary Technologies",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "4bd5934f16abc07d69b7c8db6ce80ce9a2003cf5eac59298949aa81f092b58b6"
+  },
+  {
+    "url": "https://files.eric.ed.gov/fulltext/ED258832.pdf",
+    "status": 200,
+    "resolved": "https://files.eric.ed.gov/fulltext/ED258832.pdf",
+    "title": "",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ec73eb4027714a09ea0a59a17efdc66a774c096e1d45f0f4789023f94802798c"
+  },
+  {
+    "url": "https://gracefo.jpl.nasa.gov/mission/spacecraft/",
+    "status": 200,
+    "resolved": "https://gracefo.jpl.nasa.gov/mission/spacecraft/overview/",
+    "title": "Spacecraft Overview | Spacecraft – GRACE-FO",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "f99af730318da078704eb96a5eced077ea5cd3533dce0c720dd00d29e9968374"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/agile.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/agile.html",
+    "title": "AGILE",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "7af3475f4d4fbdf3478b9535c7a2ac9e0f0ea586e430404412c597000e898a18"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/ariel5.html",
+    "title": "Ariel 5",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "0ee06525ea3c146b6965f17c4b0d6b5f8926c7fb2dfd2d8eb7d7f89eff0f795b"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/asca.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/asca.html",
+    "title": "ASCA",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "269c2ccd3e83d6f8e9372f801ed2e710f869c32bab967f9e41e9c4569e732aa8"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/dampe.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/dampe.html",
+    "title": "DAMPE",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ba6944c2f3e11c6bd0e824f6f6696c9d294376af2ccdbb4093f21a270d7acfec"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/euve.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/euve.html",
+    "title": "The EUVE Satellite",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "821ed8c06fbd6f9c5fbbdc39f0eb71369e44709cc0c39beff04e9c546b125c70"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/exosat.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/exosat.html",
+    "title": "The EXOSAT Satellite",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "5bfbb4764937050bbd70fbe5dd7f7f3f015bb2327c1fdc294444814c1bd1121f"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/halosat.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/halosat.html",
+    "title": "HaloSat",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "9a475d9f7c9569ca8962279fd9d4a02c417939977472a5f929fbf75d69c08a98"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/heao1.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/heao1.html",
+    "title": "The High Energy Astrophysics Observatory-1",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ddac591d38c3f95f70001457c3595ee94fb55ae2a56eef00cb6aa88ccddf631c"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/hxmt.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/hxmt.html",
+    "title": "HXMT",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "fb5096a355215fc10fa90d65bfa264ac3b4eee9fdc7e6a907c48af5347cac046"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/sax.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/sax.html",
+    "title": "Satellite per Astronomia X (BeppoSAX)",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "3725c2fcad0491158c0eb176bd0eec0f6104a374a8900503818e6774d64d459d"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/srg.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/srg.html",
+    "title": "Spectr-Roentgen-Gamma (SRG)",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "231061368e5f4ddb875b3ebd90c81adca302a8ee30eb09b698563ef82fba9708"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/uhuru.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/heasarc/missions/uhuru.html",
+    "title": "The Uhuru Satellite",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "13e147803d241d9cf14c340e10126287d69788e57aa99ab188a50b30ed24789d"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/rosat/rosat.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/rosat/rosat.html",
+    "title": "The Roentgen Satellite",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "bd3ad6741c9815408189f9978d5255af919cf47a16c1cf14004f0dbb5eb9f662"
+  },
+  {
+    "url": "https://heasarc.gsfc.nasa.gov/docs/xte/rxte.html",
+    "status": 200,
+    "resolved": "https://heasarc.gsfc.nasa.gov/docs/xte/rxte.html",
+    "title": "The Rossi X-ray Timing Explorer",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "cc55b9f71e70d547edc31c34d7f8e3089891c5e3927ba4b3e1a974de4bd5bc43"
+  },
+  {
+    "url": "https://ilrs.gsfc.nasa.gov/missions/satellite_missions/current_missions/lag1_general.html",
+    "status": 200,
+    "resolved": "https://ilrs.gsfc.nasa.gov/missions/satellite_missions/current_missions/lag1_general.html",
+    "title": "",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "28518c565509ab1cd82bb9c832413710ee1df172afe0604376bdfc09e03fb908"
+  },
+  {
+    "url": "https://ixpe.msfc.nasa.gov/",
+    "status": 200,
+    "resolved": "https://ixpe.msfc.nasa.gov/",
+    "title": "IXPE: Home",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "1cea13bfe917c291ff04f444a8b1b2270bed0ad1fb2de859927afbab29695f91"
+  },
+  {
+    "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-006A",
+    "status": 200,
+    "resolved": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-006A",
+    "title": "NASA - NSSDCA - Spacecraft - Details",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "64fd2612491c13d26f94baac32bc658f014442e7b01f3af26e277af34727c951"
+  },
+  {
+    "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1964-054A",
+    "status": 200,
+    "resolved": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1964-054A",
+    "title": "NASA - NSSDCA - Spacecraft - Details",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "90cfea57032019fdd3c11460b4acea2a00744ded46eaef1cc0c12add0dd1068b"
+  },
+  {
+    "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-031A",
+    "status": 200,
+    "resolved": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-031A",
+    "title": "NASA - NSSDCA - Spacecraft - Details",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "aeb70a7623383aacbaf71baa999d4d5384374f6ecaec4393c40af28761c09f6f"
+  },
+  {
+    "url": "https://ntrs.nasa.gov/api/citations/19740004978/downloads/19740004978.pdf",
+    "status": 200,
+    "resolved": "https://ntrs.nasa.gov/api/citations/19740004978/downloads/19740004978.pdf",
+    "title": "",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "a1c07aedca25ec7ea56065bd21e1138a6fd4a421d428c0b18c8def58926514ee"
+  },
+  {
+    "url": "https://nustar.caltech.edu/page/mast",
+    "status": 200,
+    "resolved": "https://nustar.caltech.edu/page/mast",
+    "title": "Deployable Mast",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "18e88de62e975723d4f3995acf9e4d370964853f58cb829408bcda8e7e4a9a70"
+  },
+  {
+    "url": "https://science.nasa.gov/mission/galex/",
+    "status": 200,
+    "resolved": "https://science.nasa.gov/mission/galex/",
+    "title": "GALEX - NASA Science",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "9fba1dea9c4ffbdc5b748dcec3e54dcb64c30b6c4ecffa0793eb367161197970"
+  },
+  {
+    "url": "https://science.nasa.gov/mission/iue/",
+    "status": 200,
+    "resolved": "https://science.nasa.gov/mission/iue/",
+    "title": "IUE - NASA Science",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ad2e31bd3c1877af6eee49007f50273186c7647ea1e0349241548f738139e3a0"
+  },
+  {
+    "url": "https://www.asc.rssi.ru/radioastron/description/Spacecraft_eng.htm",
+    "usable": false,
+    "error": "<urlopen error timed out>"
+  },
+  {
+    "url": "https://www.cosmos.esa.int/web/cheops/cheops-spacecraft",
+    "status": 200,
+    "resolved": "https://www.cosmos.esa.int/web/cheops/cheops-spacecraft",
+    "title": "COSMOS Spacecraft - CHEOPS - Cosmos",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "08dcb3134939399523993ddfa57dca8241dd0a8a1a1aa040c078b10db9006e2f"
+  },
+  {
+    "url": "https://www.csa-asc.gc.ca/eng/satellites/alouette.asp",
+    "usable": false,
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.csa-asc.gc.ca'. (_ssl.c:1081)>"
+  },
+  {
+    "url": "https://www.csa-asc.gc.ca/eng/satellites/isis.asp",
+    "usable": false,
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.csa-asc.gc.ca'. (_ssl.c:1081)>"
+  },
+  {
+    "url": "https://www.esa.int/Applications/Observing_the_Earth/FutureEO/GOCE/Satellite",
+    "status": 200,
+    "resolved": "https://www.esa.int/Applications/Observing_the_Earth/FutureEO/GOCE/Satellite",
+    "title": "ESA - Satellite",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "a84c75fdb2ca70ff6d2c658026c619a30df9be6f23971e4272e655d26378163b"
+  },
+  {
+    "url": "https://www.esa.int/Science_Exploration/Space_Science/XMM-Newton",
+    "status": 200,
+    "resolved": "https://www.esa.int/Science_Exploration/Space_Science/XMM-Newton",
+    "title": "ESA - XMM-Newton",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "0d6ef9651a76942f14c1618b26682c1c4abd7edfb01c520ef532248ec63ddf0d"
+  },
+  {
+    "url": "https://www.isro.gov.in/Aditya_L1-MissionDetails.html",
+    "status": 200,
+    "resolved": "https://www.isro.gov.in/Aditya_L1-MissionDetails.html",
+    "title": "ADITYA-L1 Mission Details",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "a782366baa3ed3f4d868a134afd41182ee2dacd3862e9fcb565c6ef795344587"
+  },
+  {
+    "url": "https://www.isro.gov.in/Astrosat_Spacecraft.html",
+    "status": 200,
+    "resolved": "https://www.isro.gov.in/Astrosat_Spacecraft.html",
+    "title": "Astrosat",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "99ac20d3d4f9095b97e01e702910268cf23f049f09dbff03a83eace13265b336"
+  },
+  {
+    "url": "https://www.isro.gov.in/XPoSat.html",
+    "status": 200,
+    "resolved": "https://www.isro.gov.in/XPoSat.html",
+    "title": "XPoSat",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "865f8998a12aff4fde94c3e68f53f2c3fee1e64bf311e2bd8cc517dc467677b2"
+  },
+  {
+    "url": "https://www.jpl.nasa.gov/missions/infrared-astronomical-satellite-iras/",
+    "usable": false,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
+    "status": 200,
+    "resolved": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
+    "title": "45 Years Ago: Progress 1 Begins the Era of Space Station Resupply - NASA",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ae0aa46a7d5114595a2ae705d8993f2222da98ea210b3d574e8b33453b2ecb71"
+  },
+  {
+    "url": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "status": 200,
+    "resolved": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
+    "title": "50 Years Ago: Launch of Salyut, the World’s First Space Station - NASA",
+    "usable": true,
+    "sha256_prefix_up_to_2mb": "ada45ccff206534a80ae616f1714b183a90d0ae0fb1053ed932936e7e17eee63"
+  },
+  {
+    "url": "https://www.orbitaldebris.jsc.nasa.gov/library/HOOSF_16e.pdf",
+    "usable": false,
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.orbitaldebris.jsc.nasa.gov'. (_ssl.c:1081)>"
+  },
+  {
+    "url": "https://www.xrism.jaxa.jp/en/technology/",
+    "usable": false,
+    "error": "The read operation timed out"
+  }
+]

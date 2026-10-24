@@ -1,0 +1,21 @@
+[
+  {
+    "OBJECT_NAME": "ACE",
+    "OBJECT_ID": "1997-045A",
+    "NORAD_CAT_ID": 24912,
+    "OBJECT_TYPE": "PAY",
+    "OPS_STATUS_CODE": "+",
+    "OWNER": "US",
+    "LAUNCH_DATE": "1997-08-25",
+    "LAUNCH_SITE": "AFETR",
+    "DECAY_DATE": "",
+    "PERIOD": "",
+    "INCLINATION": "",
+    "APOGEE": "",
+    "PERIGEE": "",
+    "RCS": "",
+    "DATA_STATUS_CODE": "NEA",
+    "ORBIT_CENTER": "EL1",
+    "ORBIT_TYPE": "ORB"
+  }
+]

@@ -27,9 +27,7 @@ pub(crate) fn exists_in_db(db: &Database, id: u64, at: DateTime<Utc>) -> bool {
         .and_then(|v| v["launch_time"].as_str())
         .and_then(|v| DateTime::parse_from_rfc3339(v).ok())
     {
-        if at < time.with_timezone(&Utc) {
-            return false;
-        }
+        return at>=time.with_timezone(&Utc) && db.catalog.get(&id).and_then(|v|event_time(v,"DECAY_DATE")).is_none_or(|end|at<end);
     }
     exists(db.catalog.get(&id), at)
 }
