@@ -2,6 +2,11 @@
 (function(root){
  const epoch=value=>typeof value==='string'?Date.parse(value):NaN;
  function crewAt(doc,at,live=false){
+  if(Array.isArray(doc.visits)){
+   const members=new Map();
+   for(const v of doc.visits){const start=epoch(v.arrival),end=epoch(v.departure);if(!Number.isFinite(start)||start>at)continue;if(!Number.isFinite(end)||at>=end)continue;const previous=members.get(v.person.id);if(!previous||epoch(previous.arrival)<start)members.set(v.person.id,{...v.person,arrival:v.arrival,mission:v.mission,role:v.role,approximate:v.approximate});}
+   return {crew:[...members.values()],current:live,incomplete:!doc.history_complete};
+  }
   if(live)return {crew:doc.crew||[],current:true,incomplete:false};
   const confirmed=(doc.flights||[]).filter(f=>f.status_id===3),flights=confirmed.filter(f=>epoch(f.launch)<=at),members=new Map();let incomplete=false;
   const current=new Map((doc.crew||[]).map(a=>[a.id,a]));

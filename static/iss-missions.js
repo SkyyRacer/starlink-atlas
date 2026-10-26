@@ -1,12 +1,12 @@
 /* ISS flight facts are loaded once per visit; only elapsed times change locally. */
 (function(){
  const $=id=>document.getElementById(id), root=$('iss-controls'), dialog=$('iss-mission-dialog');
- const station=AtlasPages.mode(location.pathname),stationName=station==='tiangong'?'Tiangong':'ISS';
+ const station=AtlasPages.mode(location.pathname),stationName=AtlasPages.definition(station)?.label||'Station';
  // Routes change documents; non-station pages need no crew listeners or timer.
- if(!AtlasPages.isStation(station))return;
- const stationText=value=>typeof value==='string'&&station==='tiangong'?value.replaceAll('de l’ISS','de Tiangong').replaceAll('à l’ISS','à Tiangong').replaceAll('vers l’ISS','vers Tiangong').replaceAll('ISS','Tiangong'):value;
- if(AtlasPages.isStation(station)){root.setAttribute('aria-label','Missions et équipage '+stationName);$('iss-search-results').setAttribute('aria-label','Résultats de recherche '+stationName);}
- let data=null, pending=null, searchIndex=[], searchItems=[],activeItem=null,refreshing=false;
+ if(!AtlasPages.hasCrew(station))return;
+ const stationText=value=>typeof value==='string'&&station!=='iss'?value.replaceAll('de l’ISS','de '+stationName).replaceAll('à l’ISS','à bord de '+stationName).replaceAll('vers l’ISS','vers '+stationName).replaceAll('ISS',stationName):value;
+ if(AtlasPages.hasCrew(station)){root.setAttribute('aria-label','Missions et équipage '+stationName);$('iss-search-results').setAttribute('aria-label','Résultats de recherche '+stationName);}
+ let data=null,archive=null, pending=null, searchIndex=[], searchItems=[],activeItem=null,refreshing=false;
  const viewedAt=()=>window.AtlasTimeline?.time??Date.now();
  const liveView=()=>window.AtlasTimeline?.live??true;
  const crewView=()=>AtlasStationHistory.crewAt(data,viewedAt(),liveView());
@@ -31,13 +31,14 @@
 
  function flag(n){
   const image=document.createElement('img'),code=/^[A-Z]{2}$/.test(n.code||'')?n.code.toLowerCase():'xx';
-  image.src='/images/flags/'+code+'.svg';image.className='iss-flag';image.width=20;image.height=15;image.alt=n.name?'Drapeau : '+n.name:'Nationalité non renseignée';image.decoding='async';
+  image.src='/images/flags/'+code+'.svg';image.className='iss-flag';image.width=20;image.height=15;image.alt=n.name?'Drapeau : '+nationality(n):'Nationalité non renseignée';image.decoding='async';
   image.onerror=()=>{image.onerror=null;image.src='/images/flags/xx.svg';};return image;
  }
+ function nationality(n){try{return /^[A-Z]{2}$/.test(n.name||'')?new Intl.DisplayNames(['fr'],{type:'region'}).of(n.code):n.name||n.code;}catch{return n.name||n.code;}}
  function nationalitiesFact(list){
   const fact=row('Nationalité','');const dd=fact.querySelector('dd');
   if(!list?.length)dd.textContent='Non renseignée';
-  for(const n of list||[]){const item=text('span','', 'iss-nationality');item.append(flag(n),document.createTextNode(n.name||'Non renseignée'));dd.append(item);}return fact;
+  for(const n of list||[]){const item=text('span','', 'iss-nationality');item.append(flag(n),document.createTextNode(nationality(n)||'Non renseignée'));dd.append(item);}return fact;
  }
  function aboard(current){
   const badge=$('iss-aboard-status');badge.hidden=!current;if(!current)return;
@@ -87,7 +88,7 @@
  async function renderEVAs(id,section){
   section.append(text('h3','Sorties extravéhiculaires'),text('p','Chargement de l’historique…','hint'));
   try{
-   const doc=await AtlasEVA.load();if(!section.isConnected)return;
+   const doc=typeof id==='string'&&id.startsWith('AS-')&&archive?{spacewalks:archive.spacewalks,complete:false,fetched_at:archive.observed_at,source:archive.source}:await AtlasEVA.load();if(!section.isConnected)return;
    const stats=AtlasEVA.stats(doc,id,viewedAt());section.replaceChildren(text('h3','Sorties extravéhiculaires'));
    const summary=document.createElement('dl');summary.append(row('Sorties terminées documentées',String(stats.completed)),row('Durée cumulée documentée',stats.total===null?(stats.completed?'Non renseignée':'Aucune durée documentée'):AtlasEVA.format(stats.total)));
    if(stats.ongoing)summary.append(row('Sortie en cours',String(stats.ongoing)));
@@ -102,19 +103,23 @@
     facts.append(row('Début',date(e.start)),row('Fin',done?date(e.end):'En cours à cette date / non renseignée'),row('Durée de la sortie',done?AtlasEVA.format(AtlasEVA.duration(e)):'Non finalisée'),row('Lieu',e.location),row('Participants',`${e.crew.length} · ${e.crew.map(a=>a.name).join(', ')}`));event.append(facts);
     events.append(event);
    }
-   section.append(events,text('p','La durée indiquée est celle de la sortie, commune aux participants. Elle n’est pas multipliée par le nombre d’astronautes et ne constitue pas un chronométrage individuel à l’extérieur. Les conventions de début et de fin peuvent varier selon les agences.','hint'),text('p',`Source : The Space Devs · Launch Library 2 · données reçues le ${date(doc.fetched_at)}. L’historique public peut être incomplet.`,'hint'));
+   section.append(events,text('p',doc.source?.startsWith('GCAT')?'Durée documentée de cette participation, selon la convention de dépressurisation GCAT. Les conventions peuvent différer selon les agences.':'La durée indiquée est celle de la sortie, commune aux participants. Elle n’est pas multipliée par le nombre d’astronautes et ne constitue pas un chronométrage individuel à l’extérieur. Les conventions de début et de fin peuvent varier selon les agences.','hint'),text('p',`Source : ${doc.source||'The Space Devs · Launch Library 2'} · données reçues le ${date(doc.fetched_at)}. L’historique public peut être incomplet.`,'hint'));
   }catch(e){if(section.isConnected)section.replaceChildren(text('h3','Sorties extravéhiculaires'),text('p','Historique temporairement indisponible. Aucun nombre ni durée n’est déduit de données manquantes.','hint'));}
  }
  function showPerson(item,opener){
   activeItem=item;const a=item.value,current=crewView().crew.find(c=>c.id===a.id);
   aboard(current);$('iss-detail-kind').textContent='ASTRONAUTE';$('iss-mission-name').textContent=a.name;
   const body=$('iss-mission-body');body.replaceChildren();
-  const facts=document.createElement('dl');facts.append(nationalitiesFact(a.nationalities),row('Agence / affiliation',a.agency||a.agency_abbrev),row('Type d’affiliation',({'Government':'Agence publique','Private':'Privé','Commercial':'Privé / commercial','Non-Astronaut Passenger':'Passager'})[a.affiliation_type]||a.affiliation_type||'Non renseigné'));
+  const facts=document.createElement('dl');facts.append(nationalitiesFact(a.nationalities),row('Rôle',roles[current?.role||a.role]||current?.role||a.role),row('Agence / affiliation',a.agency||a.agency_abbrev),row('Type d’affiliation',({'Government':'Agence publique','Private':'Privé','Commercial':'Privé / commercial','Non-Astronaut Passenger':'Passager'})[a.affiliation_type]||a.affiliation_type||'Non renseigné'));
+  const career=archive&&AtlasCrewArchive.total(archive,a,viewedAt(),data.archive?null:data);
+  if(career)facts.append(row(career.partial?'Temps total documenté dans l’espace':'Temps total dans l’espace',career.formatted));
+  else if(liveView()&&AtlasEVA.seconds(a.time_in_space)!==null)facts.append(row('Temps total dans l’espace · dernière collecte',AtlasCrewArchive.format(AtlasEVA.seconds(a.time_in_space))));
+  if(career)body.append(text('p',`Cumul des vols de toute la carrière jusqu’à la date consultée, sans ajouter les sorties spatiales. Archives GCAT arrêtées au ${date(career.through)}.${career.partial?' Couverture partielle : ce cumul constitue un minimum documenté.':''}`,'hint'));
   if(current)facts.append(row(liveView()?'Mission actuelle':'Mission à cette date',current.mission),row('Arrivée à l’ISS',date(current.arrival)),row('Temps à bord de l’ISS',current.arrival?elapsed(current.arrival):'Non renseigné'));
   body.append(facts);const evas=text('section','', 'iss-evas');body.append(evas);renderEVAs(a.id,evas);body.append(text('h3','Missions et vols documentés vers l’ISS'));
   if(!item.flights.length)body.append(text('p','Aucun vol associé renseigné dans ce catalogue.','hint'));
   for(const f of item.flights){const button=text('button','', 'iss-flight');button.type='button';button.append(text('span',f.name),text('small',launchDate(f)));button.addEventListener('click',()=>show(f,button));body.append(button);}
-  body.append(text('p','Fiche établie à partir des équipages des vols ISS documentés. Elle ne décrit pas toute la carrière de l’astronaute. Les affiliations historiques peuvent différer de leur situation actuelle.','hint'));
+  body.append(text('p','Équipages et rôles selon les vols documentés ; cumul de carrière issu des archives GCAT lorsqu’une identité concordante est disponible. Les affiliations historiques peuvent différer de leur situation actuelle.','hint'));
   if(!dialog.open)dialog.showModal();else if(!refreshing)$('iss-mission-close').focus({preventScroll:true});if(!refreshing){dialog.scrollTop=0;dialog.dataset.opener=opener?.id||'';}
  }
  function openResult(item,opener){if(item.kind==='person')showPerson(item,opener);else show(item.value,opener);}
@@ -156,7 +161,7 @@
    }list.append(group);
   }
   searchIndex=AtlasISSSearch.build(data);search();
-  $('iss-flight-count').textContent=`${data.flights.length} vols documentés · habités et ravitaillement`;
+  $('iss-flight-count').textContent=`${data.flights.length} vols documentés`;
   renderCrew();
  }
  function renderCrew(){
@@ -173,11 +178,18 @@
   if(dialog.open&&activeItem){const scroll=dialog.scrollTop;refreshing=true;try{openResult(activeItem,null);}finally{refreshing=false;dialog.scrollTop=scroll;}}
  });
 
- async function load(){if(data||pending)return pending;pending=(async()=>{try{const v=window.AtlasStatic?await window.AtlasStatic.handle('/api/'+station+'-missions'):await fetch('/api/'+station+'-missions').then(res=>{if(!res.ok)throw Error('Source indisponible');return res.json();});if(!Array.isArray(v.flights)||!Array.isArray(v.crew))throw Error('Réponse invalide');data=v;render();}catch(e){$('iss-flight-count').textContent='Les données de missions ne sont pas encore disponibles.';$('iss-data-status').textContent='Réessaie après la première collecte du serveur. La carte reste disponible.';}finally{pending=null;}})();return pending;}
+ async function load(){if(data||pending)return pending;pending=(async()=>{try{
+  archive=await AtlasCrewArchive.load().catch(()=>null);
+  let v=null;
+  if(['iss','tiangong'].includes(station))try{v=window.AtlasStatic?await window.AtlasStatic.handle('/api/'+station+'-missions'):await fetch('/api/'+station+'-missions').then(res=>{if(!res.ok)throw Error('Source indisponible');return res.json();});}catch{}
+  if(!v&&archive)v=AtlasCrewArchive.station(archive,station);
+  if(!v||!Array.isArray(v.flights)||!Array.isArray(v.crew))throw Error('Réponse invalide');
+  data=v;render();const source=$('station-crew-source');if(source)source.textContent='Sources : '+(data.archive?'GCAT · J. McDowell (CC BY 4.0). Séjours historiques documentés ; couverture partielle.':'The Space Devs · Launch Library 2 ; GCAT pour les cumuls de carrière.');
+ }catch(e){$('iss-flight-count').textContent='Les données de missions ne sont pas encore disponibles.';$('iss-data-status').textContent='Historique temporairement indisponible. La carte reste disponible.';}finally{pending=null;}})();return pending;}
  $('iss-mission-close').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('click',e=>{if(e.detail>0&&e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
  
- window.addEventListener('atlas:collection',e=>{root.hidden=!AtlasPages.isStation(e.detail);if(!root.hidden)load();if(dialog.open)dialog.close();});
- if(AtlasPages.isStation(document.body.dataset.collection)){root.hidden=false;load();}
+ window.addEventListener('atlas:collection',e=>{root.hidden=!AtlasPages.hasCrew(e.detail);if(!root.hidden)load();if(dialog.open)dialog.close();});
+ if(AtlasPages.hasCrew(document.body.dataset.collection)){root.hidden=false;load();}
  setInterval(()=>{if(!root.hidden)for(const e of root.querySelectorAll('[data-arrival]'))if(e.dataset.arrival)e.textContent=stationText(`${elapsed(e.dataset.arrival)} à bord de l’ISS`);},60000);
 })();

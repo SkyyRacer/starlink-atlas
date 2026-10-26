@@ -209,3 +209,79 @@ Suivi solaire ISS (modèle réaliste uniquement) : à l’heure affichée dans l
 Le pointage alpha vise la projection du Soleil autour de la poutre ; les bêta complètent ensuite le pointage dans la pose alpha courante. Le mouvement est lissé et les angles sont déroulés sans saut au passage ±180°. La date en pause n’ajoute aucun mouvement décoratif une fois la position atteinte. Les tests parcourent un tour complet, les configurations verticales à 90°, plusieurs directions solaires, les positions des attaches et la stabilité des modules centraux.
 
 Limites : les deux axes simulent un suivi nominal du Soleil ; il ne s’agit pas de télémétrie. Les angles de parking, contraintes d’ombrage, pannes et manœuvres d’éclipse propres à chaque date ne sont pas reconstruits. Les radiateurs thermiques ne reçoivent pas une animation de suivi solaire ; ceux fixés aux ensembles extérieurs accompagnent mécaniquement leur support. Références : [NASA, Operating an Outpost, EPS et systèmes de pointage](https://www.nasa.gov/wp-content/uploads/2018/04/iss-operating_an_outpost-tagged.pdf), [NASA, DOUG : commandes Solar Array Alpha / Beta](https://www.nasa.gov/wp-content/uploads/2022/06/doug_user_guide_doc_final_0.pdf).
+
+ISS : correction du miroir latéral de l’assemblage IGOAL par réflexion de l’axe corps Y dans la transformation de présentation. Les axes avant (+X) et nadir (+Z) sont conservés ; la réflexion annule le changement de parité du fichier source. Géométrie et textures PNG restent intactes. Contrôles : parité du module central, visée Cupola vers la Terre, suivi solaire alpha/bêta.
+
+
+Fiches : `static/object-facts.js` reprend les catégories du registre Atlas et conserve
+les dimensions physiques vérifiées par identifiant NORAD, avec la source primaire
+et le périmètre de mesure (corps, antenne, panneaux ou pare-soleil déployés).
+Les lignes sans donnée sont masquées ; les dimensions ne sont
+jamais déduites de l'échelle amplifiée ou normalisée des modèles d'affichage.
+Sources initiales : NASA ISS Facts and Figures, NASA Hubble Overview, Chandra
+Specifications, NASA Webb Telescope Overview, dossier de presse NASA/JPL Kepler,
+NASA Voyager FAQ, ESA Gaia et Euclid, NASA Goddard LAGEOS et NASA History Sputnik.
+Les URL exactes sont conservées auprès de chaque mesure dans ce fichier de données.
+
+Fond cartographique rapproché : un seul fournisseur cartographique natif Cesium
+est conservé pendant le zoom, le suivi orbital et les mouvements de caméra.
+La précédente recomposition de mosaïques régionales a été retirée : elle remplaçait
+les couches pendant le rendu et provoquait des coupures et du clignotement.
+La géométrie, les coordonnées de texture et le chargement des tuiles restent gérés
+par Cesium. Le suivi rapproché affine le niveau de détail et conserve le cache,
+sans couper le fond pendant le chargement ni mélanger une seconde carte.
+En planisphère, la sélection d'un objet retire le fond Natural Earth sous les tuiles
+cartographiques. Attribution et règles de cache du fournisseur conservées.
+
+
+Complément GCAT des fiches (26 octobre 2026) : import local du catalogue principal
+`https://planet4589.org/space/gcat/tsv/cat/satcat.tsv`, édition du 13 octobre 2026.
+Empreinte, ordre des champs, compteurs et noms des fragments dans
+`resources/object-physical-facts-manifest.json`. 30 313 objets ont des mesures
+exploitables, dont 12 401 Starlink avec variante identifiée. Les correspondances
+utilisent NORAD et identifiant international ; les anciens identifiants sont
+recoupés par nom. Les champs zéro ou absents ne produisent aucune ligne.
+Les indicateurs d'estimation GCAT sont conservés et affichés par « ≈ ».
+Les variantes proviennent du champ Bus et du lot PLName (V0.9, V1.0, groupes V1.5,
+V2M, V2MO, V2MD), jamais d'un simple seuil de date : les générations se chevauchent.
+La masse propre à chaque objet est conservée, notamment les différentes séries V1.5
+et les V2 Mini optimisés. Le rapport opérateur
+https://starlink.com/public-files/starlinkProgressReport_2024.pdf confirme la
+masse de référence d'environ 575 kg du V2 Mini optimisé. Les dimensions de référence
+V1.5 et V2 Mini sont également présentées dans le dépôt SpaceX du 4 octobre 2022,
+https://planet4589.org/astro/starsim/papers/StarGen2.pdf (annexe B) ; les masses DAS
+conservatrices de ce dépôt ne remplacent pas les masses individuelles du catalogue.
+
+Le premier module ne doit pas représenter la taille ou la masse d'une station
+assemblée : les valeurs GCAT de Zarya, Tianhe et du module central Mir sont exclues
+de cet import. Les mesures de l'ISS sont celles de l'ensemble déployé, avec masse
+de référence variable selon la configuration. Une masse de référence ou au lancement
+ne constitue pas une estimation du carburant restant à l'heure de la chronologie.
+Le satellite Spoutnik 1 est identifié par NORAD 2 ; NORAD 1 est l'étage associé.
+Les sites SATCAT sont libellés d'après https://celestrak.org/satcat/launchsites.php.
+Les fiches ne contiennent que la liste demandée, dans l'ordre, vitesse en km/h,
+masse en kg sous 1 000 kg et en tonnes à partir de 1 000 kg. Pour les missions
+lointaines, la distance géocentrique conserve son libellé physique plutôt qu'altitude.
+
+
+Disponibilité : `scripts/ensure_data.py` contrôle les fichiers et conserve des copies
+validées pour la récupération ; détails et limites dans `DATA-FIABILITE.md`.
+Les missions lointaines sont actualisées avec NASA/JPL Horizons avant leur expiration.
+Les limites effectives de chaque noyau restent respectées. Les index expirés ou
+momentanément indisponibles peuvent être relus après 30 secondes dans le navigateur,
+et les fichiers annuels sont versionnés par la provenance de l'index pour éviter
+le réemploi d'un ancien contenu après actualisation.
+
+### Équipages historiques et temps de carrière
+
+Les panneaux des stations utilisent Launch Library 2 pour les collectes ISS/Tiangong et les tables publiques de [GCAT Human Spaceflight](https://planet4589.org/space/astro/web/) (J. McDowell, CC BY 4.0) pour les séjours historiques, vols individuels et participations aux EVA. `scripts/import_crew_archive.py` produit `static/crew-archive.json` à partir de sept tables, avec leurs URL, dates et empreintes SHA-256 ; la publication tente une actualisation quotidienne et conserve l’archive livrée si la source échoue.
+
+Les temps de vol portent sur toute la carrière documentée, arrêtée à la date consultée ; ils ne sont pas la somme des séjours à bord de la seule station. Les changements de véhicule et intervalles qui se recouvrent ne comptent qu’une fois. Les participations aux sorties spatiales restent séparées du temps de vol. Les identités incertaines ne sont pas fusionnées ; un cumul issu des seuls vols LL2 de la station est signalé comme minimum documenté. Les arrivées, départs et nationalités manquants ne sont pas inventés. Les dates GCAT marquées comme incertaines restent des observations de catalogue ; les couvertures partielles sont signalées dans le panneau. Soyouz 10 n’est pas compté comme un équipage ayant occupé Saliout 1.
+
+### Nationalités et drapeaux des voyageurs spatiaux
+
+Les codes nationaux GCAT sont normalisés vers les fichiers de drapeaux locaux, selon [la table des États GCAT](https://planet4589.org/space/gcat/tsv/tables/orgs.tsv). Les correspondances et corrections individuelles sourcées figurent dans `resources/astronaut-nationalities.json`. Les libellés historiques de la Tchécoslovaquie et de la RDA sont conservés ; le drapeau RDA provient de [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Flag_of_East_Germany.svg), œuvre officielle dans le domaine public selon sa fiche. Le drapeau tchèque conserve le dessin du drapeau tchécoslovaque. Ephraim Rabin reçoit les deux nationalités américaine et israélienne d’après [sa biographie Blue Origin](https://www.blueorigin.com/ja-JP/news/new-shepard-ns-26-mission). Le code GCAT `PAR` désigne Panama, confirmé pour Jaime Alemán par [Blue Origin NS-32](https://www.blueorigin.com/news/new-shepard-ns-32-mission). Les mannequins et mascottes sans nationalité ne reçoivent pas un pays inventé.
+
+### Lanceurs et catégories individuelles de mission
+
+La ligne Lanceur utilise GCAT launchlog (identifiant international de lancement ; valeur absente en cas d’ambiguïté). Les catégories individuelles sont enrichies par GCAT psatcat. L’import, les sources datées et leurs empreintes sont documentés dans `RECHERCHE-DONNEES-PHYSIQUES.md` et `resources/object-physical-facts-manifest.json`.

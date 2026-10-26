@@ -4,8 +4,23 @@ import duckdb
 from compact_web_data import compact
 SOURCE='juliensimon/space-track-tle-history'
 def main():
- p=argparse.ArgumentParser();p.add_argument('--data-dir',default='data');p.add_argument('--work-dir',required=True);p.add_argument('--catalog-file',required=True);p.add_argument('--days',type=int,default=14);p.add_argument('--since',type=dt.date.fromisoformat);a=p.parse_args()
- data=pathlib.Path(a.data_dir);work=pathlib.Path(a.work_dir);work.mkdir(parents=True,exist_ok=True);catalog=json.loads(pathlib.Path(a.catalog_file).read_text());objects=[(v.get('id',v.get('NORAD_CAT_ID')),v.get('name',v.get('OBJECT_NAME')),v.get('designator',v.get('OBJECT_ID')) or '') for v in catalog]
+ p=argparse.ArgumentParser();p.add_argument('--data-dir',default='data');p.add_argument('--work-dir',required=True);p.add_argument('--catalog-file');p.add_argument('--days',type=int,default=14);p.add_argument('--since',type=dt.date.fromisoformat);p.add_argument('--min-interval',type=int,default=0);a=p.parse_args()
+ data=pathlib.Path(a.data_dir);work=pathlib.Path(a.work_dir);work.mkdir(parents=True,exist_ok=True)
+ metadata=data/'history-recent-source.json'
+ if a.min_interval and metadata.exists():
+  previous=json.loads(metadata.read_text());fetched=dt.datetime.fromisoformat(previous['fetched_at'])
+  if (dt.datetime.now(dt.timezone.utc)-fetched).total_seconds()<a.min_interval:
+   print('Recent historical archive already refreshed; existing observations retained.');return
+ files=[pathlib.Path(a.catalog_file)] if a.catalog_file else [data/'satcat.json',*sorted(data.glob('*-catalog.json'))]
+ catalog={}
+ for file in files:
+  if not file.is_file():continue
+  for row in json.loads(file.read_text()):
+   ident=row.get('id',row.get('NORAD_CAT_ID'))
+   if isinstance(ident,int):catalog[ident]=(ident,row.get('name',row.get('OBJECT_NAME','')),row.get('designator',row.get('OBJECT_ID')) or '')
+ objects=list(catalog.values())
+ if not objects:raise RuntimeError('No supported objects; existing archives preserved')
+
  revision=json.load(urllib.request.urlopen(f'https://huggingface.co/api/datasets/{SOURCE}',timeout=60))['sha'];since=a.since or (dt.datetime.now(dt.timezone.utc)-dt.timedelta(days=a.days)).date();rows=[]
  c=duckdb.connect();extension=work/'extensions';extension.mkdir(exist_ok=True);temp=work/'recent-temp';temp.mkdir(exist_ok=True);c.execute('SET extension_directory = ?',[str(extension)]);c.execute('SET temp_directory = ?',[str(temp)]);c.execute("SET memory_limit='512MB'");c.execute('SET threads=2');c.execute('INSTALL httpfs');c.execute('LOAD httpfs');c.execute('SET http_timeout=120');c.execute('SET http_retries=2');c.execute("SET TimeZone='UTC'");c.execute('CREATE TABLE objects(id INTEGER,name VARCHAR,designator VARCHAR)');c.executemany('INSERT INTO objects VALUES (?,?,?)',objects)
  for year in range(since.year,dt.datetime.now(dt.timezone.utc).year+1):

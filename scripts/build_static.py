@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory() as tmp:
   epochs=[r['elements']['EPOCH'] for r in observed]
   if epochs:manifest['last_epoch']=max([manifest.get('last_epoch',''),*epochs])
  bundle['catalog_response']['history']=manifest
- bundle['catalog_response']['message']='Collecte périodique · données de cette visite figées jusqu’au rechargement'
+ bundle['catalog_response']['message']=(bundle['catalog_response'].get('message') or 'Cache des dernières observations validées')+' · données de cette visite figées jusqu’au rechargement'
  encoded=json.dumps(bundle,separators=(',',':'),ensure_ascii=False).encode();stamp=hashlib.sha256(encoded).hexdigest()[:20];bundle['catalog_response']['snapshot']=stamp
  encoded=json.dumps(bundle,separators=(',',':'),ensure_ascii=False).encode()
  (out/'data').mkdir();filename=f'data/edition-{stamp}.json.gz';(out/filename).write_bytes(gzip.compress(encoded,mtime=0))
@@ -72,7 +72,7 @@ for file in out.glob('*.js'):
 station_ui=out/'station-ui.js'
 if station_ui.exists():
  text=station_ui.read_text()
- for name in ['iss-search.js','iss-evas.js','station-history.js','iss-missions.js']:
+ for name in ['crew-archive.js','iss-search.js','iss-evas.js','station-history.js','iss-missions.js']:
   text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256((out/name).read_bytes()).hexdigest()[:12],text)
  station_ui.write_text(text)
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');

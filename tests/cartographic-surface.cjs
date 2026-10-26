@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),{create}=require('../static/cartographic-surface.js');
+let wanted=true,callbacks=[],adds=0,removes=0,visibilityWrites=0;
+const provider={name:'OpenStreetMap native tiles'},imagery={imageryProvider:provider,_show:true,get show(){return this._show;},set show(value){visibilityWrites++;this._show=value;}};
+const globe={maximumScreenSpaceError:2,loadingDescendantLimit:20,tileCacheSize:256,tilesLoaded:false};
+const viewer={container:{dataset:{}},imageryLayers:{addImageryProvider(){adds++;throw Error('Never create a second map layer');},remove(){removes++;throw Error('Never remove the native map');}},scene:{globe,preRender:{addEventListener:fn=>callbacks.push(fn)}}};
+const surface=create({viewer,imagery,isEnabled:()=>wanted});
+surface.refresh();assert.equal(surface.enabled,true);assert.equal(imagery.show,true,'The map remains visible while native detail loads');assert.equal(viewer.container.dataset.cartographicSurface,'loading');assert.equal(globe.maximumScreenSpaceError,1);
+for(let frame=0;frame<500;frame++)callbacks[0]();
+assert.equal(adds,0);assert.equal(removes,0);assert.equal(visibilityWrites,1,'No per-frame imagery hide/show cycle');assert.equal(imagery.imageryProvider,provider,'Provider identity stays fixed through motion and time updates');
+globe.tilesLoaded=true;surface.refresh();assert.equal(viewer.container.dataset.cartographicSurface,'ready');
+wanted=false;imagery.show=false;surface.refresh();assert.equal(imagery.show,false,'Switching to realistic Earth must not restore cartographic imagery');assert.equal(globe.maximumScreenSpaceError,2);assert.equal(globe.loadingDescendantLimit,20);
+wanted=true;surface.refresh();assert.equal(imagery.show,true);assert.equal(imagery.imageryProvider,provider);assert.equal(adds+removes,0,'Repeated zoom/realistic mode transitions do not rebuild a surface');
+console.log('Stable cartographic surface: persistent native provider, no layer replacement, no visibility flicker, native detail loading and realistic-Earth ownership OK.');

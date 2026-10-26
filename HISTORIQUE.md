@@ -54,3 +54,33 @@ KeepTrack affiche un historique d’altitude pour NORAD 100855 (https://keeptrac
 Chaque collecte orbitale régulière réussie conserve une observation quotidienne dans `data/history-updates/`, avant de remplacer le cache récent. Les nouveaux identifiants sont inclus, sans supprimer les anciennes journées. Les visiteurs reçoivent les nouvelles données à leur prochain chargement ; changer la date consulte les archives sans relancer les collectes.
 
 TESS dispose en complément de vecteurs officiels NASA/JPL Horizons depuis avril 2018, importés avec `scripts/import_tess_history.py`. L’index `static/ephemerides/tess-index.json` charge uniquement l’année demandée et la garde en mémoire pendant la visite. L’interpolation est bornée aux intervalles publiés ; aucune position n’est extrapolée hors de ces intervalles. Les stations disposent aussi d’observations publiques IAU CPS SatChecker, documentées dans `data/station-history-source.json`.
+
+
+## Diagnostic de publication du 26 octobre 2026
+
+Le jeu `data-seed/history` contient 3 148 journées et 10 886 344 observations,
+du 22 février 2018 au 10 octobre 2026. Ce jeu est principalement Starlink.
+Il ne correspond pas à la totalité du dossier historique local, qui contient
+24 367 journées et 123 045 979 observations depuis le 11 janvier 1959, pour
+environ 11 Gio de fichiers compressés. La présence d'une date dans l'index
+ne certifie donc pas qu'un satellite donné dispose d'une observation ce jour-là.
+
+Le chargement navigateur utilise désormais les journées et fournisseurs disponibles
+même lorsqu'une autre archive de la fenêtre ne répond pas. Les erreurs temporaires
+font l'objet de trois tentatives au maximum, avec délai et durée bornée ; les erreurs
+permanentes ne sont pas répétées. Une réponse partielle n'est pas enregistrée comme
+une archive complète et peut être complétée à la requête suivante après 30 secondes.
+Aucune position n'est extrapolée au-delà de la fenêtre de validité existante.
+
+La publication tente aussi d'importer quotidiennement les 14 derniers jours du
+jeu public pour tous les catalogues pris en charge, puis conserve les observations
+validées dans le cache de collecte. Un échec ne supprime pas les archives existantes.
+Cela ne reconstitue pas les années anciennes manquantes dans le jeu publié : la
+diffusion complète du dossier local nécessite un hébergement d'archives séparé,
+avec l'option `--remote-history` déjà prévue par l'exporteur. Les dates disponibles
+restent limitées par la couverture réelle de chaque source.
+
+Le contrôle de publication vérifie désormais séparément les grandes constellations
+GPS, Galileo, GLONASS, BeiDou, OneWeb et Iridium, ainsi que la présence des stations
+ISS et Tiangong lorsqu'elles sont encore en orbite selon le catalogue. Une perte
+importante empêche le remplacement de l'édition publique précédente.

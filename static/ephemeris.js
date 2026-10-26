@@ -54,14 +54,30 @@
   }
   return data;
  }
- const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653},missionIndexes=new Map();
+ const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653},missionIndexes=new Map(),missionIndexTimes=new Map(),missionFailures=new Map();
  async function loadMission(key,at){
-  if(!missionIndexes.has(key))missionIndexes.set(key,fetch(new URL('ephemerides/'+key+'-index.json',base)).then(r=>r.ok?r.json():null).catch(()=>null));
-  const index=await missionIndexes.get(key),entry=index&&Object.values(index.years||{}).find(row=>at>=row.first_epoch*1000&&at<=row.last_epoch*1000);
+  const readIndex=()=>{
+   missionIndexTimes.set(key,Date.now());
+   const request=fetch(new URL('ephemerides/'+key+'-index.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+   missionIndexes.set(key,request);return request;
+  };
+  let index=missionIndexes.has(key)?await missionIndexes.get(key):await readIndex();
+  const find=()=>index&&Object.values(index.years||{}).find(row=>at>=row.first_epoch*1000&&at<=row.last_epoch*1000);
+  let entry=find();
+  // A failed/expired index is retried, so a background repair becomes visible
+  // without reopening the application. Avoid retrying on every timeline tick.
+  if(!entry&&Date.now()-(missionIndexTimes.get(key)||0)>=30000){index=await readIndex();entry=find();}
   if(!entry)return null;
-  if(!archives.has(entry.file))archives.set(entry.file,fetch(new URL(entry.file,base)).then(r=>r.ok?r.json():null).catch(()=>null));
-  return archives.get(entry.file);
+  const path=entry.file+'?v='+encodeURIComponent(index.source_sha256||entry.last_epoch),failed=missionFailures.get(path);
+  if(failed&&Date.now()<failed)return null;
+  if(!archives.has(path))archives.set(path,fetch(new URL(path,base),{cache:failed?'reload':'default'}).then(r=>r.ok?r.json():null).catch(()=>null));
+  const data=await archives.get(path);
+  if(!data||data.id!==missionIds[key]||data.frame!=='ICRF'||data.time_scale!=='UTC'||!Array.isArray(data.samples)){
+   archives.delete(path);missionFailures.set(path,Date.now()+30000);return null;
+  }
+  missionFailures.delete(path);return data;
  }
+
  async function apply(url,result){
   const parsed=new URL(url,base),collection=parsed.searchParams.get('collection');if(!parsed.pathname.endsWith('/api/positions')||!['all','tess',...Object.keys(missionIds),'spektr-rg','ikaros'].includes(collection))return result;
   const at=Date.parse(parsed.searchParams.get('at')),id=Number(parsed.searchParams.get('id'));

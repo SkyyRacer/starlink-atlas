@@ -35,6 +35,11 @@ assert.equal(runtime.materials.find(m=>m.name==='Node.Cupola').alphaMode,'BLEND'
 for(const name of ['Zarya','Zvezda.SM','Node.MRM1','Node.MRM2'])assert.equal(runtime.materials.find(m=>m.name===name).alphaMode,'MASK','Opaque module cutouts write depth and do not disappear through transparency sorting');
 function sceneNodes(doc){const nodes=new Map();function visit(index,parent){const node=doc.nodes[index];const local=node.matrix?C.Matrix4.fromArray(node.matrix):C.Matrix4.fromTranslationQuaternionRotationScale(new C.Cartesian3(...(node.translation||[0,0,0])),new C.Quaternion(...(node.rotation||[0,0,0,1])),new C.Cartesian3(...(node.scale||[1,1,1])),new C.Matrix4());const matrix=C.Matrix4.multiply(parent,local,new C.Matrix4());nodes.set(node.name,{matrix,origin:C.Matrix4.getTranslation(matrix,new C.Cartesian3())});for(const child of node.children||[])visit(child,matrix);}for(const index of doc.scenes[doc.scene||0].nodes)visit(index,C.Matrix4.IDENTITY);return nodes;}
 const nodes=sceneNodes(runtime),cupola=C.Cartesian3.normalize(C.Cartesian3.subtract(nodes.get('Cupola').origin,nodes.get('Node3').origin,new C.Cartesian3()),new C.Cartesian3()),forward=C.Cartesian3.normalize(C.Cartesian3.subtract(nodes.get('Node2').origin,nodes.get('Node1').origin,new C.Cartesian3()),new C.Cartesian3());
+// A single reflected body-Y axis cancels the mirrored NASA export. Without
+// this, the station and NASA/ESA lettering have reversed handedness.
+const coreBasis=C.Matrix4.getMatrix3(nodes.get('Node1').matrix,new C.Matrix3());
+assert.ok(C.Matrix3.determinant(coreBasis)>0,'ISS core is no longer mirrored: source and presentation reflections cancel');
+assert.deepEqual(iss.body_axes,[[-1,0,0],[0,0,1],[0,-1,0]],'Reflection changes lateral handedness while preserving forward and nadir');
 assert.ok(C.Cartesian3.dot(cupola,C.Cartesian3.UNIT_Z)>.99999,'Actual assembled Cupola is at body nadir, including all source parent transforms');
 assert.ok(C.Cartesian3.dot(forward,C.Cartesian3.UNIT_X)>.99999,'Assembled Harmony lies forward of Unity');
 // Include Cesium's actual loader correction. Previously the tests stopped at

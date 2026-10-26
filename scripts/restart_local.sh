@@ -25,5 +25,11 @@ if [[ -n "$ATLAS_LISTENERS" ]]; then
     sleep 0.1
   done
 fi
+# Repair and refresh before the server reads its in-memory edition; running a
+# second orbital collector alongside it could duplicate provider requests.
+if command -v python3 >/dev/null 2>&1; then
+  printf '%s\n' 'Vérification des données et des sources de secours…'
+  python3 scripts/ensure_data.py --data-dir "$ATLAS_PREVIEW_DATA"
+fi
 printf '%s\n' 'Atlas à jour : http://127.0.0.1:3003/atlas'
 BIND=127.0.0.1:3003 DATA_DIR="$ATLAS_PREVIEW_DATA" exec "$ATLAS_REPO_DIR/target/release/starlink-atlas"

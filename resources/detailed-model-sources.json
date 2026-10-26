@@ -17,7 +17,7 @@
       [
         0,
         0,
-        -1
+        1
       ],
       [
         0,
@@ -118,7 +118,7 @@
         ]
       }
     },
-    "note": "Full IGOAL assembly: original compressed geometry and original lossless PNG textures. Opaque cutouts use depth-tested alpha masks; Cupola glass retains blending. Uniform white COLOR_0 layers audited and omitted. Body axes calibrated in scene/world coordinates: Node1 to Node2 is source -X, Node3 to Cupola is source -Y. Nominal LVLH only, not live measured attitude. Solar wings use a neutral deployed baseline. Runtime Sun tracking animates two shared SARJ alpha joints plus eight independent beta joints using the real carrier hierarchy; central modules and Cupola remain fixed. iROSA mounts retain their designed relative inclination. No live motor telemetry or dated parking modes are implied."
+    "note": "Full IGOAL assembly: original compressed geometry and original lossless PNG textures. Opaque cutouts use depth-tested alpha masks; Cupola glass retains blending. Uniform white COLOR_0 layers audited and omitted. Body axes calibrated in scene/world coordinates: Node1 to Node2 is source -X, Node3 to Cupola is source -Y. Nominal LVLH only, not live measured attitude. Solar wings use a neutral deployed baseline. Runtime Sun tracking animates two shared SARJ alpha joints plus eight independent beta joints using the real carrier hierarchy; central modules and Cupola remain fixed. iROSA mounts retain their designed relative inclination. No live motor telemetry or dated parking modes are implied. The final body-Y reflection corrects the mirrored source assembly and restores readable NASA/ESA lettering without reversing nadir or forward axes."
   },
   "tess": {
     "file": "resources/detailed-originals/tess-b.glb",

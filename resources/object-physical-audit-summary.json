@@ -1,0 +1,75 @@
+{
+  "catalogue": "data-seed SATCAT et catalogues spécialisés ; identifiants NORAD uniques",
+  "physicalCatalogues": [
+    {
+      "file": "satcat.tsv",
+      "source": "https://planet4589.org/space/gcat/tsv/cat/satcat.tsv",
+      "updated": "2026 Oct 26 0022:04",
+      "sha256": "ea7191b85786baf4af1f17979e691d7015adc541cc0dbcb960447e2a86e1d4e8"
+    },
+    {
+      "file": "satcat100k.tsv",
+      "source": "https://planet4589.org/space/gcat/tsv/cat/satcat100k.tsv",
+      "updated": "2026 Oct 26 0022:11",
+      "sha256": "7f2f3dcfc2f06a78aa383bb4f0f17f959b15fcaccf152f7a31e2e655486ffcfc"
+    },
+    {
+      "file": "launchlog.tsv",
+      "source": "https://planet4589.org/space/gcat/tsv/derived/launchlog.tsv",
+      "sha256": "42ce9d93d1c7bdee206c64a97179a5c88aab2dd913b1a08f9fdeb24a9be03ddb",
+      "updated": "2026 Oct 26 0019:48"
+    },
+    {
+      "file": "psatcat.tsv",
+      "source": "https://planet4589.org/space/gcat/tsv/cat/psatcat.tsv",
+      "sha256": "5af402056893dd666ad3ef2e573fbd59933306efee11d196e25581135cefd3a3",
+      "updated": "2026 Oct 26 0022:11"
+    }
+  ],
+  "counts": {
+    "R/B": {
+      "objects": 6772,
+      "anyPhysicalFact": 6112,
+      "allThree": 6112,
+      "span": 6112,
+      "length": 6112,
+      "mass": 6112,
+      "launchVehicle": 6755,
+      "type": 6772,
+      "withEstimate": 1728
+    },
+    "PAY": {
+      "objects": 20624,
+      "anyPhysicalFact": 20556,
+      "allThree": 20555,
+      "span": 20555,
+      "length": 20555,
+      "mass": 20556,
+      "launchVehicle": 20607,
+      "type": 20624,
+      "withEstimate": 17277
+    },
+    "DEB": {
+      "objects": 35931,
+      "anyPhysicalFact": 3906,
+      "allThree": 3614,
+      "span": 3868,
+      "length": 3662,
+      "mass": 3835,
+      "launchVehicle": 35504,
+      "type": 35931,
+      "withEstimate": 2682
+    },
+    "UNK": {
+      "objects": 599,
+      "anyPhysicalFact": 0,
+      "allThree": 0,
+      "span": 0,
+      "length": 0,
+      "mass": 0,
+      "launchVehicle": 0,
+      "type": 599,
+      "withEstimate": 0
+    }
+  }
+}

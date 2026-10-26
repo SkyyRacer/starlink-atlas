@@ -43,7 +43,9 @@
   viewer.canvas.addEventListener('wheel',event=>{event.preventDefault();const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?viewer.canvas.clientHeight:1);if(pixels)moon.zoom(pixels<0?1:-1,Math.abs(pixels)/100);},{passive:false});
   viewer.canvas.tabIndex=0;viewer.canvas.addEventListener('keydown',event=>{const step={ArrowLeft:[-12,0],ArrowRight:[12,0],ArrowUp:[0,-12],ArrowDown:[0,12]}[event.key];if(step){event.preventDefault();moon.orbit(...step);}});
   viewer.screenSpaceEventHandler.setInputAction(e=>{if(viewer.camera.pickEllipsoid(e.position,viewer.scene.globe.ellipsoid))moon.offerEarth();else if(moon.hit(e.position))moon.open();else moon.close();},C.ScreenSpaceEventType.LEFT_CLICK);
-  await moon.enter();viewReady=true;
+  await moon.enter();
+  const earthDirection=window.AtlasDeepSpaceView?.create({viewer,C,onEarth:()=>AtlasJourney.goEarth(),targetPosition:()=>moon.position,manageLight:false,showReturn:false});earthDirection?.setEnabled(true);
+  viewReady=true;
   setInterval(()=>{if(document.hidden)return;const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at=Math.min(Date.now(),at+dt*Number($('speed').value));}clock();if(!document.hidden&&playing)update();},250);
  }catch(error){AtlasLoading.fail();$('notice').textContent='Lune indisponible : '+error.message;}
 })();

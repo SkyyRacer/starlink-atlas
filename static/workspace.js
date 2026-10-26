@@ -6,7 +6,7 @@
  const nav=document.querySelector('.collection-navigation'),menu=$('collection-menu-button'),tools=$('advanced-tools'),news=$('orbital-news-button');
  const debris=$('workspace-debris'),debrisButton=$('workspace-debris-button'),debrisMenu=$('workspace-debris-menu');
  const isAtlas=document.body.dataset.collection==='all'||!$('atlas-controls').hidden;
- const isStation=AtlasPages.isStation(document.body.dataset.collection);
+ const isStation=AtlasPages.hasCrew(document.body.dataset.collection);
  close.firstChild.textContent='';
  if(isStation){close.setAttribute('aria-label','Fermer Missions et équipage');}
  const search=document.querySelector('.object-search'),searchMenu=nav.querySelector('.collection-menu-panel');
@@ -147,7 +147,7 @@
    if(isAtlas){frozenControls.hidden=false;move(close,frozenControls);move(categorySearch,frozenControls);move(document.querySelector('#atlas-controls .atlas-actions'),frozenControls);bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
    else{titleRow.hidden=false;move(document.querySelector('.observation-title'),titleRow);move(close,titleRow);move(objects,sceneActions);$('workspace-debris-navigation').hidden=false;}
    if(isAtlas){objects.after(stationControl);nav.hidden=true;}else{nav.after(stationControl);nav.hidden=false;}stationControl.after(deepControl);
-   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les objets':'Liste des objets';
+   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les objets':isStation?'Équipage à bord':'Liste des objets';
    setObjects(false);syncView();
   }else{
    if(!mounted)return;closeStations();setObjects(false);closeMenu();closeTools();closeDebris();menu.setThematic?.(false);closeNews();

@@ -10,6 +10,7 @@
     if(!visits.has(a.id))visits.set(a.id,new Map());visits.get(a.id).set(f.id,f);
    }
   }
+  for(const v of data.visits||[])if(v.person?.id&&!people.has(v.person.id))people.set(v.person.id,v.person);
   for(const a of data.crew||[])if(a.id!=null)people.set(a.id,a);
   const flights=data.flights.map(f=>({kind:'flight',id:f.id,name:f.name,detail:f.spacecraft||'Mission / vol',value:f}));
   const astronauts=[...people.values()].map(a=>({kind:'person',id:a.id,name:a.name,detail:a.agency_abbrev||a.agency||'Astronaute',value:a,flights:[...(visits.get(a.id)?.values()||[])]}));

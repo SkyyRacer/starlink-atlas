@@ -8,7 +8,7 @@ fn person(c: &Value) -> Value {
     let a = &c["astronaut"];
     json!({"id":a["id"],"name":a["name"],"family_name":a["last_name"].as_str().map(str::to_owned).or_else(||array(&a["nationality"]).iter().any(|n|n["alpha_2_code"]=="CN").then(||a["name"].as_str().unwrap_or("").split_whitespace().next().unwrap_or("").to_owned())),"role":c["role"]["role"],
         "agency":a["agency"]["name"],"agency_abbrev":a["agency"]["abbrev"],
-        "affiliation_type":a["type"]["name"],"nationalities":array(&a["nationality"]).iter().map(|n|json!({"name":n["name"],"code":n["alpha_2_code"]})).collect::<Vec<_>>()})
+        "time_in_space":a["time_in_space"],"eva_time":a["eva_time"],"flights_count":a["flights_count"],"affiliation_type":a["type"]["name"],"nationalities":array(&a["nationality"]).iter().map(|n|json!({"name":n["name"],"code":n["alpha_2_code"]})).collect::<Vec<_>>()})
 }
 fn station_events(target:u64,f: &Value) -> Vec<&Value> {
     array(&f["docking_events"])

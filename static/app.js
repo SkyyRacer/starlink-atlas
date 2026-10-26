@@ -15,9 +15,9 @@ window.addEventListener('atlas-science-ready',scheduleDraw);
 document.addEventListener('visibilitychange',()=>globeController?.setRendering(!document.hidden&&displayMode==='3d'));
 window.addEventListener('atlas-ephemeris-ready',()=>{if(collectionMode==='all'&&!document.hidden)loadPositions(true);});
 L.control.zoom({position:'topright'}).addTo(map);
-let tiles=null,overviewAttached=false,planisphereRequested=false;
+let tiles=null,planisphereRequested=false;
 // The planisphere is optional: no tile downloads or image reprojection in 3D.
-function attachPlanisphere(){if(!tiles)return;if(!map.hasLayer(tiles))tiles.addTo(map);if(!overviewAttached){overviewAttached=true;AtlasOverview.attach(map,tiles,worldBounds);}}
+function attachPlanisphere(){if(tiles&&!map.hasLayer(tiles))tiles.addTo(map);}
 let constellationCoverage='',issOverviewPending=false,initialOverviewTarget=null;
 let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(AtlasPages.definitions.filter(row=>row.id!=='debris').map(row=>row.id));
 const atlasDefaultColor=family=>family==='debris'?'#d9a15f':'#c8efff';
@@ -142,35 +142,16 @@ function list(){const previousScroll=$('results').scrollTop;const rows=catalog.f
 function updateDetail(){
  const more=$('follow-details');if(more){more.hidden=true;more.removeAttribute('href');}
  if(selected===null){$('detail').hidden=true;return;}const s=byId.get(selected);if(!s)return;
- const p=points.find(p=>p.id===selected),label={orbit:AtlasPages.family(s)==='debris'?'En orbite':'En orbite · opérationnel inconnu',decayed:'Désorbité',unknown:'Inconnu','not-launched':'Pas encore lancé'}[state(s)];
- const ops={'+':'Opérationnel','-':'Non opérationnel',P:'Partiellement opérationnel',B:'En réserve',S:'En attente d’activation',X:'Mission prolongée',D:'Désorbité','?':'Inconnu'};
+ const p=points.find(p=>p.id===selected);
  const distantMission=Boolean(AtlasPages.definition(AtlasPages.family(s))?.trajectory);
- let fields=[
- ['Type d’orbite',AtlasOrbits.describe(s.orbit,AtlasPages.definition(AtlasPages.family(s))),"Type déterminé à partir des derniers éléments orbitaux disponibles. À défaut, l’orbite nominale du programme est précisée. Une orbite elliptique ne se classe pas d’après sa seule altitude instantanée ; la classification récente ne décrit pas nécessairement l’orbite à une date passée."],
- ['NORAD',s.id,'Identifiant unique du satellite dans le catalogue spatial. Il est différent du numéro utilisé dans son nom courant.'],
- ['État à cette date',label,'État déduit des dates de lancement et de désorbitation à l’heure affichée sur la carte. Le fonctionnement opérationnel historique n’est pas connu.'],
- ['Code opérationnel actuel',s.ops||'Inconnu','Statut du catalogue actuel : '+(ops[s.ops]||'inconnu')+'. Il ne décrit pas forcément le fonctionnement à une date passée.'],
- ['Lancement',AtlasTime.event(s.launch),s.verification?'Heure du lancement issue de GCAT (Jonathan McDowell), recoupée avec l’identité et le jour de lancement SATCAT. Précision publiée : '+s.verification.precision+'.':'Date du lancement fournie par le catalogue. Lorsqu’il fournit seulement le jour UTC, aucune heure de décollage n’est inventée.'],
- ['Groupe de lancement',(s.designator||'').slice(0,8),'Identifiant international du lancement : année puis numéro de lancement dans cette année. Les satellites du même lancement partagent ce préfixe.'],
- ['Désorbitation',AtlasTime.event(s.decay),'Date de rentrée atmosphérique indiquée par la source. « Non renseignée » signifie qu’aucune date n’est présente dans les données chargées.'],
- [distantMission?'Distance de la Terre':'Altitude estimée',p?`${(distantMission&&p.icrf_km?Math.hypot(...p.icrf_km):p.altitude_km).toFixed(1)} km`:'Indisponible',distantMission?'Distance entre la mission et le centre de la Terre, calculée à la date affichée.':'Hauteur calculée à la date de la carte au-dessus du modèle de surface terrestre. C’est une estimation, pas une mesure transmise en direct par le satellite.'],
- ['Vitesse inertielle',p?`${p.speed_km_s.toFixed(3)} km/s`:'Indisponible','Vitesse orbitale calculée en repère TEME. Elle diffère de la vitesse du point sur la carte, car la Terre tourne aussi. 1 km/s correspond à 3 600 km/h.'],
- ['Source de la position',p?.source||'Aucune donnée orbitale adaptée','Origine des éléments utilisés pour cette position. SupGP provient des éphémérides SpaceX ajustées par CelesTrak ; GP et l’archive publique dérivent de Space-Track. Plusieurs copies d’une même origine ne constituent pas des mesures indépendantes.'],
- ['Nom du lancement',s.verification?.launch_name||'Non renseigné','Désignation du lancement recoupée avec GCAT de Jonathan McDowell par identifiant international et nom du satellite.'],
- ['Date de référence des données orbitales',p?AtlasTime.instant(p.epoch):'Indisponible','Instant auquel les données décrivent l’orbite. L’application part de cette référence pour calculer la position à l’heure de la carte. Ce n’est pas l’heure de réception ou de téléchargement.']];
- if(AtlasPages.family(s)==='debris'){fields=fields.filter(([key])=>!['Code opérationnel actuel','Nom du lancement'].includes(key));fields.splice(1,0,['Type d’objet',s.object_type==='R/B'?'Étage / corps de fusée':s.object_type==='UNK'?'Objet non identifié · identifiant provisoire':'Fragment / débris','Classification publiée dans le catalogue SATCAT. Un satellite hors service reste une charge utile et n’est pas classé ici comme fragment.'],['Pays / organisation',s.owner||'Non renseigné','Code d’origine fourni par SATCAT ; il ne constitue pas une attribution de responsabilité.']);}
- if(AtlasStations.has(s.id)||collectionMode==='all')fields=fields.filter(([key])=>!['Code opérationnel actuel','Groupe de lancement','Nom du lancement'].includes(key));
- if(AtlasStations.has(s.id)){fields=fields.map(row=>row[0]==='Lancement'?['Premier module',row[1],s.id===48274?'Date de lancement de Tianhe, premier module de Tiangong.':'Date de lancement du premier module de l’ISS. La station a ensuite été assemblée progressivement.']:row);fields.push(['Représentation','Modèle schématique','Dessin 3D illustratif. Taille amplifiée pour la lisibilité ; orientation et configuration des modules non mesurées.']);}
- if(AtlasScience.has(s.id)){const visual=AtlasScience.model(s.id);fields.push(['Représentation',visual.kind==='nasa-adaptation'?'Modèle NASA adapté':'Modèle schématique',visual.credit+'. Taille amplifiée pour la lisibilité ; attitude et orientation illustratives.']);}
- if(displayMode==='3d'&&globeController?.detailedActive?.(s.id))fields=fields.map(row=>row[0]==='Représentation'?['Représentation','Modèle 3D couleur · '+(globeController?.detailedCredit?.(s.id)||AtlasDetailed.definitions.find(info=>info.ids.includes(s.id))?.credit||''),'Géométrie, couleurs et matériaux du modèle source. Taille amplifiée pour la lisibilité ; orientation illustrative.']:row);
- if(AtlasStations.has(s.id)||AtlasScience.has(s.id))fields.push(['Orientation',displayMode==='3d'&&globeController?.detailedActive?.(s.id)?(globalThis.AtlasModelAttitude?.describe(p)||'Attitude réelle indisponible'):'Orientation illustrative','La trajectoire orbitale ne mesure pas la rotation de l’objet. Le modèle réaliste de l’ISS utilise un alignement nominal au repère orbital, hors manœuvres ; les modèles blancs conservent leur présentation illustrative. Les autres modèles réalistes restent illustratifs en l’absence de télémétrie d’attitude.']);
- const check=s.orbit_check;fields.push(['Recoupement actuel',!check?'Non recoupé':check.state==='divergence'?'Écart important entre sources':check.distance_km!=null?check.distance_km.toFixed(1)+' km entre les sources':'Une seule source récente',check?(check.sources||[]).join(' · ')+'. '+(check.note||''):'Aucune comparaison entre deux sources récentes n’est disponible pour cet objet.']);
- const description=collectionMode==='all'?AtlasPages.definition(AtlasPages.family(s))?.description||'':'';
+ const fields=AtlasObjectFacts.profile(s,p,{orbit:AtlasOrbits.describe(s.orbit,AtlasPages.definition(AtlasPages.family(s))),launch:AtlasTime.event(s.launch),distant:distantMission});
+ const fieldRows=()=>fields.map(([k,v,help],i)=>`<div class="detail-field" tabindex="0" aria-describedby="field-help-${i}"><dt>${esc(k)}</dt><dd>${esc(v)}</dd><span class="field-help" role="tooltip" id="field-help-${i}">${esc(help)}</span></div>`).join('');
  if(more&&collectionMode==='all'&&p){more.href=AtlasPages.satelliteUrl(s,live?null:at);more.hidden=false;}
  const detail=$('detail');detail.hidden=false;
  if(detail.dataset.satellite!==collectionMode+':'+String(selected)){
   detail.dataset.satellite=collectionMode+':'+String(selected);detail.dataset.expanded='false';detail.dataset.collapsed='false';
-  detail.innerHTML=`<button class="close atlas-close-button" id="close" aria-label="Réduire la fiche satellite"><svg class="close-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M7 7l10 10M17 7 7 17"/></svg></button><button id="detail-reopen" type="button" aria-label="Afficher la fiche de ${esc(s.name)}" aria-expanded="false" hidden><span>${esc(s.name)}</span><span class="detail-reopen-chevron" aria-hidden="true"></span></button><div class="eyebrow">${AtlasPages.family(s)==='debris'?(s.object_type==='UNK'?'OBJET NON IDENTIFIÉ':'FICHE DÉBRIS'):'FICHE SATELLITE'}</div><h2>${AtlasStations.has(s.id)?(s.id===48274?'Tiangong · Station spatiale chinoise':'ISS · Station spatiale internationale'):esc(s.name)}</h2>${description?`<p class="detail-description">${esc(description)}</p>`:''}<button id="detail-toggle" class="mobile-only" aria-expanded="false">Afficher les informations</button><dl>${fields.map(([k,v,help],i)=>`<div class="detail-field" tabindex="0" aria-describedby="field-help-${i}"><dt>${esc(k)}</dt><dd>${esc(v)}</dd><span class="field-help" role="tooltip" id="field-help-${i}">${esc(help)}</span></div>`).join('')}</dl><p class="hint position-hint"></p><button id="show-launch-train">Voir le train de ce lancement</button><p class="hint">${AtlasStations.has(s.id)?'Position estimée · modèle schématique sans attitude réelle.':AtlasScience.has(s.id)?'Représentation illustrative · taille amplifiée, sans attitude réelle.':AtlasPages.family(s)==='debris'?'Positions estimées à partir des éléments orbitaux publics.':'Historique des pannes et fin d’activité : non disponibles.'}</p>`;
+  detail.innerHTML=`<button class="close atlas-close-button" id="close" aria-label="Réduire la fiche satellite"><svg class="close-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M7 7l10 10M17 7 7 17"/></svg></button><button id="detail-reopen" type="button" aria-label="Afficher la fiche de ${esc(s.name)}" aria-expanded="false" hidden><span>${esc(s.name)}</span><span class="detail-reopen-chevron" aria-hidden="true"></span></button><div class="eyebrow">${AtlasPages.family(s)==='debris'?(s.object_type==='UNK'?'OBJET NON IDENTIFIÉ':'FICHE DÉBRIS'):'FICHE SATELLITE'}</div><h2>${AtlasStations.has(s.id)?(s.id===48274?'Tiangong · Station spatiale chinoise':'ISS · Station spatiale internationale'):esc(s.name)}</h2><button id="detail-toggle" class="mobile-only" aria-expanded="false">Afficher les informations</button><dl>${fieldRows()}</dl><button id="show-launch-train">Voir le train de ce lancement</button>`;
+  detail.dataset.fields=fields.map(([key])=>key).join('|');
   $('detail-toggle').onclick=()=>{const expanded=detail.dataset.expanded!=='true';detail.dataset.expanded=String(expanded);$('detail-toggle').setAttribute('aria-expanded',String(expanded));$('detail-toggle').textContent=expanded?'Réduire la fiche':'Afficher les informations';};
   $('show-launch-train').onclick=()=>{
    const launch=(s.designator||'').slice(0,8);if(!launch)return;
@@ -198,8 +179,10 @@ function updateDetail(){
  const hasLaunchCompanions=!!launch&&catalog.some(other=>other.id!==s.id&&(other.designator||'').slice(0,8)===launch);
  launchButton.hidden=!AtlasPages.isConstellation(collectionMode)||AtlasStations.has(s.id)||!hasLaunchCompanions;
  launchButton.disabled=!hasLaunchCompanions;launchButton.setAttribute('aria-pressed',String(!!launch&&chosenLaunches.has(launch)));
+ const signature=fields.map(([key])=>key).join('|');
+ if(detail.dataset.fields!==signature){detail.querySelector('dl').innerHTML=fieldRows();detail.dataset.fields=signature;}
  detail.querySelectorAll('.detail-field').forEach((row,i)=>{row.querySelector('dd').textContent=fields[i][1];row.querySelector('.field-help').textContent=fields[i][2];});
- detail.querySelector('.position-hint').textContent=!p?(state(s)==='decayed'?'Objet désorbité : aucun point à cette date. Reviens avant sa désorbitation pour voir sa position historique.':'Aucun élément orbital adapté à cette date. La date de lancement ne suffit pas à reconstruire sa position ; les archives publiques peuvent manquer, notamment pour les satellites récents.'):'';
+
 }
 
 async function get(url){return AtlasEphemeris.apply(url,await getRaw(url));}
@@ -291,7 +274,7 @@ const loadedDetails=new Set(),pendingDetails=new Set();
 async function loadSatelliteDetails(id){
  if(loadedDetails.has(id)||pendingDetails.has(id)||!dataSnapshot)return;
  const edition=dataSnapshot;pendingDetails.add(id);
- try{const data=await get('/api/satellite?id='+id+'&snapshot='+encodeURIComponent(edition));if(edition!==dataSnapshot)return;const satellite=byId.get(id);if(satellite){Object.assign(satellite,data);loadedDetails.add(id);if(selected===id)updateDetail();}}catch{/* The map and base profile stay usable if additional facts are unavailable. */}finally{pendingDetails.delete(id);}
+ try{const [data,physicalReady]=await Promise.all([get('/api/satellite?id='+id+'&snapshot='+encodeURIComponent(edition)).catch(()=>null),AtlasObjectFacts.load(byId.get(id)||{id}).then(()=>true).catch(()=>false)]);if(edition!==dataSnapshot)return;const satellite=byId.get(id);if(satellite){if(data){Object.assign(satellite,data);if(physicalReady)loadedDetails.add(id);}if(selected===id)updateDetail();}}catch{/* The map and base profile stay usable if additional facts are unavailable. */}finally{pendingDetails.delete(id);}
 }
 function choose(id,focus=true,mode='overview'){if($('satellite-hover'))$('satellite-hover').hidden=true;$('detail').dataset.collapsed='false';if($('detail-reopen'))$('detail-reopen').hidden=true;pendingAtlasOverview=null;initialOverviewTarget=null;selectionRequest++;selected=id;focusSelected=focus;planarFocusMode=mode;list();if(focus&&displayMode==='2d'){const p=points.find(p=>p.id===id);if(p){planarMotion.set(points,performance.now(),false);focusPlanisphere(p);}}track=[];futureTrack=[];track3d=[];future3d=[];draw();loadPositions(true);loadSatelliteDetails(id);}
 function satelliteAtMapClick(e){
@@ -397,7 +380,7 @@ document.body.dataset.constellation=String(AtlasPages.hasLocalHistory(collection
 $('debris-filters').hidden=collectionMode!=='debris';
 if(collectionMode==='debris'){document.querySelector('.satellite-results h2').textContent='Objets';document.querySelector('label[for="search"]').textContent='Rechercher un débris, un étage ou un objet';}
 if(collectionMode!=='debris'&&AtlasPages.hasLocalHistory(collectionMode))$('status').insertAdjacentHTML('beforeend','<option value="inactive">Hors service (statut actuel)</option>');
-$('starlink-controls').hidden=!AtlasPages.isConstellation(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=!AtlasPages.isStation(collectionMode);issOverviewPending=AtlasPages.isStation(collectionMode);updateCollectionCoverage();
+$('starlink-controls').hidden=!AtlasPages.isConstellation(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=!AtlasPages.hasCrew(collectionMode);issOverviewPending=AtlasPages.isStation(collectionMode);updateCollectionCoverage();
 $('collection-select').addEventListener('change',e=>{if(e.target.value!==collectionMode)location.assign(AtlasPages.url(e.target.value));});
 AtlasCollectionMenu.mount($('collection-select'));
 for(const family of Object.keys(atlasColors)){

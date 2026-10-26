@@ -21,7 +21,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 40
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -70,12 +70,37 @@ jobs:
           HISTORY_DIR: data-seed/history
           KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}
         run: |
-          target/release/starlink-atlas --collect-once
+          python3 scripts/ensure_data.py --data-dir data-runtime --history-dir data-seed/history --collect-timeout 420
           for file in data-runtime/*stopped.txt; do
             if [ -f "$file" ]; then echo "::warning::Une source a interrompu sa collecte : $file. Le cache validé reste publié."; fi
           done
-      - name: Actualiser les trajectoires des missions lointaines
-        run: python3 scripts/import_mission_ephemerides.py --recent --keep-on-error --cache-dir data-runtime/horizons-cache
+      - name: Actualiser les historiques des équipages (cache quotidien)
+        continue-on-error: true
+        timeout-minutes: 6
+        run: python3 scripts/import_crew_archive.py --source-dir data-runtime/crew-source --download
+      - name: Vérifier la netteté et la résistance aux erreurs de données
+        run: |
+          node tests/render-budget.cjs
+          node tests/object-facts.cjs
+          node tests/crew-archive.cjs
+          node tests/astronaut-flags.cjs
+          node tests/overview.cjs
+          node tests/cartographic-surface.cjs
+          python3 tests/data_health.py
+          node tests/mission-data-recovery.cjs
+          node tests/history-network.cjs
+          node tests/history-window.cjs
+          node tests/publication-coverage-unit.cjs
+      - name: Actualiser les archives orbitales récentes (une fois par jour)
+        continue-on-error: true
+        timeout-minutes: 7
+        run: |
+          python3 -m pip install --disable-pip-version-check -r scripts/history-requirements.txt
+          if ! python3 scripts/import_recent_history.py --data-dir data-runtime --work-dir "$RUNNER_TEMP/atlas-history" --days 14 --min-interval 86400; then
+            echo "::warning::Archives récentes non actualisées. Les observations précédemment validées sont conservées."
+          fi
+      - name: Sauvegarder les nouvelles archives et vérifier les fichiers avant publication
+        run: python3 scripts/ensure_data.py --check-only --data-dir data-runtime --history-dir data-seed/history
       - name: Construire le site autonome
         env:
           KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}

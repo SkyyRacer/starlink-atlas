@@ -6,7 +6,19 @@ function coverage(catalog,points,now){
  const available=new Set(points.map(p=>p.id)),count=expected.filter(s=>available.has(s.id)).length;
  const minimum=expected.length>=1000?Math.ceil(expected.length*.8):0;
  if(count<minimum)throw Error(`Publication suspendue : seulement ${count} / ${expected.length} Starlink ont une position actuelle (minimum ${minimum}). Vérifier les sources et le secret KEEPTRACK_API_KEY ; conserver la publication précédente.`);
- return {starlink:count,expected:expected.length,minimum,total:points.length};
+ const groups={};
+ for(const family of ['gps','galileo','glonass','beidou','oneweb','iridium']){
+  const members=catalog.satellites.filter(s=>active(s)&&(s.family===family||s.collections?.includes(family)));
+  if(members.length<10)continue;
+  const visible=members.filter(s=>available.has(s.id)).length,required=Math.ceil(members.length*.7);
+  if(visible<required)throw Error(`Publication suspendue : ${family} ne dispose que de ${visible} / ${members.length} positions actuelles (minimum ${required}). Publication précédente conservée.`);
+  groups[family]={available:visible,expected:members.length,minimum:required};
+ }
+ for(const id of [25544,48274]){
+  const station=catalog.satellites.find(s=>s.id===id&&active(s));
+  if(station&&!available.has(id))throw Error(`Publication suspendue : position actuelle de ${station.name} absente. Publication précédente conservée.`);
+ }
+ return {starlink:count,expected:expected.length,minimum,total:points.length,groups};
 }
 module.exports={coverage};
 if(require.main===module)(async()=>{

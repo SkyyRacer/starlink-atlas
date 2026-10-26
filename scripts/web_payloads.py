@@ -106,7 +106,8 @@ def build_resources(out,bundle,history,updates,now):
     for satellite in bundle['catalog_response']['satellites']:
         row=dict(satellite);verification=row.pop('verification',None);slim.append(row)
         orbit=orbit_info(row['id'])
-        if verification or orbit:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'verification':verification,'orbit':orbit,'orbit_check':bundle.get('orbit_checks',{}).get('objects',{}).get(str(row['id']))}
+        launch_site=raw_details.get(row['id'],{}).get('LAUNCH_SITE')
+        if verification or orbit or launch_site:details.setdefault(str(row['id']//1000),{})[str(row['id'])]={'launch_site':launch_site,'verification':verification,'orbit':orbit,'orbit_check':bundle.get('orbit_checks',{}).get('objects',{}).get(str(row['id']))}
     resources['details']={key:write_resource(out,'details-'+key,rows) for key,rows in details.items()}
     collections={}
     for mode in ['all',*[row['id'] for row in definitions]]:

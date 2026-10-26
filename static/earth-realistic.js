@@ -26,8 +26,8 @@
   float cityMask=smoothstep(0.025,0.20,cityBrightness);
   vec3 cityLights=cities*cityMask*1.30;
   // A very faint blue surface and cloud layer remain visible behind city lights.
-  vec3 nightGround=land*vec3(0.018,0.023,0.055);
-  vec3 nightClouds=vec3(0.022,0.028,0.048)*clouds;
+  vec3 nightGround=land*vec3(0.045,0.055,0.09);
+  vec3 nightClouds=vec3(0.035,0.043,0.065)*clouds;
   vec3 night=nightGround*(1.0-clouds)+nightClouds+cityLights*(1.0-clouds*0.62);
   vec3 surface=mix(night,daylight,day);
   float viewCos=clamp(dot(eyeNormal,normalize(inputData.positionToEyeEC)),0.0,1.0);
@@ -37,9 +37,9 @@
   float haze=(1.0-exp(-opticalDepth))*twilight;
   surface=mix(surface,vec3(0.16,0.26,0.42),haze);
   // Blue-white limb on the lit side, a faint outline on the dark side.
-  surface+=pow(grazing,5.0)*vec3(0.095,0.19,0.33)*(0.025+0.975*twilight);
+  surface+=pow(grazing,5.0)*vec3(0.095,0.19,0.33)*(0.20+0.80*twilight);
   surface+=lunarView*pow(grazing,4.0)*vec3(0.07,0.19,0.38)*smoothstep(0.0,0.2,sunlight);
-  surface*=mix(1.0,smoothstep(0.0,0.025,sunlight),lunarView);
+  surface*=mix(1.0,0.35+0.65*smoothstep(0.0,0.025,sunlight),lunarView);
   material.diffuse=surface/(vec3(1.0)+surface*0.035);
   material.alpha=1.0;
   return material;

@@ -1,12 +1,13 @@
 const assert=require('node:assert/strict'),{create}=require('../static/render-budget');
 const applied=[],budget=create({width:1920,height:1080,devicePixelRatio:2,apply:q=>applied.push(q)});
-assert.equal(applied[0].pixelRatio,1);assert.equal(applied[0].resolutionScale,.5,'Retina starts at one rendered pixel per CSS pixel');
+assert.equal(applied[0].pixelRatio,2);assert.equal(applied[0].resolutionScale,1);
 let time=0;function frames(count,dt,active=true){for(let i=0;i<count;i++){time+=dt;budget.sample(time,active);}}
-frames(150,1000/30);assert.ok(budget.stats.pixelRatio<=.6,'Sustained slow rendering reduces pixel work');assert.ok(budget.stats.pixelRatio>=.55);
-const low=budget.stats.pixelRatio;frames(1200,1000/60);assert.ok(budget.stats.pixelRatio>low,'Sustained headroom gradually restores detail');assert.ok(budget.stats.pixelRatio<=1.5);
-const stable=budget.stats.pixelRatio;frames(50,1000,false);assert.equal(budget.stats.pixelRatio,stable,'Paused views and background tabs are not mistaken for low FPS');
-budget.resize(3840,2160,2);assert.ok(budget.stats.pixelRatio<.6,'Large displays get a bounded initial pixel workload');assert.ok(applied.every(q=>q.resolutionScale>0&&Number.isFinite(q.resolutionScale)));
-const phone=create({width:390,height:700,devicePixelRatio:3,apply(){}});assert.equal(phone.stats.pixelRatio,1);
-console.log('Adaptive render budget: Retina workload, slow and fast devices, recovery, paused views, resizing and resolution bounds OK.');
-
-const beforeHd=budget.stats.pixelRatio;budget.setDetailed(true);assert.equal(budget.stats.pixelRatio,2,'HD uses Retina pixels');frames(200,1000/20);assert.equal(budget.stats.pixelRatio,2,'Detailed model is never silently downscaled');budget.resize(1600,1000,1);assert.equal(budget.stats.pixelRatio,1,'HD follows the current screen density');budget.resize(1920,1080,2);assert.equal(budget.stats.pixelRatio,2);budget.setDetailed(false);assert.equal(budget.stats.pixelRatio,beforeHd,'Closing HD restores the ordinary rendering budget');
+frames(600,1000/20);assert.equal(budget.stats.pixelRatio,2,'Slow frames must not silently blur a Retina display');
+frames(1200,1000/60);frames(50,1000,false);assert.equal(applied.length,1,'Timing alone never resizes the drawing buffer');
+budget.resize(3840,2160,2);assert.equal(budget.stats.pixelRatio,2,'Large monitors retain the same density');
+budget.setDetailed(true);frames(200,1000/20);budget.setDetailed(false);assert.equal(budget.stats.pixelRatio,2,'Opening or closing models never changes sharpness');
+budget.resize(1600,1000,1);assert.equal(budget.stats.pixelRatio,1);assert.equal(applied.at(-1).resolutionScale,1);
+budget.resize(1920,1080,2);assert.equal(budget.stats.pixelRatio,2,'Moving between monitors updates actual screen density');
+const high=create({devicePixelRatio:3,apply(){}});assert.equal(high.stats.pixelRatio,2,'Density above 2 is capped consistently');
+assert.ok(applied.every(q=>q.resolutionScale>0&&Number.isFinite(q.resolutionScale)));
+console.log('Stable rendering: slow GPUs, large screens, HD transitions and monitor density changes OK.');

@@ -181,7 +181,7 @@ async fn satellite_detail(State(s): State<Shared>, Query(q): Query<Q>) -> Result
         Some(key) => snapshots::get(key).ok_or((StatusCode::GONE, "Édition expirée : rechargez la page".into()))?,
         None => snapshots::capture(&*s.read().await).1,
     };
-    Ok(Json(json!({"verification":db.gcat.get(&id),"orbit":orbit_info(&db,id),"orbit_check":secondary::checks_document(&PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())))["objects"][id.to_string()]})))
+    Ok(Json(json!({"launch_site":db.catalog.get(&id).and_then(|row|row.get("LAUNCH_SITE")),"verification":db.gcat.get(&id),"orbit":orbit_info(&db,id),"orbit_check":secondary::checks_document(&PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into())))["objects"][id.to_string()]})))
 }
 fn catalog_document(db: &Database, snapshot: &str) -> Value {
     catalog_for(db, snapshot, "all")

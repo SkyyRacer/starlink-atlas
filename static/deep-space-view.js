@@ -1,9 +1,9 @@
 /* A mission-centred spatial instrument, aligned with the main camera. */
-window.AtlasDeepSpaceView={create({viewer,C,onEarth}){
+window.AtlasDeepSpaceView={create({viewer,C,onEarth,targetPosition=null,manageLight=true,showReturn=true}){
  const view=viewer.container.closest('.view'),compass=document.getElementById('compass');
  const panel=document.createElement('aside');panel.className='deep-earth-instrument';panel.hidden=true;panel.setAttribute('aria-label','Direction de la Terre depuis la mission');
  panel.innerHTML=`<svg viewBox="24 11 132 132" role="img" aria-label="Direction de la Terre depuis la mission"><defs><radialGradient id="deep-space-glass" cx="35%" cy="25%"><stop stop-color="#20313b" stop-opacity=".55"/><stop offset="1" stop-color="#080b0f" stop-opacity=".8"/></radialGradient><radialGradient id="deep-space-earth" cx="28%" cy="25%"><stop stop-color="#e0f5ff"/><stop offset=".4" stop-color="#65b2d4"/><stop offset="1" stop-color="#154565"/></radialGradient></defs><circle cx="90" cy="77" r="58" fill="url(#deep-space-glass)" stroke="#768b97" stroke-opacity=".65" stroke-width="1"/><circle class="spatial-alignment-wash" cx="90" cy="77" r="57" fill="#72def5" opacity="0"/><circle class="spatial-alignment-halo" cx="90" cy="77" r="58" fill="none" stroke="#b1f2ff" stroke-width="2" opacity="0"/><g class="spatial-grid" fill="none" stroke="#7f9cab" stroke-width=".7" opacity=".42"></g><path class="spatial-earth-line" fill="none" stroke="#c1d8e4" stroke-opacity=".5" stroke-width="1"/><circle class="spatial-alignment-ring" cx="90" cy="77" r="12" fill="none" stroke="#a5e8f4" stroke-width="1.1" opacity=".18"/><g class="spatial-centre" stroke="#edf6fa" stroke-width=".5" stroke-linejoin="round"></g><circle class="spatial-core" cx="90" cy="77" r="1.5" fill="#fff"/><circle class="spatial-earth" r="4.5" fill="url(#deep-space-earth)" stroke="#c9e9f8" stroke-width=".7"/><defs><clipPath id="spatial-earth-clip"><circle r="1"/></clipPath><radialGradient id="spatial-earth-shade" cx="28%" cy="25%"><stop stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".65"/></radialGradient></defs><g class="spatial-earth-surface" clip-path="url(#spatial-earth-clip)"><image class="spatial-earth-texture" x="-2" y="-1" width="4" height="2" preserveAspectRatio="none"/><circle r="1" fill="url(#spatial-earth-shade)"/></g></svg><p class="spatial-alignment-status" role="status" aria-live="polite" hidden>Vue alignée avec la Terre</p>`;
- if(compass)compass.after(panel);else view.append(panel);
+ if(compass)compass.after(panel);else (view.querySelector('.earth-view-controls')||view).append(panel);
  const svg=panel.querySelector('svg'),grid=panel.querySelector('.spatial-grid'),line=panel.querySelector('.spatial-earth-line'),earth=panel.querySelector('.spatial-earth'),centre=panel.querySelector('.spatial-centre');
  const rings=Array.from({length:3},()=>{const path=document.createElementNS('http://www.w3.org/2000/svg','path');grid.append(path);return path;});
  const surface=panel.querySelector('.spatial-earth-surface'),alignmentStatus=panel.querySelector('.spatial-alignment-status');
@@ -14,6 +14,7 @@ window.AtlasDeepSpaceView={create({viewer,C,onEarth}){
  const tools=view.querySelector('.globe-tools');if(tools)tools.append(returnControl);
  let enabled=false,active=true,target=null,previousLight=null,lastKey='';
  function worldPosition(){
+  if(targetPosition)return targetPosition();
   if(!target)return null;
   return target.icrf_km?window.AtlasCelestialFrame.position(C,viewer.clock.currentTime,target.icrf_km):C.Cartesian3.fromDegrees(target.lon,target.lat,target.altitude_km*1000);
  }
@@ -56,6 +57,7 @@ window.AtlasDeepSpaceView={create({viewer,C,onEarth}){
    const description='Terre depuis la mission : '+sides.join(' · ')+', '+(distance/1000).toLocaleString('fr-FR',{maximumFractionDigits:0})+' km';
    svg.setAttribute('aria-label',description);panel.setAttribute('aria-label',description);
   }
+  if(!manageLight)return;
   const sun=window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime);
   if(!(viewer.scene.light instanceof C.DirectionalLight))viewer.scene.light=new C.DirectionalLight({direction:C.Cartesian3.UNIT_X,intensity:1});
   viewer.scene.light.direction=C.Cartesian3.normalize(C.Cartesian3.subtract(satellite,sun,new C.Cartesian3()),new C.Cartesian3());
@@ -63,7 +65,7 @@ window.AtlasDeepSpaceView={create({viewer,C,onEarth}){
  viewer.scene.preRender.addEventListener(update);
  const refresh=()=>viewer.scene.requestRender();window.addEventListener('atlas:celestial-frame-ready',()=>{lastKey='';refresh();});
  return {setTarget(point){target=point;},setEnabled(value){
-  if(value===enabled)return;enabled=value;view.dataset.deepSpace=String(value);panel.hidden=!value||!active;returnControl.hidden=!value||!active;
-  if(value){previousLight=viewer.scene.light;if(compass)compass.hidden=true;update();}else viewer.scene.light=previousLight||new C.SunLight({intensity:1});refresh();
- },setActive(value){active=value;panel.hidden=!value||!enabled;returnControl.hidden=!value||!enabled;},get enabled(){return enabled;}};
+  if(value===enabled)return;enabled=value;view.dataset.deepSpace=String(value);panel.hidden=!value||!active;returnControl.hidden=!showReturn||!value||!active;
+  if(value){previousLight=viewer.scene.light;if(compass)compass.hidden=true;update();}else if(manageLight)viewer.scene.light=previousLight||new C.SunLight({intensity:1});refresh();
+ },setActive(value){active=value;panel.hidden=!value||!enabled;returnControl.hidden=!showReturn||!value||!enabled;},get enabled(){return enabled;}};
 }};

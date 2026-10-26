@@ -68,12 +68,10 @@ body>header .brand{height:100%;min-width:0;display:flex;align-items:center;text-
 #map .leaflet-tile-pane{filter:saturate(.35) brightness(.65) contrast(1.2)}
 #map .leaflet-control-attribution{background:#000d!important}
 
-.earth-overview{filter:saturate(.55) brightness(.68) contrast(1.08);image-rendering:auto}
 
 /* Filter individual tiles, never the entire wide map pane (GPU clipping). */
 #map .leaflet-tile-pane{filter:none!important}
 #map .leaflet-tile{filter:grayscale(1) brightness(.65) contrast(1.2)}
-.earth-overview{filter:none}
 
 .globe-tools{left:24px}
 .recenter-control:disabled,.recenter-control:disabled:hover{background:#242424;color:#858585;border-color:#3c3c3c;box-shadow:none;cursor:default}

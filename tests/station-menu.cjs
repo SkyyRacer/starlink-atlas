@@ -10,7 +10,7 @@ async function check(station){
  const rail=$('satellite-panel');rail.scrollTop=0;rail.getBoundingClientRect=()=>({top:100,bottom:500,height:400});
  $('iss-search').getBoundingClientRect=()=>({top:440-rail.scrollTop,bottom:480-rail.scrollTop,height:40});
  $('iss-search-results').getBoundingClientRect=()=>({top:510-rail.scrollTop,bottom:710-rail.scrollTop,height:200});
- $('workspace-objects').click();assert.equal($('workspace-close').hidden,false);assert.equal($('workspace-close').firstChild.textContent,'Missions et équipage ');assert.equal($('workspace-close').getAttribute('aria-label'),'Fermer Missions et équipage');assert.equal($('workspace-close').querySelector('svg').getAttribute('aria-hidden'),'true');assert.equal($('workspace-objects').textContent,'Missions et équipage');
+ $('workspace-objects').click();assert.equal($('workspace-close').hidden,false);assert.equal($('workspace-close').getAttribute('aria-label'),'Fermer Missions et équipage');assert.equal($('workspace-close').querySelector('svg').getAttribute('aria-hidden'),'true');assert.equal($('workspace-objects').textContent,'Équipage à bord');
  const results=$('iss-search-results');results.hidden=false;results.append(document.createElement('button'));
  $('iss-search').value='test';$('iss-search').dispatchEvent(new window.Event('input'));await new Promise(r=>setImmediate(r));
  assert.equal(rail.scrollTop,222);assert.equal(pageScroll,0);assert.equal(results.getBoundingClientRect().bottom,488);assert.ok($('iss-search').getBoundingClientRect().top>=112);

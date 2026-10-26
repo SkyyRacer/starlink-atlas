@@ -1,0 +1,20 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const ctx={AtlasCollections:require('../static/constellations.js'),Map,Set,Date,Promise,TextEncoder,TextDecoder,URL,AbortController,Response,DecompressionStream,setTimeout,clearTimeout,self:{location:{href:'https://example.test/atlas/browser-worker.js'}}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('browser/browser-worker.js','utf8'),ctx);
+(async()=>{
+ let calls=0;ctx.fetch=async()=>{calls++;return calls===1?new Response('',{status:503}):new Response('{"ok":true}');};assert.equal((await ctx.jsonFile('test.json')).ok,true);assert.equal(calls,2,'Transient HTTP errors retry');
+ calls=0;ctx.fetch=async()=>{calls++;return new Response('',{status:404});};await assert.rejects(()=>ctx.jsonFile('missing.json'),/404/);assert.equal(calls,1,'Missing files do not retry');
+ vm.runInContext("manifest={remote_base:'https://archive.test/',remote_days:['2020-01-01'],local_days:['2020-01-01'],local_files:{'2020-01-01':'local.gz'}}",ctx);
+ const row={elements:{NORAD_CAT_ID:1,EPOCH:'2020-01-01T12:00:00'}};let fail=true;calls=0;
+ ctx.jsonFile=async path=>{calls++;if(path.includes('archive')&&fail)throw Error('outage');return [row];};
+ let result=await ctx.historyDay('2020-01-01');assert.equal(result.rows.length,1);assert.equal(result.complete,false);
+ fail=false;result=await ctx.historyDay('2020-01-01');assert.equal(result.complete,true);assert.equal(result.rows.length,2,'Failed half is retried rather than cached as an empty archive');
+ const before=calls;await ctx.historyDay('2020-01-01');assert.equal(calls,before,'Complete days reuse bounded cache');
+ vm.runInContext("manifest={remote_base:'https://archive.test/',remote_days:['2020-01-02'],local_days:[]}",ctx);fail=true;await assert.rejects(()=>ctx.historyDay('2020-01-02'),/2020-01-02/);
+ vm.runInContext("days.clear();manifest={days:{'2020-01-01':1,'2020-01-02':1},remote_base:'https://archive.test/',remote_days:['2020-01-01','2020-01-02'],local_days:[]};historyKey=null",ctx);
+ let broken=true,loaded;
+ ctx.loadCurrent=async()=>({orbits:[]});ctx.combinedHistory=(current,rows)=>{loaded=rows.flat();};
+ ctx.jsonFile=async path=>{if(path.includes('2020-01-02')&&broken)throw Error('outage');return [row];};
+ await ctx.loadHistory('2020-01-01T12:00:00Z');assert.equal(loaded.length,1,'A failed neighboring day must not discard the successful day');
+ broken=false;vm.runInContext('historyRetryAt=Date.now()-1',ctx);await ctx.loadHistory('2020-01-01T12:00:00Z');assert.equal(loaded.length,2,'A later request restores the missing day');
+ console.log('Historical network resilience: transient retry, permanent failure, partial provider, recovery and caching OK.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

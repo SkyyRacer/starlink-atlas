@@ -32,7 +32,7 @@ window.AtlasMoon={
     czm_material material=czm_getDefaultMaterial(inputData);
     vec3 surface=texture(image,inputData.st).rgb;
     float sunlight=dot(normalize(inputData.normalEC),normalize(czm_sunDirectionEC));
-    float daylight=pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
+    float daylight=0.045+0.955*pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
     material.diffuse=surface*mix(1.0,daylight,shadowEnabled);
     material.alpha=1.0;
     return material;
@@ -45,7 +45,7 @@ window.AtlasMoon={
     if(marking<0.03)discard;
     vec3 ink=mix(vec3(0.025),vec3(0.94,0.94,0.91),smoothstep(0.4,0.9,marking));
     float sunlight=dot(normalize(inputData.normalEC),normalize(czm_sunDirectionEC));
-    float daylight=pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
+    float daylight=0.045+0.955*pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
     material.diffuse=ink*mix(1.0,daylight,shadowEnabled);
     material.alpha=smoothstep(0.03,0.24,marking);
     return material;
@@ -249,6 +249,6 @@ window.AtlasMoon={
    const ray=viewer.camera.getPickRay(click),sphere=new C.BoundingSphere(center,R),interval=C.IntersectionTests.raySphere(ray,sphere);if(interval){const earth=C.IntersectionTests.rayEllipsoid(ray,viewer.scene.globe.ellipsoid);if(!earth||earth.start>interval.start)return true;}
    return !active&&nearMoon(click)&&visible();
   }
-  return {get active(){return active;},orbit:rotateCamera,recenter,enter:travel,returnEarth,update,open,hit,setRealistic,setShadows,leave,offerEarth(){if(active)offer('earth');},close(){card.hidden=true;jump.hidden=true;hover.hidden=true;},zoom(direction,strength=1){if(!active)return false;const p=viewer.camera.position,r=C.Cartesian3.magnitude(p),next=Math.max(R+20000,Math.min(maximumRange,r*Math.pow(1.35,-direction*Math.min(2,strength))));C.Cartesian3.multiplyByScalar(p,next/r,p);viewer.scene.requestRender();return true;}};
+  return {get active(){return active;},get position(){return center;},orbit:rotateCamera,recenter,enter:travel,returnEarth,update,open,hit,setRealistic,setShadows,leave,offerEarth(){if(active)offer('earth');},close(){card.hidden=true;jump.hidden=true;hover.hidden=true;},zoom(direction,strength=1){if(!active)return false;const p=viewer.camera.position,r=C.Cartesian3.magnitude(p),next=Math.max(R+20000,Math.min(maximumRange,r*Math.pow(1.35,-direction*Math.min(2,strength))));C.Cartesian3.multiplyByScalar(p,next/r,p);viewer.scene.requestRender();return true;}};
  }
 };

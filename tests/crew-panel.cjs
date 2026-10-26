@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{parseHTML}=require('linkedom'),archive=require('../static/crew-archive.json');
+async function check(station,date){
+ const {window}=parseHTML(fs.readFileSync('static/index.html','utf8')),document=window.document;document.body.dataset.collection=station;
+ const dialog=document.getElementById('iss-mission-dialog');dialog.showModal=()=>dialog.open=true;dialog.close=()=>dialog.open=false;
+ const ctx={document,location:{pathname:'/'+station},window:{AtlasTimeline:{time:Date.parse(date),live:false},AtlasStatic:{handle:()=>Promise.resolve(require('../data-seed/'+station+'-missions.json'))},addEventListener(){}},navigator:{language:'fr'},Date,Intl,setInterval(){},AtlasPages:require('../static/pages.js'),AtlasTime:require('../static/time.js'),AtlasCrewArchive:{...require('../static/crew-archive.js'),load:()=>Promise.resolve(archive)},AtlasStationHistory:require('../static/station-history.js'),AtlasISSSearch:require('../static/iss-search.js'),AtlasEVA:{...require('../static/iss-evas.js'),load:()=>Promise.resolve(require('../data-seed/iss-evas.json'))}};
+ vm.runInNewContext(fs.readFileSync('static/iss-missions.js','utf8'),ctx);for(let i=0;i<5;i++)await new Promise(r=>setImmediate(r));
+ const root=document.getElementById('iss-controls');assert.equal(root.hidden,false,station+' opens crew panel');const people=root.querySelectorAll('.iss-person-button');assert.ok(people.length>0,station+' historical crew');
+ people[0].click();for(let i=0;i<3;i++)await new Promise(r=>setImmediate(r));assert.equal(dialog.open,true);
+ const text=document.getElementById('iss-mission-body').textContent;assert.match(text,/Temps total.*dans l’espace/,station);assert.match(text,/Nationalité/);assert.match(text,/Rôle/);assert.match(text,/Sorties extravéhiculaires/);assert.match(document.getElementById('iss-crew-title').textContent,/date affichée/);
+}
+(async()=>{for(const [station,date] of [['mir','1999-01-01'],['skylab','1973-08-01'],['salyut-1','1971-06-15'],['tiangong-1','2012-06-20'],['tiangong-2','2016-11-01'],['iss','2024-11-01'],['tiangong','2024-11-01']])await check(station,date);console.log('Seven station panels: historical crew, searchable astronaut cards, career time, role, nationality and EVA sections OK.');})().catch(e=>{console.error(e);process.exitCode=1;});

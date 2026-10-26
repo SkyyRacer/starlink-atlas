@@ -1,7 +1,37 @@
 if(typeof AtlasCollections==='undefined')importScripts('constellations.js');
 'use strict';
-let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all',catalogIds=new Set(),catalogLifetimes=[];const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
-async function jsonFile(path,compressed=false){const response=await fetch(new URL(path,self.location.href),{cache:compressed?'default':'no-store'});if(!response.ok)throw new Error(`Données indisponibles (HTTP ${response.status})`);const bytes=compressed?await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():await response.arrayBuffer();return JSON.parse(decoder.decode(bytes));}
+let engine,edition,liveWindow,manifest,historyKey=null,currentData=null,collection='all',catalogIds=new Set(),catalogLifetimes=[];let historyRetryAt=0;const days=new Map(),encoder=new TextEncoder(),decoder=new TextDecoder();
+async function jsonFile(path,compressed=false){
+ const url=new URL(path,self.location.href);let last;
+ for(let attempt=0;attempt<3;attempt++){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let retry=true;
+  try{
+   const response=await fetch(url,{cache:compressed?'default':'no-store',signal:controller.signal});
+   if(!response.ok){retry=[408,429,500,502,503,504].includes(response.status);throw new Error(`Données indisponibles (HTTP ${response.status})`);}
+   const bytes=compressed?await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():await response.arrayBuffer();
+   // A malformed archive is an integrity error, not a reason to hammer a server.
+   retry=false;return JSON.parse(decoder.decode(bytes));
+  }catch(error){last=error;if(!retry||attempt===2)throw error;}
+  finally{clearTimeout(timer);}
+  await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));
+ }
+ throw last;
+}
+// Read independent sources separately: a failed day/provider must not hide all
+// the valid observations in the surrounding seven-day window.
+async function historyDay(day){
+ if(days.has(day))return {rows:days.get(day),complete:true};
+ const paths=[];
+ if(manifest.remote_days?.includes(day))paths.push(manifest.remote_base?manifest.remote_base+day+'.json.gz':`data/history/${day}.json.gz`);
+ if(manifest.local_days?.includes(day))paths.push(manifest.local_files?.[day]||`data/history/${day}.json.gz`);
+ const results=await Promise.allSettled([...new Set(paths)].map(path=>jsonFile(path,true)));
+ const available=results.filter(result=>result.status==='fulfilled');
+ if(!available.length&&results.length)throw new Error(`Archives du ${day} temporairement inaccessibles`);
+ const rows=available.flatMap(result=>result.value),complete=available.length===results.length;
+ if(complete)days.set(day,rows); // Never cache a failed or partial download as complete.
+ return {rows,complete};
+}
+
 function compute(input){const bytes=encoder.encode(JSON.stringify(input)),ptr=engine.atlas_alloc(bytes.length);new Uint8Array(engine.memory.buffer,ptr,bytes.length).set(bytes);let result;
  try{result=engine.atlas_call(ptr,bytes.length);}finally{engine.atlas_free(ptr,bytes.length);}
  const size=new DataView(engine.memory.buffer).getUint32(result,true);let answer;
@@ -45,15 +75,20 @@ function combinedHistory(current,dayRows,at){
  },3600000);
  liveWindow=null;
 }
-async function loadHistory(at){const currentPromise=loadCurrent();if(!manifest&&edition?.resources?.history)manifest=await jsonFile(edition.resources[collection+'_history']||edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,13);if(historyKey===key)return;const windowDays=[];date.setUTCHours(12,0,0,0);
+async function loadHistory(at){const currentPromise=loadCurrent();if(!manifest&&edition?.resources?.history)manifest=await jsonFile(edition.resources[collection+'_history']||edition.resources.history,true);const date=new Date(at);if(!Number.isFinite(+date))throw new Error('Date invalide');const key=date.toISOString().slice(0,13);if(historyKey===key&&(!historyRetryAt||Date.now()<historyRetryAt))return;const windowDays=[];date.setUTCHours(12,0,0,0);
  for(let offset=-3;offset<=3;offset++){const day=new Date(+date+offset*86400000).toISOString().slice(0,10);if(!manifest?.days?.[day])continue;windowDays.push(day);}
- const rows=await Promise.all(windowDays.map(async day=>{if(!days.has(day)){let values=[];if(manifest.remote_base&&manifest.remote_days.includes(day))values=await jsonFile(manifest.remote_base+day+'.json.gz',true);else if(!manifest.remote_base&&manifest.remote_days?.includes(day))values=await jsonFile(`data/history/${day}.json.gz`,true);if(manifest.local_days?.includes(day))values=values.concat(await jsonFile(manifest.local_files?.[day]||`data/history/${day}.json.gz`,true));days.set(day,values);}return days.get(day);}));
- combinedHistory(await currentPromise,rows.map(dayRows=>dayRows.filter(row=>collection==='all'||catalogIds.has((row.elements||row).NORAD_CAT_ID)||AtlasCollections.belongs(row.elements||row,collection))),at);historyKey=key;
+ const results=await Promise.allSettled(windowDays.map(historyDay));
+ const available=results.filter(result=>result.status==='fulfilled');
+ if(windowDays.length&&!available.length)throw new Error('Les archives de cette période sont temporairement inaccessibles. Réessayez dans un instant.');
+ const complete=available.length===results.length&&available.every(result=>result.value.complete);
+ combinedHistory(await currentPromise,available.map(result=>result.value.rows.filter(row=>collection==='all'||catalogIds.has((row.elements||row).NORAD_CAT_ID)||AtlasCollections.belongs(row.elements||row,collection))),at);historyKey=key;
+ historyRetryAt=complete?0:Date.now()+30000;
+
  for(const day of days.keys())if(!windowDays.includes(day))days.delete(day);
 }
 async function loadCurrent(){if(!currentData){currentData=edition.collections?await jsonFile(edition.collections[collection].observations,true):{};}return currentData;}
 async function dispatch(message){if(message.op==='init'){
-  historyKey=null;manifest=null;currentData=null;days.clear();
+  historyKey=null;historyRetryAt=0;manifest=null;currentData=null;days.clear();
   if(typeof DecompressionStream!=='function')throw new Error('Ce navigateur doit être mis à jour pour décompresser les archives orbitales.');
   edition=message.edition||await jsonFile('edition.json');collection=message.collection||'all';
   // Fetch the page's elements and WASM in parallel; no mission or EVA data here.

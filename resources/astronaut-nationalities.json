@@ -1,0 +1,94 @@
+{
+  "country_codes_source": "https://planet4589.org/space/gcat/tsv/tables/orgs.tsv",
+  "country_codes_sha256": "66416d53e7e1612a3b85d765e3b02a024b6ea819f5b514f3d8244b5782c27ec3",
+  "codes": {
+    "J": {
+      "code": "JP",
+      "name": "JP"
+    },
+    "UK": {
+      "code": "GB",
+      "name": "GB"
+    },
+    "SU": {
+      "code": "RU",
+      "name": "RU"
+    },
+    "F": {
+      "code": "FR",
+      "name": "FR"
+    },
+    "D": {
+      "code": "DE",
+      "name": "DE"
+    },
+    "B": {
+      "code": "BE",
+      "name": "BE"
+    },
+    "I": {
+      "code": "IT",
+      "name": "IT"
+    },
+    "E": {
+      "code": "ES",
+      "name": "ES"
+    },
+    "S": {
+      "code": "SE",
+      "name": "SE"
+    },
+    "UAE": {
+      "code": "AE",
+      "name": "AE"
+    },
+    "N": {
+      "code": "NO",
+      "name": "NO"
+    },
+    "PAR": {
+      "code": "PA",
+      "name": "PA"
+    },
+    "CSSR": {
+      "code": "CZ",
+      "name": "Tchécoslovaquie (à la date du vol)"
+    },
+    "DD": {
+      "code": "DD",
+      "name": "Allemagne de l’Est (RDA)"
+    }
+  },
+  "people": {
+    "AS-00699": {
+      "name": "Ephraim Rabin",
+      "nationalities": [
+        {
+          "code": "US",
+          "name": "US"
+        },
+        {
+          "code": "IL",
+          "name": "IL"
+        }
+      ],
+      "source": "https://www.blueorigin.com/ja-JP/news/new-shepard-ns-26-mission"
+    }
+  },
+  "historical_sources": {
+    "AS-00095": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/European_Astronaut_Selection_2008/A_history_of_European_astronaut_selection",
+    "AS-00098": "https://www.esa.int/About_Us/50_years_of_ESA/Sigmund_Jaehn_the_first_German_in_space"
+  },
+  "special_sources": {
+    "AS-00739": "https://www.blueorigin.com/news/new-shepard-ns-32-mission"
+  },
+  "flags": {
+    "dd.svg": {
+      "source": "https://commons.wikimedia.org/wiki/File:Flag_of_East_Germany.svg",
+      "download": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Flag_of_East_Germany.svg",
+      "license": "Public domain: official German flag (German Copyright Act §5(1), per Wikimedia Commons)",
+      "sha256": "a56cc5793f494284e649b5fcbfae6195fb1fe7cfe177eb9c7cacf32e2d9b585f"
+    },
+    "cz.svg": "Drapeau également utilisé par la Tchécoslovaquie ; libellé historique conservé, pas renommé en nationalité tchèque actuelle."
+  }
+}
