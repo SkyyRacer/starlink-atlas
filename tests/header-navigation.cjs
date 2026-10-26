@@ -8,7 +8,7 @@ for(const mode of ['all','starlink','iss']){
  vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
  const nav=document.querySelector('.collection-navigation'),trigger=mode==='all'?$('workspace-objects'):nav;
  assert.equal(trigger.nextElementSibling,$('workspace-station-control'),'Satellite menu precedes stations on '+mode);
- assert.equal((mode==='all'?trigger:$('collection-menu-button')).textContent,'Tous les satellites');
+ assert.equal((mode==='all'?trigger:$('collection-menu-button')).textContent,'Tous les objets');
  if(mode!=='all'){assert.equal($('workspace-objects').closest('#workspace-navigation'),null);assert.equal($('workspace-objects').previousElementSibling,$('globe-home'));assert.equal($('workspace-objects').textContent,'Liste des objets');}
  assert.equal($('workspace-station-control').nextElementSibling,$('workspace-deep-control'),'Deep-space menu follows stations');
  const missions=[...$('workspace-deep-space').querySelectorAll('a')];assert.equal(missions.length,require('../static/pages.js').definitions.filter(row=>row.trajectory).length);assert.ok(missions.some(link=>link.textContent.includes('James Webb')));

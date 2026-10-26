@@ -21,3 +21,6 @@ html[data-atlas-entry-loading="true"] #catalog-loader .catalog-loading-label{pos
 html[data-atlas-entry-loading="true"] #catalog-loader .catalog-percentage{margin:0 0 20px;font-size:34px;font-variant-numeric:tabular-nums;text-shadow:none;color:#f4f6f7}
 html[data-atlas-entry-loading="true"] #catalog-loader .catalog-progress{height:4px;border-radius:4px;background:#ffffff25}
 @media(max-width:420px){html[data-atlas-entry-loading="true"] #catalog-loader{padding:12px}html[data-atlas-entry-loading="true"] #catalog-loader .catalog-progress-panel{padding:24px 18px}}
+
+/* Mission pages share the Atlas logo and progress; secondary loaders stay hidden. */
+html[data-mission-page=true] :is(.loading-earth,#model-loader){display:none!important}

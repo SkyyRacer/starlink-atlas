@@ -7,10 +7,10 @@
  const paths=Object.fromEntries([['all',route('atlas')],...definitions.map(row=>[row.id,route(row.id)])]);
  function mode(path){const key=String(path||'').replace(/\/$/,'').split('/').pop();return registry.byId.has(key)?key:'all';}
  function url(value){const target=paths[value]||paths.all;return typeof document==='undefined'?target:new URL(target,document.baseURI).href;}
- const objects=[{mode:'all',name:'Tous les satellites',description:'Vue globale Atlas',keywords:'atlas ensemble tous toutes objets'},...definitions.map(row=>({mode:row.id,name:row.label,description:row.description,keywords:row.keywords}))];
+ const objects=[{mode:'all',name:'Tous les objets',description:'Vue globale Atlas',keywords:'atlas ensemble tous toutes objets'},...definitions.map(row=>({mode:row.id,name:row.label,description:row.description,keywords:row.keywords}))];
  const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
  const order=new Intl.Collator('fr',{sensitivity:'base',numeric:true});
- const groupNames=objects.map(item=>({item,names:[item.name,...item.name.split(' / '),...(item.mode==='all'?['Atlas']:item.mode==='gps'?['NAVSTAR','Global Positioning System']:[])].map(normalize)})).sort((a,b)=>order.compare(a.item.name,b.item.name));
+ const groupNames=objects.map(item=>({item,names:[item.name,...item.name.split(' / '),...(item.mode==='all'?['Atlas','Tous les satellites']:item.mode==='gps'?['NAVSTAR','Global Positioning System']:[])].map(normalize)})).sort((a,b)=>order.compare(a.item.name,b.item.name));
  const satelliteIndexes=new WeakMap();
  function search(value,satellites=[]){
   const query=normalize(value);if(!query)return [];

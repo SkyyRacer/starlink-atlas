@@ -1,0 +1,275 @@
+{
+  "sha256": "57cecfaf332efb2127d07796c4b65ca570d95a11516c8e046feb5a12efee491d",
+  "entries": [
+    {
+      "mesh": 5,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 6382
+    },
+    {
+      "mesh": 5,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 5615
+    },
+    {
+      "mesh": 74,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 6294
+    },
+    {
+      "mesh": 74,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 10304
+    },
+    {
+      "mesh": 75,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 162
+    },
+    {
+      "mesh": 75,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 13231
+    },
+    {
+      "mesh": 205,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 16623
+    },
+    {
+      "mesh": 206,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 316
+    },
+    {
+      "mesh": 206,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 31212
+    },
+    {
+      "mesh": 207,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 5132
+    },
+    {
+      "mesh": 240,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 3149
+    },
+    {
+      "mesh": 240,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 59424
+    },
+    {
+      "mesh": 240,
+      "primitive": 2,
+      "attribute": "COLOR_0",
+      "vertices": 61707
+    },
+    {
+      "mesh": 240,
+      "primitive": 3,
+      "attribute": "COLOR_0",
+      "vertices": 1277
+    },
+    {
+      "mesh": 240,
+      "primitive": 4,
+      "attribute": "COLOR_0",
+      "vertices": 24
+    },
+    {
+      "mesh": 242,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 7130
+    },
+    {
+      "mesh": 242,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 828
+    },
+    {
+      "mesh": 247,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 325
+    },
+    {
+      "mesh": 252,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 2645
+    },
+    {
+      "mesh": 252,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 407
+    },
+    {
+      "mesh": 254,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 2533
+    },
+    {
+      "mesh": 255,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 33
+    },
+    {
+      "mesh": 255,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 767
+    },
+    {
+      "mesh": 256,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 4509
+    },
+    {
+      "mesh": 257,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 12531
+    },
+    {
+      "mesh": 259,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 280
+    },
+    {
+      "mesh": 261,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 702
+    },
+    {
+      "mesh": 262,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 2539
+    },
+    {
+      "mesh": 262,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 360
+    },
+    {
+      "mesh": 263,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 4191
+    },
+    {
+      "mesh": 377,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 173
+    },
+    {
+      "mesh": 378,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 173
+    },
+    {
+      "mesh": 379,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 173
+    },
+    {
+      "mesh": 380,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 173
+    },
+    {
+      "mesh": 382,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 1078
+    },
+    {
+      "mesh": 382,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 850
+    },
+    {
+      "mesh": 383,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 5384
+    },
+    {
+      "mesh": 384,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 2364
+    },
+    {
+      "mesh": 384,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 5122
+    },
+    {
+      "mesh": 385,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 3099
+    },
+    {
+      "mesh": 385,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 623
+    },
+    {
+      "mesh": 385,
+      "primitive": 2,
+      "attribute": "COLOR_0",
+      "vertices": 3154
+    },
+    {
+      "mesh": 528,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 289
+    },
+    {
+      "mesh": 538,
+      "primitive": 0,
+      "attribute": "COLOR_0",
+      "vertices": 2355
+    },
+    {
+      "mesh": 538,
+      "primitive": 1,
+      "attribute": "COLOR_0",
+      "vertices": 360
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),menu=require('../static/collection-menu');
 const registry=require('../static/constellations').definitions;
-const items=menu.entries([{value:'all',textContent:'Tous les satellites'},...registry.map(row=>({value:row.id,textContent:row.label}))]);
+const items=menu.entries([{value:'all',textContent:'Tous les objets'},...registry.map(row=>({value:row.id,textContent:row.label}))]);
 assert.equal(items[0].value,'all');assert.equal(items.length,registry.length+1);
 for(let i=2;i<items.length;i++)assert.ok(items[i-1].label.localeCompare(items[i].label,'fr',{sensitivity:'base',numeric:true})<=0);
 assert.equal(items[menu.match(items,'galil',0)].value,'galileo');assert.equal(items[menu.match(items,'pléiades neo',0)].value,'pleiades-neo');

@@ -2,11 +2,123 @@
   "iss": {
     "file": "resources/detailed-originals/iss-igoal.glb",
     "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/International%20Space%20Station%20%28ISS%29%20%28D%29%20%28IGOAL%29/International%20Space%20Station%20%28ISS%29.glb",
-    "page": "https://www.nasa.gov/integrated-graphics-operations-and-analysis-laboratory/",
-    "version": "NASA IGOAL D",
+    "page": "https://science.nasa.gov/3d-resources/international-space-station-iss-d-igoal/",
+    "version": "NASA IGOAL D · export PNG compatible",
     "sha256": "57cecfaf332efb2127d07796c4b65ca570d95a11516c8e046feb5a12efee491d",
+    "credit": "NASA/JSC · IGOAL",
     "license": "NASA media usage guidelines",
-    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "body_axes": [
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -1
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
+    "compatibility": {
+      "png_fallbacks": true,
+      "neutral_vertex_colour_audit": "resources/iss-vertex-colour-audit.json",
+      "material_modes": {
+        "ELC_Base": "MASK",
+        "ELC_Payloads_03": "MASK",
+        "AMS": "MASK",
+        "STPH7": "MASK",
+        "ELC_Base.001": "MASK",
+        "ELC_Payloads_03.001": "MASK",
+        "ELC_Payloads_02": "MASK",
+        "ELC_Base.002": "MASK",
+        "ELC_Payloads_01": "MASK",
+        "Truss": "MASK",
+        "Zvezda.SM": "MASK",
+        "Node.MLM1": "MASK",
+        "Node.MRM1": "MASK",
+        "Node.MRM2": "MASK",
+        "IROSA": "MASK",
+        "Zarya": "MASK",
+        "m_NLP": "OPAQUE",
+        "JEM_PM": "OPAQUE"
+      },
+      "solar_alignment": {
+        "normal_source": [
+          0,
+          1,
+          0
+        ],
+        "joints": [
+          {
+            "joint": "PORT_BETA_ROT_2A",
+            "plane_node": "P4_Array_2A",
+            "normal_axis": 0
+          },
+          {
+            "joint": "PORT_BETA_ROT_4A",
+            "plane_node": "P4_Array_4A",
+            "normal_axis": 0
+          },
+          {
+            "joint": "PORT_BETA_ROT_2B",
+            "plane_node": "P6_2B_Array",
+            "normal_axis": 2
+          },
+          {
+            "joint": "PORT_BETA_ROT_4B",
+            "plane_node": "P6_4B_Array",
+            "normal_axis": 2
+          },
+          {
+            "joint": "STBD_BETA_ROT_1A",
+            "plane_node": "S4_Array_1A",
+            "normal_axis": 0
+          },
+          {
+            "joint": "STBD_BETA_ROT_3A",
+            "plane_node": "S4_Array_3A",
+            "normal_axis": 0
+          },
+          {
+            "joint": "STBD_BETA_ROT_1B",
+            "plane_node": "S6_1B_Array",
+            "normal_axis": 0
+          },
+          {
+            "joint": "STBD_BETA_ROT_3B",
+            "plane_node": "S6_3B_Array",
+            "normal_axis": 0
+          }
+        ],
+        "alpha_groups": [
+          {
+            "joint": "PORT_ALPHA_ROT",
+            "beta_joints": [
+              "PORT_BETA_ROT_2A",
+              "PORT_BETA_ROT_4A",
+              "PORT_BETA_ROT_2B",
+              "PORT_BETA_ROT_4B"
+            ]
+          },
+          {
+            "joint": "STBD_ALPHA_ROT",
+            "beta_joints": [
+              "STBD_BETA_ROT_1A",
+              "STBD_BETA_ROT_3A",
+              "STBD_BETA_ROT_1B",
+              "STBD_BETA_ROT_3B"
+            ]
+          }
+        ]
+      }
+    },
+    "note": "Full IGOAL assembly: original compressed geometry and original lossless PNG textures. Opaque cutouts use depth-tested alpha masks; Cupola glass retains blending. Uniform white COLOR_0 layers audited and omitted. Body axes calibrated in scene/world coordinates: Node1 to Node2 is source -X, Node3 to Cupola is source -Y. Nominal LVLH only, not live measured attitude. Solar wings use a neutral deployed baseline. Runtime Sun tracking animates two shared SARJ alpha joints plus eight independent beta joints using the real carrier hierarchy; central modules and Cupola remain fixed. iROSA mounts retain their designed relative inclination. No live motor telemetry or dated parking modes are implied."
   },
   "tess": {
     "file": "resources/detailed-originals/tess-b.glb",

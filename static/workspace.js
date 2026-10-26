@@ -100,7 +100,7 @@
  }
  if(isAtlas){
   rail.classList.add('workspace-categories-panel');$('atlas-controls').before(categorySearch);
-  close.setAttribute('aria-label','Fermer Tous les satellites');
+  close.setAttribute('aria-label','Fermer Tous les objets');
   const group=document.createElement('details');group.className='atlas-category workspace-debris-category';
   const summary=document.createElement('summary');summary.textContent='Débris spatiaux';const categoryCount=document.createElement('span');categoryCount.className='atlas-category-total';summary.append(categoryCount);group.append(summary);
   const link=document.createElement('a');link.className='workspace-debris-category-link';link.href=AtlasPages.url('debris');link.append(document.createTextNode('Voir la page Débris spatiaux'));
@@ -147,7 +147,7 @@
    if(isAtlas){frozenControls.hidden=false;move(close,frozenControls);move(categorySearch,frozenControls);move(document.querySelector('#atlas-controls .atlas-actions'),frozenControls);bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
    else{titleRow.hidden=false;move(document.querySelector('.observation-title'),titleRow);move(close,titleRow);move(objects,sceneActions);$('workspace-debris-navigation').hidden=false;}
    if(isAtlas){objects.after(stationControl);nav.hidden=true;}else{nav.after(stationControl);nav.hidden=false;}stationControl.after(deepControl);
-   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les satellites':'Liste des objets';
+   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les objets':'Liste des objets';
    setObjects(false);syncView();
   }else{
    if(!mounted)return;closeStations();setObjects(false);closeMenu();closeTools();closeDebris();menu.setThematic?.(false);closeNews();

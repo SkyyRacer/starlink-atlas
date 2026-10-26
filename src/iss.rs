@@ -82,6 +82,12 @@ mod tests {
         let p = position(orbit, at).unwrap();
         assert!((350.0..500.0).contains(&p.altitude_km));
         assert!((7.0..8.5).contains(&p.speed_km_s));
+        let velocity=p.velocity_inertial_fixed_km_s.unwrap();
+        assert!((velocity.iter().map(|v|v*v).sum::<f64>().sqrt()-p.speed_km_s).abs()<1e-10);
+        let propagated=orbit.constants.propagate(sgp4::MinutesSinceEpoch(30.0)).unwrap();
+        let angle=gmst(at);
+        assert!((velocity[0]-(propagated.velocity[0]*angle.cos()+propagated.velocity[1]*angle.sin())).abs()<1e-10);
+        assert!((velocity[1]-(-propagated.velocity[0]*angle.sin()+propagated.velocity[1]*angle.cos())).abs()<1e-10);
         assert!(select(&db.orbits[&25544], at - chrono::Duration::days(5)).is_none());
     }
 }

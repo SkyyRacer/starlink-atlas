@@ -15,7 +15,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  assert.ok(document.body.classList.contains('earth-workspace'));assert.equal(document.querySelector('.collection-navigation').parentElement,$('workspace-navigation'));assert.equal($('satellite-panel').inert,true);
  assert.equal($('workspace-navigation').firstElementChild,document.querySelector('.collection-navigation'));
  assert.equal(document.querySelector('.collection-navigation').hidden,true);assert.equal($('workspace-objects').nextElementSibling,$('workspace-station-control'));
- assert.equal($('workspace-objects').textContent,'Tous les satellites');
+ assert.equal($('workspace-objects').textContent,'Tous les objets');
  assert.equal($('object-search').closest('#workspace-frozen-controls'),null,'Search moves into frozen area when menu opens');assert.equal($('atlas-clear').closest('#workspace-frozen-controls'),$('workspace-frozen-controls'));
  assert.ok(document.querySelector('.collection-navigation').classList.contains('workspace-primary-menu'));
  assert.equal(document.querySelectorAll('.collection-navigation .collection-menu-theme').length,0);
@@ -23,7 +23,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  assert.ok(document.querySelector('.collection-menu-option#collection-option-iss')); 
  assert.ok(document.querySelector('.collection-menu-option#collection-option-debris')); 
  assert.equal(document.querySelector('#collection-option-galileo').closest('.collection-menu-group').getAttribute('aria-label'),'G');
- assert.equal($('collection-menu-button').textContent,'Tous les satellites');
+ assert.equal($('collection-menu-button').textContent,'Tous les objets');
  assert.equal($('workspace-stations').parentElement,$('workspace-station-control'));assert.equal($('workspace-station-control').previousElementSibling,$('workspace-objects'));
  assert.equal($('workspace-stations').hidden,true);$('workspace-stations-button').click();assert.equal($('workspace-stations').hidden,false);assert.equal($('workspace-stations-button').getAttribute('aria-expanded'),'true');$('workspace-stations-button').click();assert.equal($('workspace-stations').hidden,true);
  assert.equal($('workspace-iss').parentElement,$('workspace-stations'));assert.equal($('workspace-tiangong').parentElement,$('workspace-stations'));

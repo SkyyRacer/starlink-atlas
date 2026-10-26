@@ -59,6 +59,7 @@
    getModel(id){const model=records.get(id)?.model;return model?.ready&&model.show?model:null;},
    suppress(id,value=true){const record=records.get(id);if(record){record.suppressed=!!value;if(value){record.sprite.show=false;if(record.model)record.model.show=false;}else size(record);}},
    *hits(){for(const [id,record] of records)if(record.visible)yield {id,position:record.sprite.position};},
+   get loading(){return [...records.values()].some(record=>record.visible&&!record.suppressed&&(record.loading||(record.model&&!record.model.ready)));},
    get count(){let n=0;for(const record of records.values())if(record.visible)n++;return n;}
   };
  }

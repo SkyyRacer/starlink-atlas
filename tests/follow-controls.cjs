@@ -13,7 +13,7 @@ assert.equal(globe.compassAngle(north,{x:0,y:0,z:-1},{x:1,y:0,z:0}),-Math.PI/2);
 assert.equal(globe.compassAngle(north,{x:1,y:0,z:0},{x:0,y:1,z:0}),null);
 assert.match(source,/viewer.camera.constrainedAxis=C.Cartesian3.UNIT_Z/);
 const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{dataset:{},setAttribute(k,v){this[k]=v;}});return nodes.get(id);};
-const ctx={AtlasGlobe:globe,followButton:node('globe-follow'),following:false,idleController:{cancel(){},active:false},lastData:data(),document:{getElementById:node},debrisTarget:()=>false,onSelect(id){ctx.chosen=id;},stopFollowing(){ctx.following=false;},api:{update(d){ctx.updated=d;}}};
+const ctx={viewer:{container:{closest:()=>({dataset:{}})}},detailedLayer:{getModel:()=>null},inspectionHelp:'Inspection',AtlasGlobe:globe,followButton:node('globe-follow'),following:false,idleController:{cancel(){},active:false},lastData:data(),document:{getElementById:node},debrisTarget:()=>false,onSelect(id){ctx.chosen=id;},stopFollowing(){ctx.following=false;},api:{update(d){ctx.updated=d;}}};
 vm.createContext(ctx);
 vm.runInContext(source.slice(source.indexOf('    followButton.onclick='),source.indexOf('    const satelliteView=')),ctx);
 ctx.followButton.onclick();assert.equal(ctx.chosen,3,'Follow starts from the overview with the operational object');

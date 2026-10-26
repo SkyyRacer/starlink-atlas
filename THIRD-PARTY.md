@@ -200,7 +200,7 @@ Reproduction hors ligne des fichiers optimisés : `python3 scripts/build_science
 
 Les modèles couleur de `static/images/detailed/` proviennent également de NASA 3D Resources (Hubble, Chandra, Fermi, TESS et ISS variante B). Les données originales et leurs matériaux sont conservés, avec une transformation de présentation Atlas ; crédits, URLs et empreintes dans `resources/detailed-model-manifest.json`. Les règles NASA précédemment référencées s’appliquent.
 
-Modèles détaillés révisés : ISS NASA IGOAL D, Hubble NASA VTAD et TESS B, sources et empreintes dans `resources/detailed-model-sources.json`. L’environnement Kiara 6 Afternoon est de Greg Zaal / Poly Haven (CC0, https://polyhaven.com/license), préfiltré KTX2 issu des données de test Cesium 1.130. Les coefficients d’éclairage de l’exemple Cesium Image-Based Lighting sont sous Apache-2.0, licence incluse dans `static/vendor/cesium/LICENSE.md`. Aucune garantie de configuration ou d’éclairage de vol réel n’est revendiquée pour ces illustrations.
+Modèles détaillés révisés : ISS NASA IGOAL D (export PNG compatible), Hubble NASA VTAD et TESS B, sources et empreintes dans `resources/detailed-model-sources.json`. L’environnement Kiara 6 Afternoon est de Greg Zaal / Poly Haven (CC0, https://polyhaven.com/license), préfiltré KTX2 issu des données de test Cesium 1.130. Les coefficients d’éclairage de l’exemple Cesium Image-Based Lighting sont sous Apache-2.0, licence incluse dans `static/vendor/cesium/LICENSE.md`. Aucune garantie de configuration ou d’éclairage de vol réel n’est revendiquée pour ces illustrations.
 
 
 ### Tiangong — modèle détaillé (20 octobre 2026)

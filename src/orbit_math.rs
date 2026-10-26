@@ -98,6 +98,13 @@ pub(crate) fn position(o: &Orbit, at: DateTime<Utc>) -> Option<Point> {
         lon,
         altitude_km,
         speed_km_s: p.velocity.iter().map(|v| v * v).sum::<f64>().sqrt(),
+        // Inertial velocity expressed in the same Earth-fixed axes as the position.
+        // This is not the ground-track derivative (do not subtract Earth rotation).
+        velocity_inertial_fixed_km_s: if o.el.norad_id == 25544 {
+            let angle = gmst(at);
+            Some([p.velocity[0]*angle.cos()+p.velocity[1]*angle.sin(),
+                  -p.velocity[0]*angle.sin()+p.velocity[1]*angle.cos(),p.velocity[2]])
+        } else { None },
         epoch: o.el.datetime.and_utc().to_rfc3339(),
         age_hours: age / 60.0,
         source: o.source,

@@ -63,6 +63,8 @@ struct Point {
     lon: f64,
     altitude_km: f64,
     speed_km_s: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    velocity_inertial_fixed_km_s: Option<[f64; 3]>,
     epoch: String,
     age_hours: f64,
     source: &'static str,

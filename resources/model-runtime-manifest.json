@@ -37,9 +37,9 @@
   },
   {
     "key": "iss",
-    "runtime_url": "images/detailed/iss.glb?v=ccf3a2a7279e",
-    "runtime_bytes": 95875884,
-    "original_bytes": 95875884,
+    "runtime_url": "images/detailed/iss.glb?v=3ba93e34dd5e",
+    "runtime_bytes": 90131356,
+    "original_bytes": 90131356,
     "triangles": 2707621,
     "original_triangles": 2707621,
     "compression": "original"

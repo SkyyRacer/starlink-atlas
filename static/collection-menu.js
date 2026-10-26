@@ -24,7 +24,7 @@
     if(heading||top<list.scrollTop)list.scrollTop=top;else if(top+box.height>list.scrollTop+list.clientHeight)list.scrollTop=top+box.height-list.clientHeight;}}
   function close(){if(!panel.hidden)reset(panel);panel.hidden=true;button.setAttribute('aria-expanded','false');button.removeAttribute('aria-activedescendant');query='';}
   function open(){panel.hidden=false;button.setAttribute('aria-expanded','true');const index=items.findIndex(item=>item.value===select.value);if(themed){active=-1;options.forEach(option=>option.classList.toggle('is-active',false));button.removeAttribute('aria-activedescendant');}else activate(index);query='';}
-  function choose(index){if(index<0||!items[index])return;select.value=items[index].value;button.textContent=themed?'Tous les satellites':items[index].label;options.forEach((option,i)=>option.setAttribute('aria-selected',String(i===index)));close();select.dispatchEvent(new Event('change',{bubbles:true}));}
+  function choose(index){if(index<0||!items[index])return;select.value=items[index].value;button.textContent=themed?'Tous les objets':items[index].label;options.forEach((option,i)=>option.setAttribute('aria-selected',String(i===index)));close();select.dispatchEvent(new Event('change',{bubbles:true}));}
   function option(item,index,parent){
    const node=document.createElement('div');node.id='collection-option-'+item.value;node.className='collection-menu-option';node.setAttribute('role','option');node.setAttribute('aria-selected',String(item.value===select.value));node.textContent=item.label;node.addEventListener('click',()=>{choose(index);button.focus({preventScroll:true});});parent.append(node);options.push(node);
   }
@@ -43,7 +43,7 @@
    active=Math.max(0,items.findIndex(item=>item.value===select.value));
   }
   render();
-  button.setThematic=value=>{if(themed===value)return;close();themed=value;render();help.textContent=themed?'Recherchez un objet ou dépliez un thème.':'Tapez une lettre pour accéder aux objets correspondants.';button.textContent=themed?'Tous les satellites':(items.find(item=>item.value===select.value)?.label||'Tous les satellites');};
+  button.setThematic=value=>{if(themed===value)return;close();themed=value;render();help.textContent=themed?'Recherchez un objet ou dépliez un thème.':'Tapez une lettre pour accéder aux objets correspondants.';button.textContent=themed?'Tous les objets':(items.find(item=>item.value===select.value)?.label||'Tous les objets');};
   button.textContent=items[active].label;panel.append(help,list);select.hidden=true;select.tabIndex=-1;nav.append(button,panel);
   button.addEventListener('click',()=>panel.hidden?open():close());
   document.addEventListener('keydown',event=>{

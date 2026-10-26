@@ -1,6 +1,7 @@
 """Preserve source surfaces/textures; apply explicitly recorded presentation finishes and placement."""
 import gzip,hashlib,json,math,pathlib,struct
 from build_science_models import identity,product,transform,node_matrix
+from model_compatibility import prepare,solar_rig
 ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=ROOT/'static/images/detailed';OUT.mkdir(parents=True,exist_ok=True)
 sources=json.loads((ROOT/'resources/science-model-sources.json').read_text());upgrades=json.loads((ROOT/'resources/detailed-model-sources.json').read_text());manifest=[]
 for key,source in upgrades.items():
@@ -9,6 +10,7 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
  path=ROOT/upgrades[key]['file'] if key in upgrades else ROOT/'resources/science-originals'/(key+'.glb');raw=path.read_bytes();n=struct.unpack_from('<I',raw,12)[0];g=json.loads(raw[20:20+n]);binary=raw[28+n:]
  source=upgrades.get(key,sources.get(key))
  if 'sha256' in source:assert hashlib.sha256(raw).hexdigest()==source['sha256']
+ binary,compatibility=prepare(ROOT,g,binary,source)
  for material in g.get('materials',[]):
   finish=source.get('material_finishes',{}).get(material.get('name'))
   if finish:material.setdefault('pbrMetallicRoughness',{}).update(finish)
@@ -58,10 +60,14 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
     assert 'TEXCOORD_'+str(uv) in primitive['attributes'], f'{key}: texture references missing TEXCOORD_{uv}'
  # Match the original wireframe's diagonal presentation, without changing the camera.
  angle=-math.pi/4;rot=identity();rot[1][1]=rot[2][2]=math.cos(angle);rot[1][2]=-math.sin(angle);rot[2][1]=math.sin(angle)
+ if source.get('body_axes'):
+  rot=identity()
+  for i in range(3):
+   for j in range(3):rot[i][j]=source['body_axes'][i][j]
  matrix=product(rot,normal);parent=len(g['nodes']);g['nodes'].append({'name':'Atlas presentation transform','children':roots,'matrix':[matrix[i][j] for j in range(4) for i in range(4)]});g['scenes']=[{'nodes':[parent]}];g['scene']=0
  text=json.dumps(g,separators=(',',':')).encode();text+=b' '*(-len(text)%4);blob=struct.pack('<III',0x46546c67,2,28+len(text)+len(binary))+struct.pack('<II',len(text),0x4e4f534a)+text+struct.pack('<II',len(binary),0x004e4942)+binary
  (OUT/(key+'.glb')).write_bytes(blob)
- manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'material_finishes':source.get('material_finishes',{}),'presentation_focus_node':source.get('presentation_focus_node'),'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
+ manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'compatibility':compatibility,'solar_rig':solar_rig(g,source),'material_finishes':source.get('material_finishes',{}),'presentation_focus_node':source.get('presentation_focus_node'),'body_axes':source.get('body_axes'),'note':source.get('note'),'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
 (ROOT/'resources/detailed-model-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(OUT/'manifest.json').write_text(json.dumps(manifest,separators=(',',':')))
 template=(ROOT/'resources/detailed-models.template.js').read_text();(ROOT/'static/detailed-models.js').write_text(template.replace('__MANIFEST__',json.dumps(manifest,ensure_ascii=False,separators=(',',':'))))
 print('Modèles couleur : '+', '.join(m['key'] for m in manifest)+' — '+str(sum(m['bytes'] for m in manifest))+' octets, chargés à la demande.')

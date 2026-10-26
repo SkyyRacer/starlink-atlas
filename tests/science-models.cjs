@@ -15,6 +15,8 @@ assert.ok(total<3500000,'Reviewed line models stay under 3.5 MB, downloaded only
  const lageos=ctx.AtlasScience.model(8820);assert.ok(lageos.screenSize(1440,900,20000000,false,'all')<ctx.AtlasScience.model(20580).screenSize(1440,900,20000000,false,'all'));assert.equal(lageos.screenSize(1440,900,1000000,true,'lageos'),30,'Close details retain their normal size');
  const visual=ctx.AtlasScience.model(20580);await Promise.all([visual.prepare(),visual.prepare()]);assert.equal(requests.length,1);assert.ok(events.includes('atlas-science-ready'));assert.ok(decodeURIComponent(visual.iconURI).includes('<svg'));
  const strokes={save(){},restore(){},translate(){},scale(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}};visual.draw2D(strokes,0,0,30,'#abcdef');assert.equal(strokes.strokeStyle,'#abcdef');assert.equal(requests.length,1);
+ ctx.AtlasModelAttitude={matrix(){throw Error('White models must keep their illustrative orientation');}};
+ ctx.AtlasISSSolar={create(){throw Error('White models must not animate their panels');}};
  const modelRequests=[],callbacks=[],primitives=[];
  class BillboardCollection{constructor(){this.items=[];}add(props){const item={...props};this.items.push(item);return item;}}
  const C={BillboardCollection,Cartesian3:{fromDegrees:(lon,lat,height)=>({lon,lat,height})},Transforms:{eastNorthUpToFixedFrame:p=>p},Matrix4:{IDENTITY:{}},Color:{WHITE:'#fff'},ColorBlendMode:{REPLACE:1},Model:{fromGltfAsync:async options=>{modelRequests.push(options);return {minimumPixelSize:options.minimumPixelSize,show:false};}}};
