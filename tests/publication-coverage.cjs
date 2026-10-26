@@ -6,19 +6,20 @@ function coverage(catalog,points,now){
  const available=new Set(points.map(p=>p.id)),count=expected.filter(s=>available.has(s.id)).length;
  const minimum=expected.length>=1000?Math.ceil(expected.length*.8):0;
  if(count<minimum)throw Error(`Publication suspendue : seulement ${count} / ${expected.length} Starlink ont une position actuelle (minimum ${minimum}). Vérifier les sources et le secret KEEPTRACK_API_KEY ; conserver la publication précédente.`);
- const groups={};
+ const groups={},warnings=[];
  for(const family of ['gps','galileo','glonass','beidou','oneweb','iridium']){
   const members=catalog.satellites.filter(s=>active(s)&&(s.family===family||s.collections?.includes(family)));
   if(members.length<10)continue;
-  const visible=members.filter(s=>available.has(s.id)).length,required=Math.ceil(members.length*.7);
+  const visible=members.filter(s=>available.has(s.id)).length,required=Math.ceil(members.length*.5),target=Math.ceil(members.length*.7);
   if(visible<required)throw Error(`Publication suspendue : ${family} ne dispose que de ${visible} / ${members.length} positions actuelles (minimum ${required}). Publication précédente conservée.`);
-  groups[family]={available:visible,expected:members.length,minimum:required};
+  if(visible<target)warnings.push(`${family} : couverture partielle, ${visible} / ${members.length} positions actuelles ; les éléments périmés restent exclus.`);
+  groups[family]={available:visible,expected:members.length,minimum:required,target,status:visible<target?'partial':'normal'};
  }
  for(const id of [25544,48274]){
   const station=catalog.satellites.find(s=>s.id===id&&active(s));
   if(station&&!available.has(id))throw Error(`Publication suspendue : position actuelle de ${station.name} absente. Publication précédente conservée.`);
  }
- return {starlink:count,expected:expected.length,minimum,total:points.length,groups};
+ return {starlink:count,expected:expected.length,minimum,total:points.length,groups,warnings};
 }
 module.exports={coverage};
 if(require.main===module)(async()=>{
@@ -30,5 +31,5 @@ if(require.main===module)(async()=>{
  for(let i=0;i<data.raw_catalog.length;i+=256)call({op:'catalog-add',rows:data.raw_catalog.slice(i,i+256)});
  const gcat=Object.entries(data.gcat||{});for(let i=0;i<gcat.length;i+=256)call({op:'catalog-add',rows:[],gcat:Object.fromEntries(gcat.slice(i,i+256))});
  for(const [field,target] of [['packed_live','live'],['packed_orbits','current']])for(let i=0;i<(data[field]||[]).length;i+=256)call({op:'orbits-add',target,data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:data[field].slice(i,i+256)}});
- const now=new Date().toISOString(),result=call({op:'positions',at:now,now});assert.ok(result.points.length,'No current positions: never publish an empty edition');console.log('Publication coverage:',coverage(catalog,result.points,Date.parse(now)));
+ const now=new Date().toISOString(),result=call({op:'positions',at:now,now});assert.ok(result.points.length,'No current positions: never publish an empty edition');const report=coverage(catalog,result.points,Date.parse(now));console.log('Publication coverage:',report);for(const message of report.warnings)console.log('::warning::'+message);fs.writeFileSync(path.join(root,'data-coverage.json'),JSON.stringify({at:now,edition:edition.edition,...report},null,2)+'\n');
 })().catch(error=>{console.error(error.message);process.exitCode=1;});

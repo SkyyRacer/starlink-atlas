@@ -55,3 +55,7 @@ Un script ne peut pas créer des mesures lorsque toutes les sources et leurs arc
 en sont dépourvues. Les tuiles cartographiques externes restent soumises au fournisseur
 configuré et à son cache navigateur ; ce script n'effectue aucun téléchargement
 massif de cartes ni contournement d'un fournisseur bloqué.
+
+## Couverture à la publication
+
+Le contrôle du moteur conserve le minimum Starlink de 80 % et vérifie les deux stations actives. Pour les autres grandes constellations, moins de 50 % de positions valides bloque la publication ; entre 50 % et 70 %, une couverture partielle est signalée dans GitHub et `data-coverage.json`. Cela distingue une disponibilité partielle documentée d’une forte perte de données, sans prolonger la validité des éléments orbitaux ni inventer des positions.

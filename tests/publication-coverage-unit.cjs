@@ -12,3 +12,9 @@ const iss={id:25544,name:'ISS',launch:'1998-11-20'};
 assert.throws(()=>coverage({satellites:[...satellites,iss]},points,now),/ISS/);
 assert.doesNotThrow(()=>coverage({satellites:[...satellites,{...iss,decay:'2020-01-01'}]},points,now));
 console.log('Publication guard: other major constellations and active stations protected independently.');
+
+const withGps={satellites:[...satellites,...gps]},partialPoints=[...points,...gps.slice(0,18).map(s=>({id:s.id}))];
+const partial=coverage(withGps,partialPoints,now);assert.equal(partial.groups.gps.status,'partial');assert.equal(partial.groups.gps.minimum,15);assert.equal(partial.groups.gps.target,21);assert.match(partial.warnings[0],/18 \/ 30/);
+assert.throws(()=>coverage(withGps,[...points,...gps.slice(0,14).map(s=>({id:s.id}))],now),/gps/,'A severe loss remains blocking');
+assert.equal(coverage(withGps,[...points,...gps.slice(0,21).map(s=>({id:s.id}))],now).warnings.length,0);
+console.log('Publication distinguishes partial coverage (reported) from severe constellation loss (blocked), without extending orbit validity.');
