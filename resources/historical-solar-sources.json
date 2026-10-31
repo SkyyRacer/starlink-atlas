@@ -1,0 +1,59 @@
+{
+  "mode": "Detailed 3D only; white models have no solar joints or tracking callback",
+  "sources": [
+    {
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "document": "NASA RP-1357 Mir Hardware Heritage, Part 2",
+      "pages_printed": [
+        68,
+        71,
+        75,
+        90,
+        109,
+        110
+      ],
+      "findings": [
+        "Salyut 1: four nonsteerable arrays.",
+        "Almaz/Salyut 2, 3, 5: arrays could track Sun in most station attitudes.",
+        "Salyut 4: three steerable arrays.",
+        "Salyut 6: three driven arrays with Sun sensors and rotating connections.",
+        "Salyut 7: three steerable arrays."
+      ]
+    },
+    {
+      "url": "https://ntrs.nasa.gov/api/citations/19860005869/downloads/19860005869.pdf",
+      "document": "Space station propulsion requirements study, NASA-CR-178542",
+      "finding": "Skylab solar-inertial orientation provided solar tracking without array articulation."
+    },
+    {
+      "url": "https://ntrs.nasa.gov/api/citations/19950021792/downloads/19950021792.pdf",
+      "document": "NASA TM-106940, Analysis of shadowing effects on MIR photovoltaic and solar dynamic power systems",
+      "findings": [
+        "Mir base: two one-axis wings and one stationary wing.",
+        "Soyuz visitor wings non-articulating.",
+        "Kvant-1 and Kvant-2 use one-axis tracking.",
+        "Predicted 1995 configuration does not document the complete later Spektr configuration."
+      ]
+    },
+    {
+      "url": "https://www.nasa.gov/history/SP-4225/documentation/mir-summaries/mir24/mr.htm",
+      "document": "NASA Mir-24 mission status, October 1997",
+      "findings": [
+        "Spektr had three undamaged arrays after the 25 June 1997 collision.",
+        "Gimbal/Sun-tracking control failures and partial restoration were reported. This supports steerable Spektr wings; it is not a complete motor telemetry archive."
+      ]
+    },
+    {
+      "url": "https://www.nasa.gov/history/SP-4225/mir/mir.htm",
+      "document": "NASA Shuttle-Mir overview",
+      "finding": "Spektr arrived with two pairs of solar arrays."
+    }
+  ],
+  "limitations": [
+    "Single-axis hinges calibrated to existing model geometry. Deployed source pose preserved at zero angle.",
+    "Nominal +/-90-degree sweep is an implementation assumption, not surveyed historical end stops.",
+    "Sun direction and orbital reference calculated at consulted date. Historical motor angles, wheel speeds, eclipse parking, faults and exact station attitudes are not available.",
+    "Whole-station Sun-pointing for realistic Salyut 1 and Skylab is a nominal operating mode, not a dated reconstruction of every maneuver.",
+    "Mir source configuration remains the selected original Celestia asset; no physical-hardware/date configuration changes introduced."
+  ]
+}

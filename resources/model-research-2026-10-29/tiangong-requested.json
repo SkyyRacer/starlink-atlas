@@ -1,0 +1,195 @@
+{
+  "animationCount": 1,
+  "categories": [
+    {
+      "uid": "17d20ca7b35243d4a45171838b50704c",
+      "name": "Science & Technology",
+      "slug": "science-technology",
+      "uri": "https://api.sketchfab.com/v3/categories/17d20ca7b35243d4a45171838b50704c",
+      "icon": "https://static.sketchfab.com/static/builds/web/dist/static/assets/images/icons/categories/86b1bae49e0ed3f43b2d59b26700234e-v2.svg",
+      "thumbnails": [
+        {
+          "width": "512",
+          "height": "288",
+          "url": "https://static.sketchfab.com/categories/17d20ca7b35243d4a45171838b50704c/512x288.png"
+        },
+        {
+          "width": "800",
+          "height": "450",
+          "url": "https://static.sketchfab.com/categories/17d20ca7b35243d4a45171838b50704c/800x450.png"
+        }
+      ]
+    }
+  ],
+  "commentCount": 1,
+  "createdAt": "2024-09-26T12:05:28.573129",
+  "embedUrl": "https://sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/embed",
+  "faceCount": 917248,
+  "isAgeRestricted": false,
+  "license": {},
+  "likeCount": 83,
+  "name": "Tiangong Space Station",
+  "publishedAt": "2024-09-26T12:30:17.746026",
+  "soundCount": 0,
+  "staffpickedAt": null,
+  "tags": [
+    {
+      "name": "universe",
+      "slug": "universe",
+      "uri": "https://api.sketchfab.com/v3/tags/universe"
+    },
+    {
+      "name": "china",
+      "slug": "china",
+      "uri": "https://api.sketchfab.com/v3/tags/china"
+    },
+    {
+      "name": "spacestation",
+      "slug": "spacestation",
+      "uri": "https://api.sketchfab.com/v3/tags/spacestation"
+    },
+    {
+      "name": "chinese",
+      "slug": "chinese",
+      "uri": "https://api.sketchfab.com/v3/tags/chinese"
+    },
+    {
+      "name": "rocket",
+      "slug": "rocket",
+      "uri": "https://api.sketchfab.com/v3/tags/rocket"
+    },
+    {
+      "name": "shenzhou",
+      "slug": "shenzhou",
+      "uri": "https://api.sketchfab.com/v3/tags/shenzhou"
+    },
+    {
+      "name": "space",
+      "slug": "space",
+      "uri": "https://api.sketchfab.com/v3/tags/space"
+    },
+    {
+      "name": "spaceship",
+      "slug": "spaceship",
+      "uri": "https://api.sketchfab.com/v3/tags/spaceship"
+    },
+    {
+      "name": "tianhe",
+      "slug": "tianhe",
+      "uri": "https://api.sketchfab.com/v3/tags/tianhe"
+    },
+    {
+      "name": "mengtian",
+      "slug": "mengtian",
+      "uri": "https://api.sketchfab.com/v3/tags/mengtian"
+    },
+    {
+      "name": "wentian",
+      "slug": "wentian",
+      "uri": "https://api.sketchfab.com/v3/tags/wentian"
+    },
+    {
+      "name": "tianzhou",
+      "slug": "tianzhou",
+      "uri": "https://api.sketchfab.com/v3/tags/tianzhou"
+    }
+  ],
+  "thumbnails": {
+    "images": [
+      {
+        "uid": "d7aff82033874f1a95af765a844b7130",
+        "width": 1920,
+        "height": 1080,
+        "size": 299730,
+        "url": "https://media.sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/thumbnails/aeccbe11e78c459fa95defdd378ba7e1/813e09b9eb3f4a02b7f4dcc1d7b95c48.jpeg"
+      },
+      {
+        "uid": "92b6d919f0874ce7aec81bf8b486306c",
+        "width": 1024,
+        "height": 576,
+        "size": 101652,
+        "url": "https://media.sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/thumbnails/aeccbe11e78c459fa95defdd378ba7e1/9aa46ace2db6492eb6324c8f476b5be9.jpeg"
+      },
+      {
+        "uid": "6a16bd05b8e3457caa048568ddd8c374",
+        "width": 720,
+        "height": 405,
+        "size": 53064,
+        "url": "https://media.sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/thumbnails/aeccbe11e78c459fa95defdd378ba7e1/ffdfcead0a8e4a16a2c2f471b08a585e.jpeg"
+      },
+      {
+        "uid": "ce6f94d9d81649b5a7d91e0ebe7e35d9",
+        "width": 256,
+        "height": 144,
+        "size": 8755,
+        "url": "https://media.sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/thumbnails/aeccbe11e78c459fa95defdd378ba7e1/76a13237235543a59b8af58ad9f746df.jpeg"
+      },
+      {
+        "uid": "fe56b63253ce471c86b390daac42aa70",
+        "width": 64,
+        "height": 36,
+        "size": 1456,
+        "url": "https://media.sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/thumbnails/aeccbe11e78c459fa95defdd378ba7e1/d9aea9fefe864dfba6a15ccc413fe6b6.jpeg"
+      }
+    ]
+  },
+  "uid": "205e0d24d4994eb9a232abe728e10a0f",
+  "uri": "https://api.sketchfab.com/v3/models/205e0d24d4994eb9a232abe728e10a0f",
+  "user": {
+    "uid": "95c4b221a3ee415bacb3a138ec733915",
+    "username": "thaweverything",
+    "displayName": "thaweverything",
+    "account": "basic",
+    "profileUrl": "https://sketchfab.com/thaweverything",
+    "avatar": {
+      "uid": "cefebb73621641f29a0535368acb906e",
+      "uri": "https://api.sketchfab.com/v3/avatars/cefebb73621641f29a0535368acb906e",
+      "images": [
+        {
+          "width": 32,
+          "height": 32,
+          "size": 2290,
+          "url": "https://media.sketchfab.com/avatars/cefebb73621641f29a0535368acb906e/3ed58fce9cb74193b9bcc038b53f2293.png"
+        },
+        {
+          "width": 48,
+          "height": 48,
+          "size": 4549,
+          "url": "https://media.sketchfab.com/avatars/cefebb73621641f29a0535368acb906e/91ab70d017bc4d1b99aea02dafd8639a.png"
+        },
+        {
+          "width": 90,
+          "height": 90,
+          "size": 13675,
+          "url": "https://media.sketchfab.com/avatars/cefebb73621641f29a0535368acb906e/a57507019ae542c28f2aa917ae54d9da.png"
+        },
+        {
+          "width": 100,
+          "height": 100,
+          "size": 16363,
+          "url": "https://media.sketchfab.com/avatars/cefebb73621641f29a0535368acb906e/398c0e16a8a5449eb6fa8f30b34aa4a4.png"
+        }
+      ]
+    },
+    "uri": "https://api.sketchfab.com/v3/users/95c4b221a3ee415bacb3a138ec733915"
+  },
+  "vertexCount": 473916,
+  "viewCount": 9893,
+  "viewerUrl": "https://sketchfab.com/3d-models/tiangong-space-station-205e0d24d4994eb9a232abe728e10a0f",
+  "isDownloadable": false,
+  "isProtected": false,
+  "description": "Tiangong, officially the Tiangong space station  (Chinese: 天宫空间站; pinyin: Tiāngōng kōngjiānzhàn), is a permanently crewed space station constructed by China and operated by China Manned Space Agency. Tiangong is a modular design, with modules docked together while in low Earth orbit, between 340 and 450 km (210 and 280 mi) above the surface. It is China's first long-term space station, part of the Tiangong program and the core of the \"Third Step\" of the China Manned Space Program; it has a pressurised volume of 340 m3 (12,000 cu ft), slightly over one third the size of the International Space Station. The space station aims to provide opportunities for space-based experiments and a platform for building capacity for scientific and technological innovation.\n\nNon-Commercial / Educational Use Only:\nThis model is strictly intended for personal portfolio display, artistic showcase, educational purposes, and personal study. Commercial physical reproduction or unauthorized distribution is not permitted.",
+  "price": null,
+  "downloadCount": 5,
+  "editorUrl": "https://sketchfab.com/models/205e0d24d4994eb9a232abe728e10a0f/edit",
+  "status": {
+    "warning": {},
+    "processing": "SUCCEEDED"
+  },
+  "source": "blender-exporter",
+  "hasCommentsDisabled": false,
+  "updatedAt": "2026-10-24T00:58:29.109108",
+  "pbrType": "metalness",
+  "textureCount": 51,
+  "materialCount": 21
+}

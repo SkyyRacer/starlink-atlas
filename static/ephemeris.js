@@ -54,7 +54,11 @@
   }
   return data;
  }
- const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653},missionIndexes=new Map(),missionIndexTimes=new Map(),missionFailures=new Map();
+ const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653,"juice":56176,"spektr-rg":44432},missionIndexes=new Map(),missionIndexTimes=new Map(),missionFailures=new Map();
+ let eyesIndex=null;const eyesFiles=new Map();
+ async function eyesBackup(key,at){try{eyesIndex??=fetch(new URL('ephemerides/nasa-eyes/index.json',base),{cache:'no-cache'}).then(r=>r.ok?r.json():null);const index=await eyesIndex;if(!index){eyesIndex=null;return null;}const entry=index?.missions?.find(row=>row.mission===key&&row.status==='enabled'&&at/1000>=row.first_epoch&&at/1000<=row.last_epoch);if(!entry)return null;
+  if(!eyesFiles.has(entry.file))eyesFiles.set(entry.file,fetch(new URL(entry.file+'?v='+entry.last_epoch,base)).then(r=>r.ok?r.json():null));const data=await eyesFiles.get(entry.file);return data?.id===missionIds[key]&&data.frame==='ICRF'&&data.time_scale==='UTC'&&vector(data,at)?data:null;
+ }catch{eyesIndex=null;return null;}}
  async function loadMission(key,at){
   const readIndex=()=>{
    missionIndexTimes.set(key,Date.now());
@@ -67,13 +71,13 @@
   // A failed/expired index is retried, so a background repair becomes visible
   // without reopening the application. Avoid retrying on every timeline tick.
   if(!entry&&Date.now()-(missionIndexTimes.get(key)||0)>=30000){index=await readIndex();entry=find();}
-  if(!entry)return null;
+  if(!entry)return eyesBackup(key,at);
   const path=entry.file+'?v='+encodeURIComponent(index.source_sha256||entry.last_epoch),failed=missionFailures.get(path);
-  if(failed&&Date.now()<failed)return null;
+  if(failed&&Date.now()<failed)return eyesBackup(key,at);
   if(!archives.has(path))archives.set(path,fetch(new URL(path,base),{cache:failed?'reload':'default'}).then(r=>r.ok?r.json():null).catch(()=>null));
   const data=await archives.get(path);
   if(!data||data.id!==missionIds[key]||data.frame!=='ICRF'||data.time_scale!=='UTC'||!Array.isArray(data.samples)){
-   archives.delete(path);missionFailures.set(path,Date.now()+30000);return null;
+   archives.delete(path);missionFailures.set(path,Date.now()+30000);return eyesBackup(key,at);
   }
   missionFailures.delete(path);return data;
  }
@@ -91,15 +95,16 @@
   if(collection==='all'){
    if(recent&&vector(recent,at))result=augment(result,recent,at,id);
    for(const data of missionRecent.values())if(vector(data,at))result=augment(result,data,at,id);
-   if(!background)background=Promise.all([load(at),...Object.keys(missionIds).map(key=>loadMission(key,at))]).then(rows=>{
-    let changed=false;
-    for(const data of rows){if(!data||!vector(data,at))continue;if(data.id===43435){if(recent!==data){recent=data;changed=true;}}else if(missionRecent.get(data.id)!==data){missionRecent.set(data.id,data);changed=true;}}
+   if(!background)background=Promise.all([load(at),...Object.keys(missionIds).map(key=>loadMission(key,at))].map(request=>request.then(data=>{
+    if(!data||!vector(data,at))return;let changed=false;
+    if(data.id===43435){if(recent!==data){recent=data;changed=true;}}else if(missionRecent.get(data.id)!==data){missionRecent.set(data.id,data);changed=true;}
+    // A slow backup must not delay a different mission whose primary is ready.
     if(changed)root.dispatchEvent?.(new CustomEvent('atlas-ephemeris-ready'));
-   }).finally(()=>{background=null;});
+   }))).finally(()=>{background=null;});
    return result;
   }
   if(recent&&vector(recent,at))return augment(result,recent,at,id);
   const data=await load(at);if(!data)return result;recent=data;return augment(result,data,at,id);
  }
- const api={vector,point,augment,apply};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
+ const api={vector,point,augment,apply,loadMission,eyesBackup,missionIds,async index(key){if(!missionIndexes.has(key))await loadMission(key,Date.now());return missionIndexes.has(key)?await missionIndexes.get(key):null;}};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
 })(typeof window==='undefined'?globalThis:window);

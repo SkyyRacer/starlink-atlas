@@ -1,0 +1,1137 @@
+{
+  "version": 1,
+  "missions": {
+    "spitzer": [
+      {
+        "id": "spitzer-1",
+        "date": "2003-08-25",
+        "precision": "day",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.jpl.nasa.gov/news/press_kits/spitzer/quick-facts/",
+        "at": 1061812800000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "spitzer-2",
+        "date": "2003-12-01",
+        "precision": "day",
+        "title": "Début des observations scientifiques",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.jpl.nasa.gov/news/press_kits/spitzer/quick-facts/",
+        "at": 1070280000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "spitzer-3",
+        "date": "2009-05-15",
+        "precision": "day",
+        "title": "Fin de la phase cryogénique",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.jpl.nasa.gov/news/press_kits/spitzer/quick-facts/",
+        "at": 1242388800000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "spitzer-4",
+        "date": "2020-01-30",
+        "precision": "day",
+        "title": "Fin de mission",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.jpl.nasa.gov/news/press_kits/spitzer/quick-facts/",
+        "at": 1580385600000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "kepler": [
+      {
+        "id": "kepler-1",
+        "date": "2009-03-07T03:49:57Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/kepler/in-depth/",
+        "at": 1236397797000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "kepler-2",
+        "date": "2009-05-13",
+        "precision": "day",
+        "title": "Début des observations scientifiques",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/kepler/in-depth/",
+        "at": 1242216000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "kepler-3",
+        "date": "2014-05-30",
+        "precision": "day",
+        "title": "Début des observations K2",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/kepler/in-depth/",
+        "at": 1401451200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "kepler-4",
+        "date": "2018-10-30",
+        "precision": "day",
+        "title": "Annonce de la fin de mission",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/kepler/in-depth/",
+        "at": 1540900800000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "dscovr": [
+      {
+        "id": "dscovr-1",
+        "date": "2015-02-11T23:03:02Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/dscovr/",
+        "at": 1423695782000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "dscovr-2",
+        "date": "2015-06-08",
+        "precision": "day",
+        "title": "Arrivée au voisinage de L1",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/dscovr/",
+        "at": 1433764800000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "aditya-l1": [
+      {
+        "id": "aditya-l1-1",
+        "date": "2023-09-02T06:20:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.isro.gov.in/Aditya_L1.html",
+        "at": 1693635600000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "aditya-l1-2",
+        "date": "2023-09-19",
+        "precision": "day",
+        "title": "Injection sur la trajectoire vers L1",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.isro.gov.in/Aditya_L1.html",
+        "at": 1695124800000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "aditya-l1-3",
+        "date": "2024-01-06T10:30:00Z",
+        "precision": "minute",
+        "title": "Insertion sur l’orbite de halo autour de L1",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.isro.gov.in/Aditya_L1.html",
+        "at": 1704537000000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "jwst": [
+      {
+        "id": "jwst-1",
+        "date": "2021-12-25T12:20:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/webb/",
+        "at": 1640434800000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELA-3",
+          "lat": 5.2375,
+          "lon": -52.7687,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "jwst-separation",
+        "date": "2021-12-25T12:47:00Z",
+        "precision": "minute",
+        "title": "Séparation du lanceur Ariane 5",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/asset/webb/jwst-with-solar-panel-deployed/",
+        "at": 1640436420000,
+        "before_hours": 0.5,
+        "after_hours": 0.5
+      },
+      {
+        "id": "jwst-solar",
+        "date": "2021-12-25T12:50:00Z",
+        "precision": "minute",
+        "title": "Déploiement du panneau solaire",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/blogs/webb/2021/12/25/solar-array-deployed/",
+        "at": 1640436600000,
+        "before_hours": 0.5,
+        "after_hours": 0.5
+      },
+      {
+        "id": "jwst-sunshield",
+        "date": "2022-01-04",
+        "precision": "day",
+        "title": "Déploiement du pare-soleil",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+        "at": 1641297600000,
+        "before_hours": 12,
+        "after_hours": 12
+      },
+      {
+        "id": "jwst-mirror",
+        "date": "2022-01-08T18:17:00Z",
+        "precision": "minute",
+        "title": "Déploiement complet du miroir primaire",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/blogs/webb/2022/01/08/primary-mirror-wings-deployed-all-major-deployments-complete/",
+        "at": 1641665820000,
+        "before_hours": 1,
+        "after_hours": 1
+      },
+      {
+        "id": "jwst-2",
+        "date": "2022-01-24T19:00:00Z",
+        "precision": "minute",
+        "title": "Insertion en orbite autour de L2",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/blogs/webb/2022/01/24/orbital-insertion-burn-a-success-webb-arrives-at-l2/",
+        "at": 1643050800000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "gaia": [
+      {
+        "id": "gaia-1",
+        "date": "2013-12-19T09:12:18Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/gaia/",
+        "at": 1387444338000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELS",
+          "lat": 5.305,
+          "lon": -52.8344,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "gaia-2",
+        "date": "2014-01-08",
+        "precision": "day",
+        "title": "Arrivée sur l’orbite de L2",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/gaia/",
+        "at": 1389182400000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "gaia-3",
+        "date": "2014-07-25",
+        "precision": "day",
+        "title": "Début des observations scientifiques",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/gaia/",
+        "at": 1406289600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "gaia-4",
+        "date": "2025-01-15",
+        "precision": "day",
+        "title": "Fin des observations scientifiques",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/gaia/",
+        "at": 1736942400000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "herschel": [
+      {
+        "id": "herschel-1",
+        "date": "2009-05-14T13:12:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/herschel-space-observatory/",
+        "at": 1242306720000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELA-3",
+          "lat": 5.2375,
+          "lon": -52.7687,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "herschel-2",
+        "date": "2013-06-17T12:25:00Z",
+        "precision": "minute",
+        "title": "Fin de mission",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/herschel-space-observatory/",
+        "at": 1371471900000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "planck": [
+      {
+        "id": "planck-1",
+        "date": "2009-05-14T13:12:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/planck/",
+        "at": 1242306720000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELA-3",
+          "lat": 5.2375,
+          "lon": -52.7687,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      }
+    ],
+    "euclid": [
+      {
+        "id": "euclid-1",
+        "date": "2023-07-01",
+        "precision": "day",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/Euclid",
+        "at": 1688212800000,
+        "before_hours": 0,
+        "after_hours": 24
+      }
+    ],
+    "soho": [
+      {
+        "id": "soho-1",
+        "date": "1995-12-02T08:08:01Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/soho/",
+        "at": 817891681000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "soho-2",
+        "date": "1996-02-14",
+        "precision": "day",
+        "title": "Insertion en orbite autour de L1",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/soho/",
+        "at": 824299200000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "ace": [
+      {
+        "id": "ace-1",
+        "date": "1997-08-25T14:39:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/ace/",
+        "at": 872519940000,
+        "before_hours": 0,
+        "after_hours": 24
+      },
+      {
+        "id": "ace-2",
+        "date": "1998-01-21",
+        "precision": "day",
+        "title": "Début des opérations scientifiques",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/ace/",
+        "at": 885384000000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "voyager-1": [
+      {
+        "id": "voyager-1-1",
+        "date": "1977-09-05T12:56:01Z",
+        "precision": "second",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/voyager/voyager-1/",
+        "at": 242312161000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Cap Canaveral · LC-41",
+          "lat": 28.5833,
+          "lon": -80.5831,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "voyager-1-2",
+        "date": "1979-03-05",
+        "precision": "day",
+        "title": "Survol de Jupiter",
+        "target": "jupiter",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 289483200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "voyager-1-3",
+        "date": "1980-11-12",
+        "precision": "day",
+        "title": "Survol de Saturne",
+        "target": "saturne",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 342878400000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "voyager-2": [
+      {
+        "id": "voyager-2-1",
+        "date": "1977-08-20T14:29:44Z",
+        "precision": "second",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/voyager/voyager-2/",
+        "at": 240935384000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Cap Canaveral · LC-41",
+          "lat": 28.5833,
+          "lon": -80.5831,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "voyager-2-2",
+        "date": "1979-07-09",
+        "precision": "day",
+        "title": "Survol de Jupiter",
+        "target": "jupiter",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 300369600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "voyager-2-3",
+        "date": "1981-08-25",
+        "precision": "day",
+        "title": "Survol de Saturne",
+        "target": "saturne",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 367588800000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "voyager-2-4",
+        "date": "1986-01-24",
+        "precision": "day",
+        "title": "Survol de Uranus",
+        "target": "uranus",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 506952000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "voyager-2-5",
+        "date": "1989-08-25",
+        "precision": "day",
+        "title": "Survol de Neptune",
+        "target": "neptune",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/voyager/planetary-voyage/",
+        "at": 620049600000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "cassini": [
+      {
+        "id": "cassini-1",
+        "date": "1997-10-15",
+        "precision": "day",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/cassini/",
+        "at": 876916800000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Cap Canaveral · LC-40",
+          "lat": 28.562,
+          "lon": -80.5772,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "cassini-2",
+        "date": "1998-04-26",
+        "precision": "day",
+        "title": "Survol de Vénus",
+        "target": "venus",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/quick-facts/",
+        "at": 893592000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-3",
+        "date": "1999-06-24",
+        "precision": "day",
+        "title": "Survol de Vénus",
+        "target": "venus",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/quick-facts/",
+        "at": 930225600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-4",
+        "date": "1999-08-18",
+        "precision": "day",
+        "title": "Survol de la Terre",
+        "target": "terre",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/quick-facts/",
+        "at": 934977600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-5",
+        "date": "2000-12-30T10:12:00Z",
+        "precision": "minute",
+        "title": "Survol de Jupiter",
+        "target": "jupiter",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/quick-facts/",
+        "at": 978171120000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-6",
+        "date": "2004-07-01",
+        "precision": "day",
+        "title": "Insertion en orbite de Saturne",
+        "target": "saturne",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/quick-facts/",
+        "at": 1088683200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-7",
+        "date": "2004-12-24",
+        "precision": "day",
+        "title": "Séparation de Huygens",
+        "target": "saturne",
+        "kind": "milestone",
+        "source": "https://science.nasa.gov/mission/cassini/the-journey/timeline/",
+        "at": 1103889600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-8",
+        "date": "2017-04-22",
+        "precision": "day",
+        "title": "Dernier survol rapproché de Titan",
+        "target": "saturne",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/grand-finale/overview/",
+        "at": 1492862400000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "cassini-ring-orbit",
+        "date": "2017-04-26",
+        "precision": "day",
+        "title": "Première orbite du Grand Finale",
+        "target": "saturne",
+        "kind": "orbit",
+        "source": "https://science.nasa.gov/mission/cassini/faq/",
+        "at": 1493208000000,
+        "before_hours": 84,
+        "after_hours": 84
+      },
+      {
+        "id": "cassini-9",
+        "date": "2017-09-15T10:30:00Z",
+        "precision": "minute",
+        "title": "Grand Finale · dernière approche de Saturne",
+        "target": "saturne",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/cassini/grand-finale/overview/",
+        "at": 1505471400000,
+        "before_hours": 6,
+        "after_hours": 6
+      }
+    ],
+    "juno": [
+      {
+        "id": "juno-1",
+        "date": "2011-08-05",
+        "precision": "day",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/juno/",
+        "at": 1312545600000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Cap Canaveral · LC-41",
+          "lat": 28.5833,
+          "lon": -80.5831,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "juno-burn1",
+        "date": "2012-08-30",
+        "precision": "day",
+        "title": "Première manœuvre en espace profond",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.nasa.gov/history/10-years-ago-juno-launched-to-observe-jupiter/",
+        "at": 1346328000000,
+        "before_hours": 12,
+        "after_hours": 12
+      },
+      {
+        "id": "juno-burn2",
+        "date": "2012-09-14",
+        "precision": "day",
+        "title": "Deuxième manœuvre en espace profond",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.nasa.gov/history/10-years-ago-juno-launched-to-observe-jupiter/",
+        "at": 1347624000000,
+        "before_hours": 12,
+        "after_hours": 12
+      },
+      {
+        "id": "juno-earth",
+        "date": "2013-10-09",
+        "precision": "day",
+        "title": "Assistance gravitationnelle de la Terre",
+        "target": "terre",
+        "kind": "flyby",
+        "source": "https://www.jpl.nasa.gov/news/juno-status-report/",
+        "at": 1381320000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "juno-2",
+        "date": "2016-07-05",
+        "precision": "day",
+        "title": "Insertion en orbite de Jupiter",
+        "target": "jupiter",
+        "kind": "flyby",
+        "source": "https://www.jpl.nasa.gov/missions/juno/",
+        "at": 1467720000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "juno-first-orbit",
+        "date": "2016-08-27",
+        "precision": "day",
+        "title": "Première orbite complète de Jupiter",
+        "target": "jupiter",
+        "kind": "orbit",
+        "source": "https://science.nasa.gov/mission/juno/juno-orbits/",
+        "at": 1472299200000,
+        "before_hours": 648,
+        "after_hours": 648
+      }
+    ],
+    "new-horizons": [
+      {
+        "id": "new-horizons-1",
+        "date": "2006-01-19T19:00:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://science.nasa.gov/mission/new-horizons/",
+        "at": 1137697200000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Cap Canaveral · LC-41",
+          "lat": 28.5833,
+          "lon": -80.5831,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "new-horizons-2",
+        "date": "2007-02-28T05:43:40Z",
+        "precision": "minute",
+        "title": "Survol de Jupiter",
+        "target": "jupiter",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/new-horizons/",
+        "at": 1172641420000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "new-horizons-3",
+        "date": "2015-07-14T11:49:00Z",
+        "precision": "minute",
+        "title": "Survol de Pluton",
+        "target": "pluton",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/new-horizons/",
+        "at": 1436874540000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "new-horizons-4",
+        "date": "2019-01-01",
+        "precision": "day",
+        "title": "Survol d’Arrokoth",
+        "target": "arrokoth",
+        "kind": "flyby",
+        "source": "https://science.nasa.gov/mission/new-horizons/",
+        "at": 1546344000000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "bepicolombo": [
+      {
+        "id": "bepicolombo-1",
+        "date": "2018-10-20",
+        "precision": "day",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/BepiColombo",
+        "at": 1540036800000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELA-3",
+          "lat": 5.2375,
+          "lon": -52.7687,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "bepi-earth",
+        "date": "2020-04-10",
+        "precision": "day",
+        "title": "Assistance gravitationnelle de la Terre",
+        "target": "terre",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1586520000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-venus1",
+        "date": "2020-10-15",
+        "precision": "day",
+        "title": "Premier survol de Vénus",
+        "target": "venus",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1602763200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-venus2",
+        "date": "2021-08-10",
+        "precision": "day",
+        "title": "Deuxième survol de Vénus",
+        "target": "venus",
+        "kind": "flyby",
+        "source": "https://doi.org/10.1007/s11214-021-00797-9",
+        "at": 1628596800000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-mercury1",
+        "date": "2021-10-01",
+        "precision": "day",
+        "title": "Premier survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1633089600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-mercury2",
+        "date": "2022-06-23",
+        "precision": "day",
+        "title": "Deuxième survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1655985600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-mercury3",
+        "date": "2023-06-19",
+        "precision": "day",
+        "title": "Troisième survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1687176000000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-mercury4",
+        "date": "2024-09-04",
+        "precision": "day",
+        "title": "Quatrième survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1725451200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepi-mercury5",
+        "date": "2024-12-01",
+        "precision": "day",
+        "title": "Cinquième survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/ESA_Multimedia/Images/2017/07/Bepicolombo_spacecraft_facts",
+        "at": 1733054400000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "bepicolombo-2",
+        "date": "2025-01-08T05:59:00Z",
+        "precision": "minute",
+        "title": "Sixième survol de Mercure",
+        "target": "mercure",
+        "kind": "flyby",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/BepiColombo/BepiColombo_to_swing_by_Mercury_for_the_sixth_time",
+        "at": 1736315940000,
+        "before_hours": 12,
+        "after_hours": 12
+      }
+    ],
+    "ikaros": [
+      {
+        "id": "ikaros-1",
+        "date": "2010-05-20T21:58:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.isas.jaxa.jp/en/missions/spacecraft/past/ikaros.html",
+        "at": 1274392680000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      },
+      {
+        "id": "ikaros-2",
+        "date": "2010-06-09",
+        "precision": "day",
+        "title": "Déploiement complet de la voile solaire",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.isas.jaxa.jp/e/forefront/2011/tsuda/",
+        "at": 1276084800000,
+        "before_hours": 24,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      },
+      {
+        "id": "ikaros-3",
+        "date": "2010-06-10",
+        "precision": "day",
+        "title": "Production électrique confirmée sur la voile",
+        "target": "soleil",
+        "kind": "milestone",
+        "source": "https://www.isas.jaxa.jp/e/forefront/2011/tsuda/",
+        "at": 1276171200000,
+        "before_hours": 24,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      },
+      {
+        "id": "ikaros-4",
+        "date": "2010-12-08",
+        "precision": "day",
+        "title": "Passage au voisinage de Vénus",
+        "target": "venus",
+        "kind": "milestone",
+        "source": "https://www.isas.jaxa.jp/e/forefront/2011/tsuda/",
+        "at": 1291809600000,
+        "before_hours": 24,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      }
+    ],
+    "spektr-rg": [
+      {
+        "id": "spektr-rg-1",
+        "date": "2019-07-13T12:30:00Z",
+        "precision": "minute",
+        "title": "Décollage",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://iki.cosmos.ru/en/research/missions/spektr-rg",
+        "at": 1563021000000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      },
+      {
+        "id": "spektr-rg-2",
+        "date": "2019-09-10",
+        "precision": "day",
+        "title": "Premières observations eROSITA publiées",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.mpa-garching.mpg.de/743215/news20190910",
+        "at": 1568116800000,
+        "before_hours": 24,
+        "after_hours": 24,
+        "unavailable": "Aucune archive de trajectoire exploitable n’est disponible pour cette mission. L’événement est documenté ; son déplacement ne peut pas encore être rejoué."
+      },
+      {
+        "id": "spektr-rg-3",
+        "date": "2019-12-08",
+        "precision": "day",
+        "title": "Début du relevé de tout le ciel",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.mpa-garching.mpg.de/786551/news20191218",
+        "at": 1575806400000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ],
+    "juice": [
+      {
+        "id": "juice-1",
+        "date": "2023-04-14T12:14:29Z",
+        "precision": "minute",
+        "title": "Décollage · Ariane 5",
+        "target": "terre",
+        "kind": "launch",
+        "source": "https://www.cosmos.esa.int/web/juice/payload",
+        "at": 1681474469000,
+        "before_hours": 0,
+        "after_hours": 24,
+        "pad": {
+          "name": "Kourou · ELA-3",
+          "lat": 5.2375,
+          "lon": -52.7687,
+          "source": "https://www.planet4589.org/space/gcat/data/tables/lp.html"
+        }
+      },
+      {
+        "id": "juice-separation",
+        "date": "2023-04-14T12:42:17Z",
+        "precision": "minute",
+        "title": "Séparation du lanceur Ariane 5",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.cosmos.esa.int/web/juice/payload",
+        "at": 1681476137000,
+        "before_hours": 1,
+        "after_hours": 1
+      },
+      {
+        "id": "juice-solar",
+        "date": "2023-04-14T13:30:00Z",
+        "precision": "minute",
+        "title": "Déploiement des panneaux solaires",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.sciencedirect.com/science/article/pii/S0094576524005496",
+        "at": 1681479000000,
+        "before_hours": 1,
+        "after_hours": 1
+      },
+      {
+        "id": "juice-mag",
+        "date": "2023-04-21T14:29:00Z",
+        "precision": "minute",
+        "title": "Déploiement du mât magnétométrique",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.sciencedirect.com/science/article/pii/S0094576524005496",
+        "at": 1682087340000,
+        "before_hours": 1,
+        "after_hours": 1
+      },
+      {
+        "id": "juice-rime",
+        "date": "2023-05-12",
+        "precision": "day",
+        "title": "Déploiement complet de l’antenne RIME",
+        "target": "terre",
+        "kind": "milestone",
+        "source": "https://www.cosmos.esa.int/web/juice/payload",
+        "at": 1683892800000,
+        "before_hours": 12,
+        "after_hours": 12
+      },
+      {
+        "id": "juice-2",
+        "date": "2024-08-19",
+        "precision": "day",
+        "title": "Survol de la Lune",
+        "target": "lune",
+        "kind": "flyby",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/Juice",
+        "at": 1724068800000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "juice-3",
+        "date": "2024-08-20",
+        "precision": "day",
+        "title": "Survol de la Terre",
+        "target": "terre",
+        "kind": "flyby",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/Juice",
+        "at": 1724155200000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "juice-4",
+        "date": "2025-08-31",
+        "precision": "day",
+        "title": "Survol de Vénus",
+        "target": "venus",
+        "kind": "flyby",
+        "source": "https://www.juice-archive.jp/en/news",
+        "at": 1756641600000,
+        "before_hours": 24,
+        "after_hours": 24
+      },
+      {
+        "id": "juice-5",
+        "date": "2026-09-28",
+        "precision": "day",
+        "title": "Deuxième survol de la Terre",
+        "target": "terre",
+        "kind": "flyby",
+        "source": "https://www.esa.int/Science_Exploration/Space_Science/Juice/Juice_to_fly_past_Earth_for_third_gravity_assist",
+        "at": 1790596800000,
+        "before_hours": 24,
+        "after_hours": 24
+      }
+    ]
+  }
+}

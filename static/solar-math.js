@@ -1,0 +1,37 @@
+/* JPL state vectors and IAU pole/spin constants. No extrapolation. */
+(function(root){
+ function vector(data,at){const r=data?.samples,t=at/1000;if(!r?.length||!Number.isFinite(t)||t<r[0][0]||t>r.at(-1)[0])return null;let l=0,h=r.length-1;while(h-l>1){const m=(l+h)>>1;if(r[m][0]<=t)l=m;else h=m;}const a=r[l],b=r[h],d=b[0]-a[0];if(!d)return a.slice(1,4);if(d>(data.max_interval_seconds||600)+1)return null;const u=(t-a[0])/d,u2=u*u,u3=u2*u;return [1,2,3].map(i=>(2*u3-3*u2+1)*a[i]+(u3-2*u2+u)*d*a[i+3]+(-2*u3+3*u2)*b[i]+(u3-u2)*d*b[i+3]);}
+ function axes(body,at){const days=at/86400000+2440587.5-2451545,T=days/36525,r=body.rotation||{},angles=body.nutation_angles||[],deg=Math.PI/180;const poly=(v,t)=>v?.reduce((a,c,i)=>a+c*t**i,0)||0;let ra=poly(r.POLE_RA,T),dec=r.POLE_DEC?poly(r.POLE_DEC,T):90,w=poly(r.PM,days);for(let i=0;i<angles.length/2;i++){const a=(angles[i*2]+angles[i*2+1]*T)*deg;ra+=(r.NUT_PREC_RA?.[i]||0)*Math.sin(a);dec+=(r.NUT_PREC_DEC?.[i]||0)*Math.cos(a);w+=(r.NUT_PREC_PM?.[i]||0)*Math.sin(a);}ra*=deg;dec*=deg;w=(w%360)*deg;const A=Math.cos(ra),B=Math.sin(ra),D=Math.cos(dec),E=Math.sin(dec),U=Math.cos(w),V=Math.sin(w);return [[-B*U-A*E*V,A*U-B*E*V,D*V],[B*V-A*E*U,-A*V-B*E*U,D*U],[A*D,B*D,E]];}
+ const AU=149597870.7,MU=132712440041.9394;
+ const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],norm=a=>Math.hypot(...a),unit=a=>a.map(x=>x/norm(a));
+ function state(data,at){const position=vector(data,at);if(!position)return null;const t=at/1000,r=data.samples;let l=0,h=r.length-1;while(h-l>1){const m=(l+h)>>1;if(r[m][0]<=t)l=m;else h=m;}const a=r[l],b=r[h],d=b[0]-a[0],u=(t-a[0])/d;if(!d)return {position,velocity:a.slice(4,7)};const velocity=[1,2,3].map(i=>((6*u*u-6*u)*a[i]+(3*u*u-4*u+1)*d*a[i+3]+(-6*u*u+6*u)*b[i]+(3*u*u-2*u)*d*b[i+3])/d);return {position,velocity};}
+ function sunDirection(position,sun){const d=sun.map((x,i)=>x-position[i]);return norm(d)>0?unit(d):null;}
+ // An explicit physical neighbourhood, not a screen-space proximity test.
+ const gm={199:22031.86855,299:324858.592,399:398600.436,499:42828.37362,599:126686531.9,699:37931206.23,799:5793951.3,899:6835099.97};
+ function nearBody(probe,body,sun,id){if(!probe||!body||!sun)return false;const distance=norm(probe.map((x,i)=>x-body[i]));if(id===10)return distance<=.1*AU;const hill=gm[id]?norm(body.map((x,i)=>x-sun[i]))*Math.cbrt(gm[id]/(3*MU)):0;return hill>0&&distance<=2*hill;}
+ function conic(position,velocity,{limit=300*AU,steps=360}={}){const r=norm(position),h=cross(position,velocity),hn=norm(h);if(!r||hn<1e-12)return null;const evec=cross(velocity,h).map((x,i)=>x/MU-position[i]/r),e=norm(evec),p=hn*hn/MU,x=e>1e-8?unit(evec):unit(position),z=unit(h),y=cross(z,x);let bound=Math.PI;if(e>=1){bound=Math.acos(Math.max(-1,Math.min(1,(p/limit-1)/e)));}const points=[];for(let i=0;i<=steps;i++){const angle=-bound+2*bound*i/steps,denom=1+e*Math.cos(angle);if(denom<=0)continue;const radius=p/denom;if(radius>limit*1.001)continue;points.push(x.map((a,j)=>radius*(a*Math.cos(angle)+y[j]*Math.sin(angle))));}return {eccentricity:e,points};}
+ function occultation(sunRadius,occluderRadius,separation){const R=sunRadius,r=occluderRadius,d=Math.max(0,separation);if(!(R>0&&r>0)||d>=R+r)return 0;if(d<=Math.abs(R-r))return Math.min(1,r*r/(R*R));const a=Math.acos(Math.max(-1,Math.min(1,(d*d+R*R-r*r)/(2*d*R)))),b=Math.acos(Math.max(-1,Math.min(1,(d*d+r*r-R*R)/(2*d*r)))),area=R*R*a+r*r*b-.5*Math.sqrt(Math.max(0,(-d+R+r)*(d+R-r)*(d-R+r)*(d+R+r)));return area/(Math.PI*R*R);}
+ // Move the camera along the pointer ray rather than along the view centre.
+ function zoomPan(pan,before,after,x,y,width,height,fovy=Math.PI/3){if(!(width>0&&height>0))return pan.slice();const dy=(before-after)*Math.tan(fovy/2);return [pan[0]+(2*x/width-1)*dy*width/height,pan[1]+(1-2*y/height)*dy];}
+ // Re-evaluated after every camera movement: priority wins only overlapping
+ // rectangles, so all other names return as soon as they have enough room.
+ // Interpolate view directions on a unit sphere, including opposite views.
+ function blendDirection(a,b,u){u=Math.max(0,Math.min(1,u));a=unit(a);b=unit(b);const d=Math.max(-1,Math.min(1,dot(a,b)));if(d>.999999)return unit(a.map((v,i)=>v+(b[i]-v)*u));let tangent=b.map((v,i)=>v-d*a[i]);if(norm(tangent)<1e-8)tangent=cross(a,Math.abs(a[0])<.8?[1,0,0]:[0,1,0]);tangent=unit(tangent);const angle=Math.acos(d)*u;return a.map((v,i)=>v*Math.cos(angle)+tangent[i]*Math.sin(angle));}
+ // Keep a followed spacecraft in front of nearby bodies, without altering
+ // either ephemeris or the real solar lighting. Units here are kilometres.
+ function safeFollowView(position,direction,range,bodies,fovy=Math.PI/3,fitPlanet=true){
+  let view=unit(direction),distance=range;const nearby=bodies.map(body=>{const delta=position.map((v,i)=>v-body.position[i]);return {...body,delta,d:norm(delta)};}).filter(b=>b.radius>0&&b.d>0).sort((a,b)=>a.d/b.radius-b.d/b.radius);
+  for(const body of nearby){const radial=unit(body.delta),cos=dot(view,radial),r=body.radius*1.06,projection=-body.d*cos,closest=norm(body.delta.map((v,i)=>v+view[i]*Math.max(0,Math.min(distance,projection))));let minimum=null;
+   const q=Math.max(0,Math.min(1,(15-body.d/r)/12)),blend=q*q*(3-2*q),clearance=-Math.sqrt(Math.max(0,1-(Math.min(.99,r*1.3/body.d))**2));if(body.d<r*15)minimum=clearance+(.12-clearance)*blend;else if(projection>0&&projection<distance+r&&closest<r*1.3)minimum=clearance;
+   if(minimum!==null&&cos<minimum){let tangent=view.map((v,i)=>v-cos*radial[i]);if(norm(tangent)<1e-8)tangent=cross(radial,Math.abs(radial[2])<.8?[0,0,1]:[0,1,0]);tangent=unit(tangent);view=unit(radial.map((v,i)=>minimum*v+Math.sqrt(1-minimum*minimum)*tangent[i]));}
+   // In the local view preserve room for the limb rather than filling the screen
+   // with the planet. Large far-away planets do not dictate the camera range.
+   if(fitPlanet&&body.d<r*15){const c=dot(view,radial),side=body.d*Math.sqrt(Math.max(0,1-c*c)),fit=(side+r)/Math.tan(fovy*.44)-body.d*c;distance=Math.max(distance,distance+Math.max(0,fit-distance)*blend,r*.25*blend);}
+  }
+  return {direction:view,range:distance};
+ }
+ function visibleLabels(items,padding=5){const accepted=[];for(const item of [...items].sort((a,b)=>b.priority-a.priority||b.distance-a.distance||String(a.key).localeCompare(String(b.key)))){if(accepted.some(other=>item.left<other.right+padding&&item.right+padding>other.left&&item.top<other.bottom+padding&&item.bottom+padding>other.top))continue;accepted.push(item);}return accepted.map(item=>item.key);}
+ // Frame-rate-independent damping of user input, in camera space only.
+ function dampedMotion(tau=65){const rest={yaw:0,pitch:0,panX:0,panY:0,zoom:0},threshold={};return {push(change){for(const key of Object.keys(rest)){const value=Number(change[key])||0;rest[key]+=value;threshold[key]=Math.max(1e-7,Math.abs(rest[key])*1e-4);}},step(ms){const fraction=1-Math.exp(-Math.max(0,ms)/tau),change={};for(const key of Object.keys(rest)){change[key]=rest[key]*fraction;rest[key]-=change[key];if(Math.abs(rest[key])<(threshold[key]||1e-7))rest[key]=0;}return change;},get active(){return Object.values(rest).some(value=>value!==0);},clear(){for(const key of Object.keys(rest))rest[key]=0;}};}
+ const api={vector,state,axes,sunDirection,nearBody,conic,occultation,zoomPan,visibleLabels,blendDirection,safeFollowView,dampedMotion,AU,MU};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasSolarMath=api;
+})(typeof window==='undefined'?globalThis:window);

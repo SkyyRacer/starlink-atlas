@@ -1,0 +1,86 @@
+[
+  {
+    "key": "gaia",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_gaia/gaia.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "gaia",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_gaia/Gaia.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "herschel",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_herschel/herschel.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "herschel",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_herschel/Herschel.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "planck",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_planck/planck.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "planck",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_planck/Planck.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "bepicolombo",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_bepicolombo/bepicolombo.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "bepicolombo",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_bepicolombo/BepiColombo.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "aditya_l1",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_aditya_l1/aditya_l1.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "aditya_l1",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_aditya_l1/Aditya_L1.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "ikaros",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_ikaros/ikaros.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "ikaros",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_ikaros/IKAROS.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "spektr_rg",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spektr_rg/spektr_rg.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "spektr_rg",
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spektr_rg/Spektr_RG.gltf",
+    "available": false,
+    "response": "HTTP Error 403: Forbidden"
+  }
+]

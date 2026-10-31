@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/SPITZER.gltf",
+    "sha256": "9cc7434434968d00330a2358d6d0c671ef70e24d2f8570be6d3f3dcd17ca098b"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/spitzer.bin",
+    "sha256": "e5c920b9a7f21077e6fab72b48183ee74c8e81a8b498f3c12501187bdc48199a"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/spitzer_albedo.jpg",
+    "sha256": "92636b149a2d3158e6785d4e2f91692397bf470c5157c041c5aa4f12cd68b6c4"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/spitzer_normal.png",
+    "sha256": "09f9c543d878cfdc3ec3495f7c1d572537edc6f7392d99080584a1e5eea5237d"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/spitzer_pbr.jpg",
+    "sha256": "0e21b697f7e157f057525f3ba536cbcc1b87415b518f258c1aa573703694b6eb"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/foil_normal.png",
+    "sha256": "541c5998fcb208c50670dbe3dc29d31b7b903e75447a824d73afe5da1fc00a2a"
+  }
+]

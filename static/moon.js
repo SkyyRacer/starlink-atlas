@@ -1,6 +1,6 @@
 'use strict';
 window.AtlasMoon={
- async load(){if(this.loading)return this.loading;const base=new URL("./",this.base);return this.loading=(async()=>{for(const file of ["vendor/astronomy.browser.min.js","lunar-math.js"]){await new Promise((resolve,reject)=>{const script=document.createElement("script");script.src=new URL(file,base);script.onload=resolve;script.onerror=()=>reject(Error("Données lunaires indisponibles"));document.head.append(script);});}})();},
+ async load(){if(this.loading)return this.loading;const base=new URL("./",this.base);return this.loading=(async()=>{for(const file of ["vendor/astronomy.browser.min.js","lunar-math.js?v=5894270f4de7"]){await new Promise((resolve,reject)=>{const script=document.createElement("script");script.src=new URL(file,base);script.onload=resolve;script.onerror=()=>reject(Error("Données lunaires indisponibles"));document.head.append(script);});}})();},
  base:document.currentScript?.src||new URL("moon.js",document.baseURI).href,
  // Text patches use local tangent coordinates, never global longitude UVs.
  mapGeometry(C,map,radius){
@@ -27,24 +27,27 @@ window.AtlasMoon={
  create({viewer,C,beforeTravel,onEarth,onViewChange=()=>{},navigateMoon=null,navigateEarth=null,allowOrbit=true}){
   const math=AtlasLunarMath,R=C.Ellipsoid.MOON.maximumRadius,maximumRange=4e9;
   if(viewer.scene.moon)viewer.scene.moon.show=false;
-  const lunarMaterial=new C.Material({fabric:{type:'AtlasLunarSurface',uniforms:{image:C.Material.DefaultImageId,shadowEnabled:1},source:`
+  const lunarMaterial=new C.Material({fabric:{type:'AtlasLunarSurface',uniforms:{image:C.Material.DefaultImageId,shadowEnabled:1,moonSunDirection:new C.Cartesian3(1,0,0)},source:`
    czm_material czm_getMaterial(czm_materialInput inputData){
     czm_material material=czm_getDefaultMaterial(inputData);
-    vec3 surface=texture(image,inputData.st).rgb;
-    float sunlight=dot(normalize(inputData.normalEC),normalize(czm_sunDirectionEC));
+    // Cesium places u=0 at lunar +X (0°), while the NASA map centres
+    // longitude 0° at u=0.5. Shift only the surface map, not label-atlas UVs.
+    vec2 lunarUV=vec2(fract(inputData.st.x+0.5),inputData.st.y);
+    vec3 surface=texture(image,lunarUV).rgb;
+    float sunlight=dot(normalize(inputData.normalEC),normalize(czm_viewRotation*moonSunDirection));
     float daylight=0.045+0.955*pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
     material.diffuse=surface*mix(1.0,daylight,shadowEnabled);
     material.alpha=1.0;
     return material;
    }`},translucent:false});
-  const namesMaterial=new C.Material({fabric:{type:'AtlasLunarNames',uniforms:{image:C.Material.DefaultImageId,namesEnabled:0,cartographicDetail:0,shadowEnabled:1},source:`
+  const namesMaterial=new C.Material({fabric:{type:'AtlasLunarNames',uniforms:{image:C.Material.DefaultImageId,namesEnabled:0,cartographicDetail:0,shadowEnabled:1,moonSunDirection:new C.Cartesian3(1,0,0)},source:`
    czm_material czm_getMaterial(czm_materialInput inputData){
     czm_material material=czm_getDefaultMaterial(inputData);
     vec3 lettering=texture(image,inputData.st).rgb;
     float marking=max(lettering.r,max(lettering.g*step(1.0,cartographicDetail),lettering.b*step(2.0,cartographicDetail)))*namesEnabled;
     if(marking<0.03)discard;
     vec3 ink=mix(vec3(0.025),vec3(0.94,0.94,0.91),smoothstep(0.4,0.9,marking));
-    float sunlight=dot(normalize(inputData.normalEC),normalize(czm_sunDirectionEC));
+    float sunlight=dot(normalize(inputData.normalEC),normalize(czm_viewRotation*moonSunDirection));
     float daylight=0.045+0.955*pow(max(sunlight,0.0),0.55)*smoothstep(0.0,0.012,sunlight);
     material.diffuse=ink*mix(1.0,daylight,shadowEnabled);
     material.alpha=smoothstep(0.03,0.24,marking);
@@ -83,7 +86,11 @@ window.AtlasMoon={
   const orbitMaterial=C.Material.fromType('Color',{color:C.Color.fromCssColorString('#79bce5').withAlpha(.8)});
   const orbit=lineCollection.add({positions:[],width:1.3,material:orbitMaterial,show:false});
   const card=document.createElement('aside');card.id='lunar-detail';card.hidden=true;card.setAttribute('aria-label','Fiche de la Lune');
-  card.innerHTML='<header><div><small>SATELLITE NATUREL</small><h2>Lune</h2></div><button type="button" class="lunar-close" aria-label="Fermer la fiche de la Lune"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button></header><p>Satellite naturel de la Terre</p><dl><div><dt>Distance Terre–Lune</dt><dd data-lunar="distance"></dd></div><div><dt>Phase</dt><dd data-lunar="phase"></dd></div><div><dt>Surface éclairée</dt><dd data-lunar="illumination"></dd></div><div><dt>Prochaine pleine lune</dt><dd data-lunar="full"></dd></div><div><dt>Prochaine nouvelle lune</dt><dd data-lunar="new"></dd></div></dl><label class="lunar-orbit"><input type="checkbox"> Afficher l’orbite de la Lune</label><button type="button" class="lunar-travel">Explorer la Lune en 3D</button><button type="button" class="lunar-earth" hidden>Revenir à la Terre</button><p class="lunar-note">Distance entre les centres à la date consultée. Horaires des phases estimés, en heure locale.</p><p class="lunar-credit"><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA LRO</a> · <a href="https://planetarynames.wr.usgs.gov/Page/MOON/target" target="_blank" rel="noopener">Noms UAI / USGS</a></p>';
+  card.innerHTML='<header><div><small>SATELLITE NATUREL</small><h2>Lune</h2></div><button type="button" class="lunar-close" aria-label="Fermer la fiche de la Lune"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button></header><p>Satellite naturel de la Terre</p><dl><div><dt>Type</dt><dd>Satellite naturel de la Terre</dd></div><div><dt>Diamètre</dt><dd>Environ 3 475 km · 0,273 fois celui de la Terre</dd></div><div><dt>Masse</dt><dd>Environ 0,0123 fois celle de la Terre</dd></div><div><dt>Distance au Soleil</dt><dd data-lunar="sun-distance"></dd></div><div><dt>Distance de la Terre</dt><dd data-lunar="earth-distance"></dd></div><div><dt>Durée d’une journée</dt><dd>29,53 j (jour solaire moyen)</dd></div><div><dt>Durée d’une année</dt><dd>1 an terrestre autour du Soleil</dd></div><div><dt>Tour de la Terre</dt><dd>27,32 j</dd></div><div><dt>Distance Terre–Lune</dt><dd data-lunar="distance"></dd></div><div><dt>Phase</dt><dd data-lunar="phase"></dd></div><div><dt>Surface éclairée</dt><dd data-lunar="illumination"></dd></div><div><dt>Prochaine pleine lune</dt><dd data-lunar="full"></dd></div><div><dt>Prochaine nouvelle lune</dt><dd data-lunar="new"></dd></div></dl><label class="lunar-orbit"><input type="checkbox"> Afficher l’orbite de la Lune</label><button type="button" class="lunar-travel">Explorer la Lune en 3D</button><button type="button" class="lunar-earth" hidden>Revenir à la Terre</button><p class="lunar-note">Distance entre les centres à la date consultée. Horaires des phases estimés, en heure locale.</p><p class="lunar-credit"><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA LRO</a> · <a href="https://planetarynames.wr.usgs.gov/Page/MOON/target" target="_blank" rel="noopener">Noms UAI / USGS</a></p>';
+  const reopen=document.createElement('button');reopen.type='button';reopen.className='lunar-reopen';reopen.hidden=true;reopen.textContent='Lune';reopen.setAttribute('aria-label','Afficher la fiche de la Lune');card.prepend(reopen);
+  function expandCard(){card.hidden=false;card.dataset.collapsed='false';reopen.hidden=true;fill();}
+  function reduceCard(){if(card.hidden)return;card.dataset.collapsed='true';reopen.hidden=false;}
+  reopen.onclick=expandCard;
   const view=viewer.container.closest('.view');view.append(card);
   const jump=document.createElement('button');jump.id='lunar-jump';jump.type='button';jump.hidden=true;view.append(jump);
   let jumpTarget=null;
@@ -135,12 +142,12 @@ window.AtlasMoon={
   const dateFormatter=new Intl.DateTimeFormat('fr-FR',{dateStyle:'medium',timeStyle:'short'});
   const date=ms=>dateFormatter.format(new Date(ms));
   function fill(){
-   const data=lastData||math.sample(C,now);
+   const data=lastData||math.sample(C,now);field('sun-distance').textContent=(C.Cartesian3.distance(data.moon,data.sun)/1e9).toLocaleString('fr-FR',{maximumSignificantDigits:4})+' millions de km';field('earth-distance').textContent=(data.distance/1e6).toLocaleString('fr-FR',{maximumSignificantDigits:4})+' millions de km';
    if(!phases||now<phaseAt||Math.abs(now-phaseAt)>86400000||now>=Math.min(phases.full,phases.new)){phases={full:math.nextPhase(C,now,Math.PI),new:math.nextPhase(C,now,0)};phaseAt=now;}
    field('distance').textContent=Math.round(data.distance).toLocaleString('fr-FR')+' km';field('phase').textContent=data.phase;field('illumination').textContent=(data.illumination*100).toLocaleString('fr-FR',{maximumFractionDigits:1})+' %';field('full').textContent=date(phases.full);field('new').textContent=date(phases.new);
   }
-  function open(){if(active){card.hidden=false;fill();}else offer('moon');}
-  card.querySelector('.lunar-close').onclick=()=>{card.hidden=true;};
+  function open(){if(active){expandCard();}else offer('moon');}
+  card.querySelector('.lunar-close').onclick=reduceCard;
   orbitControl.querySelector('input').onchange=e=>{orbit.show=allowOrbit&&e.target.checked;e.target.checked=orbit.show;if(orbit.show)update(now);viewer.scene.requestRender();};
   function leave(){hover.hidden=true;jump.hidden=true;card.hidden=true;if(active){active=false;drag=null;cameraControls.enableInputs=savedInputs;onViewChange(false);viewer.camera.cancelFlight();viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);viewer.scene.screenSpaceCameraController.enableCollisionDetection=true;}card.querySelector('.lunar-earth').hidden=true;card.querySelector('.lunar-travel').hidden=false;syncControls();}
   card.querySelector('.lunar-earth').onclick=returnEarth;
@@ -159,10 +166,10 @@ window.AtlasMoon={
   }
   function recenter(){if(!active||!center)return;drag=null;
    const distance=R/Math.sin(viewer.camera.frustum.fovy*.32);
-   const outward=C.Cartesian3.normalize(center,new C.Cartesian3());
-   const side=C.Cartesian3.normalize(C.Cartesian3.cross(outward,C.Cartesian3.UNIT_Z,new C.Cartesian3()),new C.Cartesian3());
-   C.Cartesian3.add(outward,C.Cartesian3.multiplyByScalar(side,0.38,side),outward);C.Cartesian3.normalize(outward,outward);
-   const offset=C.Cartesian3.multiplyByScalar(outward,distance,new C.Cartesian3());
+   // Earth is the world origin: start on the Earth-facing side at this date.
+   // Move the camera, keeping the Moon's physical pole and libration unchanged.
+   const towardEarth=C.Cartesian3.normalize(C.Cartesian3.negate(center,new C.Cartesian3()),new C.Cartesian3());
+   const offset=C.Cartesian3.multiplyByScalar(towardEarth,distance,new C.Cartesian3());
    viewer.camera.cancelFlight();viewer.camera.lookAtTransform(C.Matrix4.fromTranslation(center),offset);viewer.scene.requestRender();
   }
   async function travel(){
@@ -172,7 +179,7 @@ window.AtlasMoon={
    beforeTravel();viewer.camera.cancelFlight();savedInputs=cameraControls.enableInputs!==false;active=true;cameraControls.enableInputs=false;onViewChange(true);jump.hidden=true;card.hidden=true;
    await Promise.all([setRealistic(realistic),showNames?loadNames():Promise.resolve()]);progress?.done('textures');fill();
    recenter();update(now);
-   card.querySelector('.lunar-earth').hidden=false;card.querySelector('.lunar-travel').hidden=true;syncControls();viewer.scene.requestRender();await rendered();card.hidden=false;progress?.done('scene');
+   card.querySelector('.lunar-earth').hidden=false;card.querySelector('.lunar-travel').hidden=true;syncControls();viewer.scene.requestRender();await rendered();expandCard();progress?.done('scene');
    }catch(error){progress?.fail();const notice=document.getElementById('notice');if(notice)notice.textContent='Lune indisponible : '+error.message;leave();Promise.resolve(onEarth()).catch(console.warn);}finally{travelling=false;}
   }
   card.querySelector('.lunar-travel').onclick=()=>navigateMoon?navigateMoon():travel();
@@ -189,8 +196,8 @@ window.AtlasMoon={
   function loadNames(){
    if(namesRequest)return namesRequest;
    namesRequest=Promise.all([
-    fetch('/images/moon/map-names.json?v=503ea3159168').then(r=>{if(!r.ok)throw Error('Géométrie des noms lunaires indisponible.');return r.json();}),
-    new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('La carte des noms lunaires est indisponible.'));image.src='/images/moon/map-names.webp?v=acea13ff9c7c';})
+    fetch('/images/moon/map-names.json?v=2236852ce3ee').then(r=>{if(!r.ok)throw Error('Géométrie des noms lunaires indisponible.');return r.json();}),
+    new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('La carte des noms lunaires est indisponible.'));image.src='/images/moon/map-names.webp?v=13256648c598';})
    ]).then(([map,image])=>{
     namesMaterial.uniforms.image=image;
     namesPrimitive=viewer.scene.primitives.add(new C.Primitive({geometryInstances:new C.GeometryInstance({geometry:window.AtlasMoon.mapGeometry(C,map,R+150)}),appearance:new C.MaterialAppearance({material:namesMaterial,translucent:true,closed:false,flat:true,faceForward:false}),asynchronous:false,compressVertices:false,allowPicking:false,show:false}));
@@ -199,8 +206,11 @@ window.AtlasMoon={
    }).catch(error=>{namesRequest=null;console.warn(error.message);});return namesRequest;
   }
   function update(ms){
-   now=ms;const data=lastData=math.sample(C,now);center=math.fixed(C,data.time,data.moon);title.position=center;title.text='Lune · '+Math.round(data.distance).toLocaleString('fr-FR')+' km';
+   const previousCenter=center;now=ms;const data=lastData=math.sample(C,now);center=math.fixed(C,data.time,data.moon);title.position=center;title.text='Lune · '+Math.round(data.distance).toLocaleString('fr-FR')+' km';
    const rotation=C.Transforms.computeIcrfToFixedMatrix(data.time)||C.Transforms.computeTemeToPseudoFixedMatrix(data.time);
+   const moonToSun=C.Cartesian3.subtract(data.sun,data.moon,new C.Cartesian3());
+   const sunlight=C.Cartesian3.normalize(C.Matrix3.multiplyByVector(rotation,moonToSun,new C.Cartesian3()),new C.Cartesian3());
+   lunarMaterial.uniforms.moonSunDirection=sunlight;namesMaterial.uniforms.moonSunDirection=sunlight;
    if(orbit.show&&(orbitAt===null||Math.abs(now-orbitAt)>21600000)){
     const points=[];for(let i=0;i<=180;i++){const time=C.JulianDate.fromDate(new Date(now+(i/180-.5)*27.321661*86400000));const p=C.Simon1994PlanetaryPositions.computeMoonPositionInEarthInertialFrame(time);points.push(C.Matrix3.multiplyByVector(rotation,p,new C.Cartesian3()));}
     orbit.positions=points;lineCollection.modelMatrix=C.Matrix4.clone(C.Matrix4.IDENTITY);orbitAt=now;
@@ -210,7 +220,8 @@ window.AtlasMoon={
     lineCollection.modelMatrix=C.Matrix4.fromRotationTranslation(C.Matrix3.multiply(rotation,C.Matrix3.transpose(old,new C.Matrix3()),new C.Matrix3()));
    }
    if(active){
-    const camera=viewer.camera,p=C.Cartesian3.clone(camera.position),d=C.Cartesian3.clone(camera.direction),u=C.Cartesian3.clone(camera.up);
+    const transport=previousCenter?C.Matrix3.multiply(math.viewFrame(C,center),C.Matrix3.transpose(math.viewFrame(C,previousCenter),new C.Matrix3()),new C.Matrix3()):C.Matrix3.IDENTITY;
+    const camera=viewer.camera,p=C.Matrix3.multiplyByVector(transport,camera.position,new C.Cartesian3()),d=C.Matrix3.multiplyByVector(transport,camera.direction,new C.Cartesian3()),u=C.Matrix3.multiplyByVector(transport,camera.up,new C.Cartesian3());
     camera.lookAtTransform(C.Matrix4.fromTranslation(center));C.Cartesian3.clone(p,camera.position);C.Cartesian3.clone(d,camera.direction);C.Cartesian3.clone(u,camera.up);C.Cartesian3.cross(d,u,camera.right);
    }
    const body=C.Matrix3.multiply(rotation,C.Matrix3.transpose(axes.evaluate(data.time),new C.Matrix3()),new C.Matrix3());
@@ -249,6 +260,6 @@ window.AtlasMoon={
    const ray=viewer.camera.getPickRay(click),sphere=new C.BoundingSphere(center,R),interval=C.IntersectionTests.raySphere(ray,sphere);if(interval){const earth=C.IntersectionTests.rayEllipsoid(ray,viewer.scene.globe.ellipsoid);if(!earth||earth.start>interval.start)return true;}
    return !active&&nearMoon(click)&&visible();
   }
-  return {get active(){return active;},get position(){return center;},orbit:rotateCamera,recenter,enter:travel,returnEarth,update,open,hit,setRealistic,setShadows,leave,offerEarth(){if(active)offer('earth');},close(){card.hidden=true;jump.hidden=true;hover.hidden=true;},zoom(direction,strength=1){if(!active)return false;const p=viewer.camera.position,r=C.Cartesian3.magnitude(p),next=Math.max(R+20000,Math.min(maximumRange,r*Math.pow(1.35,-direction*Math.min(2,strength))));C.Cartesian3.multiplyByScalar(p,next/r,p);viewer.scene.requestRender();return true;}};
+  return {get active(){return active;},get position(){return center;},orbit:rotateCamera,recenter,enter:travel,returnEarth,update,open,hit,setRealistic,setShadows,leave,offerEarth(){if(active)offer('earth');},close(){if(active)reduceCard();else card.hidden=true;jump.hidden=true;hover.hidden=true;},zoom(direction,strength=1){if(!active)return false;const p=viewer.camera.position,r=C.Cartesian3.magnitude(p),next=Math.max(R+20000,Math.min(maximumRange,r*Math.pow(1.35,-direction*Math.min(2,strength))));C.Cartesian3.multiplyByScalar(p,next/r,p);viewer.scene.requestRender();return true;}};
  }
 };

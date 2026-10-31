@@ -1,0 +1,7 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto'),math=require('../static/solar-math.js');
+const catalog=require('../static/solar/encounters/catalog.json').bodies,a=catalog['2486958'],p=catalog['999'],raw=fs.readFileSync('static/'+a.mesh.file);
+assert.equal(a.mesh.indices/3,107506);assert.equal(a.mesh.vertices,53755);assert.equal(raw.length,a.mesh.bytes);assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),a.mesh.sha256);
+const n=a.mesh.vertices*3,vertices=new Float32Array(raw.buffer,raw.byteOffset,n),normals=new Float32Array(raw.buffer,raw.byteOffset+n*4,n),indices=new Uint32Array(raw.buffer,raw.byteOffset+n*8,a.mesh.indices);assert.ok(indices.every(i=>i<a.mesh.vertices));assert.ok(vertices.every(Number.isFinite));for(let i=0;i<normals.length;i+=3)assert.ok(Math.abs(Math.hypot(...normals.slice(i,i+3))-1)<1e-5);
+assert.deepEqual(p.radii_km,[1188.3,1188.3,1188.3]);for(const body of [a,p]){const axes=math.axes(body,Date.parse('2019-01-01T05:33:00Z'));assert.ok(axes.flat().every(Number.isFinite));for(const axis of axes)assert.ok(Math.abs(Math.hypot(...axis)-1)<1e-9);assert.ok(body.rotation.POLE_RA&&body.rotation.POLE_DEC&&body.rotation.PM);}
+assert.ok(fs.statSync('static/'+p.surface).size>3000000);assert.ok(a.note.includes('pas de texture globale inventée'));
+console.log('Encounter bodies: official 107,506-face Arrokoth mesh, physical units, normalized normals, Pluto image, PCK orientation and integrity OK');

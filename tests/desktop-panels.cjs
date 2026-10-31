@@ -10,7 +10,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
  vm.runInContext(app.slice(app.indexOf('for(const family of Object.keys(atlasColors))'),app.indexOf('let pendingAtlasOverview')),context);
  vm.runInContext(app.slice(app.indexOf("document.querySelectorAll('[data-theme-color]')"),app.indexOf("$('atlas-clear').addEventListener")),context);
  vm.runInContext(app.slice(app.indexOf("$('atlas-reset').addEventListener")),context);
- vm.runInContext(fs.readFileSync('static/desktop-panels.js','utf8'),context);vm.runInContext(fs.readFileSync('static/desktop-tools.js','utf8'),context);vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
+ vm.runInContext(fs.readFileSync('static/desktop-panels.js','utf8'),context);vm.runInContext(fs.readFileSync('static/desktop-tools.js','utf8'),context);vm.runInContext(fs.readFileSync('static/mission-menu.js','utf8'),context);vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
  assert.equal($('advanced-colors-content').childElementCount,0,'Hidden advanced colors are built only on opening');
  assert.ok(document.body.classList.contains('earth-workspace'));assert.equal(document.querySelector('.collection-navigation').parentElement,$('workspace-navigation'));assert.equal($('satellite-panel').inert,true);
  assert.equal($('workspace-navigation').firstElementChild,document.querySelector('.collection-navigation'));

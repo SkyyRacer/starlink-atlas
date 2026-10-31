@@ -1,3 +1,4 @@
+mod solar;
 mod history;
 mod mission_lifetimes;
 mod collection_health;
@@ -579,6 +580,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/gps/", get(|| async { axum::response::Redirect::permanent("/gps") }))
         .route("/galileo/", get(|| async { axum::response::Redirect::permanent("/galileo") }))
         .route("/api/news",get(news::endpoint))
+        .route("/api/solar-vectors", get(solar::vectors))
         .route("/api/config", get(config))
         .route("/api/iss-missions", get(iss_missions::endpoint))
         .route("/api/tiangong-missions",get(iss_missions::tiangong_endpoint))

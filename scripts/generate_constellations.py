@@ -55,9 +55,9 @@ page.write_text(text)
 
 # The trajectory resolver uses exactly the same reviewed Horizons identities.
 ephemeris=ROOT/'static/ephemeris.js'
-missions=json.loads((ROOT/'resources/mission-ephemerides.json').read_text())['missions']
+mission_config=json.loads((ROOT/'resources/mission-ephemerides.json').read_text());missions=mission_config['missions']+mission_config.get('external_missions',[])
 ids=json.dumps({row['key']:row['id'] for row in missions},separators=(',',':'))
-ephemeris.write_text(re.sub(r"const missionIds=.*?,missionIndexes=new Map\(\);",'const missionIds='+ids+',missionIndexes=new Map();',ephemeris.read_text()))
+ephemeris.write_text(re.sub(r"const missionIds=.*?,missionIndexes=new Map\(\)",'const missionIds='+ids+',missionIndexes=new Map()',ephemeris.read_text()))
 
 # Branded mission splash must be selected in the head, before any globe is painted.
 guard=ROOT/'static/desktop-viewport-guard.js'

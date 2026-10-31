@@ -46,11 +46,11 @@
   },
   {
     "key": "tiangong",
-    "runtime_url": "images/detailed/tiangong.glb?v=82d45acbc3e6",
-    "runtime_bytes": 980084,
-    "original_bytes": 980084,
-    "triangles": 128932,
-    "original_triangles": 128932,
+    "runtime_url": "images/detailed/tiangong.glb?v=703d0b952c39",
+    "runtime_bytes": 7956056,
+    "original_bytes": 7849392,
+    "triangles": 86868,
+    "original_triangles": 92692,
     "compression": "original"
   },
   {
@@ -82,21 +82,21 @@
   },
   {
     "key": "mir",
-    "runtime_url": "images/detailed/mir.glb?v=3686dd860843",
-    "runtime_bytes": 21055296,
-    "original_bytes": 21055296,
+    "runtime_url": "images/detailed/mir.glb?v=52ae474af84a",
+    "runtime_bytes": 26432612,
+    "original_bytes": 21055016,
     "triangles": 446331,
     "original_triangles": 446331,
     "compression": "original"
   },
   {
     "key": "skylab",
-    "runtime_url": "images/detailed/skylab.glb?v=9b59b38879ce",
-    "runtime_bytes": 98628,
+    "runtime_url": "images/detailed/skylab.glb?v=acd3f88c2d78",
+    "runtime_bytes": 162944,
     "original_bytes": 98628,
-    "triangles": 25292,
+    "triangles": 26253,
     "original_triangles": 25292,
-    "compression": "original"
+    "compression": "Original Draco on 15 primitives; repaired planar caps uncompressed"
   },
   {
     "key": "grace-fo",
@@ -123,6 +123,159 @@
     "original_bytes": 1721104,
     "triangles": 20390,
     "original_triangles": 20390,
+    "compression": "original"
+  },
+  {
+    "key": "euclid",
+    "runtime_url": "images/detailed/euclid.glb?v=fea2aac95b04",
+    "runtime_bytes": 1755248,
+    "original_bytes": 1755248,
+    "triangles": 38652,
+    "original_triangles": 38652,
+    "compression": "original"
+  },
+  {
+    "key": "new-horizons",
+    "runtime_url": "images/detailed/new-horizons.glb?v=fc1992c31fd0",
+    "runtime_bytes": 3092844,
+    "original_bytes": 3092844,
+    "triangles": 8268,
+    "original_triangles": 8268,
+    "compression": "original"
+  },
+  {
+    "key": "soho",
+    "runtime_url": "images/detailed/soho.glb?v=b99aa7d35a3e",
+    "runtime_bytes": 1463120,
+    "original_bytes": 1463120,
+    "triangles": 9039,
+    "original_triangles": 9039,
+    "compression": "original"
+  },
+  {
+    "key": "ace",
+    "runtime_url": "images/detailed/ace.glb?v=75e42e7726e1",
+    "runtime_bytes": 2086336,
+    "original_bytes": 2086336,
+    "triangles": 11008,
+    "original_triangles": 11008,
+    "compression": "original"
+  },
+  {
+    "key": "cassini",
+    "runtime_url": "images/detailed/cassini.glb?v=f17bb59f02ea",
+    "runtime_bytes": 4317320,
+    "original_bytes": 4317320,
+    "triangles": 26008,
+    "original_triangles": 26008,
+    "compression": "original"
+  },
+  {
+    "key": "dscovr",
+    "runtime_url": "images/detailed/dscovr.glb?v=2b16ec1294e0",
+    "runtime_bytes": 2798548,
+    "original_bytes": 2798548,
+    "triangles": 21594,
+    "original_triangles": 21594,
+    "compression": "original"
+  },
+  {
+    "key": "juno",
+    "runtime_url": "images/detailed/juno.glb?v=b9aa9eb1b177",
+    "runtime_bytes": 7604900,
+    "original_bytes": 7604900,
+    "triangles": 19528,
+    "original_triangles": 19528,
+    "compression": "original"
+  },
+  {
+    "key": "juice",
+    "runtime_url": "images/detailed/juice.glb?v=c270531f7d09",
+    "runtime_bytes": 6669680,
+    "original_bytes": 6669680,
+    "triangles": 307178,
+    "original_triangles": 307178,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-1",
+    "runtime_url": "images/detailed/salyut-1.glb?v=03d96b2ef1eb",
+    "runtime_bytes": 2985024,
+    "original_bytes": 2984836,
+    "triangles": 25816,
+    "original_triangles": 25816,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-2",
+    "runtime_url": "images/detailed/salyut-2.glb?v=829d940d354d",
+    "runtime_bytes": 2788852,
+    "original_bytes": 2788024,
+    "triangles": 22384,
+    "original_triangles": 22384,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-3",
+    "runtime_url": "images/detailed/salyut-3.glb?v=0f3614256c6b",
+    "runtime_bytes": 2792724,
+    "original_bytes": 2791892,
+    "triangles": 22396,
+    "original_triangles": 22396,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-4",
+    "runtime_url": "images/detailed/salyut-4.glb?v=d87a32bab9fc",
+    "runtime_bytes": 2988316,
+    "original_bytes": 2987116,
+    "triangles": 24984,
+    "original_triangles": 24984,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-5",
+    "runtime_url": "images/detailed/salyut-5.glb?v=9a18a2acf76f",
+    "runtime_bytes": 2792584,
+    "original_bytes": 2791752,
+    "triangles": 22396,
+    "original_triangles": 22396,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-6",
+    "runtime_url": "images/detailed/salyut-6.glb?v=15071edd79d1",
+    "runtime_bytes": 3137740,
+    "original_bytes": 3136540,
+    "triangles": 27920,
+    "original_triangles": 27920,
+    "compression": "original"
+  },
+  {
+    "key": "salyut-7",
+    "runtime_url": "images/detailed/salyut-7.glb?v=66a6f7b4aad6",
+    "runtime_bytes": 3149256,
+    "original_bytes": 3148056,
+    "triangles": 28188,
+    "original_triangles": 28188,
+    "compression": "original"
+  },
+  {
+    "key": "tiangong-1",
+    "runtime_url": "images/detailed/tiangong-1.glb?v=7123fa5c26f1",
+    "runtime_bytes": 2322672,
+    "original_bytes": 2294460,
+    "triangles": 28268,
+    "original_triangles": 29676,
+    "compression": "original"
+  },
+  {
+    "key": "tiangong-2",
+    "runtime_url": "images/detailed/tiangong-2.glb?v=90e9e286688f",
+    "runtime_bytes": 2346948,
+    "original_bytes": 2318736,
+    "triangles": 28572,
+    "original_triangles": 29980,
     "compression": "original"
   }
 ]

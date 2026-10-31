@@ -1,0 +1,812 @@
+{
+  "source": "NASA/JPL-Caltech Eyes on the Solar System",
+  "url": "https://eyes.nasa.gov/apps/solar-system/",
+  "imported": "2026-10-27",
+  "models": [
+    {
+      "key": "new-horizons",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/new-horizons/original.glb",
+      "sha256": "53796272bb99cf66f2ab019993bd9af24e67efa8ee535c4d2185ba7149a0178e",
+      "bytes": 3092612,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/new_horizons.gltf",
+      "ids": [
+        28928
+      ]
+    },
+    {
+      "key": "voyager",
+      "status": "downloaded",
+      "runtime_enabled": false,
+      "file": "resources/nasa-eyes/models/voyager/original.glb",
+      "sha256": "2daa3c65c447635809d397d773d8213cfe0a421df2cceeecf23b5bd5fe1455de",
+      "bytes": 4224188,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf",
+      "ids": [
+        10321,
+        10271
+      ]
+    },
+    {
+      "key": "jwst",
+      "status": "downloaded",
+      "runtime_enabled": false,
+      "file": "resources/nasa-eyes/models/jwst/original.glb",
+      "sha256": "9a5e1d53aa0772d4020ef5cd845e476d910a95c0a6d57d132419fa234861bb6f",
+      "bytes": 3861864,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_jwst/webb_deployed.gltf",
+      "ids": [
+        50463
+      ]
+    },
+    {
+      "key": "euclid",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/euclid/original.glb",
+      "sha256": "e28fe6c69ca61f4153ac7c0a857f7f575aefd45d3af88eeea1c5dfd5522f0567",
+      "bytes": 1755012,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.gltf",
+      "ids": [
+        57209
+      ]
+    },
+    {
+      "key": "soho",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/soho/original.glb",
+      "sha256": "d1d835aab0885e82fa528000250a47e375afa15a84d31bd13e33617cf98af871",
+      "bytes": 1462880,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.gltf",
+      "ids": [
+        23726
+      ]
+    },
+    {
+      "key": "ace",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/ace/original.glb",
+      "sha256": "297bed7eb9ba9a4166b7f2517d0a49e7b8b3b9b11c3259e428d2a4e2ccb25a53",
+      "bytes": 2086100,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_ace/ace.gltf",
+      "ids": [
+        24912
+      ]
+    },
+    {
+      "key": "cassini",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/cassini/original.glb",
+      "sha256": "79ff8524ccfa8889995f66deb52daf68bd694e2c4be954b2771301bc40c86206",
+      "bytes": 4317088,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_cassini/Cassini.gltf",
+      "ids": [
+        25008
+      ]
+    },
+    {
+      "key": "juno",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/juno/original.glb",
+      "sha256": "648688ec02a0569afbbf8be0a5773d17c3dc54de4adf6db08b6fad6ed574369b",
+      "bytes": 7604664,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_juno/Juno.gltf",
+      "ids": [
+        37773
+      ]
+    },
+    {
+      "key": "spitzer",
+      "status": "downloaded",
+      "runtime_enabled": false,
+      "file": "resources/nasa-eyes/models/spitzer/original.glb",
+      "sha256": "64c3d18ba602d59b24d4951ce127d295a8bb05a8ee0fb7b2be8da81baccb8e4e",
+      "bytes": 2280112,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_spitzer/SPITZER.gltf",
+      "ids": [
+        27871
+      ]
+    },
+    {
+      "key": "dscovr",
+      "status": "downloaded",
+      "runtime_enabled": true,
+      "file": "resources/nasa-eyes/models/dscovr/original.glb",
+      "sha256": "39ae0fa781de50e01b70564ffa7e70e8e69f123a47d7bf39978baad4f7eb99de",
+      "bytes": 2798312,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_dscovr/dscovr.gltf",
+      "ids": [
+        40390
+      ]
+    },
+    {
+      "key": "kepler",
+      "status": "downloaded",
+      "runtime_enabled": false,
+      "file": "resources/nasa-eyes/models/kepler/original.glb",
+      "sha256": "98294df813f8c48128903a04d65704b44e282a42d9465ec4c9d8809c2c99bf82",
+      "bytes": 2557648,
+      "source": "https://eyes.nasa.gov/assets/static/models/sc_kepler/Kepler.gltf",
+      "ids": [
+        34380
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "key": "sc_new_horizons",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/new_horizons.gltf"
+      ],
+      "dynamo": [
+        "sc_new_horizons/earth/orb",
+        "sc_new_horizons/sun/1/orb",
+        "sc_new_horizons/jupiter/orb",
+        "sc_new_horizons/sun/2/orb",
+        "sc_new_horizons/pluto/orb",
+        "sc_new_horizons/sun/3/pos",
+        "sc_new_horizons/mu69/pos",
+        "sc_new_horizons/sun/4/pos",
+        "sc_new_horizons/ori/1",
+        "sc_new_horizons/ori/2"
+      ]
+    },
+    {
+      "key": "sc_voyager_1",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf"
+      ],
+      "dynamo": [
+        "sc_voyager_1/earth",
+        "sc_voyager_1/sun/1",
+        "sc_voyager_1/jupiter",
+        "sc_voyager_1/sun/2",
+        "sc_voyager_1/saturn",
+        "sc_voyager_1/sun/3",
+        "sc_voyager_1/ori"
+      ]
+    },
+    {
+      "key": "sc_voyager_2",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf"
+      ],
+      "dynamo": [
+        "sc_voyager_2/earth",
+        "sc_voyager_2/sun/1",
+        "sc_voyager_2/jupiter",
+        "sc_voyager_2/sun/2",
+        "sc_voyager_2/saturn",
+        "sc_voyager_2/sun/3",
+        "sc_voyager_2/uranus",
+        "sc_voyager_2/sun/4",
+        "sc_voyager_2/neptune",
+        "sc_voyager_2/sun/5",
+        "sc_voyager_2/ori"
+      ]
+    },
+    {
+      "key": "sc_jwst",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_jwst/webb_deployed.gltf"
+      ],
+      "dynamo": [
+        "sc_jwst/earth/orb"
+      ]
+    },
+    {
+      "key": "sc_gaia",
+      "available": false
+    },
+    {
+      "key": "sc_herschel",
+      "available": false
+    },
+    {
+      "key": "sc_planck",
+      "available": false
+    },
+    {
+      "key": "sc_euclid",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.gltf"
+      ],
+      "dynamo": [
+        "sc_euclid/earth"
+      ]
+    },
+    {
+      "key": "sc_soho",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.gltf"
+      ],
+      "dynamo": [
+        "sc_soho"
+      ]
+    },
+    {
+      "key": "sc_ace",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_ace/ace.gltf"
+      ],
+      "dynamo": [
+        "sc_ace"
+      ]
+    },
+    {
+      "key": "sc_cassini",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_cassini/Cassini.gltf"
+      ],
+      "dynamo": [
+        "sc_cassini/earth/launch/orb",
+        "sc_cassini/sun/1/orb",
+        "sc_cassini/venus/flyby1/orb",
+        "sc_cassini/sun/2/orb",
+        "sc_cassini/venus/flyby2/orb",
+        "sc_cassini/sun/3/orb",
+        "sc_cassini/earth/flyby/orb",
+        "sc_cassini/sun/4/orb",
+        "sc_cassini/saturn/orb",
+        "sc_cassini/quat"
+      ]
+    },
+    {
+      "key": "sc_juno",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_juno/Juno.gltf"
+      ],
+      "dynamo": [
+        "sc_juno/earth/launch/orb",
+        "sc_juno/sun/preflyby/orb",
+        "sc_juno/earth/flyby/orb",
+        "sc_juno/sun/postflyby/orb",
+        "sc_juno/jupiter/orb",
+        "sc_juno/ganymede/orb",
+        "sc_juno/europa/orb",
+        "sc_juno/io/1/orb",
+        "sc_juno/io/2/orb",
+        "sc_juno/ori"
+      ]
+    },
+    {
+      "key": "sc_bepicolombo",
+      "available": false
+    },
+    {
+      "key": "sc_kepler",
+      "available": false
+    },
+    {
+      "key": "sc_spitzer",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_spitzer/SPITZER.gltf"
+      ],
+      "dynamo": [
+        "sc_spitzer/earth/orb",
+        "sc_spitzer/sun/orb",
+        "sc_spitzer/quat"
+      ]
+    },
+    {
+      "key": "sc_dscovr",
+      "models": [
+        "https://eyes.nasa.gov/assets/static/models/sc_dscovr/dscovr.gltf"
+      ],
+      "dynamo": [
+        "sc_dscovr/earth"
+      ]
+    },
+    {
+      "key": "sc_aditya_l1",
+      "available": false
+    },
+    {
+      "key": "sc_spektr_rg",
+      "available": false
+    },
+    {
+      "key": "sc_ikaros",
+      "available": false
+    }
+  ],
+  "definitions": [
+    {
+      "endpoint": "sc_ace",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_ace/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_ace/def.dyn",
+      "bytes": 884,
+      "sha256": "baef923315e736286981d8b522796cddb5afaae3d9ff5b44a8a80917d41d51ff",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/earth/flyby/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/earth/flyby/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/earth/flyby/orb/def.dyn",
+      "bytes": 388,
+      "sha256": "31c975c4942c73d6ac6722bd9e0691990bf4c2016a6d452a4568dcc09666aaa9",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/earth/launch/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/earth/launch/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/earth/launch/orb/def.dyn",
+      "bytes": 316,
+      "sha256": "acdd9ac5235c137576f0cc946a0dc1c6a15716ebf1d1cd796a93a524d664454a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/quat",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/quat/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/quat/def.dyn",
+      "bytes": 909,
+      "sha256": "16b4cfa6ed83718590325ef0c19e2d97687f76ad3dc32f272a1732b02faffb7a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/saturn/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/saturn/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/saturn/orb/def.dyn",
+      "bytes": 940,
+      "sha256": "960b30f9d8e423532bfae9f62712956d43c284c4cb4e9a6b8e18edc731539db7",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/sun/1/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/sun/1/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/sun/1/orb/def.dyn",
+      "bytes": 388,
+      "sha256": "f8284c87335b2eb5002ed2f67553c2268ef7de9de033726971d3fbecddff640c",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/sun/2/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/sun/2/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/sun/2/orb/def.dyn",
+      "bytes": 604,
+      "sha256": "5fea571f2317cffec36fad0e619d5bf93730740c163dc49b8ad5bb34e8e7b0c7",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/sun/3/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/sun/3/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/sun/3/orb/def.dyn",
+      "bytes": 316,
+      "sha256": "747ebec452856e3439a4c7659fe2542550c23869111aa99e72d24d569806074a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/sun/4/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/sun/4/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/sun/4/orb/def.dyn",
+      "bytes": 964,
+      "sha256": "6cf952274b872aebd4d22129bdd1f2f08e28611eb1ed716e9f4d1c81254951e6",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/venus/flyby1/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/venus/flyby1/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/venus/flyby1/orb/def.dyn",
+      "bytes": 244,
+      "sha256": "795a4e44492f64d1e2de6d5fc5e29b7d1d978a75a0578d2553358f0f24d1b4ef",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_cassini/venus/flyby2/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_cassini/venus/flyby2/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_cassini/venus/flyby2/orb/def.dyn",
+      "bytes": 172,
+      "sha256": "8b46153a241186c91f29cbdc2143c180170dbcac2b215d71aa3fe71d7fac5bfe",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_dscovr/earth",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_dscovr/earth/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_dscovr/earth/def.dyn",
+      "bytes": 980,
+      "sha256": "9b1c22fc72113657eed1cb5b8cf4e203872944a0592dd337351e7f6a0c357d59",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_euclid/earth",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_euclid/earth/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_euclid/earth/def.dyn",
+      "bytes": 11660,
+      "sha256": "3859f790c9dcc329c9ab9fa2a671513454ba0e6794f00588f4f0e235e25f302a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/earth/flyby/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/earth/flyby/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/earth/flyby/orb/def.dyn",
+      "bytes": 244,
+      "sha256": "a13a273aca22667094caa540c97c93fe877491e3b0295b6919e6898835854ffc",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/earth/launch/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/earth/launch/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/earth/launch/orb/def.dyn",
+      "bytes": 172,
+      "sha256": "546a7e62a34c89a1a5756ad34467c8329440e5f4d4c907d9b1efad4244134f95",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/europa/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/europa/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/europa/orb/def.dyn",
+      "bytes": 892,
+      "sha256": "cab43545e0477f30d726425dba045952c0a2db3df26f88041161f3a5b125c3f4",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/ganymede/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/ganymede/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/ganymede/orb/def.dyn",
+      "bytes": 748,
+      "sha256": "67484fa11ffd4e123a70b1ac1a33f39b0bb96a614d1a944a262beb0388c12463",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/io/1/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/io/1/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/io/1/orb/def.dyn",
+      "bytes": 820,
+      "sha256": "f3457602ba35b26bcc4cbea875ac5e113a0c7c83e7ef861dd35aeaf82b458c8b",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/io/2/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/io/2/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/io/2/orb/def.dyn",
+      "bytes": 964,
+      "sha256": "197d58b823830e7adccca327758a182e27e9f02ac62e99221e90e5448c899127",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/jupiter/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/jupiter/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/jupiter/orb/def.dyn",
+      "bytes": 644,
+      "sha256": "473e4a10ac7d48af47d0e170e5b2eaa2a05cf61996378cecf2f66f0a841a4661",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/ori",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/ori/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/ori/def.dyn",
+      "bytes": 1764,
+      "sha256": "62b5ee86227937dab5e8ce5f6458aa7b06e3f25a834a3fb2dcb849843200ebc9",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/sun/postflyby/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/sun/postflyby/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/sun/postflyby/orb/def.dyn",
+      "bytes": 388,
+      "sha256": "cc9372b7a165a2bf7594d1be280291bfd4928f51600ce40cc1b0dea678a69b1c",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_juno/sun/preflyby/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_juno/sun/preflyby/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_juno/sun/preflyby/orb/def.dyn",
+      "bytes": 388,
+      "sha256": "b5d018e42c2374485832d8b57cc7e0f8d1136396729a554b16f298e703075629",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_jwst/earth/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_jwst/earth/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_jwst/earth/orb/def.dyn",
+      "bytes": 692,
+      "sha256": "353daf2bbf9bc47efb23a51abf9a47485455920d193aa00087cc85ee6e7a635d",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/earth/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/earth/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/earth/orb/def.dyn",
+      "bytes": 172,
+      "sha256": "06f2c6d0488aed0fc0254a8b40b480fda41c71ecee4f814a15a018fe5fd3771d",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/jupiter/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/jupiter/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/jupiter/orb/def.dyn",
+      "bytes": 172,
+      "sha256": "0ad760c3f8b32ae12fbf4ff45a65bfa102bd9d977bdfe930534c36068843ecf5",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/mu69/pos",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/mu69/pos/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/mu69/pos/def.dyn",
+      "bytes": 124,
+      "sha256": "8c1080cc3530cd18f4a81810587b142238d5c68dd414b9d64f005e4d60bb0b99",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/ori/1",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/ori/1/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/ori/1/def.dyn",
+      "bytes": 5268,
+      "sha256": "33fb725275b94a89e36322571559d1f5f764ec5df693a9d3a7e2c11bfc9f9b27",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/ori/2",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/ori/2/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/ori/2/def.dyn",
+      "bytes": 2636,
+      "sha256": "fcef000dde4c223165ad0f16e356aa1cdf4e62dcf07012c38adb04781d74b914",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/pluto/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/pluto/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/pluto/orb/def.dyn",
+      "bytes": 244,
+      "sha256": "0c97eb88102f4913176202d2591e5386268e4c71896611750b8d332e9da0e483",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/sun/1/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/sun/1/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/sun/1/orb/def.dyn",
+      "bytes": 316,
+      "sha256": "410e12e7bf495ac5f4d9b9077c00141f233c66934d7122c165aef79f07e6cb04",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/sun/2/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/sun/2/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/sun/2/orb/def.dyn",
+      "bytes": 316,
+      "sha256": "190db9c6634fe17c2fd33c65cd791a54d11daf682d8088db682d03e6a1f5a99e",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/sun/3/pos",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/sun/3/pos/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/sun/3/pos/def.dyn",
+      "bytes": 124,
+      "sha256": "948e4c04fc24e6b9766a17951ace5305a9293b65d5c537418eb9a163ea80f428",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_new_horizons/sun/4/pos",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_new_horizons/sun/4/pos/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_new_horizons/sun/4/pos/def.dyn",
+      "bytes": 124,
+      "sha256": "c3c0dfec8fd3d05c80e0292705dd150934a28aa5fe9825af6e7139a9ebca80b4",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_soho",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_soho/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_soho/def.dyn",
+      "bytes": 604,
+      "sha256": "cc8fb973a1d41962635abb48ce6ddf96f678f8f60cbab066cb71132e3c4b2a27",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_spitzer/earth/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_spitzer/earth/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_spitzer/earth/orb/def.dyn",
+      "bytes": 316,
+      "sha256": "931b00745c223e2910182e2e9edfdf6e2fac65d907a14ffe0fa57578bd178018",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_spitzer/quat",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_spitzer/quat/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_spitzer/quat/def.dyn",
+      "bytes": 925,
+      "sha256": "0fd71eab5107de49ecd411c6fdf610de610b7cb78d5a33a8be1771b7f47aec40",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_spitzer/sun/orb",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_spitzer/sun/orb/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_spitzer/sun/orb/def.dyn",
+      "bytes": 820,
+      "sha256": "fcb54b1184c64bb0bbf4913c17c3545c4da70c381838759f4c49be2e25fc27d8",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/earth",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/earth/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/earth/def.dyn",
+      "bytes": 316,
+      "sha256": "0db59e2ffd29715d12522e892447da6e5a0ebcb4db57308e839584630c56de07",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/jupiter",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/jupiter/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/jupiter/def.dyn",
+      "bytes": 316,
+      "sha256": "1fc00a077c686c2cfd02d220f8abffffa3500a7a3ee65b600a24d205ff247854",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/ori",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/ori/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/ori/def.dyn",
+      "bytes": 477,
+      "sha256": "df3bc84abcf8b88ec4417c66e4f2ba66c28fec515b42e4fc0852a2e35649751f",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/saturn",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/saturn/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/saturn/def.dyn",
+      "bytes": 388,
+      "sha256": "a29bd1732f694d1717aa6e360a73ad3b3afb1273326e02b18e8febfab3980352",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/sun/1",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/sun/1/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/sun/1/def.dyn",
+      "bytes": 244,
+      "sha256": "8f67a0497badebbbd0577480901b308bfb8bd1cca1df49155030ae540e5333d3",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/sun/2",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/sun/2/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/sun/2/def.dyn",
+      "bytes": 244,
+      "sha256": "47a01b82ba97fbf3b28545827a8b684d1a97d6603304e55deef1fdfbdebd07f3",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_1/sun/3",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_1/sun/3/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_1/sun/3/def.dyn",
+      "bytes": 404,
+      "sha256": "e15f5d93fcb3b5b5a1bce1f8696b7da7e4c5fdaac067a40b3aa82bc5a82dd97c",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/earth",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/earth/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/earth/def.dyn",
+      "bytes": 316,
+      "sha256": "213592437d8c7ab29886e5b3766e46ab63e1a7863d466ffd5110718b36558c38",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/jupiter",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/jupiter/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/jupiter/def.dyn",
+      "bytes": 388,
+      "sha256": "7ae02cc4bfcb27f834af8f7949a17fa6079b57e152cbc8d073810829048e44bb",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/neptune",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/neptune/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/neptune/def.dyn",
+      "bytes": 316,
+      "sha256": "1baabb549744e6f628a322c13db4bc642459d9577f1bb08937fcc8afd334a17c",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/ori",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/ori/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/ori/def.dyn",
+      "bytes": 581,
+      "sha256": "f03fec53a284b77922f5593dfd6251e32edab9b9f8f2db0af40f5c5845b8084a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/saturn",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/saturn/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/saturn/def.dyn",
+      "bytes": 316,
+      "sha256": "e20a0e9511255111be472cf6efd78a8eaef6ddd4574aeabdf40d3d171351c8de",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/sun/1",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/sun/1/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/sun/1/def.dyn",
+      "bytes": 316,
+      "sha256": "8b1d770cee07f7bd34cffafd358ffbb7890485fde62deb5d1b2ab00de2869715",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/sun/2",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/sun/2/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/sun/2/def.dyn",
+      "bytes": 244,
+      "sha256": "256ce197ce784e4899d3016c50680494fefd686597a65690ce78318161823b7f",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/sun/3",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/sun/3/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/sun/3/def.dyn",
+      "bytes": 244,
+      "sha256": "3687771921dd1a7a03498640d9a345b3924086926c9f5ef060070cbed92e985d",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/sun/4",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/sun/4/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/sun/4/def.dyn",
+      "bytes": 172,
+      "sha256": "dc4cc09896743a22d88023a87faa47943476ffbe28cb4ad04be38f524cfedbbe",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/sun/5",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/sun/5/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/sun/5/def.dyn",
+      "bytes": 292,
+      "sha256": "cf51382cc63e61b3dd18db1f6b04e30023050f8d29d37ae804c789fc0a5ed35a",
+      "status": "downloaded"
+    },
+    {
+      "endpoint": "sc_voyager_2/uranus",
+      "source": "https://eyes.nasa.gov/assets/dynamic/dynamo/sc_voyager_2/uranus/def.dyn",
+      "file": "resources/nasa-eyes/dynamo/sc_voyager_2/uranus/def.dyn",
+      "bytes": 172,
+      "sha256": "a5219481a12d1424746a6f8236efbfa6a7bc79822dc05edb526c45050982532a",
+      "status": "downloaded"
+    }
+  ],
+  "stars": [
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.0.bin",
+      "file": "static/images/sky/nasa-eyes/stars.0.bin",
+      "sha256": "abca5a8997e52adaa4aac9121ba747071383dce182de15c08f0ffb46e46aa5a5",
+      "count": 5067
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.1.bin",
+      "file": "static/images/sky/nasa-eyes/stars.1.bin",
+      "sha256": "4890118e7293ba2d2d76b156250dcc50a614a3218cb773219c2f13f64c7a536f",
+      "count": 7418
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.2.bin",
+      "file": "static/images/sky/nasa-eyes/stars.2.bin",
+      "sha256": "ec8775d677e4436f5ab1591eaabd9045329ec84b2add9b3796f1e9b031d8ff8c",
+      "count": 7628
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.3.bin",
+      "file": "static/images/sky/nasa-eyes/stars.3.bin",
+      "sha256": "268b335750935d98ad43c4ac9582f3b7dc53c896f323f71e56d51eaa4683b67c",
+      "count": 7747
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.4.bin",
+      "file": "static/images/sky/nasa-eyes/stars.4.bin",
+      "sha256": "840bf58b5c518ae08f6e4a1d5180b7d83c4aaab3918a9e37288800cb5db5509f",
+      "count": 7278
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/stars.5.bin",
+      "file": "static/images/sky/nasa-eyes/stars.5.bin",
+      "sha256": "6fd37f1dcb54777162f188db815b35c12d4dffb8e4a62a53564ee71f356646c1",
+      "count": 7529
+    },
+    {
+      "url": "https://eyes.nasa.gov/assets/static/stars/galaxies.0.bin",
+      "file": "static/images/sky/nasa-eyes/galaxies.0.bin",
+      "sha256": "2fbe14f798539bed8cb0b7770d9ad4fae4b6a460c675b00622a932a967029b05",
+      "count": 1211
+    }
+  ]
+}

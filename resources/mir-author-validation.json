@@ -1,0 +1,12 @@
+{
+  "errors": 0,
+  "warnings": 1,
+  "messages": [
+    {
+      "code": "IMAGE_FEATURES_UNSUPPORTED",
+      "message": "Image contains unsupported features like non-default colorspace information, non-square pixels, or animation.",
+      "severity": 1,
+      "pointer": "/images/0"
+    }
+  ]
+}

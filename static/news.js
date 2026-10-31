@@ -41,7 +41,10 @@
   if(!request){if(!background)list.replaceChildren(element('p','Consultation des actualités…','news-empty'));request=fetch(new URL(window.AtlasStatic?'news.json':'api/news',base),{cache:'no-store'}).then(response=>{if(!response.ok)throw Error('Actualités indisponibles');return response.json();}).finally(()=>{request=null;});}
   try{render(await request);}catch{if(!background)list.replaceChildren(element('p','Les actualités sont momentanément indisponibles. Réessayez dans un instant.','news-empty'));request=null;}
  }
- button.addEventListener('click',async()=>{if(dialog.open){dialog.close();return;}if(typeof matchMedia==='function'&&matchMedia('(min-width: 901px)').matches&&document.body.classList.contains('earth-workspace'))dialog.show();else dialog.showModal();button.setAttribute('aria-expanded','true');await refresh();});
+ function standaloneDropdown(){return typeof matchMedia==='function'&&matchMedia('(min-width: 901px)').matches&&document.body.classList.contains('lunar-page');}
+ function positionStandalone(){if(!dialog.open||!standaloneDropdown())return;const r=button.getBoundingClientRect(),width=Math.min(480,innerWidth-32),bounds={top:r.bottom+8,left:Math.max(16,Math.min(innerWidth-width-16,r.right-width)),width,maxHeight:Math.min(innerHeight*.5,innerHeight-r.bottom-24)};if(window.AtlasUI?.place)window.AtlasUI.place(dialog,bounds);else for(const [k,v] of Object.entries(bounds))dialog.style[k]=v+'px';}
+ window.addEventListener?.('resize',positionStandalone);
+ button.addEventListener('click',async()=>{if(dialog.open){dialog.close();return;}if(typeof matchMedia==='function'&&matchMedia('(min-width: 901px)').matches&&(document.body.classList.contains('earth-workspace')||standaloneDropdown()))dialog.show();else dialog.showModal();button.setAttribute('aria-expanded','true');positionStandalone();await refresh();positionStandalone();});
  if(typeof setInterval==='function')setInterval(()=>{if(dialog.open&&!document.hidden)refresh(true);},60000);
 
  document.addEventListener('pointerdown',event=>{if(dialog.open&&!dialog.matches(':modal')&&!dialog.contains(event.target)&&!button.contains(event.target))dialog.close();});

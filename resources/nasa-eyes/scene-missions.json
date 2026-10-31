@@ -1,0 +1,420 @@
+[
+  {
+    "key": "sc_new_horizons",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/new_horizons.gltf"
+    ],
+    "dynamo": [
+      "sc_new_horizons/earth/orb",
+      "sc_new_horizons/sun/1/orb",
+      "sc_new_horizons/jupiter/orb",
+      "sc_new_horizons/sun/2/orb",
+      "sc_new_horizons/pluto/orb",
+      "sc_new_horizons/sun/3/pos",
+      "sc_new_horizons/mu69/pos",
+      "sc_new_horizons/sun/4/pos",
+      "sc_new_horizons/ori/1",
+      "sc_new_horizons/ori/2"
+    ],
+    "parents": [
+      [
+        190972278.33046317,
+        "earth"
+      ],
+      [
+        191055829.0,
+        "sun"
+      ],
+      [
+        225619606.0,
+        "jupiter"
+      ],
+      [
+        226100665.0,
+        "sun"
+      ],
+      [
+        490130161.0,
+        "134340_pluto"
+      ],
+      [
+        490167848.0,
+        "sun"
+      ],
+      [
+        598753684.0,
+        "486958_arrokoth"
+      ],
+      [
+        600203601.0,
+        "sun"
+      ]
+    ]
+  },
+  {
+    "key": "sc_voyager_1",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf"
+    ],
+    "dynamo": [
+      "sc_voyager_1/earth",
+      "sc_voyager_1/sun/1",
+      "sc_voyager_1/jupiter",
+      "sc_voyager_1/sun/2",
+      "sc_voyager_1/saturn",
+      "sc_voyager_1/sun/3",
+      "sc_voyager_1/ori"
+    ],
+    "parents": [
+      [
+        -704412035.617,
+        "earth"
+      ],
+      [
+        -703530245.0,
+        "sun"
+      ],
+      [
+        -660264745.0,
+        "jupiter"
+      ],
+      [
+        -655057463.0,
+        "sun"
+      ],
+      [
+        -606239665.0,
+        "saturn"
+      ],
+      [
+        -600733702.0,
+        "sun"
+      ]
+    ]
+  },
+  {
+    "key": "sc_voyager_2",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf"
+    ],
+    "dynamo": [
+      "sc_voyager_2/earth",
+      "sc_voyager_2/sun/1",
+      "sc_voyager_2/jupiter",
+      "sc_voyager_2/sun/2",
+      "sc_voyager_2/saturn",
+      "sc_voyager_2/sun/3",
+      "sc_voyager_2/uranus",
+      "sc_voyager_2/sun/4",
+      "sc_voyager_2/neptune",
+      "sc_voyager_2/sun/5",
+      "sc_voyager_2/ori"
+    ],
+    "parents": [
+      [
+        -705788847.817,
+        "earth"
+      ],
+      [
+        -704774613.0,
+        "sun"
+      ],
+      [
+        -650828783.0,
+        "jupiter"
+      ],
+      [
+        -642276063.0,
+        "sun"
+      ],
+      [
+        -582886481.0,
+        "saturn"
+      ],
+      [
+        -574538624.0,
+        "sun"
+      ],
+      [
+        -440395228.0,
+        "uranus"
+      ],
+      [
+        -439259319.0,
+        "sun"
+      ],
+      [
+        -327233138.0,
+        "neptune"
+      ],
+      [
+        -326252606.0,
+        "sun"
+      ]
+    ]
+  },
+  {
+    "key": "sc_jwst",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_jwst/webb_deployed.gltf"
+    ],
+    "dynamo": [
+      "sc_jwst/earth/orb"
+    ],
+    "parents": [
+      [
+        693708549.184,
+        "earth"
+      ]
+    ]
+  },
+  {
+    "key": "sc_gaia",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_herschel",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_planck",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_euclid",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.gltf"
+    ],
+    "dynamo": [
+      "sc_euclid/earth"
+    ],
+    "parents": [
+      [
+        741498789.0,
+        "earth"
+      ]
+    ]
+  },
+  {
+    "key": "sc_soho",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.gltf"
+    ],
+    "dynamo": [
+      "sc_soho"
+    ],
+    "parents": [
+      [
+        -128831107.0,
+        "earth"
+      ]
+    ]
+  },
+  {
+    "key": "sc_ace",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_ace/ace.gltf"
+    ],
+    "dynamo": [
+      "sc_ace"
+    ],
+    "parents": [
+      [
+        115387273.0,
+        "earth"
+      ]
+    ]
+  },
+  {
+    "key": "sc_cassini",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_cassini/Cassini.gltf"
+    ],
+    "dynamo": [
+      "sc_cassini/earth/launch/orb",
+      "sc_cassini/sun/1/orb",
+      "sc_cassini/venus/flyby1/orb",
+      "sc_cassini/sun/2/orb",
+      "sc_cassini/venus/flyby2/orb",
+      "sc_cassini/sun/3/orb",
+      "sc_cassini/earth/flyby/orb",
+      "sc_cassini/sun/4/orb",
+      "sc_cassini/saturn/orb",
+      "sc_cassini/quat"
+    ],
+    "parents": [
+      [
+        -69820368.42763124,
+        "earth"
+      ],
+      [
+        -69537536.818,
+        "sun"
+      ],
+      [
+        -53179136.814,
+        "venus"
+      ],
+      [
+        -53092736.814,
+        "sun"
+      ],
+      [
+        -16495135.816,
+        "venus"
+      ],
+      [
+        -16451935.816,
+        "sun"
+      ],
+      [
+        -11951935.817,
+        "earth"
+      ],
+      [
+        -11660335.817,
+        "sun"
+      ],
+      [
+        139219264.185,
+        "saturn"
+      ]
+    ]
+  },
+  {
+    "key": "sc_juno",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_juno/Juno.gltf"
+    ],
+    "dynamo": [
+      "sc_juno/earth/launch/orb",
+      "sc_juno/sun/preflyby/orb",
+      "sc_juno/earth/flyby/orb",
+      "sc_juno/sun/postflyby/orb",
+      "sc_juno/jupiter/orb",
+      "sc_juno/ganymede/orb",
+      "sc_juno/europa/orb",
+      "sc_juno/io/1/orb",
+      "sc_juno/io/2/orb",
+      "sc_juno/ori"
+    ],
+    "parents": [
+      [
+        365836752.1832,
+        "earth"
+      ],
+      [
+        366088266.183,
+        "sun"
+      ],
+      [
+        434433667.182,
+        "earth"
+      ],
+      [
+        434793667.182,
+        "sun"
+      ],
+      [
+        519652868.184,
+        "jupiter"
+      ],
+      [
+        676339597.0,
+        "ganymede"
+      ],
+      [
+        676381521.0,
+        "jupiter"
+      ],
+      [
+        717700360.0,
+        "europa"
+      ],
+      [
+        717727733.0,
+        "jupiter"
+      ],
+      [
+        757191924.0,
+        "io"
+      ],
+      [
+        757203571.0,
+        "jupiter"
+      ],
+      [
+        760247560.0,
+        "io"
+      ],
+      [
+        760262808.0,
+        "jupiter"
+      ]
+    ]
+  },
+  {
+    "key": "sc_bepicolombo",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_kepler",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_spitzer",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_spitzer/SPITZER.gltf"
+    ],
+    "dynamo": [
+      "sc_spitzer/earth/orb",
+      "sc_spitzer/sun/orb",
+      "sc_spitzer/quat"
+    ],
+    "parents": [
+      [
+        115064804.0,
+        "earth"
+      ],
+      [
+        115493678.0,
+        "sun"
+      ]
+    ]
+  },
+  {
+    "key": "sc_dscovr",
+    "models": [
+      "https://eyes.nasa.gov/assets/static/models/sc_dscovr/dscovr.gltf"
+    ],
+    "dynamo": [
+      "sc_dscovr/earth"
+    ],
+    "parents": [
+      [
+        476970068.0,
+        "earth"
+      ]
+    ]
+  },
+  {
+    "key": "sc_aditya_l1",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_spektr_rg",
+    "available": false,
+    "parents": []
+  },
+  {
+    "key": "sc_ikaros",
+    "available": false,
+    "parents": []
+  }
+]

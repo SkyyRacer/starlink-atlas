@@ -147,18 +147,559 @@
     ]
   },
   "tiangong": {
-    "file": "resources/detailed-originals/tiangong-sketchfab.glb",
+    "file": "resources/detailed-originals/tiangong-atlas.glb",
     "ids": [
       48274
     ],
-    "download": "https://raw.githubusercontent.com/Buggy1111/earth-pulse/be3a16addde8a5d59c73e7a1c5e512f3f8963ae0/public/models/sats/tiangong.glb",
-    "page": "https://sketchfab.com/3d-models/tiangong-aca22b1dd6d242c1ae7b88de2f483b77",
-    "version": "tianGong — maillage et matériaux de w29572227",
-    "credit": "w29572227 · CC BY 4.0",
-    "sha256": "d0e2ee481e63dfd28397346ce3802508136187e10263a2c3e1d203825eb2a3b5",
-    "license": "Creative Commons Attribution 4.0",
-    "license_url": "https://creativecommons.org/licenses/by/4.0/",
-    "note": "Redistributed GLB from earth-pulse; author and license verified against the original Sketchfab public API on 2026-10-20. Repackaged/compressed by earth-pulse; Atlas normalizes placement only."
+    "page": "https://www.cnsa.gov.cn/n6758823/n6758838/c10087703/content.html",
+    "download": "https://www.cnsa.gov.cn/n6758823/n6758838/c10087703/content.html",
+    "reference": "https://sketchfab.com/3d-models/tiangong-space-station-205e0d24d4994eb9a232abe728e10a0f",
+    "sha256": "3a6032cf2ab21d03c97f491579d5186ee523028b9d2a651f1a5a79fb260eba63",
+    "version": "Atlas historical reconstruction · CSS PBR",
+    "credit": "Atlas · reconstitution originale documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "solar_rig": [
+      {
+        "name": "Tianhe solar wing 2",
+        "kind": "beta",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          -6.7,
+          -1.6,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          -6.7,
+          -1.6,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Tianhe solar wing 1",
+        "kind": "beta",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          -6.7,
+          1.6,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          -6.7,
+          1.6,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Wentian solar carrier 2",
+        "kind": "alpha",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          6.55,
+          18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          6.55,
+          18.0,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Wentian solar wing 2",
+        "kind": "beta",
+        "alpha": "Wentian solar carrier 2",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -0.0,
+          1.0,
+          0.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          8.3,
+          18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.7500000000000009,
+          0.0,
+          1.0
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Wentian solar carrier 1",
+        "kind": "alpha",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          6.55,
+          18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          1.0,
+          0.0,
+          0,
+          6.55,
+          18.0,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Wentian solar wing 1",
+        "kind": "beta",
+        "alpha": "Wentian solar carrier 1",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -0.0,
+          -1.0,
+          -0.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          4.8,
+          18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.75,
+          0.0,
+          1.0
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Mengtian solar carrier 2",
+        "kind": "alpha",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          6.55,
+          -18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          6.55,
+          -18.0,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Mengtian solar wing 2",
+        "kind": "beta",
+        "alpha": "Mengtian solar carrier 2",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -0.0,
+          -1.0,
+          -0.0,
+          0,
+          -1.0,
+          0.0,
+          0.0,
+          0,
+          4.8,
+          -18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.75,
+          0.0,
+          1.0
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Mengtian solar carrier 1",
+        "kind": "alpha",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          6.55,
+          -18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          0.0,
+          -1.0,
+          0.0,
+          0,
+          6.55,
+          -18.0,
+          0.0,
+          1
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "name": "Mengtian solar wing 1",
+        "kind": "beta",
+        "alpha": "Mengtian solar carrier 1",
+        "body_from_joint": [
+          0.0,
+          0.0,
+          -1.0,
+          0,
+          -0.0,
+          1.0,
+          0.0,
+          0,
+          1.0,
+          0.0,
+          0.0,
+          0,
+          8.3,
+          -18.0,
+          0.0,
+          1
+        ],
+        "base_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.7500000000000009,
+          0.0,
+          1.0
+        ],
+        "normal_body": [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      }
+    ],
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "docked_visitors": [
+      {
+        "node": "Atlas CSS Shenzhou front",
+        "name": "Shenzhou · front",
+        "vehicle": "shenzhou",
+        "port": "front",
+        "variant": "shenzhou-8-10",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": [],
+        "body_length_m": 9,
+        "max_body_diameter_m": 2.8,
+        "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+      },
+      {
+        "node": "Atlas CSS Shenzhou nadir",
+        "name": "Shenzhou · nadir",
+        "vehicle": "shenzhou",
+        "port": "nadir",
+        "variant": "shenzhou-8-10",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": [],
+        "body_length_m": 9,
+        "max_body_diameter_m": 2.8,
+        "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+      },
+      {
+        "node": "Atlas CSS Tianzhou aft",
+        "name": "Tianzhou · composition visuelle",
+        "vehicle": "tianzhou",
+        "visibility": "always",
+        "port": "aft",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "note": "Reconstitution extérieure originale basée sur les dimensions publiques et un aperçu visuel. Aucun maillage ou texture Sketchfab extrait. Pose du bras et vaisseaux amarrés illustratifs.",
+    "compatibility": {
+      "remove_internal_caps": true
+    },
+    "material_finishes": {
+      "tg-white": {
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.52
+      },
+      "tg-grey": {
+        "metallicFactor": 0.38,
+        "roughnessFactor": 0.5
+      },
+      "tg-frame": {
+        "metallicFactor": 0.86,
+        "roughnessFactor": 0.4
+      },
+      "silver": {
+        "metallicFactor": 0.82,
+        "roughnessFactor": 0.42
+      },
+      "steel": {
+        "metallicFactor": 0.92,
+        "roughnessFactor": 0.38
+      }
+    },
+    "normal_map_scales": {
+      "tg-white": 0.08,
+      "tg-grey": 0.08,
+      "tg-frame": 0.06,
+      "silver": 0.08
+    }
   },
   "kepler": {
     "file": "resources/science-originals/kepler.glb",
@@ -284,10 +825,29 @@
     "credit": "DaveBowman2001 · CC BY 4.0 · conversion Atlas",
     "license": "CC BY 4.0",
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
-    "version": "Celestia Mir · configuration complète après Priroda, 1996",
-    "conversion": "scripts/convert_mir_celestia.py; original positions, normals and triangles retained; V texture coordinate inverted; Phong materials adapted to PBR; Atlas surface finish adjusted for environment reflections",
+    "version": "Celestia Mir · modèle original complet après Priroda (1996)",
+    "conversion": "scripts/convert_mir_celestia.py; original source geometry, UV placement, colour texture images and material assignments preserved without repainting.",
+    "historical_solar_tracking": true,
+    "body_axes": [
+      [
+        0,
+        0,
+        -1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
     "source_audit": "resources/model-research-2026-10-24/mir-source-audit.json",
-    "conversion_audit": "resources/mir-conversion-audit.json"
+    "conversion_audit": "resources/mir-conversion-audit.json",
+    "note": "Modèle d’auteur texturé, non reconstitution Atlas. Configuration matérielle représentative de 1996 ; pas de télémétrie historique d’attitude ou d’articulations."
   },
   "skylab": {
     "file": "resources/science-originals/skylab.glb",
@@ -307,23 +867,23 @@
     "material_finishes": {
       "blinn4SG": {
         "metallicFactor": 0.7,
-        "roughnessFactor": 0.34
+        "roughnessFactor": 0.5
       },
       "anisotropic1SG": {
-        "metallicFactor": 0.85,
-        "roughnessFactor": 0.25
+        "metallicFactor": 0.8,
+        "roughnessFactor": 0.48
       },
       "initialShadingGr": {
         "metallicFactor": 0.55,
-        "roughnessFactor": 0.35
+        "roughnessFactor": 0.5
       },
       "apollohorns_blin": {
-        "metallicFactor": 0.85,
-        "roughnessFactor": 0.3
+        "metallicFactor": 0.8,
+        "roughnessFactor": 0.44
       },
       "apollohorns_bli1": {
         "metallicFactor": 0.45,
-        "roughnessFactor": 0.32
+        "roughnessFactor": 0.48
       },
       "blinn13SG": {
         "metallicFactor": 0.25,
@@ -343,19 +903,19 @@
       },
       "blinn11SG": {
         "metallicFactor": 0.2,
-        "roughnessFactor": 0.28
+        "roughnessFactor": 0.46
       },
       "blinn14SG": {
         "metallicFactor": 0.2,
-        "roughnessFactor": 0.28
+        "roughnessFactor": 0.46
       },
       "lambert7SG": {
         "metallicFactor": 0.2,
-        "roughnessFactor": 0.32
+        "roughnessFactor": 0.46
       },
       "blinn17SG": {
         "metallicFactor": 0.2,
-        "roughnessFactor": 0.32
+        "roughnessFactor": 0.46
       },
       "lambert4SG": {
         "metallicFactor": 0.15,
@@ -369,6 +929,56 @@
         "metallicFactor": 0.15,
         "roughnessFactor": 0.38
       }
+    },
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Fixed deployed arrays; nominal station Sun pointing.",
+    "render_lighting": {
+      "light_color": [
+        1,
+        1,
+        1
+      ],
+      "ibl_factor": [
+        0.6,
+        0.45
+      ]
+    },
+    "compatibility": {
+      "material_specular": {
+        "blinn14SG": {
+          "specularColorFactor": [
+            1,
+            1,
+            1
+          ],
+          "specularFactor": 0.65
+        },
+        "lambert3SG": {
+          "specularColorFactor": [
+            1,
+            1,
+            1
+          ],
+          "specularFactor": 0.65
+        },
+        "lambert7SG": {
+          "specularColorFactor": [
+            1,
+            1,
+            1
+          ],
+          "specularFactor": 0.65
+        },
+        "initialShadingGr": {
+          "specularColorFactor": [
+            1,
+            1,
+            1
+          ],
+          "specularFactor": 0.65
+        }
+      },
+      "skylab_planar_caps": true
     }
   },
   "grace-fo": {
@@ -598,5 +1208,764 @@
     },
     "presentation_focus_node": "tex_02_AO_dark",
     "presentation_focus_description": "Centre du corps technique de la sonde, sous la grande antenne"
+  },
+  "euclid": {
+    "file": "resources/nasa-eyes/models/euclid/original.glb",
+    "ids": [
+      57209
+    ],
+    "sha256": "e28fe6c69ca61f4153ac7c0a857f7f575aefd45d3af88eeea1c5dfd5522f0567",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_euclid",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "new-horizons": {
+    "file": "resources/nasa-eyes/models/new-horizons/original.glb",
+    "ids": [
+      28928
+    ],
+    "sha256": "53796272bb99cf66f2ab019993bd9af24e67efa8ee535c4d2185ba7149a0178e",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_new_horizons",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/new_horizons.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "soho": {
+    "file": "resources/nasa-eyes/models/soho/original.glb",
+    "ids": [
+      23726
+    ],
+    "sha256": "d1d835aab0885e82fa528000250a47e375afa15a84d31bd13e33617cf98af871",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_soho",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "ace": {
+    "file": "resources/nasa-eyes/models/ace/original.glb",
+    "ids": [
+      24912
+    ],
+    "sha256": "297bed7eb9ba9a4166b7f2517d0a49e7b8b3b9b11c3259e428d2a4e2ccb25a53",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_ace",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_ace/ace.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "cassini": {
+    "file": "resources/nasa-eyes/models/cassini/original.glb",
+    "ids": [
+      25008
+    ],
+    "sha256": "79ff8524ccfa8889995f66deb52daf68bd694e2c4be954b2771301bc40c86206",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_cassini",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_cassini/Cassini.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "dscovr": {
+    "file": "resources/nasa-eyes/models/dscovr/original.glb",
+    "ids": [
+      40390
+    ],
+    "sha256": "39ae0fa781de50e01b70564ffa7e70e8e69f123a47d7bf39978baad4f7eb99de",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_dscovr",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_dscovr/dscovr.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "juno": {
+    "file": "resources/nasa-eyes/models/juno/original.glb",
+    "ids": [
+      37773
+    ],
+    "sha256": "648688ec02a0569afbbf8be0a5773d17c3dc54de4adf6db08b6fad6ed574369b",
+    "page": "https://eyes.nasa.gov/apps/solar-system/#/sc_juno",
+    "download": "https://eyes.nasa.gov/assets/static/models/sc_juno/Juno.gltf",
+    "credit": "NASA/JPL-Caltech · Eyes on the Solar System",
+    "version": "NASA Eyes · original texturé",
+    "material_finishes": {},
+    "note": "Source glTF regroupée en GLB, géométrie et textures conservées."
+  },
+  "juice": {
+    "file": "resources/detailed-originals/juice-esa.glb",
+    "ids": [
+      56176
+    ],
+    "download": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/",
+    "page": "https://juicesoc.esac.esa.int/help/82_spacecraft_model.html",
+    "version": "ESA JUICE CAD · Atlas PBR finish",
+    "sha256": "f8dbdb66f1328b5772474e201bc01c479828946034d85cdaa210936b3e5e5329",
+    "credit": "ESA / Airbus · adaptation Atlas",
+    "license": "ESA public SPICE spacecraft model · original Atlas surface finishes",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "presentation_focus_node": "JUICE bus",
+    "note": "Géométrie ESA/Airbus simplifiée pour le navigateur ; assemblage des 31 composants, matériaux illustratifs Atlas, sans télémétrie d’attitude."
+  },
+  "salyut-1": {
+    "file": "resources/detailed-originals/salyut-1-atlas.glb",
+    "ids": [
+      5160
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "89698e63398011865aa2a2d466d039e451a29b100d4b8dd056dd2775704c9830",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz front early",
+        "port": "front",
+        "variant": "early",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Fixed deployed arrays; nominal station Sun pointing."
+  },
+  "salyut-2": {
+    "file": "resources/detailed-originals/salyut-2-atlas.glb",
+    "ids": [
+      6398
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "5516301a8195bf4254433e6a9b85369aadbece726ad30f5c46dfb13526841cb3",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz aft ferry",
+        "port": "aft",
+        "variant": "ferry",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "salyut-3": {
+    "file": "resources/detailed-originals/salyut-3-atlas.glb",
+    "ids": [
+      7342
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "4f49686320f75f4a4454a91c6eb0a66ca5ce6a50ea317badf9679a49441f0f99",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz aft ferry",
+        "port": "aft",
+        "variant": "ferry",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "salyut-4": {
+    "file": "resources/detailed-originals/salyut-4-atlas.glb",
+    "ids": [
+      7591
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "a13a71cf1de8358a04be3b16e594c5fe6e9aaa31d20a555da726c06b6beeff21",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz front ferry",
+        "port": "front",
+        "variant": "ferry",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "salyut-5": {
+    "file": "resources/detailed-originals/salyut-5-atlas.glb",
+    "ids": [
+      8911
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "5c1fef3c166cdf8ab7fcee3398ebb2acbaeb0b4a55f060f97a73ccc925be9530",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz aft ferry",
+        "port": "aft",
+        "variant": "ferry",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "salyut-6": {
+    "file": "resources/detailed-originals/salyut-6-atlas.glb",
+    "ids": [
+      10382
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "5612a3d2285bcb3892378e952ec1cb1882ded114f5f6f75a78c1fd72ce27ef82",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz front t",
+        "port": "front",
+        "variant": "t",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "salyut-7": {
+    "file": "resources/detailed-originals/salyut-7-atlas.glb",
+    "ids": [
+      13138
+    ],
+    "download": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "sha256": "f5064ae574073c64c297fd07aa8928248aa03ecee03ac5046aadd8de6fb29aae",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée.",
+    "solar_rig": [],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Soyuz front t",
+        "port": "front",
+        "variant": "t",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": []
+      }
+    ],
+    "historical_solar_tracking": true,
+    "solar_tracking_note": "Documented one-axis array tracking; nominal 180-degree sweep, source-mesh hinge calibration. Historical commands, failures, parking angles and exact mechanical stops are not measured."
+  },
+  "tiangong-1": {
+    "file": "resources/detailed-originals/tiangong-1-atlas.glb",
+    "ids": [
+      37820
+    ],
+    "download": "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+    "page": "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+    "sha256": "ac0dacbc14c0d93d7851a0ba23d6cd8a7dccac4cdaa1afd6f42e29245d813bbe",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec Shenzhou amarré en permanence ; attitude historique non mesurée.",
+    "solar_rig": [
+      {
+        "name": "Lab solar drive 1",
+        "kind": "beta",
+        "body_from_joint": [
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -2.7,
+          1.4,
+          0,
+          1
+        ],
+        "base_matrix": [
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -2.7,
+          1.4,
+          0,
+          1
+        ],
+        "normal_body": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "name": "Lab solar drive 2",
+        "kind": "beta",
+        "body_from_joint": [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -2.7,
+          -1.4,
+          0,
+          1
+        ],
+        "base_matrix": [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -2.7,
+          -1.4,
+          0,
+          1
+        ],
+        "normal_body": [
+          0,
+          0,
+          -1
+        ]
+      }
+    ],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Shenzhou front",
+        "name": "Shenzhou · composition visuelle",
+        "vehicle": "shenzhou",
+        "port": "front",
+        "variant": "shenzhou-8-10",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": [],
+        "body_length_m": 9,
+        "max_body_diameter_m": 2.8,
+        "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+      }
+    ],
+    "compatibility": {
+      "remove_internal_caps": true
+    },
+    "material_finishes": {
+      "tg-white": {
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.52
+      },
+      "tg-grey": {
+        "metallicFactor": 0.38,
+        "roughnessFactor": 0.5
+      },
+      "tg-frame": {
+        "metallicFactor": 0.86,
+        "roughnessFactor": 0.4
+      },
+      "silver": {
+        "metallicFactor": 0.82,
+        "roughnessFactor": 0.42
+      },
+      "steel": {
+        "metallicFactor": 0.92,
+        "roughnessFactor": 0.38
+      }
+    },
+    "normal_map_scales": {
+      "tg-white": 0.08,
+      "tg-grey": 0.08,
+      "tg-frame": 0.06,
+      "silver": 0.08
+    }
+  },
+  "tiangong-2": {
+    "file": "resources/detailed-originals/tiangong-2-atlas.glb",
+    "ids": [
+      41765
+    ],
+    "download": "https://en.cmse.gov.cn/news/201907/t20190713_44588.html",
+    "page": "https://en.cmse.gov.cn/news/201907/t20190713_44588.html",
+    "sha256": "d23ab4b3633352f7db5dd05b0803b29fe73fb0d2be25b9a7ce3ae0e74b84e646",
+    "credit": "Atlas · reconstitution documentée",
+    "license": "CC BY 4.0 · original Atlas geometry/textures",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec Shenzhou amarré en permanence ; attitude historique non mesurée.",
+    "solar_rig": [
+      {
+        "name": "Lab solar drive 1",
+        "kind": "beta",
+        "body_from_joint": [
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -2.7,
+          1.4,
+          0,
+          1
+        ],
+        "base_matrix": [
+          0,
+          0,
+          -1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -2.7,
+          1.4,
+          0,
+          1
+        ],
+        "normal_body": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "name": "Lab solar drive 2",
+        "kind": "beta",
+        "body_from_joint": [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -2.7,
+          -1.4,
+          0,
+          1
+        ],
+        "base_matrix": [
+          0,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -2.7,
+          -1.4,
+          0,
+          1
+        ],
+        "normal_body": [
+          0,
+          0,
+          -1
+        ]
+      }
+    ],
+    "docked_visitors": [
+      {
+        "node": "Atlas docked Shenzhou front",
+        "name": "Shenzhou-11 · composition visuelle",
+        "vehicle": "shenzhou",
+        "port": "front",
+        "variant": "shenzhou-11",
+        "visibility": "always",
+        "illustrative": true,
+        "intervals": [],
+        "body_length_m": 9,
+        "max_body_diameter_m": 2.8,
+        "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+      }
+    ],
+    "compatibility": {
+      "remove_internal_caps": true
+    },
+    "material_finishes": {
+      "tg-white": {
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.52
+      },
+      "tg-grey": {
+        "metallicFactor": 0.38,
+        "roughnessFactor": 0.5
+      },
+      "tg-frame": {
+        "metallicFactor": 0.86,
+        "roughnessFactor": 0.4
+      },
+      "silver": {
+        "metallicFactor": 0.82,
+        "roughnessFactor": 0.42
+      },
+      "steel": {
+        "metallicFactor": 0.92,
+        "roughnessFactor": 0.38
+      }
+    },
+    "normal_map_scales": {
+      "tg-white": 0.08,
+      "tg-grey": 0.08,
+      "tg-frame": 0.06,
+      "silver": 0.08
+    }
   }
 }

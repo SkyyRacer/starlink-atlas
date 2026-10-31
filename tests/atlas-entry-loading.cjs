@@ -64,3 +64,5 @@ for(const mission of require('../static/pages.js').definitions.filter(row=>row.t
 }
 assert.match(fs.readFileSync('static/desktop-viewport-guard.css','utf8'),/html\[data-mission-page=true\] :is\(\.loading-earth,#model-loader\)\{display:none!important\}/);
 console.log('All distant missions: one logo card on local and GitHub paths, no old progress bars, real visual readiness, date reloads, background refresh and failure release OK.');
+const earthPreferences=new Map([['atlas-display-preferences-v1',JSON.stringify({realistic:false,sky:true})]]);
+const earthEntry=boot({url:'https://example.org/atlas?view=earth',storage:earthPreferences});assert.equal(earthEntry.entry,true);assert.equal(earthEntry.document.documentElement.dataset.atlasResetPreferences,undefined,'The solar Earth entry preserves the previous page sky preference');assert.equal(JSON.parse(earthPreferences.get('atlas-display-preferences-v1')).sky,true);

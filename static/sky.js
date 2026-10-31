@@ -1,7 +1,7 @@
 'use strict';
 /* Shared celestial and terrestrial projection for consistent apparent positions. */
 window.AtlasSky={
- create(viewer,C){
+ create(viewer,C,{solarFlare=true,sunPosition=null,earthPosition=null}={}){
   let enabled=false,texture=null,command=null,pending=null,destroyed=false;
   const credit=new C.Credit('Ciel : NASA SVS · texture satellitemap.space',true);
   const primitive={
@@ -18,8 +18,10 @@ window.AtlasSky={
       fragmentShaderSource:`uniform sampler2D u_stars;
        uniform mat3 u_fixedToIcrf;
        uniform vec3 u_sunPosition;
+       uniform vec3 u_earthPosition;
        uniform float u_aspect;
        uniform float u_mood;
+       uniform float u_solarFlare;
        in vec2 v_clip;
        void main(){
         vec3 ray=normalize((czm_inverseProjection*vec4(v_clip,-1.0,1.0)).xyz);
@@ -53,9 +55,9 @@ window.AtlasSky={
         vec2 sunScreen=solarClip.xy/max(0.0001,solarClip.w);
         vec4 cameraRay=czm_inverseProjection*vec4(sunScreen,-1.0,1.0);
         vec3 towardSun=normalize(transpose(czm_viewRotation)*cameraRay.xyz);
-        float cameraDistance=max(length(czm_viewerPositionWC),6371001.0);
+        float cameraDistance=max(length(czm_viewerPositionWC-u_earthPosition),6371001.0);
         float earthRadius=asin(clamp(6371000.0/cameraDistance,0.0,1.0));
-        float earthSeparation=acos(clamp(dot(towardSun,-normalize(czm_viewerPositionWC)),-1.0,1.0));
+        float earthSeparation=acos(clamp(dot(towardSun,normalize(u_earthPosition-czm_viewerPositionWC)),-1.0,1.0));
         float visible=smoothstep(-0.006,0.006,earthSeparation-earthRadius);
         visible*=1.0-smoothstep(0.95,1.25,max(abs(sunScreen.x),abs(sunScreen.y)));
         visible*=step(sunDirection.z,-0.0001);
@@ -72,10 +74,10 @@ window.AtlasSky={
         color=mix(color,color*vec3(0.82,0.85,0.93),u_mood);
         // Low, warm scattered light stays local to the Sun and fades at eclipse.
         vec3 haze=vec3(0.025,0.013,0.006)*exp(-angle*3.5)*u_mood;
-        color+=((solar+flare)*warmTint+haze)*visible;
+        color+=((solar+flare)*warmTint+haze)*visible*u_solarFlare;
         out_FragColor=vec4(color,1.0);
        }`});
-     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_fixedToIcrf:()=>window.AtlasCelestialFrame.fixedToIcrf(C,viewer.clock.currentTime),u_sunPosition:()=>window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
+     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_solarFlare:()=>typeof solarFlare==='function'?Math.max(0,Math.min(1,solarFlare())):solarFlare?1:0,u_fixedToIcrf:()=>window.AtlasCelestialFrame.fixedToIcrf(C,viewer.clock.currentTime),u_sunPosition:()=>sunPosition?sunPosition():window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),u_earthPosition:()=>earthPosition?earthPosition():{x:0,y:0,z:0},u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
     }
     return command;
    },
@@ -88,6 +90,7 @@ window.AtlasSky={
    if(enabled&&!texture){
     pending??=C.Resource.fetchImage({url:'/images/sky/reference-starmap-8k.jpg'}).then(image=>{
      if(destroyed)return;
+     const gl=viewer.scene.context?._gl,limit=gl?gl.getParameter(gl.MAX_TEXTURE_SIZE):8192;if(image.width>limit||image.height>limit){const resized=document.createElement('canvas'),ratio=limit/Math.max(image.width,image.height);resized.width=Math.max(1,Math.round(image.width*ratio));resized.height=Math.max(1,Math.round(image.height*ratio));resized.getContext('2d').drawImage(image,0,0,resized.width,resized.height);image=resized;}
      texture=new C.Texture({context:viewer.scene.context,source:image,flipY:true,sampler:new C.Sampler({minificationFilter:C.TextureMinificationFilter.LINEAR,magnificationFilter:C.TextureMagnificationFilter.LINEAR})});
     }).catch(error=>{pending=null;throw error;});
     await pending;

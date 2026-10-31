@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/Cassini.gltf",
+    "sha256": "dff0eb45563e761c7fb72b9fbac0db53f18cf1b087f0fc2c721d78864d20b8c3"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/cassini.bin",
+    "sha256": "c9f0ffcb4805b4ef295b59987662138fc5cdda3b792b2f0b477c406b86a3ed39"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/foil_normal.png",
+    "sha256": "541c5998fcb208c50670dbe3dc29d31b7b903e75447a824d73afe5da1fc00a2a"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/cassini_dish_ao.jpg",
+    "sha256": "a10eb5352e51582af99911209a10a0a7553fa807c425087883a50386252cd5a8"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/cassini_normal.png",
+    "sha256": "355116da0b76d56bc6c142cf1e7563d8fa8496534c78d6d52f72d3be25c53f46"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/cassini_albedo.jpg",
+    "sha256": "ea2d19d9a4a19ef4416f0c93bccf79bedc14047e7961d8e8276cb434ade0487b"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_cassini/cassini_pbr.jpg",
+    "sha256": "3397682f37bbcd1b91accdc3db33658ab92f9f21014bef4b9a11eab7e25152af"
+  }
+]

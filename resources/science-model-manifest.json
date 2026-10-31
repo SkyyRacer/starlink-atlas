@@ -325,23 +325,6 @@
     "bytes": 102045
   },
   {
-    "key": "mir",
-    "page_id": "mir",
-    "ids": [
-      16609
-    ],
-    "name": "Mir",
-    "kind": "nasa-adaptation",
-    "credit": "NASA 3D Resources · adaptation filaire Atlas",
-    "source": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Mir",
-    "glb": "images/science/mir.glb?v=da5e782023b0",
-    "drawing": "images/science/mir.json?v=710a0a3b0755",
-    "radius": 51.47,
-    "segments": 2200,
-    "line_segments": 2200,
-    "bytes": 125824
-  },
-  {
     "key": "skylab",
     "page_id": "skylab",
     "ids": [
@@ -375,5 +358,185 @@
     "segments": 2200,
     "line_segments": 2200,
     "bytes": 126756
+  },
+  {
+    "key": "salyut-1",
+    "page_id": "salyut",
+    "ids": [
+      5160
+    ],
+    "name": "Saliout 1",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-1.glb?v=bea37d122ce8",
+    "drawing": "images/science/salyut-1.json?v=43751a6c7504",
+    "radius": 95.312,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 155023,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-2",
+    "page_id": "salyut",
+    "ids": [
+      6398
+    ],
+    "name": "Saliout 2",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-2.glb?v=6363774ea7db",
+    "drawing": "images/science/salyut-2.json?v=c634324a9659",
+    "radius": 99.208,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 154135,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-3",
+    "page_id": "salyut",
+    "ids": [
+      7342
+    ],
+    "name": "Saliout 3",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-3.glb?v=060004b4d914",
+    "drawing": "images/science/salyut-3.json?v=f4bb55944b15",
+    "radius": 99.207,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 154121,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-4",
+    "page_id": "salyut",
+    "ids": [
+      7591
+    ],
+    "name": "Saliout 4",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-4.glb?v=e260d4718749",
+    "drawing": "images/science/salyut-4.json?v=c302ab8b7e3b",
+    "radius": 90.819,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 156143,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-5",
+    "page_id": "salyut",
+    "ids": [
+      8911
+    ],
+    "name": "Saliout 5",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-5.glb?v=060004b4d914",
+    "drawing": "images/science/salyut-5.json?v=f4bb55944b15",
+    "radius": 99.207,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 154121,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-6",
+    "page_id": "salyut",
+    "ids": [
+      10382
+    ],
+    "name": "Saliout 6",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-6.glb?v=e0d0dd9159c2",
+    "drawing": "images/science/salyut-6.json?v=02fc93160f80",
+    "radius": 90.457,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 156729,
+    "body_axes": true
+  },
+  {
+    "key": "salyut-7",
+    "page_id": "salyut",
+    "ids": [
+      13138
+    ],
+    "name": "Saliout 7",
+    "kind": "detailed-model-outline",
+    "credit": "Atlas · contours du modèle détaillé",
+    "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "glb": "images/science/salyut-7.glb?v=80753ef9b503",
+    "drawing": "images/science/salyut-7.json?v=f4a2686fb5dc",
+    "radius": 91.023,
+    "segments": 1000,
+    "line_segments": 5000,
+    "bytes": 156775,
+    "body_axes": true
+  },
+  {
+    "key": "mir",
+    "page_id": "mir",
+    "ids": [
+      16609
+    ],
+    "name": "Mir",
+    "kind": "selected-model-outline",
+    "credit": "Atlas · contours du modèle Mir sélectionné",
+    "source": "https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir",
+    "glb": "images/science/mir.glb?v=bb0e274170fd",
+    "drawing": "images/science/mir.json?v=9a53b5c7d3b3",
+    "radius": 60.007,
+    "segments": 1800,
+    "line_segments": 27353,
+    "bytes": 717396,
+    "body_axes": true
+  },
+  {
+    "key": "tiangong-1",
+    "page_id": "tiangong-1",
+    "ids": [
+      37820
+    ],
+    "name": "Tiangong-1",
+    "kind": "original-reconstruction-outline",
+    "credit": "Atlas · contours de la reconstitution détaillée",
+    "source": "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+    "glb": "images/science/tiangong-1.glb?v=0d9d11ab7694",
+    "drawing": "images/science/tiangong-1.json?v=2ef2af796837",
+    "radius": 91.091,
+    "segments": 1600,
+    "line_segments": 9544,
+    "bytes": 284529,
+    "body_axes": true
+  },
+  {
+    "key": "tiangong-2",
+    "page_id": "tiangong-2",
+    "ids": [
+      41765
+    ],
+    "name": "Tiangong-2",
+    "kind": "original-reconstruction-outline",
+    "credit": "Atlas · contours de la reconstitution détaillée",
+    "source": "https://en.cmse.gov.cn/news/201907/t20190713_44588.html",
+    "glb": "images/science/tiangong-2.glb?v=227f8bfa829a",
+    "drawing": "images/science/tiangong-2.json?v=23f05c47e633",
+    "radius": 84.164,
+    "segments": 1600,
+    "line_segments": 9696,
+    "bytes": 288229,
+    "body_axes": true
   }
 ]

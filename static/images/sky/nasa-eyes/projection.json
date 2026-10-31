@@ -1,0 +1,10 @@
+{
+  "source": "NASA/JPL-Caltech Eyes on the Solar System",
+  "catalogue": "https://eyes.nasa.gov/assets/static/stars/",
+  "records": 43878,
+  "projection": "ICRF/J2000; u=0.5-RA/(2*pi), v_image=0.5-Dec/pi",
+  "width": 8192,
+  "height": 4096,
+  "sha256": "437a551e9304b00d127e7f4221a19835a93842bde5792bc7652aa28e91c0c1f1",
+  "note": "Rasterization of original Eyes stellar/galaxy positions and colours; no embedded Sun. The existing independent Atlas Sun shader is retained."
+}

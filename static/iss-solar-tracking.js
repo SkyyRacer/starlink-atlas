@@ -18,7 +18,7 @@
    const node=model.getNode(info.name);if(!node)return null;
    const bodyFromJoint=C.Matrix4.fromArray(info.body_from_joint),inverse=C.Matrix4.inverse(bodyFromJoint,new C.Matrix4());
    const normal=C.Cartesian3.normalize(C.Matrix4.multiplyByPointAsVector(inverse,new C.Cartesian3(...info.normal_body),new C.Cartesian3()),new C.Cartesian3());
-   joints.push({name:info.name,kind:info.kind||'beta',alpha:info.alpha,node,inverse,bodyFromJoint,normal,base:C.Matrix4.fromArray(info.base_matrix),angle:null,goal:0,matrix:new C.Matrix4(),inverseDelta:new C.Matrix4()});
+   joints.push({minimum:info.minimum_angle,maximum:info.maximum_angle,name:info.name,kind:info.kind||'beta',alpha:info.alpha,node,inverse,bodyFromJoint,normal,base:C.Matrix4.fromArray(info.base_matrix),angle:null,goal:0,matrix:new C.Matrix4(),inverseDelta:new C.Matrix4()});
   }
   const alphas=joints.filter(joint=>joint.kind==='alpha'),betas=joints.filter(joint=>joint.kind==='beta'),byName=new Map(joints.map(joint=>[joint.name,joint]));
   let previous=null,sunStamp=null,sunFixed=null;
@@ -42,8 +42,9 @@
    function step(joint,sun){
     const before=joint.angle;
     const localSun=C.Cartesian3.normalize(C.Matrix4.multiplyByPointAsVector(joint.inverse,sun,new C.Cartesian3()),new C.Cartesian3());
-    const desired=angleToSun(joint.normal,localSun,joint.goal);
-    joint.goal+=wrap(desired-joint.goal);
+    let desired=angleToSun(joint.normal,localSun,joint.goal);
+    if(Number.isFinite(joint.minimum)&&Number.isFinite(joint.maximum)){desired=Math.max(joint.minimum,Math.min(joint.maximum,desired));joint.goal=desired;}
+    else joint.goal+=wrap(desired-joint.goal);
     if(joint.angle===null)joint.angle=joint.goal;
     else joint.angle+=(joint.goal-joint.angle)*blend;
     if(Math.abs(joint.goal-joint.angle)<1e-5)joint.angle=joint.goal;else pending=true;

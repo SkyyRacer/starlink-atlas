@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "url": "https://erosita.mpe.mpg.de/edr/eROSITAObservations/OrbitFiles/srg_orbit_201910.fits.gz",
+      "sha256": "8f81141e3dcbe9044b2f0679bfb333f2994c23f859c46453d573d26ac7f59e91",
+      "samples": 1489,
+      "first_epoch": 1569888000,
+      "last_epoch": 1572566400
+    },
+    {
+      "url": "https://erosita.mpe.mpg.de/edr/eROSITAObservations/OrbitFiles/srg_orbit_201911.fits.gz",
+      "sha256": "6a643e1766cd27a2bd54fb1f61f0f23633e94ba109800201720c82104e6198f5",
+      "samples": 1441,
+      "first_epoch": 1572566400,
+      "last_epoch": 1575158400
+    },
+    {
+      "url": "https://erosita.mpe.mpg.de/edr/eROSITAObservations/OrbitFiles/srg_orbit_201912.fits.gz",
+      "sha256": "2750061bfd71390482ee6d67e0938452f1798c18642775ca63dace7fcf95a6c6",
+      "samples": 1585,
+      "first_epoch": 1574985600,
+      "last_epoch": 1577836800
+    }
+  ],
+  "conversion": "UTC columns cross-checked with MJD(TT); metres to km; m/s to km/s; geocentric J2000/ICRS"
+}

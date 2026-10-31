@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_derived:arrokoth_geophysics:mu69_merged</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Merged, High-Polygon Shape Model of (486958) Arrokoth,
+            OBJ format, from New Horizons LORRI and MVIC Instrument Observations</title>
+        <information_model_version>1.21.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        
+        <Alias_List>
+            <Alias>
+                <alternate_id>NH-A-LORRI/MVIC-5-GEOPHYS-V1.0:MU69_MERGED</alternate_id>
+                <comment>PDS3 Identifier</comment>
+            </Alias>
+        </Alias_List>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-05-12</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    ACR: Minimum effort migration from PDS3.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time xsi:nil="true" nilReason="inapplicable"/>
+            <stop_date_time xsi:nil="true" nilReason="inapplicable"/>
+        </Time_Coordinates>
+        
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>
+                3D printable OBJ file
+            </description>
+            <Science_Facets>
+                <discipline_name>Small Bodies</discipline_name>
+                <facet1>Shape Model</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>New Horizons Kuiper Belt Extended Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.new_horizons_kem1</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <Observing_System_Component>
+                <name>New Horizons</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Long Range Reconnaissance Imager</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.lorri</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Multispectral Visible Imaging Camera</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.mvic</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        
+        <Target_Identification>
+            <name>(486958) Arrokoth</name>
+            <type>Trans-Neptunian Object</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:trans-neptunian_object.486958_2014_mu69</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:nasa:pds:nh_derived:arrokoth_geophysics:overview::1.0</lidvid_reference>
+            <reference_type>data_to_document</reference_type>
+            <comment>This overview provides brief information about all the data production and content.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lidvid_reference>urn:nasa:pds:nh_derived:arrokoth_geophysics:mu69_merged_spice::1.0</lidvid_reference>
+            <reference_type>data_to_derived_product</reference_type>
+            <comment>This is the SPICE binary DSK file derived from this model.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:nh_derived:arrokoth_geophysics:mu69_merged_browse</lid_reference>
+            <reference_type>data_to_browse</reference_type>
+            <comment>PNG image of the shape model</comment>
+        </Internal_Reference>
+        <External_Reference>
+            <reference_text>
+                Beyer, R. A., et al., Stereo Topography of KBO (486958) 2014 MU69. EPSC-DPS Joint Meeting 2019, held 15-20 September 2019 in Geneva, Switzerland, id. EPSC-DPS2019-849, 2019.
+            </reference_text>
+        </External_Reference>
+        <External_Reference>
+            <doi>10.1126/science.aay3999</doi>
+            <reference_text>
+                Spencer, J.R., et al., The geology and geophysics of Kuiper Belt object (486958) Arrokoth. Science Vol. 367, Issue 6481, eaay3999, 2020.
+            </reference_text>
+        </External_Reference>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:nasa:pds:nh_derived:arrokoth_geophysics:mu69_fr2kf_hipoly::1.0</lidvid_reference>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <comment>This is one of two model merged to form this shape model.</comment>
+        </Source_Product_Internal>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:nasa:pds:nh_derived:arrokoth_geophysics:mu69_asp_ca04_06_icp_smooth::1.0</lidvid_reference>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <comment>This is one of two model merged to form this shape model.</comment>
+        </Source_Product_Internal>
+    </Reference_List>
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>mu69_merged.obj</file_name>
+            <comment>
+                This is a 'merged', high-polygon          
+                shape model of Kuiper Belt Object (KBO) 2014 MU69 (Arrokoth) with         
+                107506 polygon faces. The model was created based on data from the New    
+                Horizons LORRI and MVIC instruments following a fly-by on January 1,      
+                2019.                                                                     
+                
+                The asp-ca04-06-icp-smooth.obj and mu69_fr2kf_hipoly.obj                  
+                shape models were manually joined by adding additional polygons,          
+                after avoiding overlap by eroding the ventral surface of the              
+                mu69_fr2kf_hipoly.obj polygons. Local smoothing was applied to the        
+                seams and to the 'neck' region of Arrokoth. The +Z part of the neck       
+                was left as a cusp. This model is discussed in Beyer, et al. (2019) and        
+                is also a Supplemental Material download for Spencer, et al. (2020). 
+            </comment>
+        </File>
+        
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">42</object_length>
+            <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+            <description>
+                The first line of the data file contains the letter 'o' 
+                followed by the shape model identifier.
+            </description>
+        </Header>
+        
+        <Table_Character>
+            <local_identifier>VertexTable</local_identifier>
+            <offset unit="byte">42</offset>
+            <records>53755</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>4</fields>
+                <groups>0</groups>
+                <record_length unit="byte">42</record_length>
+                
+                <Field_Character>
+                    <name>Vertex_Flag</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%1s</field_format>
+                    <description>
+                        The letter 'v', indicating this record  
+                        contains the X, Y, Z coordinates of a vertex.
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>X</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">3</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <field_format>%10.6f</field_format>
+                    <unit>km</unit>
+                    <description>X coordinate of the vertex</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Y</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">14</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <field_format>%10.6f</field_format>
+                    <unit>km</unit>
+                    <description>Y coordinate of the vertex</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Z</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <field_format>%10.6f</field_format>
+                    <unit>km</unit>
+                    <description>Z coordinate of the vertex</description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+        
+        <Table_Character>
+            <local_identifier>VertexNormalTable</local_identifier>
+            <offset unit="byte">2257752</offset>
+            <records>54602</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>4</fields>
+                <groups>0</groups>
+                <record_length unit="byte">42</record_length>
+                
+                <Field_Character>
+                    <name>Vertex_Normal_Flag</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%2s</field_format>
+                    <description>
+                        The letters 'vn', indicating this       
+                        record is a vertex normal.
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>X</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">4</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <field_format>%7.4f</field_format>
+                    <unit>km</unit>
+                    <description>X component of the vertex normal.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Y</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">12</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <field_format>%7.4f</field_format>
+                    <unit>km</unit>
+                    <description>Y component of the vertex normal.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Z</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">20</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <field_format>%7.4f</field_format>
+                    <unit>km</unit>
+                    <description>Z component of the vertex normal.</description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+        
+        <Table_Character>
+            <local_identifier>FacesTable</local_identifier>
+            <offset unit="byte">4551036</offset>
+            <records>107506</records>
+            <description>
+                This spreadsheet links vertices into    
+                triangular polygon faces without the use of texture coordinates.      
+                Each face is defined by three vertex (v1 v2 v3) and vertex-normal     
+                (vn1 vn2 vn3) pairs. Pairs are linked as follows:                     
+                
+                v1//vn1 v2//vn2 v3//vn3
+            </description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>4</fields>
+                <groups>0</groups>
+                <record_length unit="byte">42</record_length>
+                
+                <Field_Character>
+                    <name>Faces_Flag</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%1s</field_format>
+                    <description>
+                        The letter 'f', indicating this record  
+                        contains the indices of three vertex and vertex-normal pairs. The     
+                        three pairs define a single, triangular polygon face.
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Faces_1</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">3</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%-12s</field_format>
+                    <description>First vertex and vertex-normal pair.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Faces_2</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">16</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%-12s</field_format>
+                    <description>Second vertex and vertex-normal pair.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Faces_3</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">29</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%-12s</field_format>
+                    <description>Third vertex and vertex-normal pair.</description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

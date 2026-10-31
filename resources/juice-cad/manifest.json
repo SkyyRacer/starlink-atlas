@@ -1,0 +1,318 @@
+{
+  "documentation": "https://juicesoc.esac.esa.int/help/82_spacecraft_model.html",
+  "files": [
+    {
+      "file": "juice_sc_bus_v07.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_bus_v07.obj",
+      "sha256": "ff589a564c054b05d6a3f66e3eac636ef50fba805158b6ed1431b89543f07a1c",
+      "offset_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "file": "juice_sc_sapy_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_sapy_v02.obj",
+      "sha256": "65cb65861418fd821480351c930cdf0b90af19475cdf949aac0e5a9306a51e54",
+      "offset_m": [
+        0.019,
+        1,
+        1.652
+      ]
+    },
+    {
+      "file": "juice_sc_samy_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_samy_v02.obj",
+      "sha256": "84d7227e172c231ef0d516b8588155765af07c70eddf278055ae37fae03d17a9",
+      "offset_m": [
+        0.019,
+        -1,
+        1.652
+      ]
+    },
+    {
+      "file": "juice_sc_mag_v06.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_mag_v06.obj",
+      "sha256": "77ee654d9c8d114787c7fadfbd7ba534a3c3c1f3acb3c5ab9244b82e9e778243",
+      "offset_m": [
+        1.38,
+        -0.857,
+        0.168
+      ]
+    },
+    {
+      "file": "juice_sc_mga_apm_v04.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_mga_apm_v04.obj",
+      "sha256": "b8918021894b045b315e47211306c0dd0aeaedf94208fd9d80dcc909b9587409",
+      "offset_m": [
+        -1.398,
+        -0.893,
+        3.442
+      ]
+    },
+    {
+      "file": "juice_sc_mga_dish_v04.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_mga_dish_v04.obj",
+      "sha256": "66fa0f4dbf00ad65ae80cb55a9f880c3961d00977ea0bb7bdf647aa6f4361ec3",
+      "offset_m": [
+        -1.29,
+        -1.739,
+        3.327
+      ]
+    },
+    {
+      "file": "juice_sc_rimemx_v03.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_rimemx_v03.obj",
+      "sha256": "a4d36799364d7fbd8ee9265206c62d0ac05a4500c53612cb27da0154511cf3c1",
+      "offset_m": [
+        0.614,
+        0.8,
+        3.544
+      ]
+    },
+    {
+      "file": "juice_sc_rimepx_v03.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_rimepx_v03.obj",
+      "sha256": "dbcda34e35e0e4a7e4d8feb606901767cf4e5fa550ef87b3588990d665734cea",
+      "offset_m": [
+        -0.647,
+        0.91,
+        3.544
+      ]
+    },
+    {
+      "file": "juice_sc_rwi_v04.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_rwi_v04.obj",
+      "sha256": "2cc334f93f7df4dec2deca35bcdc46ff6c1343d03715e84d9ddc7bf1c49b7085",
+      "offset_m": [
+        6.775,
+        -0.857,
+        -6.495
+      ]
+    },
+    {
+      "file": "juice_sc_scm_v03.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_scm_v03.obj",
+      "sha256": "f71531652254130367f2b47cbd8e693eccf33a0d3328a1c1ceb8dcdd8cc82dea",
+      "offset_m": [
+        6.579,
+        -0.857,
+        -6.252
+      ]
+    },
+    {
+      "file": "juice_sc_gala_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_gala_v02.obj",
+      "sha256": "d746623e22b75db904895996eb3c8726b37deabcb56f5cd2245abbc8b64caf2b",
+      "offset_m": [
+        0.991,
+        0.058,
+        3.444
+      ]
+    },
+    {
+      "file": "juice_sc_janus_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_janus_v02.obj",
+      "sha256": "7090f0e9288079c4075a5f8b97b80abcd61fe3521f53bbcb6d4113b15c125b3e",
+      "offset_m": [
+        1.073,
+        0.524,
+        3.502
+      ]
+    },
+    {
+      "file": "juice_sc_jmc1_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_jmc1_v02.obj",
+      "sha256": "66fd8f23f81f98858e68ff43e6dc80e45f5c3f7a29852399697e014ad3418454",
+      "offset_m": [
+        1.458,
+        -0.425,
+        0.955
+      ]
+    },
+    {
+      "file": "juice_sc_jmc2_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_jmc2_v02.obj",
+      "sha256": "66fd8f23f81f98858e68ff43e6dc80e45f5c3f7a29852399697e014ad3418454",
+      "offset_m": [
+        -0.021,
+        1.058,
+        3.624
+      ]
+    },
+    {
+      "file": "juice_sc_majis_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_majis_v02.obj",
+      "sha256": "5a165eb442b947aae9a01f88bc382d849e554fb1d934f7d1d90843cd338daf2f",
+      "offset_m": [
+        1.399,
+        0.234,
+        3.222
+      ]
+    },
+    {
+      "file": "juice_sc_swi_v03.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_swi_v03.obj",
+      "sha256": "cc445d7ada7378cb927dc861ed117504a152b0db8a9ad93be63976050d0a8bce",
+      "offset_m": [
+        1.424,
+        -0.379,
+        3.558
+      ]
+    },
+    {
+      "file": "juice_sc_uvs_v01.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_uvs_v01.obj",
+      "sha256": "45d6851fc10ebd1575120a47817ce6d55909d42178ddcee081307203d1a3fab2",
+      "offset_m": [
+        1.43,
+        1.141,
+        3.191
+      ]
+    },
+    {
+      "file": "juice_sc_pep_jdc_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_pep_jdc_v02.obj",
+      "sha256": "aeaab33ab3dc81ec3bca3be30a69d4864f53967fa712b580767e1612c5acfb27",
+      "offset_m": [
+        1.373,
+        0.182,
+        0.217
+      ]
+    },
+    {
+      "file": "juice_sc_pep_jei_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_pep_jei_v02.obj",
+      "sha256": "dcd9822ff3a8782e78267a80afd4730c9b22f2e174d3659bb6ef7dde34c1a0ec",
+      "offset_m": [
+        -0.479,
+        -0.686,
+        3.875
+      ]
+    },
+    {
+      "file": "juice_sc_pep_jeni_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_pep_jeni_v02.obj",
+      "sha256": "546f3363a20aeaf305548af7200a6e1945911a4036417e0a871749428af4038c",
+      "offset_m": [
+        0.3,
+        -0.784,
+        3.64
+      ]
+    },
+    {
+      "file": "juice_sc_pep_jna_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_pep_jna_v02.obj",
+      "sha256": "0527c75547c683467635b65374404d04b58e581d19ac98db8dcccf8292017572",
+      "offset_m": [
+        -0.247,
+        -0.978,
+        3.793
+      ]
+    },
+    {
+      "file": "juice_sc_pep_nim_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_pep_nim_v02.obj",
+      "sha256": "b36a610452e9f4c7c92388e524cde008b9a5ac47223c3eed74a880f0b15661c3",
+      "offset_m": [
+        -0.116,
+        -0.644,
+        3.911
+      ]
+    },
+    {
+      "file": "juice_sc_str1_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_str1_v02.obj",
+      "sha256": "4756d91745cebf423a879b06068bc5a9e20b0c56fd7d2d7f5a489ac42c91b9b7",
+      "offset_m": [
+        1.503,
+        -0.548,
+        2.411
+      ]
+    },
+    {
+      "file": "juice_sc_str2_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_str2_v02.obj",
+      "sha256": "4756d91745cebf423a879b06068bc5a9e20b0c56fd7d2d7f5a489ac42c91b9b7",
+      "offset_m": [
+        1.495,
+        -0.585,
+        2.82
+      ]
+    },
+    {
+      "file": "juice_sc_str3_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_str3_v02.obj",
+      "sha256": "4756d91745cebf423a879b06068bc5a9e20b0c56fd7d2d7f5a489ac42c91b9b7",
+      "offset_m": [
+        1.495,
+        -0.299,
+        2.641
+      ]
+    },
+    {
+      "file": "juice_sc_lpb1_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_lpb1_v02.obj",
+      "sha256": "2b1ed264a0a5ef928313c3b3baf4fdc67d4decb2f35897ba81e3f29a90ffe79a",
+      "offset_m": [
+        1.384,
+        1.134,
+        2.281
+      ]
+    },
+    {
+      "file": "juice_sc_lpb2_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_lpb2_v02.obj",
+      "sha256": "2b1ed264a0a5ef928313c3b3baf4fdc67d4decb2f35897ba81e3f29a90ffe79a",
+      "offset_m": [
+        1.455,
+        -1.162,
+        3.207
+      ]
+    },
+    {
+      "file": "juice_sc_lpb3_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_lpb3_v02.obj",
+      "sha256": "2b1ed264a0a5ef928313c3b3baf4fdc67d4decb2f35897ba81e3f29a90ffe79a",
+      "offset_m": [
+        1.455,
+        -1.162,
+        0.247
+      ]
+    },
+    {
+      "file": "juice_sc_lpb4_v02.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_lpb4_v02.obj",
+      "sha256": "2b1ed264a0a5ef928313c3b3baf4fdc67d4decb2f35897ba81e3f29a90ffe79a",
+      "offset_m": [
+        -1.379,
+        1.143,
+        2.336
+      ]
+    },
+    {
+      "file": "juice_sc_navcam1_v01.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_navcam1_v01.obj",
+      "sha256": "8a3278f6f56994fe4cf41a6b43d11db2159073a26b20aeb94988b2f30c734f06",
+      "offset_m": [
+        0.902,
+        -0.424,
+        3.364
+      ]
+    },
+    {
+      "file": "juice_sc_navcam2_v01.obj",
+      "url": "https://spiftp.esac.esa.int/data/SPICE/JUICE/misc/models/juice_sc_navcam2_v01.obj",
+      "sha256": "8a3278f6f56994fe4cf41a6b43d11db2159073a26b20aeb94988b2f30c734f06",
+      "offset_m": [
+        1.106,
+        -0.563,
+        3.364
+      ]
+    }
+  ],
+  "note": "Official geometry and published component translations; illustrative deployed solar-array orientation and PBR surface finishes; not live attitude telemetry.",
+  "sha256": "1ef158f233be8226038b861a7a0617504dbe4838baa8e6816196e4cd1f98a0b9",
+  "assembly_note": "Published component translations in metres; source positions km converted to m; -Y solar array deployed by 180\u00b0 about its local Z axis."
+}

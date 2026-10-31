@@ -1,0 +1,135 @@
+{
+  "reference": "https://sketchfab.com/3d-models/tiangong-space-station-205e0d24d4994eb9a232abe728e10a0f",
+  "specification_source": "https://www.cnsa.gov.cn/n6758823/n6758838/c10087703/content.html",
+  "triangles": 92692,
+  "bytes": 7849580,
+  "solar_arrays": [
+    {
+      "part": "solar_array",
+      "module": "Tianhe",
+      "index": 2,
+      "blankets": 1,
+      "leaf_sections": 14,
+      "span_from_axis_m": 11.9,
+      "width_m": 3.6
+    },
+    {
+      "part": "solar_array",
+      "module": "Tianhe",
+      "index": 1,
+      "blankets": 1,
+      "leaf_sections": 14,
+      "span_from_axis_m": 11.9,
+      "width_m": 3.6
+    },
+    {
+      "part": "solar_array",
+      "module": "Wentian",
+      "index": 2,
+      "blankets": 2,
+      "leaf_sections": 28,
+      "span_from_axis_m": 27.65,
+      "width_m": 4.2
+    },
+    {
+      "part": "solar_array",
+      "module": "Wentian",
+      "index": 1,
+      "blankets": 2,
+      "leaf_sections": 28,
+      "span_from_axis_m": 27.65,
+      "width_m": 4.2
+    },
+    {
+      "part": "solar_array",
+      "module": "Mengtian",
+      "index": 2,
+      "blankets": 2,
+      "leaf_sections": 28,
+      "span_from_axis_m": 27.65,
+      "width_m": 4.2
+    },
+    {
+      "part": "solar_array",
+      "module": "Mengtian",
+      "index": 1,
+      "blankets": 2,
+      "leaf_sections": 28,
+      "span_from_axis_m": 27.65,
+      "width_m": 4.2
+    },
+    {
+      "part": "solar_array",
+      "module": "Tianzhou",
+      "index": 2,
+      "blankets": 1,
+      "leaf_sections": 14,
+      "span_from_axis_m": 8.9,
+      "width_m": 2.2
+    },
+    {
+      "part": "solar_array",
+      "module": "Tianzhou",
+      "index": 1,
+      "blankets": 1,
+      "leaf_sections": 14,
+      "span_from_axis_m": 8.9,
+      "width_m": 2.2
+    }
+  ],
+  "body_axes": [
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1
+    ]
+  ],
+  "visiting_configuration": [
+    {
+      "node": "Atlas CSS Shenzhou front",
+      "name": "Shenzhou · front",
+      "vehicle": "shenzhou",
+      "port": "front",
+      "variant": "shenzhou-8-10",
+      "visibility": "always",
+      "illustrative": true,
+      "intervals": [],
+      "body_length_m": 9,
+      "max_body_diameter_m": 2.8,
+      "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+    },
+    {
+      "node": "Atlas CSS Shenzhou nadir",
+      "name": "Shenzhou · nadir",
+      "vehicle": "shenzhou",
+      "port": "nadir",
+      "variant": "shenzhou-8-10",
+      "visibility": "always",
+      "illustrative": true,
+      "intervals": [],
+      "body_length_m": 9,
+      "max_body_diameter_m": 2.8,
+      "source": "https://www.cnsa.gov.cn/english/n6465715/n6465717/c6840345/content.html"
+    },
+    {
+      "node": "Atlas CSS Tianzhou aft",
+      "name": "Tianzhou · composition visuelle",
+      "vehicle": "tianzhou",
+      "visibility": "always",
+      "port": "aft",
+      "illustrative": true,
+      "intervals": []
+    }
+  ],
+  "note": "Reconstitution extérieure originale basée sur les dimensions publiques et un aperçu visuel. Aucun maillage ou texture Sketchfab extrait. Pose du bras et vaisseaux amarrés illustratifs."
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/Kepler.gltf",
+    "sha256": "498aa679752072b8e10486528f84b56d461c55fa6a2ac8b2720a49687295a31b"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler.bin",
+    "sha256": "b856b939ca044c0adaddd392b84eb9bab8b6f7d77aa224f9ba2845450734f0c2"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler_dish_ao.jpg",
+    "sha256": "45cd5fa31ac3b2d96f1a7700d720f2958960ba16df480c944f12a92f0d5c2273"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/foil_normal.png",
+    "sha256": "541c5998fcb208c50670dbe3dc29d31b7b903e75447a824d73afe5da1fc00a2a"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler_texture_normal.png",
+    "sha256": "e98bf477410ac62bbdacb51cbd457c996d5058f03856af52662856d8ec858d3d"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler_texture_albedo.jpg",
+    "sha256": "7a0098b80b71d7b3aebd546c7b21d9fb72084f9198dbe67ba5bedfcb4064c1bb"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler_texture_pbr.jpg",
+    "sha256": "e839ef813d5efe1b9e9a6ec7dc67dd4f9308ad424d1974cac291caefa96dddf1"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_kepler/kepler_ring_ao.jpg",
+    "sha256": "d470ff2d8673f1cfe570c5dc95a480c6aef6dbcd5952755ef7dd590dd818bc68"
+  }
+]

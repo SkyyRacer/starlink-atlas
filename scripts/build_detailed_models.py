@@ -11,6 +11,13 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
  source=upgrades.get(key,sources.get(key))
  if 'sha256' in source:assert hashlib.sha256(raw).hexdigest()==source['sha256']
  binary,compatibility=prepare(ROOT,g,binary,source)
+ # Vertex-coloured imports may supply reviewed PBR response without changing buffers.
+ if source.get('added_materials'):
+  assert not g.get('materials'), 'Added materials require a material-free source'
+  g['materials']=source['added_materials']
+  for mesh,indices in zip(g['meshes'],source['primitive_materials'],strict=True):
+   for primitive,index in zip(mesh['primitives'],indices,strict=True):primitive['material']=index
+  compatibility.update({k:source[k] for k in ['added_materials','primitive_materials']})
  for material in g.get('materials',[]):
   finish=source.get('material_finishes',{}).get(material.get('name'))
   if finish:material.setdefault('pbrMetallicRoughness',{}).update(finish)
@@ -65,11 +72,32 @@ for key,ids in [('hubble',[20580]),('chandra',[25867]),('fermi',[33053]),('tess'
   for i in range(3):
    for j in range(3):rot[i][j]=source['body_axes'][i][j]
  matrix=product(rot,normal);parent=len(g['nodes']);g['nodes'].append({'name':'Atlas presentation transform','children':roots,'matrix':[matrix[i][j] for j in range(4) for i in range(4)]});g['scenes']=[{'nodes':[parent]}];g['scene']=0
+ historical_rig=[]
+ if source.get('historical_solar_tracking'):
+  from historical_solar_rig import apply
+  binary,historical_rig,solar_audit=apply(g,binary,key)
+  if solar_audit.get('solar_partition'):compatibility['solar_partition']=solar_audit['solar_partition']
  text=json.dumps(g,separators=(',',':')).encode();text+=b' '*(-len(text)%4);blob=struct.pack('<III',0x46546c67,2,28+len(text)+len(binary))+struct.pack('<II',len(text),0x4e4f534a)+text+struct.pack('<II',len(binary),0x004e4942)+binary
  (OUT/(key+'.glb')).write_bytes(blob)
- manifest.append({'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'compatibility':compatibility,'solar_rig':solar_rig(g,source),'material_finishes':source.get('material_finishes',{}),'presentation_focus_node':source.get('presentation_focus_node'),'body_axes':source.get('body_axes'),'note':source.get('note'),'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
+ manifest.append({'docked_visitors':source.get('docked_visitors',[]),'key':key,'ids':ids,'url':'images/detailed/'+key+'.glb?v='+hashlib.sha256(blob).hexdigest()[:12],'bytes':len(blob),'source':source['page'],'download':source['download'],'sha256':hashlib.sha256(raw).hexdigest(),'uv_repairs':repairs,'compatibility':compatibility,'solar_rig':historical_rig or solar_rig(g,source),'material_finishes':source.get('material_finishes',{}),'render_lighting':source.get('render_lighting'),'presentation_focus_node':source.get('presentation_focus_node'),'body_axes':source.get('body_axes'),'note':source.get('note'),'credit':source.get('credit', 'NASA IGOAL' if key=='iss' else 'NASA VTAD' if key=='hubble' else 'NASA 3D Resources'),'original_file':str(path.relative_to(ROOT)),'version':source.get('version','NASA original'),'triangles':sum(g['accessors'][p['indices']]['count']//3 for m in g['meshes'] for p in m['primitives'] if 'indices' in p),'textures':len(g.get('images',[])),'materials':len(g.get('materials',[]))})
 (ROOT/'resources/detailed-model-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');(OUT/'manifest.json').write_text(json.dumps(manifest,separators=(',',':')))
 template=(ROOT/'resources/detailed-models.template.js').read_text();(ROOT/'static/detailed-models.js').write_text(template.replace('__MANIFEST__',json.dumps(manifest,ensure_ascii=False,separators=(',',':'))))
 print('Modèles couleur : '+', '.join(m['key'] for m in manifest)+' — '+str(sum(m['bytes'] for m in manifest))+' octets, chargés à la demande.')
 
 (ROOT/'resources/model-runtime-manifest.json').write_text(json.dumps([{'key':m['key'],'runtime_url':m['url'],'runtime_bytes':m['bytes'],'original_bytes':m['bytes'],'triangles':m['triangles'],'original_triangles':m['triangles'],'compression':'original'} for m in manifest],ensure_ascii=False,indent=2)+'\n')
+
+# Keep the solar-system model catalogue aligned with future asset rebuilds.
+import re
+physical_source=(ROOT/'static/object-facts.js').read_text()
+physical_manifest=json.loads(re.search(r'const physicalManifest=(\{.*?\});',physical_source,re.S)[1])
+mission_config=json.loads((ROOT/'resources/mission-ephemerides.json').read_text())
+mission_ids={m['id'] for m in mission_config['missions']+mission_config.get('external_missions',[])}
+probe_models=[]
+for model in manifest:
+ ids=[i for i in model['ids'] if i in mission_ids]
+ if not ids:continue
+ ident=ids[0];file=physical_manifest['files'].get(str(ident//1000));record=json.loads((ROOT/'static/physical-facts'/file).read_text()).get(str(ident)) if file else None
+ dimensions=[v for v in (record[:2] if record else []) if isinstance(v,(int,float)) and v>0]
+ span=27.1 if model['key']=='juice' else max(dimensions) if dimensions else None
+ probe_models.append({**model,'physical_span_m':span,'dimension_source':'https://juice.stp.isas.jaxa.jp/home/' if model['key']=='juice' else physical_manifest['source'],'dimension_approximate':bool(record and any(c in (record[3] or '') for c in 'sl'))})
+(ROOT/'static/solar/probe-models.json').write_text(json.dumps({'models':probe_models},separators=(',',':')))

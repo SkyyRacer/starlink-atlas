@@ -9,13 +9,13 @@ for(const info of manifest){
  assert.ok(sources[info.key].page.startsWith('https://'));if(info.kind==='nasa-adaptation'){const source=fs.readFileSync('resources/science-originals/'+info.key+'.glb');assert.equal(crypto.createHash('sha256').update(source).digest('hex'),sources[info.key].sha256);}
  total+=info.bytes;
 }
-assert.ok(total<3500000,'Reviewed line models stay under 3.5 MB, downloaded only on demand');
+assert.ok(total<5000000,'Reviewed line models including seven Salyuts stay under 5 MB, downloaded only on demand');
 (async()=>{
  const requests=[],events=[];const ctx={URL,Map,Event,console,document:{currentScript:{src:'https://example.test/starlink-atlas/science-visual.js'}},fetch:async url=>{requests.push(String(url));return {ok:true,json:async()=>JSON.parse(fs.readFileSync('static/'+new URL(url).pathname.split('/starlink-atlas/')[1]))};},dispatchEvent:event=>events.push(event.type),AtlasISS:{screenSize:()=>30}};ctx.window=ctx;vm.createContext(ctx);vm.runInContext(fs.readFileSync('static/science-visual.js','utf8'),ctx);assert.equal(requests.length,0,'No model drawings are fetched before use');assert.equal(ctx.AtlasScience.has(20580),true);assert.equal(ctx.AtlasScience.has(25544),false);assert.equal(ctx.AtlasScience.has(44235),false);
  const lageos=ctx.AtlasScience.model(8820);assert.ok(lageos.screenSize(1440,900,20000000,false,'all')<ctx.AtlasScience.model(20580).screenSize(1440,900,20000000,false,'all'));assert.equal(lageos.screenSize(1440,900,1000000,true,'lageos'),30,'Close details retain their normal size');
  const visual=ctx.AtlasScience.model(20580);await Promise.all([visual.prepare(),visual.prepare()]);assert.equal(requests.length,1);assert.ok(events.includes('atlas-science-ready'));assert.ok(decodeURIComponent(visual.iconURI).includes('<svg'));
  const strokes={save(){},restore(){},translate(){},scale(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}};visual.draw2D(strokes,0,0,30,'#abcdef');assert.equal(strokes.strokeStyle,'#abcdef');assert.equal(requests.length,1);
- ctx.AtlasModelAttitude={matrix(){throw Error('White models must keep their illustrative orientation');}};
+ ctx.AtlasModelAttitude={matrix(engine,view,point,position,variant){assert.equal(variant,'white','White layer asks for its calibrated white frame, not detailed animation');return position;}};
  ctx.AtlasISSSolar={create(){throw Error('White models must not animate their panels');}};
  const modelRequests=[],callbacks=[],primitives=[];
  class BillboardCollection{constructor(){this.items=[];}add(props){const item={...props};this.items.push(item);return item;}}

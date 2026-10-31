@@ -1,0 +1,63 @@
+{
+  "name": "Mir — Atlas Complete 1996",
+  "source_geometry": "Original procedural geometry; no third-party meshes or textures embedded",
+  "description": "Reconstruction for realtime visualization, not metrological / CAD accuracy",
+  "unit": "metre",
+  "coordinate_system": "X core aft, Y Kvant-2, Z Priroda (before optional engine transform)",
+  "configuration": "1996 after Priroda assembly; no visiting ships included",
+  "components": [
+    {
+      "id": "MIR_CORE_1986",
+      "triangles": 11656
+    },
+    {
+      "id": "KVANT_1_1987",
+      "triangles": 8288
+    },
+    {
+      "id": "KVANT_2_1989",
+      "triangles": 8816
+    },
+    {
+      "id": "KRISTALL_1990",
+      "triangles": 7104
+    },
+    {
+      "id": "SPEKTR_1995",
+      "triangles": 8652
+    },
+    {
+      "id": "SHUTTLE_DOCKING_MODULE_1995",
+      "triangles": 1968
+    },
+    {
+      "id": "PRIRODA_1996",
+      "triangles": 7648
+    },
+    {
+      "id": "MIR_TRUSSES_AND_ANTENNAE",
+      "triangles": 1928
+    }
+  ],
+  "triangles": 56060,
+  "bounds_m": [
+    [
+      -15.75,
+      -15.8989711431703,
+      -20.315
+    ],
+    [
+      12.896592582628907,
+      16.2,
+      14.0
+    ]
+  ],
+  "rights_note": "Original geometry created procedurally for this request, no third-party mesh or texture included. Historical configuration and dimensions are reference information. No guarantees of aerospace CAD fidelity.",
+  "date": "2026-10-31",
+  "variant": "mobile",
+  "reference_sources": [
+    "https://www.nasa.gov/history/SP-4225/diagrams/mir/mir-diagram.htm",
+    "https://rdataspace.github.io/station_mir/mir-components.html",
+    "https://science.nasa.gov/3d-resources/mir/"
+  ]
+}

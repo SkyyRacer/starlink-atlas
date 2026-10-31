@@ -1,0 +1,125 @@
+{
+  "station_models": {
+    "mir": {
+      "ids": [
+        16609
+      ],
+      "reference": "Atlas reference reconstruction v3: source +X longitudinal, +Z along-track in the chosen nominal gravity-gradient reference. Both white and detailed use glTF Z-up/X-forward with the same identity body calibration.",
+      "white_geometry": "Feature edges regenerated from static/images/detailed/mir.glb after the 24-reference reconstruction.",
+      "solar_note": "Turntable-reviewed fixed reference pose: main paired arrays have the corrected transverse directions; folded Kvant-1 wings are raised on booms above the radial modules and have coherent photovoltaic face normals. Eleven station wings plus four visitor wings. No historical joint-angle telemetry is claimed.",
+      "sources": [
+        "https://ntrs.nasa.gov/api/citations/19950021792/downloads/19950021792.pdf",
+        "https://www.nasa.gov/history/SP-4225/mir/mir.htm",
+        "https://www.esa.int/About_Us/Corporate_news/Mir_FAQs_-_Facts_and_history",
+        "https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir"
+      ],
+      "three_axis_fix": "Mir 16609 now receives SGP4 inertial velocity expressed in Earth-fixed axes, in both shared native/web core. Full orthonormal body mapping uses radial nadir, projected along-track velocity and their cross product. Same frame for white/detailed; safe finite reference when velocity is unavailable or radial. This fixes the old ENU fallback used for Mir because its velocity field was omitted.",
+      "camera_note": "Mir inspection follow preserves its initial camera reference rotation while translating with the station, so it no longer cancels the changing model attitude as the old ENU follow did. ISS follow unchanged."
+    },
+    "skylab": {
+      "ids": [
+        6633
+      ],
+      "reference": "Solar-inertial reference: ATM array normal towards calculated Sun; roll fixed by orbital plane. Not an actual attitude reconstruction after mission damage or loss of control.",
+      "sources": [
+        "https://ntrs.nasa.gov/api/citations/19810013544/downloads/19810013544.pdf"
+      ]
+    },
+    "tiangong": {
+      "ids": [
+        48274
+      ],
+      "reference": "Atlas original recreation calibrated +X forward docking, +Z nominal nadir; white illustration preserved. Historical attitude and array articulation are unavailable.",
+      "sources": [
+        "https://www.cmse.gov.cn/fxrw/mengtian/mtjj/202211/t20221106_51269.html",
+        "https://www.cnsa.gov.cn/n6758823/n6758838/c10087703/content.html"
+      ]
+    },
+    "salyut-1": {
+      "ids": [
+        5160
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-2": {
+      "ids": [
+        6398
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-3": {
+      "ids": [
+        7342
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-4": {
+      "ids": [
+        7591
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-5": {
+      "ids": [
+        8911
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-6": {
+      "ids": [
+        10382
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "salyut-7": {
+      "ids": [
+        13138
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf"
+      ]
+    },
+    "tiangong-1": {
+      "ids": [
+        37820
+      ],
+      "reference": "Atlas reconstruction body frame: +X longitudinal forward, +Z nominal nadir. Reference orbital orientation only; actual historical attitude and array articulation unavailable.",
+      "sources": [
+        "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/"
+      ]
+    },
+    "tiangong-2": {
+      "ids": [
+        41765
+      ],
+      "reference": "Shared TG-1/TG-2 calibrated body frame: +X forward, +Z nadir; missing velocity falls back to nominal local vertical. Solar wings rotate around single-axis root drives; attitude and motor angles are calculated, not historical telemetry.",
+      "sources": [
+        "https://en.cmse.gov.cn/news/201907/t20190713_44588.html"
+      ]
+    }
+  },
+  "preserved": [
+    "iss"
+  ],
+  "no_runtime_3d_model_to_orient": [],
+  "attitude_note": "Modes de référence documentés, sans télémétrie historique d’attitude. Les rotations rigides ne changent ni géométrie, ni textures, ni position orbitale. ISS inchangée."
+}

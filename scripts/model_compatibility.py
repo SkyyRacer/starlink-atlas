@@ -55,6 +55,24 @@ def prepare(root,doc,binary,source):
     primitive.get('extensions',{}).get('KHR_draco_mesh_compression',{}).get('attributes',{}).pop(name,None)
    removed.append({**entry,'removed_attributes':attributes})
   report['neutral_vertex_colours']=removed
+ if config.get('remove_internal_caps'):
+  from stable_station_surfaces import remove_internal_caps
+  binary,report['removed_internal_faces']=remove_internal_caps(doc,binary)
+ scales=source.get('normal_map_scales',{})
+ if scales:
+  report['normal_map_scales']=scales
+  for material in doc.get('materials',[]):
+   if material.get('name') in scales and 'normalTexture' in material:material['normalTexture']['scale']=scales[material['name']]
+ overrides=config.get('material_specular',{})
+ if overrides:
+  report['material_specular']=overrides
+  for material in doc.get('materials',[]):
+   override=overrides.get(material.get('name'))
+   if override:material.setdefault('extensions',{}).setdefault('KHR_materials_specular',{}).update(override)
+ if config.get('skylab_planar_caps'):
+  from repair_skylab_caps import repair
+  binary,caps=repair(root,doc,binary,source)
+  report['skylab_planar_caps']={k:v for k,v in caps.items() if k!='coverage_polygons'}
  report['material_modes']={}
  for material in doc['materials']:
   mode=config.get('material_modes',{}).get(material.get('name'))
@@ -92,6 +110,7 @@ def prepare(root,doc,binary,source):
 
 def solar_rig(doc,source):
  """Calibration in the final body frame, including the mirrored NASA root."""
+ if source.get('solar_rig'):return source['solar_rig']
  alignment=source.get('compatibility',{}).get('solar_alignment')
  if not alignment:return []
  world={};names={node.get('name'):i for i,node in enumerate(doc['nodes'])}

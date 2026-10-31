@@ -1,0 +1,32 @@
+{
+  "scope": "Detailed Tiangong 1, Tiangong 2 and CSS solar tracking; white outlines remain unanimated.",
+  "sources": [
+    {
+      "url": "https://www.cmse.gov.cn/fxrw/tgyhyszjh/rwjx/201206/t20120615_23203.html",
+      "finding": "CMSA reports stable Tiangong-1 attitude and normal Sun-pointing solar arrays."
+    },
+    {
+      "url": "https://www.cmse.gov.cn/xwzx/202207/t20220729_50455.html",
+      "finding": "Wentian solar drive provides two degrees of freedom and continuous tracking."
+    },
+    {
+      "url": "https://www.cmse.gov.cn/fxrw/mengtian/mtjj/202211/t20221106_51282.html",
+      "finding": "Wentian and Mengtian turn solar arrays around both the lab axis and wing axis."
+    },
+    {
+      "url": "https://www.cast.cn/news/7701",
+      "finding": "CAST describes the T configuration, dual-axis lab arrays and preceding single-degree alternatives."
+    },
+    {
+      "url": "https://www.spacejournal.cn/bjhkhtdxxb/cn/article/pdf/preview/10.13700/j.bh.1001-5965.2020.0019.pdf",
+      "finding": "TG-2 navigation study discusses three-axis Earth-pointing and yaw attitude modes."
+    }
+  ],
+  "implementation": [
+    "Existing 2 single-axis wing drives each for TG-1/2 retained. Exact historic motor limits and commands are unavailable.",
+    "CSS: 2 Tianhe single-axis wings; 4 Wentian/Mengtian wings with two-axis tracking retained.",
+    "Nominal +Z nadir / +X orbital-heading body reference is continuous over the orbit. Missing or degenerate velocity cannot flip +Z to zenith.",
+    "No arbitrary whole-body Sun spin, yaw schedule or station-control jitter added without dated attitude records."
+  ],
+  "surface_fix": "Opposing identical internal triangle pairs removed at module joins. Exterior surfaces, image bytes, vertex buffers and UVs retained. Light metal roughness increased moderately and high-frequency normal-map strength reduced; reflection remains enabled."
+}

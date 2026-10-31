@@ -32,3 +32,7 @@ puis orientées dans le repère terrestre à la date affichée. Ce n'est pas une
 L’orbite est une ligne fixe, sans animation décorative.
 
 Optimisation : l’orbite est désactivée par défaut. La couche des noms est chargée à son activation en vue lunaire et réutilisée entre les changements de mode. La texture photographique 4K ne se charge qu’en vue lunaire. Depuis la Terre, le nom de la Lune apparaît au survol ; le clic ouvre un bouton de déplacement, puis la fiche est affichée à l’arrivée.
+
+Repérage de surface : la mosaïque NASA est centrée sur la longitude 0° (u=0,5). Le maillage Cesium place +X / 0° à u=0 : le matériau applique un décalage horizontal de 0,5 uniquement à la carte de surface. Les coordonnées locales de l’atlas des noms restent inchangées. Cette correspondance est vérifiée sur la face visible, la face cachée et les coordonnées de Tycho, Mare Crisium et Mare Imbrium.
+
+Audit du 27 octobre 2026 : comparaison du WebP avec le TIFF NASA original (PSNR 42,50 dB), contrôle des 130 régions/cratères sélectionnés sur le KMZ USGS à jour et correspondance des 110 noms affichés, sans écart de coordonnées. La carte stylisée conserve les mêmes repères que la photographie (corrélation 0,998). Les neuf noms simplifiés ont été remplacés par leur graphie officielle UAI/USGS. Les empreintes, mesures et limites de ce contrôle sont conservées dans `resources/lunar-map-audit.json`. Pour le reproduire : `scripts/audit_lunar_map.py --source-dir DOSSIER_DES_REFERENCES`.

@@ -7,12 +7,12 @@
  if(document.currentScript?.src){
   const base=new URL('./',document.currentScript.src),page=new URL(window.location.href);
   const route=page.pathname.startsWith(base.pathname)?page.pathname.slice(base.pathname.length).replace(/\/$/,''):null;
-  const missionRoutes=["ace","aditya-l1","bepicolombo","cassini","dscovr","euclid","gaia","herschel","ikaros","juno","jwst","kepler","new-horizons","planck","soho","spektr-rg","spitzer","voyager-1","voyager-2"];
+  const missionRoutes=["ace","aditya-l1","bepicolombo","cassini","dscovr","euclid","gaia","herschel","ikaros","juice","juno","jwst","kepler","new-horizons","planck","soho","spektr-rg","spitzer","voyager-1","voyager-2"];
   if(missionRoutes.includes(route)){document.documentElement.dataset.missionPage='true';document.documentElement.dataset.atlasEntryLoading='true';}
   if(['','index.html','atlas'].includes(route)){
    let seen=false,logo=false;
    try{seen=window.sessionStorage.getItem(visitKey)==='1';logo=window.sessionStorage.getItem(logoKey)==='1';window.sessionStorage.removeItem(logoKey);window.sessionStorage.setItem(visitKey,'1');}catch{/* Storage may be disabled; navigation still works. */}
-   if(logo||(!seen&&page.searchParams.get('journey')!=='1')){document.documentElement.dataset.atlasEntryLoading='true';document.documentElement.dataset.atlasResetPreferences='true';try{window.sessionStorage.removeItem('atlas-display-preferences-v1');}catch{}}
+   if(logo||(!seen&&page.searchParams.get('journey')!=='1')){document.documentElement.dataset.atlasEntryLoading='true';if(logo||page.searchParams.get('view')!=='earth'){document.documentElement.dataset.atlasResetPreferences='true';try{window.sessionStorage.removeItem('atlas-display-preferences-v1');}catch{}}}
   }
  }
  // Capture before each page's navigation handler (including the lunar journey),

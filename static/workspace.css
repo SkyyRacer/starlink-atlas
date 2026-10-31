@@ -511,20 +511,20 @@ body.earth-workspace > #workspace-debris-menu[hidden]{display:none}
 .globe-tools .deep-earth-return:focus-visible{outline:2px solid #c8efff;outline-offset:2px}
 .view[data-deep-space=true] #compass,.view:has(#view-3d[aria-pressed=false]) .deep-earth-instrument{display:none!important}
 
-.earth-workspace #workspace-deep-space{padding:0 16px 12px}
+#workspace-deep-space{padding:0 16px 12px}
 .deep-menu-search{position:sticky;top:0;z-index:2;margin:0;padding:14px 0;background:#090909;border-bottom:1px solid #333}
 .deep-menu-search>label{font-size:11px;color:#aaa;margin-bottom:7px}
 .deep-menu-search>input{box-sizing:border-box;width:100%;min-width:0;border-radius:0}
-.earth-workspace #workspace-deep-space .deep-menu-category{border:0;border-bottom:1px solid #333;background:transparent;margin:0;padding:0}
-.earth-workspace #workspace-deep-space .deep-menu-category>summary{display:flex;align-items:center;justify-content:flex-start;gap:9px;padding:17px 2px;background:transparent;color:#ddd;font-size:12px;line-height:1.5;list-style:none;cursor:pointer}
-.earth-workspace #workspace-deep-space .deep-menu-category>summary::before{content:'+';flex:none;width:13px;color:#999;font-size:18px;line-height:1}
-.earth-workspace #workspace-deep-space .deep-menu-category[open]>summary::before{content:'−'}
-.earth-workspace #workspace-deep-space .deep-menu-category>summary::after{display:none}
-.earth-workspace #workspace-deep-space .deep-menu-category>summary:hover{color:#fff;background:#151515}
-.earth-workspace #workspace-deep-space .deep-menu-category>summary:focus-visible{outline:1px solid #ddd;outline-offset:-1px}
-.earth-workspace #workspace-deep-space .collection-menu-option{display:block;padding:12px 10px 12px 22px;text-decoration:none;border-left:2px solid transparent;font-size:12px;line-height:1.5;color:#ddd}
-.earth-workspace #workspace-deep-space .collection-menu-option:hover{background:#202020;border-left-color:#b9d8e9;color:#fff}
-.earth-workspace #workspace-deep-space .collection-menu-option[aria-current=page]{color:#c5e4f6;font-weight:600}
+#workspace-deep-space .deep-menu-category{border:0;border-bottom:1px solid #333;background:transparent;margin:0;padding:0}
+#workspace-deep-space .deep-menu-category>summary{display:flex;align-items:center;justify-content:flex-start;gap:9px;padding:17px 2px;background:transparent;color:#ddd;font-size:12px;line-height:1.5;list-style:none;cursor:pointer}
+#workspace-deep-space .deep-menu-category>summary::before{content:'+';flex:none;width:13px;color:#999;font-size:18px;line-height:1}
+#workspace-deep-space .deep-menu-category[open]>summary::before{content:'−'}
+#workspace-deep-space .deep-menu-category>summary::after{display:none}
+#workspace-deep-space .deep-menu-category>summary:hover{color:#fff;background:#151515}
+#workspace-deep-space .deep-menu-category>summary:focus-visible{outline:1px solid #ddd;outline-offset:-1px}
+#workspace-deep-space .collection-menu-option{display:block;padding:12px 10px 12px 22px;text-decoration:none;border-left:2px solid transparent;font-size:12px;line-height:1.5;color:#ddd}
+#workspace-deep-space .collection-menu-option:hover{background:#202020;border-left-color:#b9d8e9;color:#fff}
+#workspace-deep-space .collection-menu-option[aria-current=page]{color:#c5e4f6;font-weight:600}
 #workspace-deep-space [hidden]{display:none!important}
 .deep-menu-empty{padding:16px 0;margin:0;color:#aaa;font-size:12px}
 
@@ -538,3 +538,6 @@ body[data-deep-mission=true] .view-switch,body[data-deep-mission=true] #view-2d{
 
 .distant-satellite-label{position:absolute;top:0;left:0;z-index:10;box-sizing:border-box;max-width:calc(100% - 20px);padding:4px 6px;background:#080b10d1;border-radius:2px;color:#fff;font:14px/18px Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none;text-shadow:0 1px 2px #000}
 #workspace-deep-space .collection-menu-option.is-active{background:#e8eef2;color:#080808;outline:1px solid #c8efff;outline-offset:-1px}
+
+#workspace-deep-space{max-height:50vh;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;background:#090909;border:1px solid #666;box-sizing:border-box}
+#workspace-deep-space .deep-menu-search>input{display:block;background:#0b0b0b;color:#eee;border:1px solid #777;padding:10px;font:12px Arial,sans-serif}

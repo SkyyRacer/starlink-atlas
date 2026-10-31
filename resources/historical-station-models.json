@@ -1,0 +1,352 @@
+{
+  "models": [
+    {
+      "key": "salyut-1",
+      "norad": 5160,
+      "family": "DOS-1",
+      "length_m": 15.8,
+      "reference_span_m": 10,
+      "span_approximate": false,
+      "solar_arrays": 4,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 5.0,
+          "width_m": 1.9,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 5.0,
+          "width_m": 1.9,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 3,
+          "span_from_axis_m": 5.0,
+          "width_m": 1.9,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 4,
+          "span_from_axis_m": 5.0,
+          "width_m": 1.9,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 5.2,
+          "width_m": 1.55
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 5.2,
+          "width_m": 1.55
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 25816,
+      "bytes": 2985024,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-2",
+      "norad": 6398,
+      "family": "OPS-1",
+      "length_m": 14.55,
+      "reference_span_m": 14,
+      "span_approximate": true,
+      "solar_arrays": 2,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 22384,
+      "bytes": 2788208,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-3",
+      "norad": 7342,
+      "family": "OPS-2",
+      "length_m": 14.55,
+      "reference_span_m": 14,
+      "span_approximate": true,
+      "solar_arrays": 2,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 22396,
+      "bytes": 2792080,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-4",
+      "norad": 7591,
+      "family": "DOS-4",
+      "length_m": 15.8,
+      "reference_span_m": 17,
+      "span_approximate": false,
+      "solar_arrays": 3,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 8.5,
+          "width_m": 3.1,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 8.5,
+          "width_m": 3.1,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 3,
+          "span_from_axis_m": 8.5,
+          "width_m": 3.1,
+          "leaf_sections": 6
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 24984,
+      "bytes": 2987304,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-5",
+      "norad": 8911,
+      "family": "OPS-3",
+      "length_m": 14.55,
+      "reference_span_m": 14,
+      "span_approximate": true,
+      "solar_arrays": 2,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 7.0,
+          "width_m": 3.2,
+          "leaf_sections": 6
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 22396,
+      "bytes": 2791940,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-6",
+      "norad": 10382,
+      "family": "DOS-5",
+      "length_m": 15.8,
+      "reference_span_m": 17,
+      "span_approximate": false,
+      "solar_arrays": 3,
+      "docking_ports": 2,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 3,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 5.3,
+          "width_m": 1.55
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 5.3,
+          "width_m": 1.55
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 27920,
+      "bytes": 3136728,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "salyut-7",
+      "norad": 13138,
+      "family": "DOS-6",
+      "length_m": 16,
+      "reference_span_m": 17,
+      "span_approximate": false,
+      "solar_arrays": 3,
+      "docking_ports": 2,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 3,
+          "span_from_axis_m": 8.5,
+          "width_m": 2.65,
+          "leaf_sections": 6
+        },
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 5.3,
+          "width_m": 1.55
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 5.3,
+          "width_m": 1.55
+        }
+      ],
+      "source": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+      "triangles": 28188,
+      "bytes": 3148240,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec un Soyouz toujours visible, indépendamment de la date ; attitude historique non mesurée."
+    },
+    {
+      "key": "tiangong-1",
+      "norad": 37820,
+      "family": "TG-1",
+      "length_m": 10.4,
+      "reference_span_m": 17,
+      "span_approximate": true,
+      "solar_arrays": 2,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 8.5,
+          "width_m": 3.0,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 8.5,
+          "width_m": 3.0,
+          "leaf_sections": 4
+        }
+      ],
+      "source": "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+      "triangles": 29676,
+      "bytes": 2294644,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec Shenzhou amarré en permanence ; attitude historique non mesurée."
+    },
+    {
+      "key": "tiangong-2",
+      "norad": 41765,
+      "family": "TG-2",
+      "length_m": 10.4,
+      "reference_span_m": 18.4,
+      "span_approximate": false,
+      "solar_arrays": 2,
+      "docking_ports": 1,
+      "parts": [
+        {
+          "part": "solar_array",
+          "index": 1,
+          "span_from_axis_m": 9.2,
+          "width_m": 3.0,
+          "leaf_sections": 4
+        },
+        {
+          "part": "solar_array",
+          "index": 2,
+          "span_from_axis_m": 9.2,
+          "width_m": 3.0,
+          "leaf_sections": 4
+        }
+      ],
+      "source": "https://en.cmse.gov.cn/news/201907/t20190713_44588.html",
+      "triangles": 29980,
+      "bytes": 2318920,
+      "note": "Reconstitution originale Atlas basée sur les plans publics ; détails secondaires et finitions interprétés. Composition illustrative avec Shenzhou amarré en permanence ; attitude historique non mesurée."
+    }
+  ],
+  "sources": [
+    "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+    "https://en.cmse.gov.cn/news/201907/t20190713_44588.html"
+  ],
+  "license": "CC BY 4.0",
+  "configuration_note": "One permanently visible Soyuz per Salyut, as an explicitly requested illustrative assembly; not a historical docking state. Progress/TKS not modelled."
+}

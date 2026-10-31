@@ -1,0 +1,53 @@
+{
+  "validator": "2.0.0-dev.3.10",
+  "models": [
+    {
+      "file": "static/images/detailed/tiangong.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "static/images/detailed/tiangong-1.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "static/images/detailed/tiangong-2.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "resources/atlas-reference-recreations/tiangong-2.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "resources/atlas-reference-recreations/tiangong-2-shenzhou.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "resources/atlas-reference-recreations/tiangong.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "resources/atlas-reference-recreations/tiangong-1.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "resources/atlas-reference-recreations/tiangong-1-shenzhou.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  ]
+}

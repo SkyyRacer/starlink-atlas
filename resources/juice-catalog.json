@@ -1,0 +1,24 @@
+{
+  "source": "https://celestrak.org/pub/satcat.csv",
+  "objects": [
+    {
+      "OBJECT_NAME": "JUICE",
+      "OBJECT_ID": "2023-053A",
+      "NORAD_CAT_ID": 56176,
+      "OBJECT_TYPE": "PAY",
+      "OPS_STATUS_CODE": "+",
+      "OWNER": "ESA",
+      "LAUNCH_DATE": "2023-04-14",
+      "LAUNCH_SITE": "FRGUI",
+      "DECAY_DATE": "",
+      "PERIOD": "",
+      "INCLINATION": "",
+      "APOGEE": "",
+      "PERIGEE": "",
+      "RCS": "",
+      "DATA_STATUS_CODE": "",
+      "ORBIT_CENTER": "SU",
+      "ORBIT_TYPE": "ORB"
+    }
+  ]
+}

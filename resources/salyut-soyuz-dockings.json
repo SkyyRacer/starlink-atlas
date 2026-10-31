@@ -1,0 +1,356 @@
+{
+  "source": "https://historycollection.jsc.nasa.gov/history/shuttle-mir/references/documents/mirhh-part2.pdf",
+  "vehicle_reference": "https://historycollection.jsc.nasa.gov/history/shuttle-mir/references/documents/mirhh-part1.pdf",
+  "note": "Day-only intervals use UTC date boundaries; do not imply exact docking times. Soyuz 10/25 soft docking and discarded orbital modules are excluded. No Soyuz docked with Salyut 2.",
+  "stations": {
+    "salyut-1": [
+      {
+        "name": "Soyuz 11",
+        "port": "front",
+        "variant": "early",
+        "start": "1971-06-07T07:49:00Z",
+        "end": "1971-06-29T18:28:00Z",
+        "precision": "minute"
+      }
+    ],
+    "salyut-2": [],
+    "salyut-3": [
+      {
+        "name": "Soyuz 14",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1974-07-04",
+        "end": "1974-07-19",
+        "precision": "day"
+      }
+    ],
+    "salyut-4": [
+      {
+        "name": "Soyuz 17",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1975-01-12",
+        "end": "1975-02-09",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 18",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1975-05-26",
+        "end": "1975-07-26",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 20",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1975-11-19",
+        "end": "1976-02-16",
+        "precision": "day"
+      }
+    ],
+    "salyut-5": [
+      {
+        "name": "Soyuz 21",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1976-07-07",
+        "end": "1976-08-24",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 24",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1977-02-08",
+        "end": "1977-02-25",
+        "precision": "day"
+      }
+    ],
+    "salyut-6": [
+      {
+        "name": "Soyuz 26",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1977-12-11",
+        "end": "1978-01-16",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 27",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1978-01-11",
+        "end": "1978-03-16",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 28",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1978-03-03",
+        "end": "1978-03-10",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 29",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1978-06-16",
+        "end": "1978-09-03",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 30",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1978-06-29",
+        "end": "1978-07-05",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 31",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1978-08-27",
+        "end": "1978-09-07",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 31",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1978-09-07",
+        "end": "1978-11-02",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 32",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1979-02-26",
+        "end": "1979-06-13",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 34",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1979-06-08",
+        "end": "1979-06-14",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 34",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1979-06-14",
+        "end": "1979-08-19",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 1",
+        "port": "front",
+        "variant": "t",
+        "start": "1979-12-19",
+        "end": "1980-03-23",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 35",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1980-04-10",
+        "end": "1980-06-03",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 36",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1980-05-27",
+        "end": "1980-06-04",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 36",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1980-06-04",
+        "end": "1980-07-31",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 2",
+        "port": "aft",
+        "variant": "t",
+        "start": "1980-06-06",
+        "end": "1980-06-09",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 37",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1980-07-24",
+        "end": "1980-08-01",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 37",
+        "port": "front",
+        "variant": "ferry",
+        "start": "1980-08-01",
+        "end": "1980-10-11",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 38",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1980-09-19",
+        "end": "1980-09-26",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 3",
+        "port": "front",
+        "variant": "t",
+        "start": "1980-11-28",
+        "end": "1980-12-10",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 4",
+        "port": "front",
+        "variant": "t",
+        "start": "1981-03-13",
+        "end": "1981-05-26",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 39",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1981-03-23",
+        "end": "1981-03-30",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz 40",
+        "port": "aft",
+        "variant": "ferry",
+        "start": "1981-05-15",
+        "end": "1981-05-22",
+        "precision": "day"
+      }
+    ],
+    "salyut-7": [
+      {
+        "name": "Soyuz-T 5",
+        "port": "front",
+        "variant": "t",
+        "start": "1982-05-14",
+        "end": "1982-08-27",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 6",
+        "port": "aft",
+        "variant": "t",
+        "start": "1982-06-25",
+        "end": "1982-07-02",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 7",
+        "port": "aft",
+        "variant": "t",
+        "start": "1982-08-20",
+        "end": "1982-08-29",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 7",
+        "port": "front",
+        "variant": "t",
+        "start": "1982-08-29",
+        "end": "1982-12-10",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 9",
+        "port": "aft",
+        "variant": "t",
+        "start": "1983-06-28",
+        "end": "1983-08-16",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 9",
+        "port": "front",
+        "variant": "t",
+        "start": "1983-08-16",
+        "end": "1983-11-23",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 10",
+        "port": "front",
+        "variant": "t",
+        "start": "1984-02-09",
+        "end": "1984-04-11",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 11",
+        "port": "aft",
+        "variant": "t",
+        "start": "1984-04-04",
+        "end": "1984-04-13",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 11",
+        "port": "front",
+        "variant": "t",
+        "start": "1984-04-13",
+        "end": "1984-10-02",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 12",
+        "port": "aft",
+        "variant": "t",
+        "start": "1984-07-18",
+        "end": "1984-07-29",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 13",
+        "port": "front",
+        "variant": "t",
+        "start": "1985-06-08",
+        "end": "1985-09-25",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 14",
+        "port": "aft",
+        "variant": "t",
+        "start": "1985-09-18",
+        "end": "1985-11-21",
+        "precision": "day"
+      },
+      {
+        "name": "Soyuz-T 15",
+        "port": "front",
+        "variant": "t",
+        "start": "1986-05-06",
+        "end": "1986-06-25",
+        "precision": "day"
+      }
+    ]
+  }
+}

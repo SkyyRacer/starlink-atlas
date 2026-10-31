@@ -44,6 +44,25 @@
   if(!a&&!intervals.length)return null;
   return {seconds,formatted:format(seconds),missing,flights:seen.size,ongoing,through:doc.observed_at,person:a,partial:missing>0||(a?.expected_flights>seen.size&&at>=Date.parse(doc.observed_at))||(at>Date.parse(doc.observed_at)&&ongoing&&!context)};
  }
+ function career(doc,person,context=null,now=Date.now()){
+  const result=total(doc,person,now,context);if(!result)return null;
+  const a=result.person,source=Number(a?.source_total_seconds);
+  if(a&&Number.isFinite(source)&&source>=0&&now>=Date.parse(doc.observed_at)&&source>result.seconds){result.seconds=source;result.formatted=format(source);}
+  return result;
+ }
+ function careerFlights(doc,person,context=[],now=Date.now()){
+  const a=identify(doc,person),rows=[],seen=new Set();
+  const add=(flight,source)=>{const launch=Date.parse(flight.launch);if(Number.isFinite(launch)&&launch>now)return;const key=normalize(flight.name)+'|'+(Number.isFinite(launch)?new Date(launch).toISOString().slice(0,10):flight.id);if(seen.has(key))return;seen.add(key);rows.push({...flight,source});};
+  for(const f of a?.flights||[])add(f,'GCAT');
+  for(const f of context||[]){
+   if(f.status_id!==undefined&&f.status_id!==3)continue;
+   // A landing on a different vehicle is not an extra spaceflight.
+   if(Array.isArray(f.crew)&&!f.crew.some(p=>p.id===person.id))continue;
+   const t=Date.parse(f.launch);if(rows.some(r=>{const start=Date.parse(r.launch),end=Date.parse(r.end);return Number.isFinite(t)&&Number.isFinite(start)&&Math.abs(t-start)<86400000||Number.isFinite(t)&&Number.isFinite(end)&&t>start&&t<end;}))continue;
+   add(f,'Catalogue des missions');
+  }
+  return rows.sort((a,b)=>(Date.parse(a.launch)||0)-(Date.parse(b.launch)||0)||String(a.name).localeCompare(String(b.name),'fr'));
+ }
  function station(doc,key){const value=doc.stations[key];if(!value)return null;return {...value,archive:true,observed_at:doc.observed_at,source:'GCAT · J. McDowell (CC BY 4.0)'};}
- const api={load,identify,total,format,station};if(typeof module==='object'&&module.exports)module.exports=api;else root.AtlasCrewArchive=api;
+ const api={load,identify,total,career,careerFlights,format,station};if(typeof module==='object'&&module.exports)module.exports=api;else root.AtlasCrewArchive=api;
 })(typeof window==='undefined'?globalThis:window);

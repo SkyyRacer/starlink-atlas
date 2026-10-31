@@ -39,10 +39,10 @@ def fetch(mission,output,stop,recent=False):
  requested_start=start;raw=None
  if cache.exists():
   previous=json.loads(cache.read_text())
-  if previous.get('stop')==stop and previous.get('start',mission['launch'])==requested_start:raw=previous['raw']
+  if previous.get('stop')==stop and previous.get('start',mission['launch'])==requested_start and previous.get('step_seconds',21600)==mission.get('step_seconds',21600):raw=previous['raw']
  for attempt in range(8):
   if raw:break
-  params={'format':'json','COMMAND':f"'{mission['command']}'",'EPHEM_TYPE':"'VECTORS'",'CENTER':"'500@399'",'START_TIME':start,'STOP_TIME':stop,'STEP_SIZE':"'6 h'",'VEC_TABLE':"'2'",'REF_PLANE':"'FRAME'",'OUT_UNITS':"'KM-S'",'TIME_TYPE':"'UT'",'CSV_FORMAT':"'YES'"}
+  params={'format':'json','COMMAND':f"'{mission['command']}'",'EPHEM_TYPE':"'VECTORS'",'CENTER':"'500@399'",'START_TIME':"'"+start+"'",'STOP_TIME':"'"+stop+"'",'STEP_SIZE':f"'{mission.get('step_seconds',21600)//60} m'",'VEC_TABLE':"'2'",'REF_PLANE':"'FRAME'",'OUT_UNITS':"'KM-S'",'TIME_TYPE':"'UT'",'CSV_FORMAT':"'YES'"}
   url='https://ssd.jpl.nasa.gov/api/horizons.api?'+urllib.parse.urlencode(params)
   for retry in range(4):
    try:
@@ -68,11 +68,11 @@ def fetch(mission,output,stop,recent=False):
    else:raise ValueError(key+': '+message[-650:])
    if start>=stop:raise ValueError(key+': no overlapping source interval')
    raw=None
-  else:atomic_text(cache,json.dumps({'start':requested_start,'stop':stop,'raw':raw}));break
+  else:atomic_text(cache,json.dumps({'start':requested_start,'stop':stop,'step_seconds':mission.get('step_seconds',21600),'raw':raw}));break
  if raw is None:raise ValueError('No vectors for '+key)
  text=raw.get('result','');samples=parse(text,mission)
  stamp=hashlib.sha256(text.encode()).hexdigest();folder=ROOT/'static/ephemerides'/key;folder.mkdir(parents=True,exist_ok=True)
- index={'id':mission['id'],'source':'NASA/JPL Horizons','url':CONFIG['url'],'frame':'ICRF','time_scale':'UTC','max_interval_seconds':21600,'source_sha256':stamp,'years':{}}
+ index={'id':mission['id'],'source':'NASA/JPL Horizons','url':CONFIG['url'],'frame':'ICRF','time_scale':'UTC','max_interval_seconds':mission.get('step_seconds',21600),'source_sha256':stamp,'years':{}}
  if recent:
   previous_index=folder.parent/(key+'-index.json')
   if previous_index.exists():index['years']=json.loads(previous_index.read_text()).get('years',{})
@@ -82,7 +82,7 @@ def fetch(mission,output,stop,recent=False):
   left=dt.datetime(year,1,1,tzinfo=UTC).timestamp();right=dt.datetime(year+1,1,1,tzinfo=UTC).timestamp()
   selected=[i for i,r in enumerate(samples) if left<=r[0]<right]
   lo=max(0,min(selected)-1);hi=min(len(samples),max(selected)+2);rows=samples[lo:hi]
-  doc={'id':mission['id'],'frame':'ICRF','time_scale':'UTC','source':'NASA/JPL Horizons · trajectoire interpolée','url':CONFIG['url'],'fetched':dt.datetime.now(UTC).isoformat(),'max_interval_seconds':21600,'trajectory_span_seconds':7*86400,'samples':rows}
+  doc={'id':mission['id'],'frame':'ICRF','time_scale':'UTC','source':'NASA/JPL Horizons · trajectoire interpolée','url':CONFIG['url'],'fetched':dt.datetime.now(UTC).isoformat(),'max_interval_seconds':mission.get('step_seconds',21600),'trajectory_span_seconds':7*86400,'samples':rows}
   data=json.dumps(doc,separators=(',',':'));filename=str(year)+'.json';atomic_text(folder/filename,data)
   index['years'][str(year)]={'file':'ephemerides/'+key+'/'+filename,'first_epoch':rows[0][0],'last_epoch':rows[-1][0],'samples':len(rows),'sha256':hashlib.sha256(data.encode()).hexdigest()}
  atomic_text(folder.parent/(key+'-index.json'),json.dumps(index,separators=(',',':')))
@@ -100,4 +100,7 @@ def main():
    print('::warning::'+m['key']+' : éphémérides non actualisées ; archives validées conservées. '+str(error)[:300],flush=True)
  with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
   for result in executor.map(refresh,[m for m in CONFIG['missions'] if not args.mission or m['key'] in args.mission]):pass
-if __name__=='__main__':main()
+if __name__=='__main__':
+ main()
+ from refine_mission_encounters import refine
+ refine()

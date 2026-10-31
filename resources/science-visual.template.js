@@ -19,7 +19,7 @@
     ctx.lineJoin='round';ctx.strokeStyle='#07111b';ctx.lineWidth=5;ctx.stroke();ctx.strokeStyle=color;ctx.lineWidth=1.7;ctx.stroke();ctx.restore();
    },
    async createModel(C,scene,id){
-    const model=await C.Model.fromGltfAsync({url:new URL(info.glb,base).href,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:32,maximumScale:10000000,color:C.Color.WHITE,colorBlendMode:C.ColorBlendMode.HIGHLIGHT,allowPicking:true,show:false});model.id=id;scene.primitives.add(model);return model;
+    const model=await C.Model.fromGltfAsync({...(info.body_axes?{upAxis:C.Axis.Z,forwardAxis:C.Axis.X}:{}),url:new URL(info.glb,base).href,modelMatrix:C.Matrix4.IDENTITY,minimumPixelSize:32,maximumScale:10000000,color:C.Color.WHITE,colorBlendMode:C.ColorBlendMode.HIGHLIGHT,allowPicking:true,show:false});model.id=id;scene.primitives.add(model);return model;
    }
   };
   for(const id of info.ids)models.set(id,visual);
@@ -37,7 +37,7 @@
     }
    }
    record.sprite.width=Math.max(record.visual.minimumScreenSize||16,pixels);record.sprite.height=record.sprite.width;record.sprite.image=record.visual.iconURI;
-   record.sprite.show=record.visible&&!record.suppressed&&(symbol||!record.model);
+   record.sprite.show=record.collection!=='all'&&record.visible&&!record.suppressed&&(symbol||!record.model);
    if(record.model){record.model.minimumPixelSize=Math.max(record.visual.minimumScreenSize||16,pixels);record.model.show=record.visible&&!record.suppressed&&!symbol;}
   }
   viewer.scene.preUpdate.addEventListener(()=>{if(parent.show!==false)for(const record of records.values())if(record.visible)size(record);});
@@ -55,7 +55,7 @@
     if(record.model){record.model.show=true;record.model.color=color;}
     this.move(point);size(record);return true;
    },
-   move(point){const record=records.get(point.id);if(!record?.visible)return;const xyz=worldPosition(C,viewer,point);record.sprite.position=xyz;if(record.model)record.model.modelMatrix=C.Transforms.eastNorthUpToFixedFrame(xyz);},
+   move(point){const record=records.get(point.id);if(!record?.visible)return;const xyz=worldPosition(C,viewer,point);record.sprite.position=xyz;if(record.model)record.model.modelMatrix=root.AtlasModelAttitude?root.AtlasModelAttitude.matrix(C,viewer,point,xyz,'white'):C.Transforms.eastNorthUpToFixedFrame(xyz);},
    getModel(id){const model=records.get(id)?.model;return model?.ready&&model.show?model:null;},
    suppress(id,value=true){const record=records.get(id);if(record){record.suppressed=!!value;if(value){record.sprite.show=false;if(record.model)record.model.show=false;}else size(record);}},
    *hits(){for(const [id,record] of records)if(record.visible)yield {id,position:record.sprite.position};},

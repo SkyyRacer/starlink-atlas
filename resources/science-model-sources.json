@@ -159,14 +159,12 @@
     "triangles": 4244
   },
   "mir": {
-    "kind": "nasa-adaptation",
-    "credit": "NASA 3D Resources · adaptation filaire Atlas",
-    "page": "https://github.com/nasa/NASA-3D-Resources/tree/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Mir",
-    "download": "https://raw.githubusercontent.com/nasa/NASA-3D-Resources/11ebb4ee043715aefbba6aeec8a61746fad67fa7/3D%20Models/Mir/Mir.glb",
-    "sha256": "afd22638606c5545f6f730f4c663640912b17cedd1f677ca4e8cf01b6d4819e4",
-    "license": "NASA 3D Resources: free and without copyright; NASA media guidelines apply.",
-    "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
-    "triangles": 5836
+    "enabled": true,
+    "kind": "selected-model-outline",
+    "credit": "Atlas · contours du modèle Mir sélectionné",
+    "page": "https://github.com/CelestiaProject/CelestiaContent/tree/e6d05411f1ab8aecbd8d72173711ae37f228deaf/extras-standard/mir",
+    "detailed_outline": "mir",
+    "geometry_note": "Same authored complete post-Priroda assembly and fixed array pose as selected detailed model. No measured historical attitude."
   },
   "skylab": {
     "kind": "nasa-adaptation",
@@ -494,14 +492,18 @@
     "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
   },
   "salyut-1": {
-    "kind": "original-schematic",
-    "credit": "Géométrie originale Atlas · documentation de mission",
-    "page": "https://www.nasa.gov/missions/station/50-years-ago-launch-of-salyut-the-worlds-first-space-station/",
-    "profile": "salyut-1",
-    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
-    "enabled": false,
-    "review_status": "pending-geometry-verification",
-    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      5160
+    ],
+    "name": "Saliout 1",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-1",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
   },
   "san-marco": {
     "kind": "original-schematic",
@@ -549,24 +551,20 @@
     "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
   },
   "tiangong-1": {
-    "kind": "original-schematic",
-    "credit": "Géométrie originale Atlas · documentation de mission",
-    "page": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
-    "profile": "tiangong-1",
-    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
-    "enabled": false,
-    "review_status": "pending-geometry-verification",
-    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+    "enabled": true,
+    "kind": "original-reconstruction-outline",
+    "credit": "Atlas · contours de la reconstitution détaillée",
+    "page": "https://blogs.esa.int/rocketscience/2018/03/26/tiangong-1-frequently-asked-questions-2/",
+    "detailed_outline": "tiangong-1",
+    "geometry_note": "Contours derived from the current Atlas detailed assembly, including the docked Shenzhou. Fixed illustrative white pose, no real attitude claim."
   },
   "tiangong-2": {
-    "kind": "original-schematic",
-    "credit": "Géométrie originale Atlas · documentation de mission",
-    "page": "https://www.nasa.gov/history/45-years-ago-progress-1-begins-the-era-of-space-station-resupply/",
-    "profile": "tiangong-2",
-    "geometry_note": "Schéma illustratif propre à la mission, sans attitude ni dimensions physiques garanties.",
-    "enabled": false,
-    "review_status": "pending-geometry-verification",
-    "review_note": "Withdrawn from runtime: illustrative geometry has not been validated against the actual spacecraft configuration."
+    "enabled": true,
+    "kind": "original-reconstruction-outline",
+    "credit": "Atlas · contours de la reconstitution détaillée",
+    "page": "https://en.cmse.gov.cn/news/201907/t20190713_44588.html",
+    "detailed_outline": "tiangong-2",
+    "geometry_note": "Contours derived from the current Atlas detailed assembly, including the docked Shenzhou. Fixed illustrative white pose, no real attitude claim."
   },
   "ariel-2": {
     "kind": "original-schematic",
@@ -796,5 +794,89 @@
       43476,
       43477
     ]
+  },
+  "salyut-2": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      6398
+    ],
+    "name": "Saliout 2",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-2",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "salyut-3": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      7342
+    ],
+    "name": "Saliout 3",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-3",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "salyut-4": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      7591
+    ],
+    "name": "Saliout 4",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-4",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "salyut-5": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      8911
+    ],
+    "name": "Saliout 5",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-5",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "salyut-6": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      10382
+    ],
+    "name": "Saliout 6",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-6",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "salyut-7": {
+    "enabled": true,
+    "kind": "detailed-model-outline",
+    "page_id": "salyut",
+    "ids": [
+      13138
+    ],
+    "name": "Saliout 7",
+    "credit": "Atlas · contours du modèle détaillé",
+    "page": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part2.pdf",
+    "detailed_outline": "salyut-7",
+    "license": "CC BY 4.0 · original Atlas geometry",
+    "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
   }
 }

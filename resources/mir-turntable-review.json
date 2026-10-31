@@ -1,0 +1,25 @@
+{
+  "video": "Enregistrement de l’écran 2026-10-30 à 11.39.13.mov",
+  "sha256": "fbcf8f7a225f74ac8770ee4e4dfdf252a45a34f7468903eb852603c39538b9dc",
+  "duration_seconds": 10.85,
+  "reviewed_seconds": [
+    0,
+    0.65,
+    1.45,
+    3,
+    6,
+    9
+  ],
+  "reference_is_turntable_not_app_bug_video": true,
+  "corrections": [
+    "Paired main wings rotated about their own module axes to match their horizontal extent in the forward reference view.",
+    "Kvant-1 leaves rebuilt as physically inclined alternating folds and raised on support booms above the radial modules.",
+    "Photovoltaic faces consistently face the same half-space on paired wings; neutral metallic backs replace uniform ochre backs.",
+    "Rounded connected radiator meanders, twin curved covers and recessed equipment corridors.",
+    "Kristall spherical APAS terminal and windows; Priroda external detector equipment and large curved rectangular open-wire Travers reflector."
+  ],
+  "triangles": 243280,
+  "bytes": 11458564,
+  "white_bytes": 881880,
+  "limitation": "Visual reconstruction from supplied references; not exact engineering geometry, historical visiting craft telemetry or historical attitude."
+}

@@ -2,7 +2,7 @@
 (async()=>{
  const $=id=>document.getElementById(id),base=new URL('./',document.currentScript.src);
  let state=AtlasJourney.read()||{at:Date.now(),live:true,playing:true,speed:'1',realistic:false,sky:false},viewer,moon;
- state={...state,...AtlasJourney.preferences()};
+ state={...state,...AtlasJourney.preferences(),realistic:true,sky:true};
  let at=state.live?Date.now():state.at,live=state.live,playing=state.playing,lastTick=performance.now(),viewReady=false;
  $('speed').value=state.speed;AtlasJourney.bind(()=>({...state,at,live,playing,speed:$('speed').value,realistic:viewReady?$('earth-realistic-toggle').getAttribute('aria-checked')==='true':state.realistic,sky:viewReady?$('sky-toggle').getAttribute('aria-checked')==='true':state.sky}));
  function returnEarth(event){event?.preventDefault();AtlasJourney.goEarth();}
@@ -33,11 +33,12 @@
   viewer.clock.shouldAnimate=false;viewer.clock.currentTime=C.JulianDate.fromDate(new Date(at));
   const imagery=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:state.tile_url||'https://tile.openstreetmap.org/{z}/{x}/{y}.png',credit:new C.Credit(state.tile_attribution||'© OpenStreetMap contributors · ODbL',true),maximumLevel:18}));imagery.brightness=.68;imagery.saturation=.45;
   const earth=AtlasEarth.create({viewer,imagery,C,onChange:s=>{$('earth-realistic-toggle').setAttribute('aria-checked',String(s.enabled));$('earth-realistic-toggle').setAttribute('aria-busy',String(s.loading));$('earth-style-status').textContent=s.error||'';$('earth-style-status').hidden=!s.error;}}),sky=AtlasSky.create(viewer,C);
+  await sky.setEnabled(true);$('sky-toggle').setAttribute('aria-checked','true');
   viewer.scene.renderError.addEventListener((scene,error)=>{AtlasLoading.fail();$('notice').textContent='Rendu indisponible : '+(error?.message||error);});
   moon=AtlasMoon.create({viewer,C,beforeTravel(){},onEarth(){},navigateEarth:()=>AtlasJourney.goEarth(),onViewChange:value=>earth.setLunarView(value)});moon.update(at);
-  $('earth-realistic-toggle').onclick=async()=>{const enabled=$('earth-realistic-toggle').getAttribute('aria-checked')!=='true';await earth.setEnabled(enabled);await moon.setRealistic(earth.enabled);};
+
   $('sky-toggle').onclick=async()=>{const enabled=$('sky-toggle').getAttribute('aria-checked')!=='true';try{await sky.setEnabled(enabled);$('sky-toggle').setAttribute('aria-checked',String(enabled));}catch(error){$('notice').textContent=error.message;}};
-  window.AtlasRestoreDisplay=async value=>{await earth.setEnabled(value.realistic);await moon.setRealistic(earth.enabled);if($('sky-toggle').getAttribute('aria-checked')!==String(value.sky))await $('sky-toggle').onclick();};await window.AtlasRestoreDisplay(state);window.AtlasDisplayReady=true;
+  window.AtlasRestoreDisplay=async value=>{await earth.setEnabled(true);await moon.setRealistic(true);if($('sky-toggle').getAttribute('aria-checked')!==String(value.sky))await $('sky-toggle').onclick();};await window.AtlasRestoreDisplay(state);window.AtlasDisplayReady=true;
   $('lunar-shadows-toggle').onclick=()=>{const enabled=$('lunar-shadows-toggle').getAttribute('aria-checked')!=='true';moon.setShadows(enabled);$('lunar-shadows-toggle').setAttribute('aria-checked',String(enabled));};
   $('lunar-recenter').onclick=()=>moon.recenter();$('lunar-plus').onclick=()=>moon.zoom(1);$('lunar-minus').onclick=()=>moon.zoom(-1);
   viewer.canvas.addEventListener('wheel',event=>{event.preventDefault();const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?viewer.canvas.clientHeight:1);if(pixels)moon.zoom(pixels<0?1:-1,Math.abs(pixels)/100);},{passive:false});

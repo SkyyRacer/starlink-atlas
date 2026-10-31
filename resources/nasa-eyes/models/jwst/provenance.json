@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_jwst/webb_deployed.gltf",
+    "sha256": "213f4dfd8904760b8a487953059417e874a59ac5382579a89fa2b4a9fd46464c"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_jwst/webb_deployed.bin",
+    "sha256": "f266a96a07208ba65e4c0a5cb077524c81fa53dfd5c114c29ac83d89e55f39da"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_jwst/foil_normal.jpg",
+    "sha256": "be922b7ea550409b042aaf666a70af1f32175a6ac732030812c2bac04595c578"
+  }
+]

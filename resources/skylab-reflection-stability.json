@@ -1,0 +1,117 @@
+{
+  "source": "resources/science-originals/skylab.glb",
+  "source_sha256": "6246d3ba63a5950688020609a123c67816b15df1b8b155b43bd8e6a9da8f5b44",
+  "source_buffers_preserved": true,
+  "material_finishes": {
+    "blinn4SG": {
+      "metallicFactor": 0.7,
+      "roughnessFactor": 0.5
+    },
+    "anisotropic1SG": {
+      "metallicFactor": 0.8,
+      "roughnessFactor": 0.48
+    },
+    "initialShadingGr": {
+      "metallicFactor": 0.55,
+      "roughnessFactor": 0.5
+    },
+    "apollohorns_blin": {
+      "metallicFactor": 0.8,
+      "roughnessFactor": 0.44
+    },
+    "apollohorns_bli1": {
+      "metallicFactor": 0.45,
+      "roughnessFactor": 0.48
+    },
+    "blinn13SG": {
+      "metallicFactor": 0.25,
+      "roughnessFactor": 0.48
+    },
+    "blinn7SG": {
+      "metallicFactor": 0.15,
+      "roughnessFactor": 0.5
+    },
+    "lambert3SG": {
+      "metallicFactor": 0.15,
+      "roughnessFactor": 0.5
+    },
+    "blinn16SG": {
+      "metallicFactor": 0.3,
+      "roughnessFactor": 0.4
+    },
+    "blinn11SG": {
+      "metallicFactor": 0.2,
+      "roughnessFactor": 0.46
+    },
+    "blinn14SG": {
+      "metallicFactor": 0.2,
+      "roughnessFactor": 0.46
+    },
+    "lambert7SG": {
+      "metallicFactor": 0.2,
+      "roughnessFactor": 0.46
+    },
+    "blinn17SG": {
+      "metallicFactor": 0.2,
+      "roughnessFactor": 0.46
+    },
+    "lambert4SG": {
+      "metallicFactor": 0.15,
+      "roughnessFactor": 0.38
+    },
+    "blinn15SG": {
+      "metallicFactor": 0.15,
+      "roughnessFactor": 0.38
+    },
+    "blinn5SG": {
+      "metallicFactor": 0.15,
+      "roughnessFactor": 0.38
+    }
+  },
+  "material_specular": {
+    "blinn14SG": {
+      "specularColorFactor": [
+        1,
+        1,
+        1
+      ],
+      "specularFactor": 0.65
+    },
+    "lambert3SG": {
+      "specularColorFactor": [
+        1,
+        1,
+        1
+      ],
+      "specularFactor": 0.65
+    },
+    "lambert7SG": {
+      "specularColorFactor": [
+        1,
+        1,
+        1
+      ],
+      "specularFactor": 0.65
+    },
+    "initialShadingGr": {
+      "specularColorFactor": [
+        1,
+        1,
+        1
+      ],
+      "specularFactor": 0.65
+    }
+  },
+  "render_lighting": {
+    "light_color": [
+      1,
+      1,
+      1
+    ],
+    "ibl_factor": [
+      0.6,
+      0.45
+    ]
+  },
+  "geometry_audit": "Superseded by resources/skylab-planar-cap-repair.json: exact duplicate count missed differently triangulated self-overlap on four plane caps. Runtime now preserves their geometric union with disjoint triangles; other fifteen compressed primitives retained."
+}

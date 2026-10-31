@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.gltf",
+    "sha256": "b1c66e33440a948eba13a8baa2b3240df7d0cd7a89e9d0755f9cc36458f1944a"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_euclid/euclid.bin",
+    "sha256": "95a749688ab78ecd2ff10dc89bb34ffb2025243efdab0f7831153794d8097090"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_euclid/foil_normal.jpg",
+    "sha256": "be922b7ea550409b042aaf666a70af1f32175a6ac732030812c2bac04595c578"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_euclid/solarpanels_albedo.jpg",
+    "sha256": "9e56891121dc37353fcf8ae17825e39b740d79f0cf00de1a19036985768c7824"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_euclid/corrugated_normal.jpg",
+    "sha256": "06ffbb5aedfdc40306c8635365797204b1081b77ac67e40b82e8b5598bf84611"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/new_horizons.gltf",
+    "sha256": "cc78afa44c372c65dd9766470bcb85a48b4ce4f277c7bf174b05c75f7d417edc"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons.bin",
+    "sha256": "22248e0f10e5f6372c64bb4b11683401fac350f404b650386d829d7255491d52"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/1_ao.jpg",
+    "sha256": "2aa8579fde357e1ed0c9d91d0a24b9f0fdf560887b11cb4ed297f921075dda42"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/dish_ao.jpg",
+    "sha256": "e11404d79019a5d03d79533faf6b77c6eaff871789373c9c616d629b65763fac"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_normal.png",
+    "sha256": "3c78f8be5db8420623b9ab19b77b9c6bd707d01acb13abb69c951fe90f8d0367"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_albedo.jpg",
+    "sha256": "f9da1167b3c8641249a365aac1da883d0c7b105d7c1138dc2c669e9f5cad6d14"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_pbr.jpg",
+    "sha256": "1d9d51a7173dfd92ff159f52523696ce8b7a369b6b9f94cd8acada45ffedc3c3"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_02_normal.png",
+    "sha256": "84ca0bf78f6736baa11fb744df9e45652b15fe5ca8b59a5f106814e6651214e1"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_02_albedo.jpg",
+    "sha256": "7a25c537790ff4bdf78f98dcd98fb74d482f2cc296cbfd6c8003693d656869b6"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/newhorizons_02_pbr.jpg",
+    "sha256": "aab1a24d7519cb674f1076b7e6a6c16b52f5057cc9a51f85cbb455f0b6b9fa63"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_new_horizons/foil_n.png",
+    "sha256": "ae5f85c80c2d1416db96f9d510785e046df1e3c5eda5cf4a3dd89d571cde603d"
+  }
+]

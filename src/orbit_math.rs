@@ -100,7 +100,7 @@ pub(crate) fn position(o: &Orbit, at: DateTime<Utc>) -> Option<Point> {
         speed_km_s: p.velocity.iter().map(|v| v * v).sum::<f64>().sqrt(),
         // Inertial velocity expressed in the same Earth-fixed axes as the position.
         // This is not the ground-track derivative (do not subtract Earth rotation).
-        velocity_inertial_fixed_km_s: if o.el.norad_id == 25544 {
+        velocity_inertial_fixed_km_s: if matches!(o.el.norad_id, 5160 | 6398 | 6633 | 7342 | 7591 | 8911 | 10382 | 13138 | 16609 | 25544 | 37820 | 41765 | 48274) {
             let angle = gmst(at);
             Some([p.velocity[0]*angle.cos()+p.velocity[1]*angle.sin(),
                   -p.velocity[0]*angle.sin()+p.velocity[1]*angle.cos(),p.velocity[2]])
@@ -155,6 +155,19 @@ pub(crate) fn recovery_epoch<'a>(rows:impl Iterator<Item=&'a Orbit>,now:DateTime
 #[cfg(test)]
 mod track_tests {
     use super::*;
+    #[test]
+    fn station_attitude_velocity_matches_orbit() {
+        let rows:Vec<Value>=serde_json::from_str(include_str!("../resources/iss-example.json")).unwrap();
+        for id in [5160,6398,6633,7342,7591,8911,10382,13138,16609,25544,37820,41765,48274,12345] {
+            let mut row=rows[0].clone();row["NORAD_CAT_ID"]=serde_json::json!(id);
+            let el:sgp4::Elements=serde_json::from_value(row).unwrap();let constants=sgp4::Constants::from_elements(&el).unwrap();let at=el.datetime.and_utc()+chrono::Duration::minutes(30);
+            let o=Orbit{el,constants,source:"Test"};let point=position(&o,at).unwrap();
+            if id==12345 {assert!(point.velocity_inertial_fixed_km_s.is_none());continue;}
+            let actual=point.velocity_inertial_fixed_km_s.unwrap();let raw=o.constants.propagate(sgp4::MinutesSinceEpoch(30.0)).unwrap();let angle=gmst(at);
+            let expected=[raw.velocity[0]*angle.cos()+raw.velocity[1]*angle.sin(),-raw.velocity[0]*angle.sin()+raw.velocity[1]*angle.cos(),raw.velocity[2]];
+            for i in 0..3 {assert!((actual[i]-expected[i]).abs()<1e-10);}
+        }
+    }
     #[test]
     fn adaptive_tracks_preserve_sgp4_and_resolve_curvature() {
         let rows:Vec<Value>=serde_json::from_str(include_str!("../resources/iss-example.json")).unwrap();

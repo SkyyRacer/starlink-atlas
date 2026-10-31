@@ -61,6 +61,27 @@ for(const position of [new C.Cartesian3(6778000,0,0),new C.Cartesian3(0,6778000,
 }
 const other=layerContext.window.AtlasDetailed.axisOptions(C,manifest.find(row=>row.key==='hubble'));
 assert.equal(other.upAxis,undefined);assert.equal(other.forwardAxis,undefined,'Other models retain the standard glTF axis conversion');
-assert.ok(!fs.readFileSync('resources/science-visual.template.js','utf8').includes('AtlasModelAttitude'),'The white layer never uses the flight orientation');
-assert.ok(!fs.readFileSync('static/globe.js','utf8').includes('AtlasModelAttitude.matrix'),'White ISS/Tiangong never use the flight orientation');
 console.log('ISS: complete NASA IGOAL assembly, original PNG colours, Cupola viewing axis checked through the real Cesium conversion, nominal LVLH, interpolated velocities; unmeasured attitudes remain explicitly unavailable.');
+
+globalThis.AtlasCelestialFrame={sun:()=>new C.Cartesian3(1e11,2e11,3e10)};
+for(const id of [16609,6633,48274])for(const variant of ['white','realistic']){
+ const position=new C.Cartesian3(6778000,0,0),p={id,velocity_inertial_fixed_km_s:[0,7.4,2]},viewer={clock:{currentTime:C.JulianDate.now()}},matrix=attitude.matrix(C,viewer,p,position,variant),h=Math.SQRT1_2;
+ const local=id===6633?new C.Cartesian3(0,-h,h):id===16609?C.Cartesian3.UNIT_X:C.Cartesian3.UNIT_Z;
+ const actual=C.Matrix4.multiplyByPointAsVector(matrix,local,new C.Cartesian3()),expected=id===6633?C.Cartesian3.normalize(C.Cartesian3.subtract(globalThis.AtlasCelestialFrame.sun(),position,new C.Cartesian3()),new C.Cartesian3()):new C.Cartesian3(-1,0,0);
+ if(id===6633&&variant==='white')assert.ok(C.Matrix4.equalsEpsilon(matrix,C.Transforms.eastNorthUpToFixedFrame(position),1e-12),'White Skylab stays schematic rather than tracking the Sun');
+ else assert.ok(C.Cartesian3.dot(actual,expected)>.999999,'Calibrated realistic model axis points towards its nominal Sun/nadir target');
+ assert.ok(C.Cartesian3.equals(C.Matrix4.getTranslation(matrix,new C.Cartesian3()),position),'Attitude never changes position');
+ assert.ok(Math.abs(C.Matrix3.determinant(C.Matrix4.getMatrix3(matrix,new C.Matrix3()))-1)<1e-12,'No reflection introduced');
+ assert.match(attitude.describe(p),/non mesurée/);
+}
+assert.equal((fs.readFileSync('static/globe.js','utf8').match(/issModel.modelMatrix=window.AtlasModelAttitude/g)||[]).length,2,'Both white ISS update paths apply calibrated attitude');
+console.log('Mir, Skylab and Tiangong: calibrated white/realistic axes, nominal solar/nadir references, ISS preserved');
+
+for(const id of [37820,41765,48274])for(const velocity of [undefined,[0,0,0],[NaN,1,2],[1,2]])for(const position of [new C.Cartesian3(6778000,0,0),C.Cartesian3.fromDegrees(48,32,300000)]){
+ const p={id,velocity_inertial_fixed_km_s:velocity},matrix=attitude.matrix(C,{},p,position),down=C.Cartesian3.normalize(C.Cartesian3.negate(position,new C.Cartesian3()),new C.Cartesian3());
+ const local=C.Cartesian3.normalize(C.Cartesian3.fromDegrees(48,32,300000),new C.Cartesian3());
+ assert.ok(C.Cartesian3.dot(C.Matrix4.multiplyByPointAsVector(matrix,C.Cartesian3.UNIT_Z,new C.Cartesian3()),down)>.99999,'Tiangong-1 legacy fallback keeps +Z towards Earth instead of zenith');
+ assert.ok(C.Cartesian3.equals(C.Matrix4.getTranslation(matrix,new C.Cartesian3()),position),'Orientation cannot translate the station or its docked capsule');
+ assert.deepEqual(attitude.matrix(C,{},p,position,'white'),attitude.matrix(C,{},p,position,'realistic'),'Calibrated white and detailed frames keep the same nadir');
+}
+console.log('Tiangong-1: legacy snapshots without flight velocity no longer invert the detailed assembly');

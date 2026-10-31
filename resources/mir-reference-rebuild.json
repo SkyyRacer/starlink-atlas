@@ -1,0 +1,1047 @@
+{
+  "info": {
+    "key": "mir",
+    "ids": [
+      16609
+    ],
+    "url": "images/detailed/mir.glb?v=0d72f6a404fc",
+    "bytes": 11458564,
+    "source": "https://www.nasa.gov/history/SP-4225/mir/mir.htm",
+    "download": "https://www.nasa.gov/history/SP-4225/mir/mir.htm",
+    "sha256": "405ef2b195d82c9781f5b2caba8873a3875c4fcf259d0d9f4727005a3163cda1",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Independent exterior reconstruction from supplied reference renders. Secondary details, paint placement and fixed deployed pose interpreted; not engineering CAD or date-exact visiting craft/attitude.",
+    "credit": "Atlas · reconstitution d’après les 24 références fournies",
+    "original_file": "resources/detailed-originals/mir-reference.glb",
+    "version": "Atlas reference reconstruction v4 · Mir (360-degree review)",
+    "triangles": 243280,
+    "textures": 20,
+    "materials": 26
+  },
+  "reference_images": [
+    {
+      "name": "mir00.jpg.webp",
+      "sha256": "bf557ebb09b5e571feae62fca8a8e84a24cdc5a1e427ce42e19bdbc45c64308c"
+    },
+    {
+      "name": "mir_cw01.jpg.webp",
+      "sha256": "082735cb1b39e573cd614b2065d1dee22e2f62629af316a049077e9b8dbe5047"
+    },
+    {
+      "name": "mir_cw01b.jpg.webp",
+      "sha256": "2c4a13e9e45c371b6bd248436ebe9e72c6e946975d98773098607d6563cb42a5"
+    },
+    {
+      "name": "mir_cw02.jpg.webp",
+      "sha256": "31f4e2342ef6a83aecdf7c8d1c6709b3215042c798f73a8763c814cae89a93eb"
+    },
+    {
+      "name": "mir_cw03.jpg.webp",
+      "sha256": "084790cfbf23583c56e759abfb34e4138930a256d20c9a0d9ab378c5c2020043"
+    },
+    {
+      "name": "mir_cw04.jpg.webp",
+      "sha256": "04e452500cc980779cafa8d278da205876e0b68142f305fa2f50c184b0a61f99"
+    },
+    {
+      "name": "mir_cw05.jpg.webp",
+      "sha256": "7b26604b113738b1d5c175fba1d96085be778bd6f5984a468d92ecfbcbc87e54"
+    },
+    {
+      "name": "mir_cw05b.jpg.webp",
+      "sha256": "156a49182ee4865c698405862347546305a1120dad880a42084efb8f81782769"
+    },
+    {
+      "name": "mir_cw06.jpg.webp",
+      "sha256": "56688542a281a0b47dbc31b97d37eb136d98d661184206bbffd9659b89f7248c"
+    },
+    {
+      "name": "mir_cw07.jpg.webp",
+      "sha256": "3aa2ad461e9c89e07b9a483a9b2f36feb8b53b3025682eecbd9fe2e871f1b2e4"
+    },
+    {
+      "name": "mir_cw08.jpg.webp",
+      "sha256": "cb88ed9f471e38969830f84162fed691d1292e2547720a58ce522cd5f8c2f9cf"
+    },
+    {
+      "name": "mir_cw09.jpg.webp",
+      "sha256": "86dd437facf4c62855249ac7d1bf101289efb80f6a3e1120c07e454298ced243"
+    },
+    {
+      "name": "mir_cw10.jpg.webp",
+      "sha256": "f0aa00f7ff3366002c15b93ccf4a6f0534c296d3c092df494f18ce7752ef57ca"
+    },
+    {
+      "name": "mir_cw11.jpg.webp",
+      "sha256": "16efcfa8d5a152e95a535e782474cb37016949daf92f27858b674dc89f7e13a9"
+    },
+    {
+      "name": "mir_cw12.jpg.webp",
+      "sha256": "cd79c16656c9775eb896d6545e398f31a039b5e4af6ebf2117c9039c4d09f33c"
+    },
+    {
+      "name": "mir_cw13.jpg.webp",
+      "sha256": "12123faf96eb72be3deee102427cc8a969265c27c81715a16c59d2f5ae47d3ae"
+    },
+    {
+      "name": "mir_cw15.jpg.webp",
+      "sha256": "972c6e074d63d162f22acd88988548f26449863e9eb0218f61a8d5c9fcb35641"
+    },
+    {
+      "name": "mir_cw16.jpg.webp",
+      "sha256": "0bcdc3fa06b6f75993501baa36c33530020c8d8b4f0095904cb99cc48c57332d"
+    },
+    {
+      "name": "mir_cw17.jpg.webp",
+      "sha256": "6af900c21ab851df02e66ac165dc3d6808494e4cdb22a6ada1af137d522a73fb"
+    },
+    {
+      "name": "shade01.jpg.webp",
+      "sha256": "1774746f9a7f17651f9d930d4b7c63c3d1eae48f7899a5fefdaabe712af57c99"
+    },
+    {
+      "name": "shade02.jpg.webp",
+      "sha256": "8f649c179e2ea9aaeee16e7a10f48eee40badb7f0b0c4e1adb0e5e2afa8423f3"
+    },
+    {
+      "name": "wir02.jpg.webp",
+      "sha256": "0f8029b697ecfa5b6fcdfc32c939126e4ca272913419ccd2adc5c8226c6c78db"
+    },
+    {
+      "name": "wir03.jpg.webp",
+      "sha256": "1f40ea253001ad87f1aa5c7a253478f8d12f88fc5f86c16f1923293fd425d335"
+    },
+    {
+      "name": "wir04.jpg.webp",
+      "sha256": "f10ed32d116a3a127ba85c690da7764a97c55583eaffd42943a75e50ed29a78b"
+    }
+  ],
+  "components": [
+    {
+      "name": "Core",
+      "origin": [
+        1.3,
+        0,
+        0
+      ],
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.6,
+          0.75,
+          1.45,
+          "blanket"
+        ],
+        [
+          0.6,
+          4.1,
+          1.45,
+          1.45,
+          "shell"
+        ],
+        [
+          4.1,
+          5.1,
+          1.45,
+          2.075,
+          "blanket"
+        ],
+        [
+          5.1,
+          9.7,
+          2.075,
+          2.075,
+          "blanket"
+        ],
+        [
+          9.7,
+          10.1,
+          2.075,
+          2.075,
+          "redband"
+        ],
+        [
+          10.1,
+          11.2,
+          2.075,
+          1.48,
+          "blanket"
+        ],
+        [
+          11.2,
+          11.8,
+          1.48,
+          0.75,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Kvant-1",
+      "origin": [
+        13.1,
+        0,
+        0
+      ],
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.4,
+          0.75,
+          0.75,
+          "steel"
+        ],
+        [
+          0.4,
+          1.0,
+          0.75,
+          2.05,
+          "blanket"
+        ],
+        [
+          1,
+          4.8,
+          2.05,
+          2.05,
+          "blanket"
+        ],
+        [
+          4.8,
+          5.6,
+          2.05,
+          1.25,
+          "blanket"
+        ],
+        [
+          5.6,
+          6.3,
+          1.25,
+          0.68,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Progress",
+      "origin": [
+        19.4,
+        0,
+        0
+      ],
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.35,
+          0.65,
+          0.7,
+          "steel"
+        ],
+        [
+          0.35,
+          0.75,
+          0.7,
+          1.06,
+          "shell"
+        ],
+        [
+          0.75,
+          2.45,
+          1.06,
+          1.06,
+          "blackwrap"
+        ],
+        [
+          2.45,
+          2.9,
+          1.06,
+          0.74,
+          "blackwrap"
+        ],
+        [
+          2.9,
+          3.3,
+          0.74,
+          1.1,
+          "shell"
+        ],
+        [
+          3.3,
+          4.45,
+          1.1,
+          1.17,
+          "shell"
+        ],
+        [
+          4.45,
+          4.8,
+          1.17,
+          1.3,
+          "silverplate"
+        ],
+        [
+          4.8,
+          6.8,
+          1.3,
+          1.3,
+          "shell"
+        ],
+        [
+          6.8,
+          7.2,
+          1.3,
+          0.95,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Kvant-2",
+      "origin": [
+        0,
+        1.45,
+        0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.6,
+          0.72,
+          0.72,
+          "steel"
+        ],
+        [
+          0.6,
+          1.45,
+          0.72,
+          1.45,
+          "blanket"
+        ],
+        [
+          1.45,
+          2.55,
+          1.45,
+          1.45,
+          "shell"
+        ],
+        [
+          2.55,
+          3.8,
+          1.45,
+          2.1,
+          "blanket"
+        ],
+        [
+          3.8,
+          9.5,
+          2.1,
+          2.1,
+          "blanket"
+        ],
+        [
+          9.5,
+          10.2,
+          2.1,
+          1.65,
+          "blanket"
+        ],
+        [
+          10.2,
+          12.0,
+          1.65,
+          1.65,
+          "shell"
+        ],
+        [
+          12,
+          12.3,
+          1.65,
+          0.9,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Spektr",
+      "origin": [
+        0,
+        -1.45,
+        0
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.5,
+          0.72,
+          0.72,
+          "steel"
+        ],
+        [
+          0.5,
+          1.5,
+          0.72,
+          1.45,
+          "blanket"
+        ],
+        [
+          1.5,
+          2.8,
+          1.45,
+          1.45,
+          "shell"
+        ],
+        [
+          2.8,
+          3.6,
+          1.45,
+          2.1,
+          "blanket"
+        ],
+        [
+          3.6,
+          8.7,
+          2.1,
+          2.1,
+          "blanket"
+        ],
+        [
+          8.7,
+          10.2,
+          2.1,
+          1.25,
+          "blanket"
+        ],
+        [
+          10.2,
+          12.4,
+          1.25,
+          0.9,
+          "shell"
+        ]
+      ]
+    },
+    {
+      "name": "Priroda",
+      "origin": [
+        0,
+        0,
+        1.45
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "profile": [
+        [
+          0,
+          0.6,
+          0.72,
+          0.72,
+          "steel"
+        ],
+        [
+          0.6,
+          1.8,
+          0.72,
+          1.45,
+          "blanket"
+        ],
+        [
+          1.8,
+          2.9,
+          1.45,
+          1.45,
+          "shell"
+        ],
+        [
+          2.9,
+          3.8,
+          1.45,
+          2.1,
+          "blanket"
+        ],
+        [
+          3.8,
+          9.5,
+          2.1,
+          2.1,
+          "blanket"
+        ],
+        [
+          9.5,
+          10.3,
+          2.1,
+          1.7,
+          "blanket"
+        ],
+        [
+          10.3,
+          11.6,
+          1.7,
+          1.2,
+          "shell"
+        ]
+      ]
+    },
+    {
+      "name": "Kristall",
+      "origin": [
+        0,
+        0,
+        -1.45
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "profile": [
+        [
+          0,
+          0.6,
+          0.72,
+          0.72,
+          "steel"
+        ],
+        [
+          0.6,
+          1.8,
+          0.72,
+          1.45,
+          "blanket"
+        ],
+        [
+          1.8,
+          3.3,
+          1.45,
+          1.45,
+          "shell"
+        ],
+        [
+          3.3,
+          4.2,
+          1.45,
+          2.1,
+          "blanket"
+        ],
+        [
+          4.2,
+          8.2,
+          2.1,
+          2.1,
+          "blanket"
+        ],
+        [
+          8.2,
+          8.9,
+          2.1,
+          1.1,
+          "blanket"
+        ],
+        [
+          8.9,
+          9.45,
+          1.1,
+          1.1,
+          "shell"
+        ],
+        [
+          9.45,
+          11.4,
+          0.7,
+          0.7,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Docking adapter",
+      "origin": [
+        0,
+        0,
+        -12.85
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "profile": [
+        [
+          0,
+          0.3,
+          0.95,
+          1.13,
+          "steel"
+        ],
+        [
+          0.3,
+          0.55,
+          1.13,
+          1.13,
+          "shell"
+        ],
+        [
+          0.55,
+          3.9,
+          1.13,
+          1.13,
+          "orangefoil"
+        ],
+        [
+          3.9,
+          4.3,
+          1.13,
+          1.13,
+          "shell"
+        ],
+        [
+          4.3,
+          4.7,
+          1.13,
+          1.0,
+          "steel"
+        ]
+      ]
+    },
+    {
+      "name": "Soyuz",
+      "origin": [
+        -1.45,
+        0,
+        0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "profile": [
+        [
+          0,
+          0.35,
+          0.65,
+          0.7,
+          "steel"
+        ],
+        [
+          0.35,
+          0.75,
+          0.7,
+          1.06,
+          "shell"
+        ],
+        [
+          0.75,
+          2.45,
+          1.06,
+          1.06,
+          "blackwrap"
+        ],
+        [
+          2.45,
+          2.9,
+          1.06,
+          0.74,
+          "blackwrap"
+        ],
+        [
+          2.9,
+          3.3,
+          0.74,
+          1.1,
+          "shell"
+        ],
+        [
+          3.3,
+          4.45,
+          1.1,
+          1.17,
+          "shell"
+        ],
+        [
+          4.45,
+          4.8,
+          1.17,
+          1.3,
+          "silverplate"
+        ],
+        [
+          4.8,
+          6.8,
+          1.3,
+          1.3,
+          "shell"
+        ],
+        [
+          6.8,
+          7.2,
+          1.3,
+          0.95,
+          "steel"
+        ]
+      ]
+    }
+  ],
+  "wings": [
+    {
+      "name": "Core wing -1",
+      "module": "Core",
+      "span": [
+        2.2,
+        13.5
+      ],
+      "width": 3.2,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.0,
+        -1.0,
+        -6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Core wing 1",
+      "module": "Core",
+      "span": [
+        2.2,
+        13.5
+      ],
+      "width": 3.2,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Core narrow dorsal wing",
+      "module": "Core",
+      "span": [
+        2.2,
+        9.4
+      ],
+      "width": 1.85,
+      "accordion": true,
+      "fold_depth_m": 0.48,
+      "root_angle_rad": 0,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Kvant-1 accordion -1",
+      "module": "Kvant-1",
+      "span": [
+        2.2,
+        13.9
+      ],
+      "width": 2.7,
+      "accordion": true,
+      "fold_depth_m": 0.48,
+      "root_angle_rad": -1.5707963267948966,
+      "normal_offset_m": 2.65,
+      "cell_normal_body": [
+        -0.0,
+        -1.0,
+        -6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Kvant-1 accordion 1",
+      "module": "Kvant-1",
+      "span": [
+        2.2,
+        13.9
+      ],
+      "width": 2.7,
+      "accordion": true,
+      "fold_depth_m": 0.48,
+      "root_angle_rad": 1.5707963267948966,
+      "normal_offset_m": -2.65,
+      "cell_normal_body": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Progress solar -1",
+      "module": "Progress",
+      "span": [
+        1.35,
+        5.2
+      ],
+      "width": 1.05,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.0,
+        -1.0,
+        -6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Progress solar 1",
+      "module": "Progress",
+      "span": [
+        1.35,
+        5.2
+      ],
+      "width": 1.05,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Kvant-2 wing -1",
+      "module": "Kvant-2",
+      "span": [
+        2.25,
+        12.8
+      ],
+      "width": 3.15,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.4707963267948965,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.9950041652780257,
+        0.0,
+        0.09983341664682831
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Kvant-2 wing 1",
+      "module": "Kvant-2",
+      "span": [
+        2.25,
+        12.8
+      ],
+      "width": 3.15,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.4707963267948965,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.9950041652780257,
+        -0.0,
+        -0.09983341664682831
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Spektr main -1",
+      "module": "Spektr",
+      "span": [
+        2.25,
+        11.8
+      ],
+      "width": 3.1,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.6707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.9950041652780257,
+        -0.0,
+        0.09983341664682818
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Spektr main 1",
+      "module": "Spektr",
+      "span": [
+        2.25,
+        11.8
+      ],
+      "width": 3.1,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.6707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.9950041652780257,
+        0.0,
+        -0.09983341664682818
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Spektr oblique 1.05",
+      "module": "Spektr",
+      "span": [
+        1.3,
+        8.7
+      ],
+      "width": 2.9,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.0471975511965976,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.8660254037844386,
+        0.0,
+        0.5000000000000001
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Spektr oblique -1.05",
+      "module": "Spektr",
+      "span": [
+        1.3,
+        8.7
+      ],
+      "width": 2.9,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.0471975511965976,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.8660254037844386,
+        -0.0,
+        -0.5000000000000001
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Soyuz solar -1",
+      "module": "Soyuz",
+      "span": [
+        1.35,
+        5.2
+      ],
+      "width": 1.05,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": -1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "reference_pose": true
+    },
+    {
+      "name": "Soyuz solar 1",
+      "module": "Soyuz",
+      "span": [
+        1.35,
+        5.2
+      ],
+      "width": 1.05,
+      "accordion": false,
+      "fold_depth_m": 0,
+      "root_angle_rad": 1.5707963267948966,
+      "normal_offset_m": 0,
+      "cell_normal_body": [
+        -0.0,
+        -1.0,
+        -6.123233995736766e-17
+      ],
+      "reference_pose": true
+    }
+  ],
+  "feature_notes": [
+    "Priroda Travers: 4.2 x 2.26 m interpreted curved rectangular wire reflector from the supplied turntable"
+  ],
+  "turntable_reference": {
+    "file": "Enregistrement de l’écran 2026-10-30 à 11.39.13.mov",
+    "duration_seconds": 10.85,
+    "reviewed_seconds": [
+      0,
+      0.65,
+      1.45,
+      3,
+      6,
+      9
+    ]
+  },
+  "bounds": [
+    [
+      -8.954066015191232,
+      -14.115999999999998,
+      -17.825604754407646
+    ],
+    [
+      26.90406601519123,
+      14.023391684434705,
+      13.899999999999999
+    ]
+  ],
+  "mesh_batches": 133
+}

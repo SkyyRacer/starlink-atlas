@@ -7,6 +7,7 @@
  const debris=$('workspace-debris'),debrisButton=$('workspace-debris-button'),debrisMenu=$('workspace-debris-menu');
  const isAtlas=document.body.dataset.collection==='all'||!$('atlas-controls').hidden;
  const isStation=AtlasPages.hasCrew(document.body.dataset.collection);
+ const isDeep=!!AtlasPages.definition(document.body.dataset.collection)?.trajectory;
  close.firstChild.textContent='';
  if(isStation){close.setAttribute('aria-label','Fermer Missions et équipage');}
  const search=document.querySelector('.object-search'),searchMenu=nav.querySelector('.collection-menu-panel');
@@ -19,37 +20,8 @@
  const deepControl=document.createElement('div');deepControl.id='workspace-deep-control';
  const deepButton=document.createElement('button');deepButton.id='workspace-deep-button';deepButton.type='button';deepButton.textContent='Missions lointaines';deepButton.className='workspace-dropdown';deepButton.setAttribute('aria-expanded','false');deepButton.setAttribute('aria-controls','workspace-deep-space');
  const deepLinks=document.createElement('nav');deepLinks.id='workspace-deep-space';deepLinks.hidden=true;deepLinks.setAttribute('aria-label','Missions lointaines');
- const deepSearchBox=document.createElement('div');deepSearchBox.className='deep-menu-search object-search integrated-object-search';
- const deepSearchLabel=document.createElement('label');deepSearchLabel.htmlFor='deep-mission-search';deepSearchLabel.textContent='Rechercher une mission';
- const deepSearch=document.createElement('input');deepSearch.id='deep-mission-search';deepSearch.type='search';deepSearch.autocomplete='off';deepSearch.placeholder='JWST, Cassini, Voyager…';deepSearch.setAttribute('role','combobox');deepSearch.setAttribute('aria-autocomplete','list');deepSearch.setAttribute('aria-expanded','false');deepSearch.setAttribute('aria-controls','workspace-deep-space');deepSearchBox.append(deepSearchLabel,deepSearch);deepLinks.append(deepSearchBox);
- const distantCategories=new Map();
- for(const row of AtlasPages.definitions.filter(row=>row.trajectory)){const name=row.deep_category||'Autres missions';if(!distantCategories.has(name))distantCategories.set(name,[]);distantCategories.get(name).push(row);}
- const alphabetical=(a,b)=>a.localeCompare(b,'fr',{sensitivity:'base',numeric:true});
- for(const [name,rows] of [...distantCategories].sort(([a],[b])=>alphabetical(a,b))){
-  const section=document.createElement('details');section.className='deep-menu-category atlas-category collection-menu-theme';const title=document.createElement('summary');title.textContent=name;section.append(title);section.setAttribute('aria-label',name);
-  const list=document.createElement('div');list.className='deep-menu-items';list.setAttribute('role','group');list.setAttribute('aria-label',name);
-  for(const row of rows.sort((a,b)=>alphabetical(a.label,b.label))){const link=document.createElement('a');link.href=AtlasPages.url(row.id);link.className='collection-menu-option';link.id='deep-mission-option-'+row.id;link.textContent=row.label;link.dataset.search=row.label+' '+row.description;if(row.id===document.body.dataset.collection)link.setAttribute('aria-current','page');list.append(link);}
-  section.append(list);deepLinks.append(section);
- }
- const deepEmpty=document.createElement('p');deepEmpty.className='deep-menu-empty';deepEmpty.textContent='Aucun résultat';deepEmpty.hidden=true;deepEmpty.setAttribute('role','status');deepLinks.append(deepEmpty);
- const normalizeMission=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').trim();
- let activeMission=null;
- function clearMissionChoice(){activeMission=null;deepSearch.removeAttribute('aria-activedescendant');for(const link of deepLinks.querySelectorAll('a'))link.classList.remove('is-active');}
- function selectMission(link){
-  clearMissionChoice();activeMission=link;link.classList.add('is-active');link.closest('details').open=true;deepSearch.setAttribute('aria-activedescendant',link.id);
-  const box=link.getBoundingClientRect(),viewport=deepLinks.getBoundingClientRect(),sticky=deepSearchBox.getBoundingClientRect();
-  const top=Math.max(viewport.top,sticky.bottom);
-  if(box.top<top)deepLinks.scrollTop-=top-box.top;else if(box.bottom>viewport.bottom)deepLinks.scrollTop+=box.bottom-viewport.bottom;
- }
- deepSearch.addEventListener('keydown',event=>{
-  if(event.isComposing||event.ctrlKey||event.metaKey||event.altKey||!deepSearch.value.trim()||!['Tab','ArrowDown','ArrowUp','Enter'].includes(event.key))return;
-  event.preventDefault();event.stopPropagation();const found=[...deepLinks.querySelectorAll('a')].filter(link=>!link.hidden);
-  if(!found.length)return;
-  if(event.key==='Enter'){if(activeMission||found.length===1){(activeMission||found[0]).click();closeDeep();}else selectMission(found[0]);return;}
-  const backwards=event.key==='ArrowUp'||(event.key==='Tab'&&event.shiftKey),index=found.indexOf(activeMission);
-  selectMission(found[index<0?(backwards?found.length-1:0):(index+(backwards?-1:1)+found.length)%found.length]);
- });
- deepSearch.addEventListener('input',()=>{clearMissionChoice();deepSearch.setAttribute('aria-expanded',String(!deepLinks.hidden));const query=normalizeMission(deepSearch.value);let total=0;for(const category of deepLinks.querySelectorAll('details')){let matches=0;for(const link of category.querySelectorAll('a')){link.hidden=!!query&&!normalizeMission(link.dataset.search).includes(query);if(!link.hidden)matches++;}category.hidden=matches===0;if(query)category.open=matches>0;else category.open=!!category.querySelector('[aria-current="page"]');total+=matches;}deepEmpty.hidden=total>0;});
+ const missionMenu=window.AtlasMissionMenu.mount({panel:deepLinks,definitions:AtlasPages.definitions,url:id=>AtlasPages.url(id),current:document.body.dataset.collection,close:()=>closeDeep()});
+ const deepSearch=missionMenu.search,clearMissionChoice=missionMenu.clear;
  deepControl.append(deepButton,deepLinks);stationControl.after(deepControl);
  function closeDeep(restore=false){if(!deepLinks.hidden)globalThis.AtlasCollectionMenu?.reset(deepLinks);clearMissionChoice();deepSearch.setAttribute('aria-expanded','false');deepLinks.hidden=true;deepButton.setAttribute('aria-expanded','false');if(restore)deepButton.focus({preventScroll:true});}
  deepButton.addEventListener('click',()=>{const open=deepLinks.hidden;closeStations();if(open){setObjects(false);closeMenu();closeTools();closeDebris();closeNews();deepLinks.hidden=false;deepLinks.scrollTop=0;deepSearch.setAttribute('aria-expanded','true');deepButton.setAttribute('aria-expanded','true');positionSubmenu(deepLinks,deepButton,350);}});
@@ -140,14 +112,14 @@
   if(desktop.matches){
    if(mounted){positionMenus();return;}mounted=true;document.body.classList.add('earth-workspace');document.body.classList.toggle('dedicated-workspace',!isAtlas);
    move($('workspace-iss'),stationLinks);move($('workspace-tiangong'),stationLinks);
-   if(!stationLinks.querySelector('[data-historical-station]'))for(const row of AtlasPages.definitions.filter(row=>row.category==='stations'&&!row.station_id)){const link=document.createElement('a');link.href=AtlasPages.url(row.id);link.textContent=row.label;link.className='workspace-link';link.dataset.historicalStation=row.id;stationLinks.append(link);}
+   if(!stationLinks.querySelector('[data-historical-station]'))for(const row of AtlasPages.definitions.filter(row=>row.category==='stations'&&row.station_menu!==false&&!row.station_id)){const link=document.createElement('a');link.href=AtlasPages.url(row.id);link.textContent=row.label;link.className='workspace-link';link.dataset.historicalStation=row.id;stationLinks.append(link);}
    stationLinks.append(...[...stationLinks.querySelectorAll('a')].sort((a,b)=>a.textContent.trim().localeCompare(b.textContent.trim(),'fr',{sensitivity:'base',numeric:true})));
    move(nav,bar);move(tools,bar);move(news,bar);if(isAtlas)move(debris,sceneActions);move($('globe-home'),sceneActions);move(sceneTools,stack);
    tools.hidden=!isAtlas;debris.hidden=!isAtlas;close.hidden=false;
    if(isAtlas){frozenControls.hidden=false;move(close,frozenControls);move(categorySearch,frozenControls);move(document.querySelector('#atlas-controls .atlas-actions'),frozenControls);bar.prepend(nav);nav.after(objects);nav.classList.add('workspace-primary-menu');move(document.querySelector('.atlas-debris-card'),$('workspace-debris-content'));move(debrisMenu,document.body);}
    else{titleRow.hidden=false;move(document.querySelector('.observation-title'),titleRow);move(close,titleRow);move(objects,sceneActions);$('workspace-debris-navigation').hidden=false;}
    if(isAtlas){objects.after(stationControl);nav.hidden=true;}else{nav.after(stationControl);nav.hidden=false;}stationControl.after(deepControl);
-   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les objets':isStation?'Équipage à bord':'Liste des objets';
+   menu.setThematic?.(!isAtlas);objects.textContent=isAtlas?'Tous les objets':isStation?'Équipage à bord':isDeep?'Simuler le trajet':'Liste des objets';
    setObjects(false);syncView();
   }else{
    if(!mounted)return;closeStations();setObjects(false);closeMenu();closeTools();closeDebris();menu.setThematic?.(false);closeNews();
@@ -161,7 +133,7 @@
  stationButton.addEventListener('click',()=>{closeDeep();const open=stationLinks.hidden;if(open){setObjects(false);closeMenu();closeTools();closeDebris();closeNews();stationLinks.hidden=false;stationButton.setAttribute('aria-expanded','true');positionSubmenu(stationLinks,stationButton,230);}else closeStations();});
  stationControl.addEventListener('keydown',event=>{if(event.key==='ArrowDown'&&event.target===stationButton){event.preventDefault();if(stationLinks.hidden)stationButton.click();stationLinks.querySelector('a')?.focus({preventScroll:true});}});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!stationLinks.hidden){event.preventDefault();closeStations(true);}});
- objects.addEventListener('click',()=>{const next=!opened;if(next){closeMenu();closeTools();closeDebris();closeNews();}setObjects(next);});
+ objects.addEventListener('click',()=>{if(isDeep){closeMenu();closeTools();closeDebris();closeNews();window.dispatchEvent(new Event('atlas:mission-events-toggle'));return;}const next=!opened;if(next){closeMenu();closeTools();closeDebris();closeNews();}setObjects(next);});
  close.addEventListener('click',()=>setObjects(false,true));
  menu.addEventListener('click',()=>{if(desktop.matches&&menu.getAttribute('aria-expanded')==='true'){closeStations();setObjects(false);closeTools();closeDebris();closeNews();positionSubmenu(searchMenu,menu,350);}});
  tools.addEventListener('click',()=>{if(desktop.matches&&tools.getAttribute('aria-expanded')==='true'){closeStations();setObjects(false);closeMenu();closeDebris();closeNews();positionSubmenu($('advanced-panel'),tools,360);}});

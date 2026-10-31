@@ -217,7 +217,8 @@
       "LEO"
     ],
     "aggregate": true,
-    "extension": "historical-2026-10-23"
+    "extension": "historical-2026-10-23",
+    "station_menu": false
   },
   {
     "id": "alos-2",
@@ -6362,6 +6363,27 @@
     "extension": "historical-2026-10-23"
   },
   {
+    "id": "juice",
+    "label": "JUICE",
+    "description": "Jupiter Icy Moons Explorer · mission ESA avec participation du CNES",
+    "category": "science",
+    "keywords": "JUICE Jupiter Ganymède Europe Callisto ESA CNES mission lointaine",
+    "group": "active",
+    "catalog_queries": [],
+    "prefixes": [],
+    "contains": [],
+    "ids": [
+      56176
+    ],
+    "frame_radius": 500000000000,
+    "orbit_types": [
+      "PLANETARY"
+    ],
+    "trajectory": "horizons",
+    "extension": "deep-space-2026-10-27",
+    "deep_category": "Exploration planétaire"
+  },
+  {
     "id": "juno",
     "label": "Juno",
     "description": "Sonde planétaire pour l’exploration de Jupiter",
@@ -10567,15 +10589,16 @@
   },
   {
     "id": "salyut",
-    "label": "Saliout 2 à 7",
+    "label": "Salyut 1 à 7",
     "description": "Stations orbitales soviétiques",
     "category": "stations",
-    "keywords": "Saliout 2 à 7 Stations orbitales soviétiques satellites histoire",
+    "keywords": "Salyut Saliout 1 à 7 stations orbitales soviétiques Almaz OPS histoire",
     "group": "active",
     "catalog_queries": [],
     "prefixes": [],
     "contains": [],
     "ids": [
+      5160,
       6398,
       7342,
       7591,
@@ -10606,7 +10629,8 @@
     "orbit_types": [
       "LEO"
     ],
-    "extension": "historical-2026-10-23"
+    "extension": "historical-2026-10-23",
+    "station_menu": false
   },
   {
     "id": "san-marco",
@@ -12097,7 +12121,7 @@
     ],
     "trajectory": "horizons",
     "extension": "historical-2026-10-23",
-    "data_note": "Aucune éphéméride officielle identifiée dans Horizons ; aucun TLE terrestre n’est utilisé pour simuler sa trajectoire près de L2.",
+    "data_note": "Archives orbitales officielles MPE/eROSITA–NPOL disponibles du 1er octobre 2019 au 1er janvier 2020. Aucune extrapolation hors de cette période.",
     "deep_category": "Observatoires spatiaux"
   },
   {

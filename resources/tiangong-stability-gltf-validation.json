@@ -1,0 +1,32 @@
+[
+  {
+    "file": "static/images/detailed/tiangong.glb",
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "file": "static/images/detailed/tiangong-1.glb",
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "file": "static/images/detailed/tiangong-2.glb",
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "file": "static/images/tiangong.glb",
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "file": "static/images/science/tiangong-1.glb",
+    "errors": 0,
+    "warnings": 0
+  },
+  {
+    "file": "static/images/science/tiangong-2.glb",
+    "errors": 0,
+    "warnings": 0
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "source_sha256": "52ae474af84aace9d7c0bff746c083aecab29fbbb1cb1f9b05a35aee37a20811",
+  "line_segments": 27353,
+  "bytes": 657260,
+  "bounds": [
+    [
+      -46.2804,
+      -50.0,
+      -23.3079
+    ],
+    [
+      46.2804,
+      50.0,
+      23.3079
+    ]
+  ],
+  "parts": [
+    "Mir \u00b7 configuration compl\u00e8te apr\u00e8s Priroda (1996)",
+    "Mir solar wing core -1",
+    "Mir solar wing Kvant-1 -1",
+    "Mir solar wing Kvant-2 -1",
+    "Mir solar wing Spektr main -1",
+    "Mir solar wing Spektr tip -1",
+    "Mir solar wing core 1",
+    "Mir solar wing Kvant-1 1",
+    "Mir solar wing Kvant-2 1",
+    "Mir solar wing Spektr main 1",
+    "Mir solar wing Spektr tip 1"
+  ]
+}

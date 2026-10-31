@@ -1,0 +1,34 @@
+#mission-film[hidden]{display:none!important}
+#mission-film{position:fixed;z-index:1801;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(900px,calc(100vw - 48px));display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px 16px;box-sizing:border-box;padding:16px 20px 12px;border:1px solid #56616a;background:#080c11ed;color:#edf4f7;box-shadow:0 8px 36px #0009;font-family:Arial,sans-serif}
+#mission-film .film-title{font-size:14px;font-weight:500;line-height:1.4;grid-column:1/3;overflow-wrap:anywhere}
+#mission-film .film-date{font-size:11px;color:#b7c6cf;grid-column:1/3;grid-row:2;min-width:0;line-height:1.4}
+#mission-film button{color:inherit;background:transparent;border:1px solid #5e6b74;cursor:pointer;font:inherit}
+#mission-film .film-close{grid-column:3;grid-row:1/3;align-self:start;width:28px;height:28px;font-size:21px;line-height:1;padding:0}
+#mission-film .film-markers{grid-column:1/-1;position:relative;height:78px;margin:8px 0 -6px}
+#mission-film .film-marker{position:absolute;bottom:-6px;transform:translateX(-50%);height:14px;width:14px;border:0;border-radius:50%;padding:0;background:#182b38;box-shadow:inset 0 0 0 1px #8cbbc8;z-index:1}
+#mission-film .film-marker:after{content:'';position:absolute;width:1px;height:9px;background:#77929e;left:6px;bottom:13px}
+#mission-film .film-marker span{position:absolute;width:112px;max-height:34px;overflow:hidden;left:50%;transform:translateX(-50%);color:#abbcc7;font-size:10px;line-height:1.4;text-align:center}
+#mission-film .film-marker-first span{left:0;transform:none;text-align:left}
+#mission-film .film-marker-last span{left:auto;right:0;transform:none;text-align:right}
+#mission-film .film-marker-passed{background:#a2f7d7;box-shadow:0 0 8px #79eac960}
+#mission-film .film-marker-passed span{color:#e1eee9}
+#mission-film .film-marker:focus-visible{outline:2px solid white;outline-offset:4px}
+#mission-film .film-track{grid-column:1/-1;width:100%;height:5px;margin:0 0 8px;accent-color:#a2f7d7;cursor:pointer;background:linear-gradient(to right,#a2f7d7 var(--film-progress,0%),#3c464e 0);appearance:none;border:0}
+#mission-film .film-track::-webkit-slider-thumb{appearance:none;width:9px;height:9px;background:#effcf6;border-radius:50%}
+#mission-film .film-track::-moz-range-thumb{width:9px;height:9px;background:#effcf6;border:0;border-radius:50%}
+#mission-film .film-pause{min-width:90px;height:31px;font-size:12px;padding:0 14px}
+#mission-film .film-hint{grid-column:2/-1;text-align:right;font-size:11px;color:#a2b1bc;line-height:1.4}
+#mission-film .film-preparation{grid-column:1/-1;font-variant-numeric:tabular-nums;font-size:18px;text-align:center}
+#mission-film .film-preparation:empty{display:none}
+#mission-film[data-preparing=true] .film-markers,#mission-film[data-preparing=true] .film-track{display:none}
+@media(max-width:700px){#mission-film{width:calc(100vw - 24px);padding:12px}.film-marker span{font-size:9px!important;width:80px!important}}
+
+#mission-film .film-marker span{white-space:nowrap;text-overflow:ellipsis;max-height:16px}
+#mission-film .film-marker:hover span,#mission-film .film-marker:focus-visible span{width:max-content;max-width:320px;max-height:none;white-space:normal;overflow:visible;background:#121c25;padding:6px;z-index:5;color:white}
+@media(max-width:1400px){#mission-film{bottom:88px}}
+
+.earth-workspace #workspace-objects.mission-film-trigger{background:linear-gradient(135deg,#153b35,#0c2525);border-color:#73cdb4;color:#d9fff0;font-weight:600;gap:9px;box-shadow:0 0 16px #62d5ae12}
+.earth-workspace #workspace-objects.mission-film-trigger::after{content:none!important;display:none!important}
+.earth-workspace #workspace-objects.mission-film-trigger::before{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid #a2f7d7;flex:none}
+.earth-workspace #workspace-objects.mission-film-trigger:hover{background:#235448;border-color:#a2f7d7;color:#fff}
+.earth-workspace #workspace-objects.mission-film-trigger:focus-visible{outline:2px solid #c7ffe6;outline-offset:3px}

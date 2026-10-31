@@ -1,0 +1,103 @@
+{
+  "source": "NASA/JPL-Caltech Eyes on the Solar System",
+  "url": "https://eyes.nasa.gov/apps/solar-system/",
+  "imported": "2026-10-27",
+  "missions": [
+    {
+      "mission": "new-horizons",
+      "year": 2026,
+      "status": "unavailable",
+      "samples": 1249,
+      "max_check_error_km": 531003.6241468325,
+      "error": "Source differs from current Horizons by more than 10000 km; not enabled"
+    },
+    {
+      "mission": "voyager-1",
+      "year": 2026,
+      "status": "unavailable",
+      "samples": 1249,
+      "max_check_error_km": 116989.71589835401,
+      "error": "Source differs from current Horizons by more than 10000 km; not enabled"
+    },
+    {
+      "mission": "voyager-2",
+      "year": 2026,
+      "status": "unavailable",
+      "samples": 1249,
+      "max_check_error_km": 25319316.340566974,
+      "error": "Source differs from current Horizons by more than 10000 km; not enabled"
+    },
+    {
+      "mission": "jwst",
+      "year": 2026,
+      "status": "enabled",
+      "samples": 1249,
+      "max_check_error_km": 1642.8299670815745,
+      "file": "ephemerides/nasa-eyes/jwst.json",
+      "first_epoch": 1767225600,
+      "last_epoch": 1794182400
+    },
+    {
+      "mission": "euclid",
+      "year": 2026,
+      "status": "enabled",
+      "samples": 1249,
+      "max_check_error_km": 2193.5710679939016,
+      "file": "ephemerides/nasa-eyes/euclid.json",
+      "first_epoch": 1767225600,
+      "last_epoch": 1794182400
+    },
+    {
+      "mission": "soho",
+      "year": 2026,
+      "status": "enabled",
+      "samples": 1224,
+      "max_check_error_km": 1501.6837324360367,
+      "file": "ephemerides/nasa-eyes/soho.json",
+      "first_epoch": 1767225600,
+      "last_epoch": 1793642400
+    },
+    {
+      "mission": "ace",
+      "year": 2026,
+      "status": "enabled",
+      "samples": 1249,
+      "max_check_error_km": 2141.6021983711817,
+      "file": "ephemerides/nasa-eyes/ace.json",
+      "first_epoch": 1767225600,
+      "last_epoch": 1794182400
+    },
+    {
+      "mission": "cassini",
+      "year": 2017,
+      "status": "unavailable",
+      "samples": 1030,
+      "max_check_error_km": 255366.73710570103,
+      "error": "Source differs from current Horizons by more than 10000 km; not enabled"
+    },
+    {
+      "mission": "juno",
+      "year": 2026,
+      "status": "unavailable",
+      "samples": 1249,
+      "max_check_error_km": 179324.43043679916,
+      "error": "Source differs from current Horizons by more than 10000 km; not enabled"
+    },
+    {
+      "mission": "spitzer",
+      "year": 2026,
+      "status": "unavailable",
+      "error": "No overlapping source coverage"
+    },
+    {
+      "mission": "dscovr",
+      "year": 2026,
+      "status": "enabled",
+      "samples": 1241,
+      "max_check_error_km": 1522.4696624998048,
+      "file": "ephemerides/nasa-eyes/dscovr.json",
+      "first_epoch": 1767225600,
+      "last_epoch": 1794009600
+    }
+  ]
+}

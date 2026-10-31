@@ -144,6 +144,7 @@ def glb(lines,solid_sphere=False):
 def build():
  definitions=json.loads((ROOT/'resources/constellations.json').read_text());sources=json.loads((ROOT/'resources/science-model-sources.json').read_text());manifest=[]
  for key,source in sources.items():
+  if source.get('detailed_outline'):continue # Dedicated outline passes below preserve authored assemblies.
   if source.get('enabled') is False:
    for suffix in ['.glb','.json']:(OUT/(key+suffix)).unlink(missing_ok=True)
    continue
@@ -164,5 +165,14 @@ def build():
  (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':')))
  template=(ROOT/'resources/science-visual.template.js').read_text()
  (ROOT/'static/science-visual.js').write_text(template.replace('__MANIFEST__',json.dumps(manifest,ensure_ascii=False,separators=(',',':'))))
+ if any(s.get('detailed_outline') for s in sources.values()):
+  from build_tiangong_white import build as build_tiangong_white
+  build_tiangong_white()
+ if sources.get('mir',{}).get('detailed_outline'):
+  from build_mir_white import build as build_mir_white
+  build_mir_white()
+ if any(k.startswith('salyut-') and s.get('detailed_outline') for k,s in sources.items()):
+  from build_salyut_white import build as build_salyut_white
+  build_salyut_white()
  print('\n'.join(f"{m['name']}: {m['segments']} segments, {m['bytes']} octets, {m['kind']}" for m in manifest))
 if __name__=='__main__':build()

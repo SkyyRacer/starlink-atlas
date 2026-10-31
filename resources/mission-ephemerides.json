@@ -156,7 +156,8 @@
       ],
       "frame_radius": 2000000000000,
       "stop": "2017-09-15 11:55:00",
-      "deep_category": "Exploration planétaire"
+      "deep_category": "Exploration planétaire",
+      "step_seconds": 3600
     },
     {
       "key": "juno",
@@ -193,18 +194,31 @@
       ],
       "frame_radius": 500000000000,
       "deep_category": "Exploration planétaire"
+    },
+    {
+      "key": "juice",
+      "id": 56176,
+      "command": -28,
+      "launch": "2023-04-14 12:14:00",
+      "label": "JUICE",
+      "frame_radius": 500000000000,
+      "deep_category": "Exploration planétaire"
     }
   ],
   "unavailable": [
     {
-      "key": "spektr-rg",
-      "reason": "Aucune éphéméride officielle identifiée dans Horizons ; aucun TLE terrestre n’est utilisé pour simuler sa trajectoire près de L2.",
-      "deep_category": "Observatoires spatiaux"
-    },
-    {
       "key": "ikaros",
       "reason": "Aucune éphéméride officielle identifiée dans Horizons ; aucune trajectoire héliocentrique n’est reconstruite à partir d’un TLE terrestre.",
       "deep_category": "Technologies spatiales"
+    }
+  ],
+  "external_missions": [
+    {
+      "key": "spektr-rg",
+      "id": 44432,
+      "source": "MPE/eROSITA EDR · NPOL",
+      "url": "https://erosita.mpe.mpg.de/edr/eROSITAObservations/OrbitFiles/",
+      "coverage": "2019-10-01/2020-01-01"
     }
   ]
 }

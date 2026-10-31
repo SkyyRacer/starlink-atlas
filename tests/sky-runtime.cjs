@@ -15,5 +15,6 @@ const context={window:{},console};vm.runInNewContext(fs.readFileSync('static/sky
  await sky.setEnabled(true);assert.equal(loads,1);assert.equal(textures,1);
  assert.equal(viewer.scene.skyBox.update({mode:3,context:{}}),cmd);
  assert.ok(fs.existsSync('static/images/sky/reference-starmap-8k.jpg'));
+ let brightness=.7;const localSun={x:-1e11,y:2,z:3},localEarth={x:4,y:5,z:6};const floating=context.window.AtlasSky.create(viewer,C,{solarFlare:()=>brightness,sunPosition:()=>localSun,earthPosition:()=>localEarth});await floating.setEnabled(true);const local=viewer.scene.skyBox.update({mode:3,context:{}});assert.equal(local.uniformMap.u_sunPosition(),localSun);assert.equal(local.uniformMap.u_earthPosition(),localEarth);assert.equal(local.uniformMap.u_solarFlare(),.7);brightness=0;assert.equal(local.uniformMap.u_solarFlare(),0,'The flare fades out when the orange solar surface takes over');
  console.log('Independent sky: lazy texture, retained GPU resources, 3D-only, environment command, toggle and credits OK.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

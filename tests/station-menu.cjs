@@ -5,7 +5,7 @@ async function check(station){
  const media={matches:true,addEventListener(){}};let pageScroll=0;
  const ctx={document,window:{document,innerWidth:1300,innerHeight:900,scrollTo(){pageScroll++;},AtlasTimeline:{live:true,time:Date.now()},addEventListener(){},dispatchEvent(){}},location:{assign(){}},Event:window.Event,MutationObserver:window.MutationObserver,URLSearchParams,matchMedia:()=>media,queueMicrotask,setTimeout,Date,Intl,navigator:{language:'fr'},AtlasPages:require('../static/pages.js'),AtlasCollections:require('../static/constellations.js'),AtlasTime:require('../static/time.js')};
  vm.createContext(ctx);vm.runInContext(fs.readFileSync('static/collection-menu.js','utf8'),ctx);Object.defineProperty($('collection-select'),'value',{writable:true,value:station});ctx.AtlasCollectionMenu.mount($('collection-select'));
- for(const script of ['desktop-panels.js','desktop-tools.js','workspace.js'])vm.runInContext(fs.readFileSync('static/'+script,'utf8'),ctx);
+ for(const script of ['desktop-panels.js','desktop-tools.js','mission-menu.js','workspace.js'])vm.runInContext(fs.readFileSync('static/'+script,'utf8'),ctx);
  assert.equal($('workspace-'+station).hidden,false);assert.equal($('workspace-'+station).getAttribute('aria-current'),'page');assert.equal($('workspace-'+(station==='iss'?'tiangong':'iss')).hidden,false);
  const rail=$('satellite-panel');rail.scrollTop=0;rail.getBoundingClientRect=()=>({top:100,bottom:500,height:400});
  $('iss-search').getBoundingClientRect=()=>({top:440-rail.scrollTop,bottom:480-rail.scrollTop,height:40});

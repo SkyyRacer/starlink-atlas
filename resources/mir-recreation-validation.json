@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "file": "resources/detailed-originals/mir-atlas.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "static/images/detailed/mir.glb",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  ]
+}

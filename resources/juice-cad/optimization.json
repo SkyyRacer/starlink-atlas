@@ -1,0 +1,167 @@
+{
+  "original_bytes": 91991432,
+  "runtime_source_bytes": 6669440,
+  "sha256": "adf012c4ef307edc149ebd2b5776a3958589de2abdf94b2be7e66a2cd45e573f",
+  "parts": [
+    {
+      "part": "bus",
+      "before": 37683,
+      "after": 19999
+    },
+    {
+      "part": "bus",
+      "before": 14303,
+      "after": 14303
+    },
+    {
+      "part": "sapy",
+      "before": 10755,
+      "after": 3499
+    },
+    {
+      "part": "samy",
+      "before": 10755,
+      "after": 3499
+    },
+    {
+      "part": "mag",
+      "before": 410708,
+      "after": 64082
+    },
+    {
+      "part": "mga_apm",
+      "before": 382,
+      "after": 382
+    },
+    {
+      "part": "mga_dish",
+      "before": 3354,
+      "after": 2499
+    },
+    {
+      "part": "rimemx",
+      "before": 153164,
+      "after": 29476
+    },
+    {
+      "part": "rimepx",
+      "before": 148031,
+      "after": 27346
+    },
+    {
+      "part": "rwi",
+      "before": 43434,
+      "after": 8520
+    },
+    {
+      "part": "scm",
+      "before": 16815,
+      "after": 2597
+    },
+    {
+      "part": "gala",
+      "before": 24687,
+      "after": 2533
+    },
+    {
+      "part": "janus",
+      "before": 22999,
+      "after": 3100
+    },
+    {
+      "part": "jmc1",
+      "before": 25044,
+      "after": 4168
+    },
+    {
+      "part": "jmc2",
+      "before": 25044,
+      "after": 4168
+    },
+    {
+      "part": "majis",
+      "before": 149118,
+      "after": 31061
+    },
+    {
+      "part": "swi",
+      "before": 50117,
+      "after": 15988
+    },
+    {
+      "part": "uvs",
+      "before": 13993,
+      "after": 4309
+    },
+    {
+      "part": "pep_jdc",
+      "before": 41882,
+      "after": 5439
+    },
+    {
+      "part": "pep_jei",
+      "before": 12936,
+      "after": 2500
+    },
+    {
+      "part": "pep_jeni",
+      "before": 89477,
+      "after": 15349
+    },
+    {
+      "part": "pep_jna",
+      "before": 117060,
+      "after": 22336
+    },
+    {
+      "part": "pep_nim",
+      "before": 21955,
+      "after": 3144
+    },
+    {
+      "part": "str1",
+      "before": 7871,
+      "after": 2497
+    },
+    {
+      "part": "str2",
+      "before": 7871,
+      "after": 2497
+    },
+    {
+      "part": "str3",
+      "before": 7871,
+      "after": 2497
+    },
+    {
+      "part": "lpb1",
+      "before": 506,
+      "after": 506
+    },
+    {
+      "part": "lpb2",
+      "before": 506,
+      "after": 506
+    },
+    {
+      "part": "lpb3",
+      "before": 506,
+      "after": 506
+    },
+    {
+      "part": "lpb4",
+      "before": 506,
+      "after": 506
+    },
+    {
+      "part": "navcam1",
+      "before": 28272,
+      "after": 3683
+    },
+    {
+      "part": "navcam2",
+      "before": 28272,
+      "after": 3683
+    }
+  ]
+}

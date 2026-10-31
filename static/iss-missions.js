@@ -111,18 +111,29 @@
   aboard(current);$('iss-detail-kind').textContent='ASTRONAUTE';$('iss-mission-name').textContent=a.name;
   const body=$('iss-mission-body');body.replaceChildren();
   const facts=document.createElement('dl');facts.append(nationalitiesFact(a.nationalities),row('Rôle',roles[current?.role||a.role]||current?.role||a.role),row('Agence / affiliation',a.agency||a.agency_abbrev),row('Type d’affiliation',({'Government':'Agence publique','Private':'Privé','Commercial':'Privé / commercial','Non-Astronaut Passenger':'Passager'})[a.affiliation_type]||a.affiliation_type||'Non renseigné'));
-  const career=archive&&AtlasCrewArchive.total(archive,a,viewedAt(),data.archive?null:data);
-  if(career)facts.append(row(career.partial?'Temps total documenté dans l’espace':'Temps total dans l’espace',career.formatted));
-  else if(liveView()&&AtlasEVA.seconds(a.time_in_space)!==null)facts.append(row('Temps total dans l’espace · dernière collecte',AtlasCrewArchive.format(AtlasEVA.seconds(a.time_in_space))));
-  if(career)body.append(text('p',`Cumul des vols de toute la carrière jusqu’à la date consultée, sans ajouter les sorties spatiales. Archives GCAT arrêtées au ${date(career.through)}.${career.partial?' Couverture partielle : ce cumul constitue un minimum documenté.':''}`,'hint'));
+  let career=archive&&AtlasCrewArchive.career(archive,a,data.archive?null:data);
+  const publishedTime=AtlasEVA.seconds(a.time_in_space);if(Number.isFinite(publishedTime)&&publishedTime>=0&&(!career||publishedTime>career.seconds))career={...career,seconds:publishedTime,formatted:AtlasCrewArchive.format(publishedTime),partial:false,profile:true,through:data.fetched_at};
+  if(career)facts.append(row(career.partial?'Temps total documenté dans l’espace · toutes missions':'Temps total dans l’espace · toutes missions',career.formatted));
+  else if(AtlasEVA.seconds(a.time_in_space)!==null)facts.append(row('Temps total dans l’espace · dernière collecte',AtlasCrewArchive.format(AtlasEVA.seconds(a.time_in_space))));
+  if(career?.profile)body.append(text('p',`Temps de carrière toutes missions communiqué dans la fiche astronaute, selon la dernière collecte du ${date(career.through)}.`,'hint'));
+  else if(career)body.append(text('p',`Cumul de toute la carrière, toutes missions confondues, indépendant de la station et de la date affichée sur la carte. Les sorties spatiales ne sont pas ajoutées une seconde fois. Archives GCAT arrêtées au ${date(career.through)}.${career.partial?' Couverture partielle : ce cumul constitue un minimum documenté.':''}`,'hint'));
   if(current)facts.append(row(liveView()?'Mission actuelle':'Mission à cette date',current.mission),row('Arrivée à l’ISS',date(current.arrival)),row('Temps à bord de l’ISS',current.arrival?elapsed(current.arrival):'Non renseigné'));
-  body.append(facts);const evas=text('section','', 'iss-evas');body.append(evas);renderEVAs(a.id,evas);body.append(text('h3','Missions et vols documentés vers l’ISS'));
-  if(!item.flights.length)body.append(text('p','Aucun vol associé renseigné dans ce catalogue.','hint'));
-  for(const f of item.flights){const button=text('button','', 'iss-flight');button.type='button';button.append(text('span',f.name),text('small',launchDate(f)));button.addEventListener('click',()=>show(f,button));body.append(button);}
+  body.append(facts);const evas=text('section','', 'iss-evas');body.append(evas);renderEVAs(a.id,evas);body.append(text('h3','Missions et vols · toute la carrière'));
+  const flights=archive?AtlasCrewArchive.careerFlights(archive,a,item.flights):item.flights;
+  if(!flights.length)body.append(text('p','Aucun vol associé renseigné dans ce catalogue.','hint'));
+  for(const f of flights){const button=text('button','', 'iss-flight iss-career-flight');button.type='button';button.dataset.flightId=f.id;button.append(text('span',f.name),text('small',launchDate(f)));button.addEventListener('click',()=>showCareerFlight(f,a,item,button));body.append(button);}
   body.append(text('p','Équipages et rôles selon les vols documentés ; cumul de carrière issu des archives GCAT lorsqu’une identité concordante est disponible. Les affiliations historiques peuvent différer de leur situation actuelle.','hint'));
   if(!dialog.open)dialog.showModal();else if(!refreshing)$('iss-mission-close').focus({preventScroll:true});if(!refreshing){dialog.scrollTop=0;dialog.dataset.opener=opener?.id||'';}
  }
- function openResult(item,opener){if(item.kind==='person')showPerson(item,opener);else show(item.value,opener);}
+ function showCareerFlight(f,a,owner,opener){
+  activeItem={kind:'careerFlight',value:f,person:a,owner};aboard(null);$('iss-detail-kind').textContent='MISSION SPATIALE';$('iss-mission-name').textContent=f.name;
+  const body=$('iss-mission-body');body.replaceChildren();const facts=document.createElement('dl');facts.append(row('Astronaute',a.name),row('Décollage',launchDate(f)),row('Retour',f.end?date(f.end):f.ongoing?'Vol en cours selon les données disponibles':'Non renseigné'));
+  const start=Date.parse(f.launch),end=Date.parse(f.end),duration=Number.isFinite(f.duration_seconds)?f.duration_seconds:Number.isFinite(start)&&Number.isFinite(end)?(end-start)/1000:null;
+  if(Number.isFinite(duration)&&duration>=0)facts.append(row('Durée du vol',AtlasCrewArchive.format(duration)));body.append(facts);
+  const back=text('button','Retour à la fiche de '+a.name,'iss-person-return');back.type='button';back.onclick=()=>showPerson(owner,back);body.append(back,text('p','Vol de la carrière complète, sans restriction à une station. Source : '+(f.source||'archives documentées')+'.','hint'));
+  if(!dialog.open)dialog.showModal();if(!refreshing){dialog.scrollTop=0;dialog.dataset.opener=opener?.id||'';}
+ }
+ function openResult(item,opener){if(item.kind==='person')showPerson(item,opener);else if(item.kind==='careerFlight')showCareerFlight(item.value,item.person,item.owner,opener);else show(item.value,opener);}
  function search(){
   const query=$('iss-search').value.trim(),results=$('iss-search-results'),status=$('iss-search-status');results.replaceChildren();searchItems=[];
   if(!query){results.hidden=true;status.textContent='';return;}

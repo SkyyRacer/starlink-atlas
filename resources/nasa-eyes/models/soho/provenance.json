@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.gltf",
+    "sha256": "1fc05391e6f0edaabf5205bfb3b019f9b27b384eb7b48e35c750303fe1d36a18"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho.bin",
+    "sha256": "15f462271759400c930b16bae5dcd377b1e058a96882023532e74b7c406e38ce"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho_normal.png",
+    "sha256": "18579693bbea88edef95a4a9de9167f225a38922fc9c0007224734e287be5dad"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho_albedo.jpg",
+    "sha256": "95d51d5932da014f929778f1c1bb897b00911445833719a73025d61107e1dcd3"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho_pbr.jpg",
+    "sha256": "ac30ccd09e32826278f16366be84060f48ecf3fd4ff717dce4298f3ee2255796"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_soho/soho_dish_ao.jpg",
+    "sha256": "744c8bfd75b79d58b830a98ed63125246c6f7e7c15c9eb7928758a1f0a5523da"
+  }
+]

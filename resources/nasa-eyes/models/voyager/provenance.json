@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/Voyager.gltf",
+    "sha256": "628addd0bc0357eb6509533da2eb7117dc0b8e6f208e603606bb55f7ed0bf417"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/voyager.bin",
+    "sha256": "86c81363e4c95da503ce2d8f2f595c24cf6fb94b545da4634608a984aebf0d19"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/voyager_normal.png",
+    "sha256": "fac4e87cb9609c2fee60a042da970661948b203a668267c63f13908d8f71c9ab"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/voyager_albedo.jpg",
+    "sha256": "a46237647656b508104085b8e9e04458678b9bc830ca6c661ccc86937001c864"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/voyager_pbr.jpg",
+    "sha256": "7a905cf0285d8ab538aacfd1c08df23c9256c2851d85fcbedbbd142b403bebf1"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/foil_n.png",
+    "sha256": "ae5f85c80c2d1416db96f9d510785e046df1e3c5eda5cf4a3dd89d571cde603d"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/dish_ao.png",
+    "sha256": "9937c4d61c40aec420a91e2550eac9e5d2c83458187e3578b9038871ba505423"
+  },
+  {
+    "url": "https://eyes.nasa.gov/assets/static/models/sc_voyager/dish_other_ao.png",
+    "sha256": "d90dbb41984acda070f2e9b469a04bfdd6e29004bdf92ee65c8b1fad01c2b438"
+  }
+]

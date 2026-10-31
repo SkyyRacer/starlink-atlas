@@ -5,7 +5,7 @@ for(const mode of ['all','starlink','iss']){
  Object.defineProperty($('collection-select'),'value',{writable:true,value:mode});
  const context={document,window:{addEventListener(){},dispatchEvent(){}},Event:window.Event,MutationObserver:window.MutationObserver,matchMedia:()=>({matches:true,addEventListener(){}}),AtlasPages:require('../static/pages.js'),AtlasCollections:require('../static/constellations.js'),URLSearchParams,queueMicrotask};
  vm.createContext(context);vm.runInContext(fs.readFileSync('static/collection-menu.js','utf8'),context);context.AtlasCollectionMenu.mount($('collection-select'));
- vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
+ vm.runInContext(fs.readFileSync('static/mission-menu.js','utf8'),context);vm.runInContext(fs.readFileSync('static/workspace.js','utf8'),context);
  const nav=document.querySelector('.collection-navigation'),trigger=mode==='all'?$('workspace-objects'):nav;
  assert.equal(trigger.nextElementSibling,$('workspace-station-control'),'Satellite menu precedes stations on '+mode);
  assert.equal((mode==='all'?trigger:$('collection-menu-button')).textContent,'Tous les objets');

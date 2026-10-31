@@ -1,0 +1,34 @@
+{
+  "checked_utc": "2026-10-27T09:14:33.440476+00:00",
+  "nasa_source": {
+    "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_4k.tif",
+    "sha256": "918649a7f8ed2f1329b2cd95bb0d25483befdcb60ae1a66db681a637cc21344f"
+  },
+  "usgs_source": {
+    "url": "https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.kmz",
+    "sha256": "e3c291fa86a0d31bbd3a635337d17fd5a8a6efc23d2f5634347e63713514f558"
+  },
+  "official_features": 9087,
+  "checked_features": 130,
+  "checked_labels": 110,
+  "max_coordinate_difference_degrees": 0,
+  "photo_source_psnr_db": 42.50040994133528,
+  "map_registration_correlation": {
+    "aligned": 0.9980723851055179,
+    "longitude_180_error": -0.17851891134411613,
+    "east_west_mirror_error": 0.5472111421255951,
+    "north_south_flip_error": 0.32388355537205005
+  },
+  "files": {
+    "features.json": "8fda999c091f8c6a06445815b8c8bfeec4c5ea48e7d877c57f22b3dd6c0dfa69",
+    "map-names.json": "2236852ce3ee6b7dfb9a0a9092fb016d863630081bb7ec64fffdf8ef76bdf6eb",
+    "map-names.webp": "13256648c598aafdbcb4e94a5fb3b71f263a2c48e1371f6b2e3df0c8bd735c84",
+    "map-4k.webp": "50345d79e2eacecb9924e9ab63939d01809acf254b04607f525a715d3975bd3a",
+    "lroc-4k.webp": "19a993096064d70bb512e031b72e82fcaae2abfb033d45fd40844e637a0ab666"
+  },
+  "limitations": [
+    "Surface is a reference mosaic, not an image observed at the selected date.",
+    "Geometry is a sphere; actual terrain relief is not rendered.",
+    "This source and coordinate audit does not assert a GPU screenshot verification."
+  ]
+}

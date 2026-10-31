@@ -1,0 +1,746 @@
+{
+  "source": "https://www.nasa.gov/history/SP-4225/mir/mir.htm",
+  "layout_source": "https://www.esa.int/esapub/bulletin/bullet88/reite88.htm",
+  "solar_source": "https://ntrs.nasa.gov/citations/19950021792",
+  "reference": "https://www.turbosquid.com/fr/3d-models/mir-space-station-3d-model/529931",
+  "modules": [
+    {
+      "name": "Mir core",
+      "length_m": 13.1,
+      "max_diameter_m": 4.15,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "origin": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Kvant-1",
+      "length_m": 6.3,
+      "max_diameter_m": 4.4,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "origin": [
+        13.1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Kvant-2",
+      "length_m": 13.7,
+      "max_diameter_m": 4.4,
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "origin": [
+        0.8,
+        1.3,
+        0
+      ]
+    },
+    {
+      "name": "Spektr",
+      "length_m": 14.4,
+      "max_diameter_m": 4.4,
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "origin": [
+        0.8,
+        -1.3,
+        0
+      ]
+    },
+    {
+      "name": "Docking module",
+      "length_m": 4.7,
+      "max_diameter_m": 2.2,
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "origin": [
+        0.8,
+        0.0,
+        -14.3
+      ]
+    },
+    {
+      "name": "Kristall",
+      "length_m": 13.0,
+      "max_diameter_m": 4.4,
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "origin": [
+        0.8,
+        0,
+        -1.3
+      ]
+    },
+    {
+      "name": "Priroda",
+      "length_m": 12.0,
+      "max_diameter_m": 4.4,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "origin": [
+        0.8,
+        0,
+        1.3
+      ]
+    }
+  ],
+  "wings": [
+    {
+      "name": "Mir core port solar",
+      "module": "Mir core",
+      "movable": true,
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "pivot": [
+        10.5,
+        2.15,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "width_m": 3.45,
+      "length_m": 11.95
+    },
+    {
+      "name": "Mir core starboard solar",
+      "module": "Mir core",
+      "movable": true,
+      "axis": [
+        0.0,
+        -1.0,
+        1.2246467991473532e-16
+      ],
+      "pivot": [
+        10.5,
+        -2.15,
+        2.632990618166809e-16
+      ],
+      "normal": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "width_m": 3.45,
+      "length_m": 11.95
+    },
+    {
+      "name": "Mir core dorsal fixed solar",
+      "module": "Mir core",
+      "movable": false,
+      "axis": [
+        0.0,
+        6.123233995736766e-17,
+        -1.0
+      ],
+      "pivot": [
+        9.2,
+        1.3164953090834046e-16,
+        -2.15
+      ],
+      "normal": [
+        0.0,
+        -1.0,
+        -6.123233995736766e-17
+      ],
+      "width_m": 2.75,
+      "length_m": 7.75
+    },
+    {
+      "name": "Kvant-1 relocated solar -1",
+      "module": "Kvant-1",
+      "movable": true,
+      "axis": [
+        0.0,
+        -1.0,
+        1.2246467991473532e-16
+      ],
+      "pivot": [
+        16.1,
+        -3.0,
+        3.6739403974420594e-16
+      ],
+      "normal": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "width_m": 3.4,
+      "length_m": 11.4
+    },
+    {
+      "name": "Kvant-1 relocated solar 1",
+      "module": "Kvant-1",
+      "movable": true,
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "pivot": [
+        16.1,
+        3.0,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "width_m": 3.4,
+      "length_m": 11.4
+    },
+    {
+      "name": "Kvant-2 solar 0",
+      "module": "Kvant-2",
+      "movable": true,
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        -1.4999999999999998,
+        9.5,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "width_m": 3.8,
+      "length_m": 11.399999999999999
+    },
+    {
+      "name": "Kvant-2 solar 1",
+      "module": "Kvant-2",
+      "movable": true,
+      "axis": [
+        1.0,
+        0.0,
+        1.2246467991473532e-16
+      ],
+      "pivot": [
+        3.0999999999999996,
+        9.5,
+        2.816687638038912e-16
+      ],
+      "normal": [
+        -1.2246467991473532e-16,
+        0.0,
+        1.0
+      ],
+      "width_m": 3.8,
+      "length_m": 11.399999999999999
+    },
+    {
+      "name": "Spektr steerable solar 0",
+      "module": "Spektr",
+      "movable": true,
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        3.0999999999999996,
+        -9.700000000000001,
+        0.0
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "width_m": 3.3,
+      "length_m": 10.0
+    },
+    {
+      "name": "Spektr steerable solar 1",
+      "module": "Spektr",
+      "movable": true,
+      "axis": [
+        -1.0,
+        0.0,
+        1.2246467991473532e-16
+      ],
+      "pivot": [
+        -1.4999999999999998,
+        -9.700000000000001,
+        2.816687638038912e-16
+      ],
+      "normal": [
+        1.2246467991473532e-16,
+        0.0,
+        1.0
+      ],
+      "width_m": 3.3,
+      "length_m": 10.0
+    },
+    {
+      "name": "Spektr oblique fixed solar 1.05",
+      "module": "Spektr",
+      "movable": false,
+      "axis": [
+        0.5000000000000001,
+        0.0,
+        0.8660254037844386
+      ],
+      "pivot": [
+        1.5500000000000003,
+        -14.4,
+        1.299038105676658
+      ],
+      "normal": [
+        0.8660254037844386,
+        0.0,
+        -0.5000000000000001
+      ],
+      "width_m": 3.1,
+      "length_m": 7.300000000000001
+    },
+    {
+      "name": "Spektr oblique fixed solar -1.05",
+      "module": "Spektr",
+      "movable": false,
+      "axis": [
+        0.5000000000000001,
+        0.0,
+        -0.8660254037844386
+      ],
+      "pivot": [
+        1.5500000000000003,
+        -14.4,
+        -1.299038105676658
+      ],
+      "normal": [
+        -0.8660254037844386,
+        0.0,
+        -0.5000000000000001
+      ],
+      "width_m": 3.1,
+      "length_m": 7.300000000000001
+    }
+  ],
+  "solar_rig": [
+    {
+      "name": "Mir core port solar",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        1.0,
+        0.0,
+        0,
+        10.5,
+        2.15,
+        0.0,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        1.0,
+        0.0,
+        0,
+        10.5,
+        2.15,
+        0.0,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Mir core starboard solar",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0,
+        10.5,
+        -2.15,
+        2.632990618166809e-16,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0,
+        10.5,
+        -2.15,
+        2.632990618166809e-16,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Kvant-1 relocated solar -1",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0,
+        16.1,
+        -3.0,
+        3.6739403974420594e-16,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0,
+        16.1,
+        -3.0,
+        3.6739403974420594e-16,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Kvant-1 relocated solar 1",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        1.0,
+        0.0,
+        0,
+        16.1,
+        3.0,
+        0.0,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        0.0,
+        1.0,
+        0.0,
+        0,
+        16.1,
+        3.0,
+        0.0,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Kvant-2 solar 0",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -0.0,
+        -1.0,
+        -0.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        -1.4999999999999998,
+        9.5,
+        0.0,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -0.0,
+        -1.0,
+        -0.0,
+        0,
+        -1.0,
+        0.0,
+        0.0,
+        0,
+        -1.4999999999999998,
+        9.5,
+        0.0,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Kvant-2 solar 1",
+      "kind": "beta",
+      "body_from_joint": [
+        -1.2246467991473532e-16,
+        0.0,
+        1.0,
+        0,
+        0.0,
+        -1.0,
+        0.0,
+        0,
+        1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        3.0999999999999996,
+        9.5,
+        2.816687638038912e-16,
+        1
+      ],
+      "base_matrix": [
+        -1.2246467991473532e-16,
+        0.0,
+        1.0,
+        0,
+        0.0,
+        -1.0,
+        0.0,
+        0,
+        1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        3.0999999999999996,
+        9.5,
+        2.816687638038912e-16,
+        1
+      ],
+      "normal_body": [
+        -1.2246467991473532e-16,
+        0.0,
+        1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Spektr steerable solar 0",
+      "kind": "beta",
+      "body_from_joint": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -0.0,
+        1.0,
+        0.0,
+        0,
+        1.0,
+        0.0,
+        0.0,
+        0,
+        3.0999999999999996,
+        -9.700000000000001,
+        0.0,
+        1
+      ],
+      "base_matrix": [
+        0.0,
+        0.0,
+        -1.0,
+        0,
+        -0.0,
+        1.0,
+        0.0,
+        0,
+        1.0,
+        0.0,
+        0.0,
+        0,
+        3.0999999999999996,
+        -9.700000000000001,
+        0.0,
+        1
+      ],
+      "normal_body": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    },
+    {
+      "name": "Spektr steerable solar 1",
+      "kind": "beta",
+      "body_from_joint": [
+        1.2246467991473532e-16,
+        0.0,
+        1.0,
+        0,
+        0.0,
+        1.0,
+        -0.0,
+        0,
+        -1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        -1.4999999999999998,
+        -9.700000000000001,
+        2.816687638038912e-16,
+        1
+      ],
+      "base_matrix": [
+        1.2246467991473532e-16,
+        0.0,
+        1.0,
+        0,
+        0.0,
+        1.0,
+        -0.0,
+        0,
+        -1.0,
+        0.0,
+        1.2246467991473532e-16,
+        0,
+        -1.4999999999999998,
+        -9.700000000000001,
+        2.816687638038912e-16,
+        1
+      ],
+      "normal_body": [
+        1.2246467991473532e-16,
+        0.0,
+        1.0
+      ],
+      "minimum_angle": -1.5707963267948966,
+      "maximum_angle": 1.5707963267948966,
+      "note": "One-axis nominal Sun pointing, bounded 180-degree travel; not historical motor telemetry."
+    }
+  ],
+  "triangles": 110948,
+  "bytes": 7215472,
+  "note": "Reconstitution originale Atlas, configuration complète représentative après Priroda. Détails secondaires interprétés ; orientation et panneaux calculés, sans télémétrie historique."
+}

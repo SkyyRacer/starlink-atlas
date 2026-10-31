@@ -1,0 +1,131 @@
+{
+  "source": "resources/detailed-originals/mir-celestia.glb",
+  "source_sha256": "82479b405b20f1c666e0be7c4097c8bbd254d5455bbb9d8825981b3d004c0c0b",
+  "original_binary_bytes": 21001872,
+  "geometry_preserved": true,
+  "original_colour_images_preserved": true,
+  "surfaces": [
+    {
+      "source_texture": "paneliss3.png",
+      "materials": [
+        "Mir material 1",
+        "Mir material 8",
+        "Mir material 25",
+        "Mir material 26",
+        "Mir material 38",
+        "Mir material 41",
+        "Mir material 57"
+      ],
+      "normal_scale": 0.18
+    },
+    {
+      "source_texture": "metallwhite.png",
+      "materials": [
+        "Mir material 3",
+        "Mir material 11",
+        "Mir material 14",
+        "Mir material 21",
+        "Mir material 30",
+        "Mir material 42",
+        "Mir material 45",
+        "Mir material 58"
+      ],
+      "normal_scale": 0.25
+    },
+    {
+      "source_texture": "chrome.png",
+      "materials": [
+        "Mir material 7",
+        "Mir material 18",
+        "Mir material 20",
+        "Mir material 23",
+        "Mir material 32",
+        "Mir material 36",
+        "Mir material 56"
+      ],
+      "normal_scale": 0.16
+    }
+  ],
+  "colour_textures": [
+    {
+      "source": "paneliss3.png",
+      "size": [
+        1024,
+        512
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "metallwhite.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "chrome.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "multi.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "dock.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "dockkr.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "enhanced existing UV colour atlas"
+    },
+    {
+      "source": "mir.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "role": "enhanced existing UV colour atlas"
+    }
+  ],
+  "marking_uv_repair": {
+    "material": 48,
+    "mode": "dedicated cylindrical UV; seam vertices expanded; triangles retain original positions and normals",
+    "patches": [
+      [
+        378,
+        322,
+        260,
+        158
+      ],
+      [
+        1402,
+        322,
+        260,
+        158
+      ]
+    ],
+    "atlas_size": [
+      2048,
+      768
+    ],
+    "ink_pixels": 33060,
+    "ink_outside_hull_pixels": 0
+  }
+}

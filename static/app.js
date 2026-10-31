@@ -20,6 +20,8 @@ let tiles=null,planisphereRequested=false;
 function attachPlanisphere(){if(tiles&&!map.hasLayer(tiles))tiles.addTo(map);}
 let constellationCoverage='',issOverviewPending=false,initialOverviewTarget=null;
 let collectionMode=AtlasPages.mode(location.pathname),allCatalog=[],atlasGroups=new Set(AtlasPages.definitions.filter(row=>row.id!=='debris').map(row=>row.id));
+const solarEarthEntry=collectionMode==='all'&&new URLSearchParams(location.search).get('view')==='earth';
+if(solarEarthEntry)atlasGroups.clear();
 const atlasDefaultColor=family=>family==='debris'?'#d9a15f':'#c8efff';
 const atlasColors=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,atlasDefaultColor(row.id)]));
 let catalog=[],byId=new Map(),points=[],selected=null,focusSelected=false,track=[],futureTrack=[],at=Date.now(),live=true,playing=true,busy=false,pendingPosition=false,positionRevision=0,suggestedAt=null,lastTick=performance.now(),failures=0;
@@ -29,6 +31,8 @@ let pendingSatelliteLink=AtlasPages.satelliteLink(location.search);
 if(pendingSatelliteLink&&pendingSatelliteLink.at!==null){at=pendingSatelliteLink.at;live=false;playing=false;}
 const restoredEarthView=collectionMode==='all'?globalThis.AtlasJourney?.read():null;
 const restoredDisplay=globalThis.AtlasJourney?.preferences()||{realistic:false,sky:false};
+if(collectionMode==='all')restoredDisplay.sky=solarEarthEntry;
+if(solarEarthEntry)restoredDisplay.realistic=true;
 if(AtlasPages.definition(collectionMode)?.trajectory){restoredDisplay.sky=true;restoredDisplay.realistic=true;}
 if(restoredEarthView){at=restoredEarthView.live?Date.now():restoredEarthView.at;live=restoredEarthView.live;playing=restoredEarthView.playing;$('speed').value=restoredEarthView.speed;}
 globalThis.AtlasJourney?.bind(()=>({at,live,playing,speed:$('speed').value,realistic:$('earth-realistic-toggle').getAttribute('aria-checked')==='true',sky:$('sky-toggle').getAttribute('aria-checked')==='true',tile_url:cartoConfig?.tile_url,tile_attribution:cartoConfig?.tile_attribution}));
@@ -115,8 +119,10 @@ function updateDebrisCoverage(){
 function updatePositionNotice(visible,visibleIds){updateAtlasCounts(visibleIds);updateDebrisCoverage();if(positionAvailability&&positionAvailability.collection===collectionMode&&positionAvailability.selected===selected&&Math.abs(positionAvailability.at-at)<150000&&!positionAvailability.hasPosition){$('notice').textContent='';return;}if(AtlasPages.isStation(collectionMode)){$('notice').textContent=points.some(p=>p.id===AtlasPages.station(collectionMode))?AtlasPages.definition(collectionMode).label:AtlasPages.definition(collectionMode).label+' : aucune donnée orbitale adaptée à cette date.';$('available').hidden=points.some(p=>p.id===AtlasPages.station(collectionMode))||!suggestedAt;return;}if(selected!==null&&!points.some(p=>p.id===selected)){const satellite=byId.get(selected),status=satellite?state(satellite):'unknown';$('notice').textContent=(satellite?.name||'Cet objet')+' : '+(status==='not-launched'?'pas encore lancé à cette date.':status==='decayed'?'déjà désorbité à cette date.':'aucune observation orbitale publique adaptée à cette date.');return;}if(!points.length)return;const available=points.filter(p=>collectionMode==='all'||AtlasPages.belongs(byId.get(p.id)||p,collectionMode)).length;$('notice').textContent=collectionMode==='all'&&atlasGroups.size===0?'Aucun satellite sélectionné · choisissez des satellites dans le menu ou cliquez sur Afficher les satellites.':visible===0&&satellitesHidden?'Satellites masqués · cliquez sur Afficher les satellites pour les retrouver.':visible===0?'Des positions sont disponibles, mais les filtres masquent tous les satellites. Effacez la recherche ou choisissez Tous les états / Toutes les années.':`${available.toLocaleString('fr')} positions disponibles · ${visible.toLocaleString('fr')} affichées`; }
 let positionAvailability=null;
 const retiredPanel=AtlasRetired.create(document.querySelector('.view'),(id,time,archived=true)=>{
+ if(filmClock){window.dispatchEvent(new Event('atlas:replay-dismiss'));filmClock=false;}
+ if(AtlasPages.definition(collectionMode)?.trajectory)window.dispatchEvent(new Event('atlas:mission-isolated-recovery'));
  globalThis.AtlasLoading?.begin('Chargement de la dernière position archivée…');
- at=time;live=false;playing=false;initialSatellitePending=false;lastArchiveSelection=archived?{id,time}:null;archivePlayback=archived?{id,time}:null;
+ at=time;live=false;playing=false;initialSatellitePending=false;lastArchiveSelection=archived?{id,time}:null;archivePlayback=archived&&!AtlasPages.definition(collectionMode)?.trajectory?{id,time}:null;
  chosenYears.clear();chosenLaunches.clear();selectedLaunchYears.clear();$('status').value='';$('search').value='';revealedSearchId=null;satellitesHidden=false;
  points=[];clock();renderMultiFilters();choose(id,true,'close');
 });
@@ -142,6 +148,7 @@ function list(){const previousScroll=$('results').scrollTop;const rows=catalog.f
 function updateDetail(){
  const more=$('follow-details');if(more){more.hidden=true;more.removeAttribute('href');}
  if(selected===null){$('detail').hidden=true;return;}const s=byId.get(selected);if(!s)return;
+ const displayName=s.id===50463?'James Webb Space Telescope (JWST)':s.name;
  const p=points.find(p=>p.id===selected);
  const distantMission=Boolean(AtlasPages.definition(AtlasPages.family(s))?.trajectory);
  const fields=AtlasObjectFacts.profile(s,p,{orbit:AtlasOrbits.describe(s.orbit,AtlasPages.definition(AtlasPages.family(s))),launch:AtlasTime.event(s.launch),distant:distantMission});
@@ -150,7 +157,7 @@ function updateDetail(){
  const detail=$('detail');detail.hidden=false;
  if(detail.dataset.satellite!==collectionMode+':'+String(selected)){
   detail.dataset.satellite=collectionMode+':'+String(selected);detail.dataset.expanded='false';detail.dataset.collapsed='false';
-  detail.innerHTML=`<button class="close atlas-close-button" id="close" aria-label="Réduire la fiche satellite"><svg class="close-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M7 7l10 10M17 7 7 17"/></svg></button><button id="detail-reopen" type="button" aria-label="Afficher la fiche de ${esc(s.name)}" aria-expanded="false" hidden><span>${esc(s.name)}</span><span class="detail-reopen-chevron" aria-hidden="true"></span></button><div class="eyebrow">${AtlasPages.family(s)==='debris'?(s.object_type==='UNK'?'OBJET NON IDENTIFIÉ':'FICHE DÉBRIS'):'FICHE SATELLITE'}</div><h2>${AtlasStations.has(s.id)?(s.id===48274?'Tiangong · Station spatiale chinoise':'ISS · Station spatiale internationale'):esc(s.name)}</h2><button id="detail-toggle" class="mobile-only" aria-expanded="false">Afficher les informations</button><dl>${fieldRows()}</dl><button id="show-launch-train">Voir le train de ce lancement</button>`;
+  detail.innerHTML=`<button class="close atlas-close-button" id="close" aria-label="Réduire la fiche satellite"><svg class="close-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M7 7l10 10M17 7 7 17"/></svg></button><button id="detail-reopen" type="button" aria-label="Afficher la fiche de ${esc(displayName)}" aria-expanded="false" hidden><span>${esc(displayName)}</span><span class="detail-reopen-chevron" aria-hidden="true"></span></button><div class="eyebrow">${AtlasPages.family(s)==='debris'?(s.object_type==='UNK'?'OBJET NON IDENTIFIÉ':'FICHE DÉBRIS'):'FICHE SATELLITE'}</div><h2>${AtlasStations.has(s.id)?(s.id===48274?'Tiangong · Station spatiale chinoise':'ISS · Station spatiale internationale'):esc(displayName)}</h2><button id="detail-toggle" class="mobile-only" aria-expanded="false">Afficher les informations</button><dl>${fieldRows()}</dl><button id="show-launch-train">Voir le train de ce lancement</button>`;
   detail.dataset.fields=fields.map(([key])=>key).join('|');
   $('detail-toggle').onclick=()=>{const expanded=detail.dataset.expanded!=='true';detail.dataset.expanded=String(expanded);$('detail-toggle').setAttribute('aria-expanded',String(expanded));$('detail-toggle').textContent=expanded?'Réduire la fiche':'Afficher les informations';};
   $('show-launch-train').onclick=()=>{
@@ -185,7 +192,7 @@ function updateDetail(){
 
 }
 
-async function get(url){return AtlasEphemeris.apply(url,await getRaw(url));}
+async function get(url){const request=new URL(url,location.href),collection=request.searchParams.get('collection');if(request.pathname.endsWith('/api/positions')&&AtlasPages.definition(collection)?.trajectory&&AtlasEphemeris.missionIds?.[collection])return AtlasEphemeris.apply(url,{points:[],missing:1,track:[],future_track:[],track_3d:[],future_track_3d:[],suggested_at:null});return AtlasEphemeris.apply(url,await getRaw(url));}
 async function getRaw(url){const r=await fetch(url,{signal:(typeof AbortSignal.timeout==='function'?AbortSignal.timeout(20000):undefined)});if(!r.ok)throw new Error(r.status===410?'Les données de cette visite ont expiré. Rechargez la page pour récupérer les dernières données.':`Serveur HTTP ${r.status}`);return r.json();}
 const selectedLaunchYears=new Set();
 function launchGroups(values){const groups=new Map();for(const value of values){const year=value.slice(0,4);if(!groups.has(year))groups.set(year,[]);groups.get(year).push(value);}return [...groups].sort((a,b)=>b[0].localeCompare(a[0])).map(([year,flights])=>[year,flights.sort().reverse()]);}
@@ -311,7 +318,18 @@ $('search').addEventListener('keydown',event=>{if(event.isComposing)return;if(ev
 $('search-alternative').onclick=event=>{const yes=event.target.closest('[data-reveal]');if(yes){const satellite=byId.get(Number(yes.dataset.reveal));if(!satellite)return;chosenYears.clear();chosenLaunches.clear();selectedLaunchYears.clear();$('status').value='';if(collectionMode==='debris'){$('debris-type').value='';$('debris-owner').value='';}$('search').value=satellite.name;updateSearchSuggestion();revealedSearchId=satellite.id;renderMultiFilters();resultsPage=0;choose(satellite.id);}else if(event.target.closest('[data-search-no]')){$('search-alternative').dataset.dismissed=searchPromptKey;$('search-alternative').hidden=true;}};
 for(const id of ['search','status','debris-type','debris-owner'])$(id).addEventListener('input',()=>{resultsPage=0;list();$('results').scrollTop=0;draw();});
 
-window.AtlasTimeline={get time(){return at;},get live(){return live;}};
+let eventSequenceEnd=null,filmClock=false,filmClockPaint=0;
+function eventRate(value){const rate=Number(value);if(!Number.isFinite(rate)||rate<.1||rate>86400)return;const control=$('speed');if(![...control.options].some(o=>Number(o.value)===rate)){const option=document.createElement('option');option.value=String(rate);option.textContent='×'+rate.toLocaleString('fr');option.dataset.eventRate='true';control.querySelector('[data-event-rate]')?.remove();control.append(option);}control.value=String(rate);}
+window.AtlasTimeline={get time(){return at;},get live(){return live;},get playing(){return playing;},get rate(){return Number($('speed').value);},
+ seek(value){const t=Number(value);if(!Number.isFinite(t)||t<Date.UTC(1957,0,1)||t>Date.now())throw Error('Date de lecture invalide');eventSequenceEnd=null;archivePlayback=null;at=t;live=false;playing=false;lastTick=performance.now();publishedTimeline=null;clock();list();loadPositions(true);},
+ beginFilm(value){$('speed').disabled=true;filmClock=true;eventSequenceEnd=null;archivePlayback=null;at=Number(value);live=false;playing=false;lastTick=performance.now();clock();},
+ filmTime(value){if(!filmClock)return;const t=Number(value);if(!Number.isFinite(t)||t>Date.now()||t<Date.UTC(1957,0,1))return;at=t;live=false;const tick=performance.now();if(tick-filmClockPaint>90){filmClockPaint=tick;clock();}},
+ endFilm(){$('speed').disabled=false;filmClock=false;playing=false;live=false;clock();list();loadPositions(true);},
+ setRate:eventRate,
+ setPlaying(value){playing=value===true;live=false;lastTick=performance.now();clock();},
+ playUntil(end){const t=Number(end);if(!Number.isFinite(t)||t<=at||t>Date.now())throw Error('Intervalle de lecture invalide');eventSequenceEnd=t;playing=true;live=false;lastTick=performance.now();clock();},
+ stop(){eventSequenceEnd=null;playing=false;live=false;clock();}
+};
 let publishedTimeline=null;
 let timeZoneKey=null,lastZoneCheck=0;
 function clock(){
@@ -321,13 +339,13 @@ function clock(){
  if(document.activeElement!==$('date'))$('date').value=AtlasTime.input(at);$('date').max=AtlasTime.input(Date.now());$('date').setAttribute('aria-label','Date et heure locales · '+env.timeZone);
  $('play').textContent=playing?'Pause':'▶ Lecture';}
 
-$('date').onchange=()=>{archivePlayback=null;const parsed=AtlasTime.parseInput($('date').value),t=parsed.time;if(!Number.isFinite(t)||t>Date.now()){ $('notice').textContent='Choisissez une date locale valide jusqu’au présent (certaines heures n’existent pas au passage à l’heure d’été).';clock();return;}globalThis.AtlasLoading?.begin('Chargement des satellites à la date consultée…');at=t;selectionRequest++;focusSelected=selected!==null;live=false;playing=false;points=[];track=[];futureTrack=[];track3d=[];future3d=[];clock();list();draw();loadPositions(true);if(parsed.ambiguous)$('notice').textContent='Heure locale répétée au changement d’heure : première occurrence retenue ('+AtlasTime.zoneLabel(t)+').';};
-$('now').onclick=()=>{archivePlayback=null;globalThis.AtlasLoading?.begin('Chargement des positions actuelles…');at=Date.now();live=true;playing=true;$('speed').value='1';clock();list();loadPositions(true);};
-$('play').onclick=()=>{archivePlayback=null;if(playing){live=false;playing=false;}else{playing=true;}lastTick=performance.now();clock();loadPositions(true);};$('speed').onchange=()=>{if(live&&$('speed').value!=='1'){$('speed').value='1';$('notice').textContent='L’accélération est disponible dans le passé.';}};
+$('date').onchange=()=>{filmClock=false;eventSequenceEnd=null;archivePlayback=null;window.dispatchEvent(new Event('atlas:replay-dismiss'));const parsed=AtlasTime.parseInput($('date').value),t=parsed.time;if(!Number.isFinite(t)||t>Date.now()){ $('notice').textContent='Choisissez une date locale valide jusqu’au présent (certaines heures n’existent pas au passage à l’heure d’été).';clock();return;}globalThis.AtlasLoading?.begin('Chargement des satellites à la date consultée…');at=t;selectionRequest++;focusSelected=selected!==null;live=false;playing=false;points=[];track=[];futureTrack=[];track3d=[];future3d=[];clock();list();draw();loadPositions(true);if(parsed.ambiguous)$('notice').textContent='Heure locale répétée au changement d’heure : première occurrence retenue ('+AtlasTime.zoneLabel(t)+').';};
+$('now').onclick=()=>{filmClock=false;eventSequenceEnd=null;archivePlayback=null;window.dispatchEvent(new Event('atlas:replay-dismiss'));globalThis.AtlasLoading?.begin('Chargement des positions actuelles…');at=Date.now();live=true;playing=true;$('speed').value='1';clock();list();loadPositions(true);};
+$('play').onclick=()=>{archivePlayback=null;if(playing){live=false;playing=false;}else{playing=true;}lastTick=performance.now();clock();if(!filmClock)loadPositions(true);};$('speed').onchange=()=>{if(live&&$('speed').value!=='1'){$('speed').value='1';$('notice').textContent='L’accélération est disponible dans le passé.';}};
 
-$('available').onclick=()=>{archivePlayback=null;if(!suggestedAt)return;globalThis.AtlasLoading?.begin('Chargement des positions archivées…');at=Date.parse(suggestedAt);selectionRequest++;focusSelected=selected!==null;live=false;playing=false;points=[];track=[];futureTrack=[];track3d=[];future3d=[];clock();list();draw();loadPositions(true);};
-setInterval(()=>{if(document.hidden)return;const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at+=dt*Number($('speed').value);if(at>=Date.now()){at=Date.now();playing=false;live=false;$('speed').value='1';}}clock();},250);
-setInterval(()=>{if(playing&&!document.hidden)loadPositions();},1000);
+$('available').onclick=()=>{filmClock=false;window.dispatchEvent(new Event('atlas:replay-dismiss'));archivePlayback=null;if(!suggestedAt)return;globalThis.AtlasLoading?.begin('Chargement des positions archivées…');at=Date.parse(suggestedAt);selectionRequest++;focusSelected=selected!==null;live=false;playing=false;points=[];track=[];futureTrack=[];track3d=[];future3d=[];clock();list();draw();loadPositions(true);};
+setInterval(()=>{if(document.hidden){lastTick=performance.now();return;}const tick=performance.now(),dt=Math.min(2000,tick-lastTick);lastTick=tick;if(live)at=Date.now();else if(playing&&!filmClock){at+=dt*Number($('speed').value);if(eventSequenceEnd!==null&&at>=eventSequenceEnd){at=eventSequenceEnd;playing=false;}if(at>=Date.now()){at=Date.now();playing=false;live=false;$('speed').value='1';}}clock();},250);
+setInterval(()=>{if(playing&&!filmClock&&!document.hidden)loadPositions();},1000);
 setInterval(async()=>{if(document.hidden||busy||globalThis.AtlasCelestial?.active)return;positionRevision++;await loadCatalog();loadPositions(true);},300000);
 // Data and rendering start independently; a slow 3D engine never blocks the catalogue.
 (async()=>{clock();const engine=AtlasGlobe.load().catch(()=>{});const config=(async()=>{try{const c=await get('/api/config');cartoConfig=c;tiles=L.tileLayer(c.tile_url,{attribution:c.tile_attribution,maxZoom:19,noWrap:true,bounds:worldBounds});if(planisphereRequested)attachPlanisphere();globalThis.AtlasLoading?.done('config');}catch(e){$('health').textContent='Configuration de carte indisponible : '+e.message;globalThis.AtlasLoading?.done('config');}})();await Promise.all([Promise.all([engine,config]).then(()=>showGlobe()).then(()=>{globalThis.AtlasLoading?.done('scene');}),loadCatalog().then(()=>loadPositions())]);})();
@@ -358,11 +376,13 @@ async function showGlobe(){
   await AtlasGlobe.load();if(!cartoConfig)cartoConfig=await get('/api/config');
   $('globe').hidden=false;$('map-creator').hidden=true;$('map').hidden=true;$('map-reset').hidden=true;displayMode='3d';
   if(!globeController){globeController=await AtlasGlobe.create($('globe-canvas'),cartoConfig,choose,dismissSatelliteDetail);globalThis.AtlasRestoreDisplay=async value=>{await globeController.setRealistic(AtlasPages.definition(collectionMode)?.trajectory?true:value.realistic);if($('sky-toggle').getAttribute('aria-checked')!==String(value.sky))await $('sky-toggle').onclick();};await globalThis.AtlasRestoreDisplay(restoredDisplay);globalThis.AtlasDisplayReady=true;}
+  if(document.body.dataset.missionSystem==='true'){globeController.setActive(false);return;}
   globeController.setActive(true);$('globe').closest('.view').dataset.earthReady='true';if(AtlasPages.isStation(collectionMode)&&selected===null)issOverviewPending=true;$('view-2d').setAttribute('aria-pressed','false');$('view-3d').setAttribute('aria-pressed','true');focusSelected=selected!==null;draw();applyInitialOrientation();
  }catch(e){if(AtlasPages.definition(collectionMode)?.trajectory)globalThis.AtlasLoading?.fail();showPlanisphere();$('notice').textContent='La vue 3D est indisponible : '+e.message;}
  finally{$('view-3d').disabled=false;$('view-2d').disabled=Boolean(AtlasPages.definition(collectionMode)?.trajectory);}
 }
 $('view-3d').onclick=showGlobe;
+window.addEventListener('atlas:mission-system-view',event=>globeController?.setActive(!event.detail.enabled));
 $('earth-realistic-toggle').addEventListener('click',()=>{if(!globeController||displayMode!=='3d')return;const button=$('earth-realistic-toggle');const wanted=button.getAttribute('aria-busy')==='true'?false:button.getAttribute('aria-checked')!=='true';globeController.setRealistic(wanted);});
 $('map-reset').onclick=()=>{focusSelected=false;constrainWorld(true);draw();};
 
@@ -383,6 +403,7 @@ if(collectionMode!=='debris'&&AtlasPages.hasLocalHistory(collectionMode))$('stat
 $('starlink-controls').hidden=!AtlasPages.isConstellation(collectionMode);$('atlas-controls').hidden=collectionMode!=='all';$('iss-controls').hidden=!AtlasPages.hasCrew(collectionMode);issOverviewPending=AtlasPages.isStation(collectionMode);updateCollectionCoverage();
 $('collection-select').addEventListener('change',e=>{if(e.target.value!==collectionMode)location.assign(AtlasPages.url(e.target.value));});
 AtlasCollectionMenu.mount($('collection-select'));
+if(solarEarthEntry){document.querySelectorAll('[data-family]').forEach(el=>el.checked=false);$('atlas-clear').disabled=true;}
 for(const family of Object.keys(atlasColors)){
  $('atlas-color-'+family).addEventListener('input',e=>{atlasColors[family]=e.target.value;draw();});
 }

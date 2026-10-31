@@ -1,0 +1,103 @@
+KPL/PCK
+
+\beginlabel
+PDS_VERSION_ID               = PDS3
+RECORD_TYPE                  = STREAM
+RECORD_BYTES                 = "N/A"
+^SPICE_KERNEL                = "pck_arrokoth_002.tpc"
+MISSION_NAME                 = "NEW HORIZONS"
+SPACECRAFT_NAME              = "NEW HORIZONS"
+DATA_SET_ID                  = "NH-J/P/SS-SPICE-6-V1.0"
+KERNEL_TYPE_ID               = PCK
+PRODUCT_ID                   = "pck_arrokoth_002.tpc"
+PRODUCT_CREATION_TIME        = 2024-10-22T11:30:00
+PRODUCER_ID                  = "SWRI"
+MISSION_PHASE_NAME           = "N/A"
+PRODUCT_VERSION_TYPE         = ACTUAL
+PLATFORM_OR_MOUNTING_NAME    = "N/A"
+START_TIME                   = "N/A"
+STOP_TIME                    = "N/A"
+SPACECRAFT_CLOCK_START_COUNT = "N/A"
+SPACECRAFT_CLOCK_STOP_COUNT  = "N/A"
+TARGET_NAME                  = {
+                               "ASTEROID 486958 (2014 MU69)"
+                               }
+INSTRUMENT_NAME              = "N/A"
+NAIF_INSTRUMENT_ID           = "N/A"
+SOURCE_PRODUCT_ID            = "N/A"
+NOTE                         = "See comments in the file for details"
+OBJECT                       = SPICE_KERNEL
+  INTERCHANGE_FORMAT         = ASCII
+  KERNEL_TYPE                = TARGET_CONSTANTS
+  DESCRIPTION                = "NH planetary constants kernel revising
+                                values for ASTEROID 486958 (2014 MU69).
+                                Uses the N0067 IAU_ARROKOTH FRAME.
+                               "
+END_OBJECT                   = SPICE_KERNEL
+END
+\endlabel
+
+
+References
+========================================================================
+
+   1. Small Bodies Node PDS dataset nh-a-lorri_mvic-5-geophys-v1.0
+      contains the "(486958) Arrokoth Coordinate System Document"
+      document, by Ross Beyer and Simon Porter. This document,
+      named "document/arrokoth_csd.pdf", contains an overview of the
+      Arrokoth coordinate system. Note, however, that several values
+      in this document are less precise than the ones in this kernel.
+
+
+P_constants (PcK) SPICE kernel file for Arrokoth (aka 2014 MU69)
+===========================================================================
+
+       By: Brian Enke (SwRI)       2024 July 25 (revised version).
+       Updates the Arrokoth pole values and prime meridian.
+       Values were used in the arrokoth_porter_2024_v01 shape model.
+
+       By: Hal Weaver (JHU-APL)    2021 April 12 (revised version).
+       Added frames definitions; original file did not have these.
+       Changed filename; original name was "pck_mu69.tpc".
+
+       By: Hal Weaver (JHU-APL)    2019 May 19 (revised version; 
+       radii are for larger lobe from Stern et al., Science, v364, 2019).
+       Original filename was "pck_mu69.tpc".
+              
+       By: Hal Weaver (JHU-APL)    2019 February 26 (original version)
+       Original filename was "pck_mu69.tpc".
+
+Based on data from Simon Porter (SwRI).
+
+        \begindata
+ 
+           BODY2486958_POLE_RA   = (  319.3685820  0.00  0.00  )
+           BODY2486958_POLE_DEC  = (  -25.5875063  0.00  0.00  )
+           BODY2486958_PM        = (  71.9541475  559.393617318826386509 0.00  )
+           BODY2486958_LONG_AXIS = (  0.00  )
+           BODY2486958_RADII     = (    11    10     3.5  )
+
+		FRAME_MU69_FIXED       =  2486958
+		FRAME_2486958_NAME     = 'IAU_ARROKOTH'
+		FRAME_2486958_CLASS    =  2
+		FRAME_2486958_CLASS_ID =  2486958
+		FRAME_2486958_CENTER   =  2486958
+		OBJECT_2486958_FRAME   = 'IAU_ARROKOTH'
+
+        \begintext
+
+		2021 April 12 values are provided below:
+           BODY2486958_POLE_RA   = (  317.4880752  0.00  0.00  )
+           BODY2486958_POLE_DEC  = (  -24.8876496  0.00  0.00  )
+           BODY2486958_PM   =      (  184.4589465  542.777419192880931 0.00  )
+           BODY2486958_LONG_AXIS = (  0.00  )
+           BODY2486958_RADII     = (    11    10     3.5  )
+		
+		2019 February 26 values are provided below:
+           BODY2486958_POLE_RA   = (  313.9185893  0.00  0.00  )
+           BODY2486958_POLE_DEC  = (  -24.3588491  0.00  0.00  )
+           BODY2486958_PM   =      (  221.0789535  542.823414567359938  0.00  )
+           BODY2486958_LONG_AXIS = (  0.00  )
+           BODY2486958_RADII     = (    11    10     3.5  )
+
+

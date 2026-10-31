@@ -1,0 +1,83 @@
+{
+  "archive_sha256": "505356c8b1080543a7a76f22df8313c03792b36feec1e954ac14606e0204cb48",
+  "source_sha256": "2ede269683531b5cdf5ab7c21e8dc23cbf103c303e439996b8a6f96106dbfc37",
+  "runtime_sha256": "385697b1fb3fbffff474783fc212b8807a55ce4ab990320b200ef6883103358b",
+  "source_binary_preserved": true,
+  "bounds_m": [
+    [
+      -15.75,
+      -15.898971557617188,
+      -20.315000534057617
+    ],
+    [
+      12.899144172668457,
+      16.200000762939453,
+      14.0
+    ]
+  ],
+  "triangles": 107632,
+  "source_metadata": {
+    "name": "Mir — Atlas Complete 1996",
+    "source_geometry": "Original procedural geometry; no third-party meshes or textures embedded",
+    "description": "Reconstruction for realtime visualization, not metrological / CAD accuracy",
+    "unit": "metre",
+    "coordinate_system": "X core aft, Y Kvant-2, Z Priroda (before optional engine transform)",
+    "configuration": "1996 after Priroda assembly; no visiting ships included",
+    "components": [
+      {
+        "id": "MIR_CORE_1986",
+        "triangles": 22244
+      },
+      {
+        "id": "KVANT_1_1987",
+        "triangles": 16056
+      },
+      {
+        "id": "KVANT_2_1989",
+        "triangles": 17208
+      },
+      {
+        "id": "KRISTALL_1990",
+        "triangles": 14112
+      },
+      {
+        "id": "SPEKTR_1995",
+        "triangles": 18324
+      },
+      {
+        "id": "SHUTTLE_DOCKING_MODULE_1995",
+        "triangles": 3696
+      },
+      {
+        "id": "PRIRODA_1996",
+        "triangles": 13488
+      },
+      {
+        "id": "MIR_TRUSSES_AND_ANTENNAE",
+        "triangles": 2504
+      }
+    ],
+    "triangles": 107632,
+    "bounds_m": [
+      [
+        -15.75,
+        -15.8989711431703,
+        -20.315
+      ],
+      [
+        12.899144486137383,
+        16.2,
+        14.0
+      ]
+    ],
+    "rights_note": "Original geometry created procedurally for this request, no third-party mesh or texture included. Historical configuration and dimensions are reference information. No guarantees of aerospace CAD fidelity.",
+    "date": "2026-10-31",
+    "variant": "complete",
+    "reference_sources": [
+      "https://www.nasa.gov/history/SP-4225/diagrams/mir/mir-diagram.htm",
+      "https://rdataspace.github.io/station_mir/mir-components.html",
+      "https://science.nasa.gov/3d-resources/mir/"
+    ]
+  },
+  "note": "Modèle fourni · configuration complète de 1996, sans vaisseaux visiteurs. Dimensions et détails approximatifs ; orientation orbitale nominale, attitude historique non mesurée."
+}

@@ -1,0 +1,76 @@
+{
+  "bodies": {
+    "999": {
+      "key": "pluton",
+      "name": "Pluton",
+      "id": 999,
+      "kind": "dwarf",
+      "radii_km": [
+        1188.3,
+        1188.3,
+        1188.3
+      ],
+      "rotation": {
+        "POLE_RA": [
+          132.993,
+          0.0,
+          0.0
+        ],
+        "POLE_DEC": [
+          -6.163,
+          0.0,
+          0.0
+        ],
+        "PM": [
+          302.695,
+          56.3625225,
+          0.0
+        ]
+      },
+      "surface": "solar/encounters/pluto-color.jpg",
+      "texture_offset": 0.5,
+      "source": "https://science.nasa.gov/resource/pluto-global-color-map/",
+      "credit": "NASA/JHUAPL/SwRI",
+      "note": "Mosaïque couleur New Horizons ; couverture et résolution variables selon les régions."
+    },
+    "2486958": {
+      "key": "arrokoth",
+      "name": "Arrokoth",
+      "id": 2486958,
+      "kind": "minor",
+      "radii_km": [
+        19.543877,
+        10.105645,
+        5.01365
+      ],
+      "rotation": {
+        "POLE_RA": [
+          317.4880752,
+          0.0,
+          0.0
+        ],
+        "POLE_DEC": [
+          -24.8876496,
+          0.0,
+          0.0
+        ],
+        "PM": [
+          184.4589465,
+          542.777419192881,
+          0.0
+        ]
+      },
+      "mesh": {
+        "file": "solar/encounters/arrokoth.bin",
+        "vertices": 53755,
+        "indices": 322518,
+        "bytes": 2580192,
+        "sha256": "4e2bbbb40ca6a2127598c31fda5672e0cd587bf30f412f73206ea7f23cb5f156"
+      },
+      "source": "https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived:arrokoth_geophysics-v1.0/",
+      "credit": "NASA/PDS · New Horizons · Beyer/Spencer et al.",
+      "note": "Modèle scientifique MU69_MERGED, avec zones non observées modélisées par les auteurs ; teinte rouge uniforme illustrative, pas de texture globale inventée."
+    }
+  },
+  "rotation_source": "https://naif.jpl.nasa.gov/pub/naif/pds/data/nh-j_p_ss-spice-6-v1.0/nhsp_1000/data/pck/"
+}
