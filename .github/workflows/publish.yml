@@ -80,6 +80,8 @@ jobs:
         run: python3 scripts/import_crew_archive.py --source-dir data-runtime/crew-source --download
       - name: Vérifier la netteté et la résistance aux erreurs de données
         run: |
+          node tests/archive-fetch.cjs
+          node tests/mir-camera.cjs
           node tests/render-budget.cjs
           node tests/object-facts.cjs
           node tests/crew-archive.cjs
@@ -112,6 +114,7 @@ jobs:
           key: atlas-collection-${{ github.run_id }}
       - name: Vérifier le moteur WASM
         run: |
+          node tests/archive-fetch.cjs public
           node tests/wasm.cjs public
           node tests/publication-coverage.cjs public
       - name: Vérifier le rendu réel des points et modèles 3D

@@ -9,6 +9,13 @@ if out.exists():
  if not (out/'.atlas-generated').exists():raise SystemExit('Dossier de sortie existant non reconnu : choisissez un autre dossier.')
  shutil.rmtree(out)
 shutil.copytree(ROOT/'static',out);(out/'.atlas-generated').touch();(out/'.nojekyll').touch()
+# Lossless archive compression keeps every sample while fitting the Pages limit.
+archive_saved=0
+for folder in ['ephemerides','solar/history','mission-events','physical-facts','retired-observations']:
+ for file in (out/folder).rglob('*.json'):
+  original=file.read_bytes();compressed=gzip.compress(original,compresslevel=9,mtime=0)
+  file.with_suffix('.json.gz').write_bytes(compressed);file.unlink()
+  archive_saved+=len(original)-len(compressed)
 with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([str(ROOT/'target/release/starlink-atlas'),'--export-web',tmp],env=dict(os.environ,DATA_DIR=str(data),HISTORY_DIR=str(history)),cwd=ROOT,check=True)
  bundle=json.loads((pathlib.Path(tmp)/'bundle.json').read_text())
@@ -75,11 +82,13 @@ if station_ui.exists():
  for name in ['crew-archive.js','iss-search.js','iss-evas.js','station-history.js','iss-missions.js']:
   text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256((out/name).read_bytes()).hexdigest()[:12],text)
  station_ui.write_text(text)
+archive_loader='<script src="./archive-fetch.js?v='+hashlib.sha256((out/'archive-fetch.js').read_bytes()).hexdigest()[:12]+'"></script>'
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');
 # Hash the actual exported files after route and resource rewrites.
 for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',text)):
  asset=out/name
  if asset.is_file():text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256(asset.read_bytes()).hexdigest()[:12],text)
+text=text.replace('<head>','<head>'+archive_loader,1)
 index.write_text(text)
 # Distinct static documents share assets via a base URL under /repository/.
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
@@ -91,11 +100,11 @@ for extra in out.glob('*.html'):
  for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',html)):
   asset=out/name
   if asset.is_file():html=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256(asset.read_bytes()).hexdigest()[:12],html)
- extra.write_text(html)
+ extra.write_text(html.replace('<head>','<head>'+archive_loader,1))
 for page,title in [('atlas','Atlas — Tous les satellites'),*[(row['id'],row['label']+' — '+row['description']) for row in json.loads((ROOT/'resources/constellations.json').read_text())]]:
  folder=out/page;folder.mkdir()
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')
  (folder/'index.html').write_text(html)
 size=sum(f.stat().st_size for f in out.rglob('*') if f.is_file())
 if size>950_000_000:raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
-print(json.dumps({'output':str(out),'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
+print(json.dumps({'output':str(out),'archive_bytes_saved':archive_saved,'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
