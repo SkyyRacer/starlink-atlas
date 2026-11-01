@@ -1,5 +1,7 @@
 //! Shared orbital calculations used by the server and browser WebAssembly.
-use super::{Database, Orbit, Point, MAX_AGE};
+use super::{Orbit, Point, MAX_AGE};
+#[cfg(not(target_arch="wasm32"))]
+use super::Database;
 use chrono::{DateTime, NaiveDate, Utc};
 use serde_json::Value;
 pub(crate) fn event_time(v: &Value, key: &str) -> Option<DateTime<Utc>> {
