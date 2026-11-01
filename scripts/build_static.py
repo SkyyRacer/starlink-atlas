@@ -9,13 +9,6 @@ if out.exists():
  if not (out/'.atlas-generated').exists():raise SystemExit('Dossier de sortie existant non reconnu : choisissez un autre dossier.')
  shutil.rmtree(out)
 shutil.copytree(ROOT/'static',out);(out/'.atlas-generated').touch();(out/'.nojekyll').touch()
-# Lossless archive compression keeps every sample while fitting the Pages limit.
-archive_saved=0
-for folder in ['ephemerides','solar/history','mission-events','physical-facts','retired-observations']:
- for file in (out/folder).rglob('*.json'):
-  original=file.read_bytes();compressed=gzip.compress(original,compresslevel=9,mtime=0)
-  file.with_suffix('.json.gz').write_bytes(compressed);file.unlink()
-  archive_saved+=len(original)-len(compressed)
 with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([str(ROOT/'target/release/starlink-atlas'),'--export-web',tmp],env=dict(os.environ,DATA_DIR=str(data),HISTORY_DIR=str(history)),cwd=ROOT,check=True)
  bundle=json.loads((pathlib.Path(tmp)/'bundle.json').read_text())
@@ -62,12 +55,36 @@ for file in versions.glob('*.json.gz'):
  if file.name not in current_versions and time.time()-file.stat().st_mtime>7*86400:file.unlink()
  else:shutil.copyfile(file,out/'data/observations'/file.name)
 for file in (ROOT/'browser').glob('*.js'):shutil.copyfile(file,out/file.name)
+# Historical source files already in this immutable commit need not consume the
+# Pages quota twice. Never redirect a freshly collected or changed observation.
+remote_archives={};archive_saved=0
+remote_root=a.remote_history.removesuffix('data-seed/history/')+'static/' if a.remote_history and a.remote_history.endswith('/data-seed/history/') else None
+tracked={}
+if remote_root:
+ for line in subprocess.check_output(['git','ls-tree','-r','HEAD','--','static/ephemerides','static/solar/history'],cwd=ROOT,text=True).splitlines():
+  meta,name=line.split('\t',1);tracked[name.removeprefix('static/')]=meta.split()[2]
+for folder in ['ephemerides','solar/history','mission-events','physical-facts','retired-observations']:
+ for file in (out/folder).rglob('*.json'):
+  original=file.read_bytes();relative=file.relative_to(out).as_posix()
+  blob=hashlib.sha1(b'blob '+str(len(original)).encode()+b'\0'+original).hexdigest()
+  if remote_root and len(file.relative_to(out/folder).parts)>1 and tracked.get(relative)==blob:
+   remote_archives[relative]=remote_root+relative;archive_saved+=len(original);file.unlink()
+  else:
+   compressed=gzip.compress(original,compresslevel=9,mtime=0)
+   file.with_suffix('.json.gz').write_bytes(compressed);file.unlink();archive_saved+=len(original)-len(compressed)
+from publish_solar_vectors import export as export_solar_vectors
+export_solar_vectors(out,data/'solar',ROOT/'data-seed/solar')
+archive_file=out/'archive-fetch.js'
+archive_file.write_text(archive_file.read_text().replace('const remoteArchives={};','const remoteArchives='+json.dumps(remote_archives,separators=(',',':'))+';'))
+
+if (data/'collection-health.json').is_file():shutil.copyfile(data/'collection-health.json',out/'collection-health.json')
 shutil.copyfile(wasm,out/'atlas_web_core.wasm')
 # A new asset release invalidates only reusable rendering caches, never page data.
 asset_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static').rglob('*')) if f.is_file() and f.name!='asset-sw.js')+wasm.read_bytes()).hexdigest()[:16]
 vendor_version=hashlib.sha256(b''.join(f.read_bytes() for f in sorted((ROOT/'static/vendor').rglob('*')) if f.is_file())).hexdigest()[:16]
 sw=out/'asset-sw.js';sw.write_text(sw.read_text().replace('atlas-rendering-v1','atlas-rendering-'+asset_version).replace('atlas-rendering-vendor-v1','atlas-rendering-vendor-'+vendor_version))
-worker_file=out/'browser-worker.js';worker_file.write_text(worker_file.read_text().replace("importScripts('constellations.js')","importScripts('constellations.js?v="+hashlib.sha256((out/'constellations.js').read_bytes()).hexdigest()[:12]+"')").replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
+archive_hash=hashlib.sha256((out/'archive-fetch.js').read_bytes()).hexdigest()[:12]
+worker_file=out/'browser-worker.js';worker_file.write_text("importScripts('archive-fetch.js?v="+archive_hash+"');\n"+worker_file.read_text().replace("importScripts('constellations.js')","importScripts('constellations.js?v="+hashlib.sha256((out/'constellations.js').read_bytes()).hexdigest()[:12]+"')").replace("'atlas_web_core.wasm'","'atlas_web_core.wasm?v="+hashlib.sha256(wasm.read_bytes()).hexdigest()[:12]+"'"))
 transport_file=out/'transport.js';transport_file.write_text(transport_file.read_text().replace("'browser-worker.js'","'browser-worker.js?v="+hashlib.sha256(worker_file.read_bytes()).hexdigest()[:12]+"'"))
 # Project Pages are under /repository/. Keep every local resource relative to that path.
 for file in out.glob('*.js'):
@@ -82,7 +99,8 @@ if station_ui.exists():
  for name in ['crew-archive.js','iss-search.js','iss-evas.js','station-history.js','iss-missions.js']:
   text=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256((out/name).read_bytes()).hexdigest()[:12],text)
  station_ui.write_text(text)
-archive_loader='<script src="./archive-fetch.js?v='+hashlib.sha256((out/'archive-fetch.js').read_bytes()).hexdigest()[:12]+'"></script>'
+solar_loader='<script src="./solar-vectors.js?v='+hashlib.sha256((out/'solar-vectors.js').read_bytes()).hexdigest()[:12]+'"></script>'
+archive_loader='<script src="./archive-fetch.js?v='+hashlib.sha256((out/'archive-fetch.js').read_bytes()).hexdigest()[:12]+'"></script>'+solar_loader
 index=out/'index.html';text=index.read_text().replace('href="/','href="./').replace('src="/','src="./');text=text.replace('<script src="./app.js','<script src="./transport.js?v='+hashlib.sha256(transport_file.read_bytes()).hexdigest()[:12]+'"></script><script src="./app.js');
 # Hash the actual exported files after route and resource rewrites.
 for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',text)):
@@ -94,13 +112,16 @@ index.write_text(text)
 root_html=index.read_text().replace('<head>','<head><base href="./">',1).replace('<title>Starlink Atlas — Observatoire orbital</title>','<title>Atlas — Tous les satellites</title>')
 index.write_text(root_html)
 # Standalone lunar document shares rendering assets and never loads orbital datasets.
-for extra in out.glob('*.html'):
+for extra in out.rglob('*.html'):
  if extra==index:continue
  html=extra.read_text().replace('href="/','href="./').replace('src="/','src="./')
  for name in set(re.findall(r'(?:src|href)="\./([^"?]+)\?v=[a-f0-9]+"',html)):
   asset=out/name
   if asset.is_file():html=re.sub(re.escape(name)+r'\?v=[a-f0-9]+',name+'?v='+hashlib.sha256(asset.read_bytes()).hexdigest()[:12],html)
- extra.write_text(html.replace('<head>','<head>'+archive_loader,1))
+ relative='../'*len(extra.parent.relative_to(out).parts) or './'
+ if '<base ' not in html:html=html.replace('<head>','<head><base href="'+relative+'">',1)
+ html=re.sub(r'(<base[^>]*>)',r'\1'+archive_loader,html,count=1)
+ extra.write_text(html)
 for page,title in [('atlas','Atlas — Tous les satellites'),*[(row['id'],row['label']+' — '+row['description']) for row in json.loads((ROOT/'resources/constellations.json').read_text())]]:
  folder=out/page;folder.mkdir()
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')

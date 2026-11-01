@@ -7,7 +7,10 @@ pub struct Definition {
     #[serde(default)] pub trajectory: Option<String>,
     #[serde(default)] pub parent: Option<String>,
     #[serde(default)] pub numbered: Option<Numbered>,
-    pub id: String, pub label: String, pub description: String, pub group: String,
+    pub id: String,
+    #[cfg(not(target_arch="wasm32"))] pub label: String,
+    #[cfg(not(target_arch="wasm32"))] pub description: String,
+    #[cfg(not(target_arch="wasm32"))] pub group: String,
      pub prefixes: Vec<String>, pub contains: Vec<String>, pub ids: Vec<u64>,
 }
 pub fn definitions() -> &'static [Definition] {
@@ -18,6 +21,7 @@ pub fn definition(id: &str) -> Option<&'static Definition> {
     static BY_ID:std::sync::OnceLock<std::collections::BTreeMap<&'static str,&'static Definition>>=std::sync::OnceLock::new();
     BY_ID.get_or_init(||definitions().iter().map(|row|(row.id.as_str(),row)).collect()).get(id).copied()
 }
+#[cfg(not(target_arch="wasm32"))]
 pub fn source(id: &str) -> Option<String> { if id=="debris" { return Some("https://celestrak.org/pub/satcat.csv".to_owned()); } definition(id).map(|row|format!("https://celestrak.org/NORAD/elements/gp.php?GROUP={}&FORMAT=JSON",row.group)) }
 fn matches(row: &Definition, id: u64, name: &str) -> bool {
     if row.id!="debris" && !row.ids.contains(&id) && (name.contains(" DEB") || name.contains(" AKM") || name.contains(" R/B")) { return false; }
@@ -43,9 +47,11 @@ pub fn family(id: u64, name: &str) -> Option<&'static str> {
     definitions().iter().find(|row|row.parent.is_none() && !row.aggregate && matches(row,id,name)).or_else(||definitions().iter().find(|row|row.aggregate && matches(row,id,name))).map(|row|row.id.as_str())
 }
 /// A targeted page may share physical objects with its broader constellation.
+#[cfg(not(target_arch="wasm32"))]
 pub fn belongs(id:u64,name:&str,collection:&str)->bool {
     family(id,name)==Some(collection) || definition(collection).is_some_and(|row|(row.parent.is_some() || row.aggregate || row.ids.contains(&id)) && matches(row,id,name) && family(id,name)!=Some("debris"))
 }
+#[cfg(not(target_arch="wasm32"))]
 pub fn memberships(id:u64,name:&str)->Vec<&'static str> {
     let Some(primary)=family(id,name) else {return Vec::new();};
     let mut result=vec![primary];

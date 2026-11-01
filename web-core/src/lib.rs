@@ -16,7 +16,9 @@ struct Orbit {
 #[derive(Default)]
 struct Database {
     orbits: BTreeMap<u64, Vec<Orbit>>,
+    #[cfg(not(target_arch="wasm32"))]
     catalog: BTreeMap<u64, Value>,
+    #[cfg(not(target_arch="wasm32"))]
     gcat: BTreeMap<u64, Value>,
 }
 #[derive(Serialize)]

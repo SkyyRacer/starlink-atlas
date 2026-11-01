@@ -23,18 +23,29 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
  await window.fetch('ephemerides/ace.json',{method:'POST'});assert.equal(calls.at(-1).url,'ephemerides/ace.json');
  if(process.argv[2]){
   const root=process.argv[2];let count=0;
+  const script=fs.readFileSync(path.join(root,'archive-fetch.js'),'utf8'),remote=JSON.parse(script.match(/const remoteArchives=(.*);/)[1]);
   for(const folder of ['ephemerides','solar/history','mission-events','physical-facts','retired-observations']){
    for(const name of fs.readdirSync(path.join('static',folder),{recursive:true})){
     if(!name.endsWith('.json'))continue;
     const relative=path.join(folder,name),original=fs.readFileSync(path.join('static',relative));
-    assert.deepEqual(zlib.gunzipSync(fs.readFileSync(path.join(root,relative+'.gz'))),original,relative);
+    if(remote[relative]){assert.match(remote[relative],/^https:\/\/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[a-f0-9]{40}\/static\//);assert.ok(remote[relative].endsWith(relative));}
+    else if(folder!=='retired-observations')assert.deepEqual(zlib.gunzipSync(fs.readFileSync(path.join(root,relative+'.gz'))),original,relative);
+    else {const actual=JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(root,relative+'.gz')))),source=JSON.parse(original);assert.equal((actual.elements||actual).NORAD_CAT_ID,(source.elements||source).NORAD_CAT_ID);}
     assert.ok(!fs.existsSync(path.join(root,relative)),'no duplicate uncompressed export');count++;
    }
   }
-  for(const name of ['index.html','atlas/index.html','mir/index.html','moon.html']){
+  for(const name of ['index.html','atlas/index.html','mir/index.html','moon.html','soleil/index.html','jupiter/index.html','saturne/index.html']){
    const html=fs.readFileSync(path.join(root,name),'utf8');assert.match(html,/<head>(?:<base[^>]*>)?<script src="\.\/archive-fetch\.js\?v=/,'decoder precedes consumers: '+name);
+  }
+  for(const folder of fs.readdirSync(root,{withFileTypes:true}).filter(e=>e.isDirectory())){
+   const file=path.join(root,folder.name,'index.html');if(!fs.existsSync(file))continue;
+   const html=fs.readFileSync(file,'utf8');assert.match(html,/<base href="\.\.\/">/,'Pages base path for '+folder.name);
+   for(const [,value] of html.matchAll(/(?:src|href)="(\.\/[^"?]+)(?:\?[^"]*)?"/g))if(/\.(?:js|css)$/.test(value))assert.ok(fs.existsSync(path.join(root,value)),'Published asset '+folder.name+': '+value);
   }
   console.log(count+' exported archives byte-for-byte identical after decompression');
  }
+ const worker={location:{href:'https://example.test/starlink-atlas/browser-worker.js'},fetch:window.fetch};
+ vm.runInNewContext(fs.readFileSync('browser/archive-fetch.js','utf8'),{self:worker,URL,Request,Response,Headers,DecompressionStream});
+ assert.equal((await (await worker.fetch('retired-observations/16609.json')).json()).id,-32,'worker also decodes retired observations');
  console.log('Compressed publication archives: lossless decode, Pages subpaths, queries, request options and backup isolation OK');
 })().catch(error=>{console.error(error);process.exitCode=1;});

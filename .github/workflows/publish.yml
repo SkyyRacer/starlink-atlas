@@ -26,8 +26,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
@@ -35,7 +35,7 @@ jobs:
             target
             web-core/target
           key: rust-atlas-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         id: collection
         with:
           path: data-runtime
@@ -71,9 +71,7 @@ jobs:
           KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}
         run: |
           python3 scripts/ensure_data.py --data-dir data-runtime --history-dir data-seed/history --collect-timeout 420
-          for file in data-runtime/*stopped.txt; do
-            if [ -f "$file" ]; then echo "::warning::Une source a interrompu sa collecte : $file. Le cache validé reste publié."; fi
-          done
+          python3 scripts/collection_warnings.py --data-dir data-runtime
       - name: Actualiser les historiques des équipages (cache quotidien)
         continue-on-error: true
         timeout-minutes: 6
@@ -81,6 +79,7 @@ jobs:
       - name: Vérifier la netteté et la résistance aux erreurs de données
         run: |
           node tests/archive-fetch.cjs
+          node tests/solar-vectors.cjs
           node tests/mir-camera.cjs
           node tests/render-budget.cjs
           node tests/object-facts.cjs
@@ -103,11 +102,13 @@ jobs:
           fi
       - name: Sauvegarder les nouvelles archives et vérifier les fichiers avant publication
         run: python3 scripts/ensure_data.py --check-only --data-dir data-runtime --history-dir data-seed/history
+      - name: Actualiser les éphémérides des principales lunes
+        run: python3 scripts/publish_solar_vectors.py --cache data-runtime/solar --budget 180
       - name: Construire le site autonome
         env:
           KEEPTRACK_API_KEY: ${{ secrets.KEEPTRACK_API_KEY }}
         run: python3 scripts/build_static.py --output public --data-dir data-runtime --history-dir data-seed/history --compact-cache --remote-history "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_SHA}/data-seed/history/"
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v6
         if: always()
         with:
           path: data-runtime
@@ -115,6 +116,7 @@ jobs:
       - name: Vérifier le moteur WASM
         run: |
           node tests/archive-fetch.cjs public
+          node tests/published-retired.cjs public
           node tests/wasm.cjs public
           node tests/publication-coverage.cjs public
       - name: Vérifier le rendu réel des points et modèles 3D

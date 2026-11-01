@@ -13,6 +13,7 @@ pub(crate) fn event_time(v: &Value, key: &str) -> Option<DateTime<Utc>> {
                 .map(|d| d.and_hms_opt(0, 0, 0).unwrap().and_utc())
         })
 }
+#[cfg(not(target_arch="wasm32"))]
 pub(crate) fn exists(v: Option<&Value>, at: DateTime<Utc>) -> bool {
     v.map(|v| {
         event_time(v, "LAUNCH_DATE").is_none_or(|d| at >= d)
@@ -20,6 +21,7 @@ pub(crate) fn exists(v: Option<&Value>, at: DateTime<Utc>) -> bool {
     })
     .unwrap_or(true)
 }
+#[cfg(not(target_arch="wasm32"))]
 pub(crate) fn exists_in_db(db: &Database, id: u64, at: DateTime<Utc>) -> bool {
     if let Some(time) = db
         .gcat

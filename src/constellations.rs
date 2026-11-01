@@ -80,6 +80,9 @@ async fn backup(def:&collections::Definition,client:&reqwest::Client,shared:&Sha
     sources::atomic(dir,&format!("{}-fetched.txt",def.id),Utc::now().to_rfc3339().as_bytes())?;
     Ok(())
 }
+fn cached_without_current_feed(def:&collections::Definition,rows:&[Value],today:&str)->bool {
+    !rows.is_empty() && rows.iter().all(|row|row["NORAD_CAT_ID"].as_u64().is_some()) && (def.trajectory.is_some() || rows.iter().all(|row|row["DECAY_DATE"].as_str().is_some_and(|date|!date.is_empty()&&date<=today)))
+}
 pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
     let client=reqwest::Client::builder().user_agent("Atlas/0.3 (educational orbital observer)").redirect(reqwest::redirect::Policy::none()).connect_timeout(std::time::Duration::from_secs(8)).timeout(std::time::Duration::from_secs(60)).build().unwrap();
     loop {
@@ -87,6 +90,13 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
         let mut bulk:Option<Vec<Value>>=None;
         for def in added() {
             let now=Utc::now().timestamp();
+            // No current terrestrial GP feed exists for a retired or distant mission.
+            // Validate the cached identity before clearing an obsolete collection error.
+            let cached=std::fs::read(dir.join(format!("{}-catalog.json",def.id))).ok().and_then(|bytes|serde_json::from_slice::<Vec<Value>>(&bytes).ok());
+            let today=Utc::now().format("%Y-%m-%d").to_string();
+            if cached.as_ref().is_some_and(|rows|cached_without_current_feed(def,rows,&today)) {
+                collection_health::finish(&dir,&def.id,None);continue;
+            }
             if !collection_health::due(&dir,&def.id,now,7200){continue;}
             let _=std::fs::write(dir.join(format!("{}-attempt.txt",def.id)),now.to_string());
             let result:Result<(),String>=async {
@@ -132,6 +142,18 @@ pub async fn collect(shared: Shared, dir: PathBuf, once: bool) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn historical_catalogues_do_not_require_a_live_terrestrial_feed(){
+        let mir=collections::definition("mir").unwrap();let today="2026-11-01";
+        assert!(cached_without_current_feed(mir,&[json!({"NORAD_CAT_ID":16609,"DECAY_DATE":"2001-03-23"})],today));
+        assert!(!cached_without_current_feed(mir,&[],today));
+        assert!(!cached_without_current_feed(mir,&[json!({"DECAY_DATE":"2001-03-23"})],today));
+        assert!(!cached_without_current_feed(mir,&[json!({"NORAD_CAT_ID":16609,"DECAY_DATE":""})],today));
+        let ace=collections::definition("ace").unwrap();
+        assert!(cached_without_current_feed(ace,&[json!({"NORAD_CAT_ID":24912})],today));
+        let iss=collections::definition("iss").unwrap();
+        assert!(!cached_without_current_feed(iss,&[json!({"NORAD_CAT_ID":25544})],today));
+    }
     #[test]
     fn verified_backup_tles_keep_identity_epoch_and_provenance(){
         let input:Vec<Value>=serde_json::from_str(include_str!("../resources/experimental-tle-examples.json")).unwrap();
