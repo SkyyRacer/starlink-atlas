@@ -9,8 +9,8 @@ function category(request){
  if(url.origin===base.origin&&url.pathname.startsWith(base.pathname)){
   const path=url.pathname.slice(base.pathname.length);
   if(path.startsWith('data/')||path.startsWith('api/')||path==='edition.json'||path==='asset-sw.js'||path==='asset-cache.js'||path==='loading.js')return null;
-  if(path.endsWith('/iss.glb'))return null; // Avoid teeing a large streamed model into a second JS cache.
-  if(path.endsWith('.glb'))return MODELS;
+  if(/\/iss\.glb(?:\.gz)?$/.test(path))return null; // Avoid teeing a large streamed model into a second JS cache.
+  if(/\.glb(?:\.gz)?$/.test(path))return MODELS;
   if(path.startsWith('vendor/'))return VENDOR;
   if(path.startsWith('images/')||/\.(js|css|wasm)$/.test(path))return ASSETS;
  }

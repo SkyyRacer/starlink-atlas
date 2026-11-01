@@ -79,6 +79,7 @@ jobs:
       - name: Vérifier la netteté et la résistance aux erreurs de données
         run: |
           node tests/archive-fetch.cjs
+          node tests/asset-cache.cjs
           node tests/solar-vectors.cjs
           node tests/news.cjs
           node tests/mir-camera.cjs

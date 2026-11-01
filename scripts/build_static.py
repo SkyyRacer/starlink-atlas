@@ -74,6 +74,10 @@ for folder in ['ephemerides','solar/history','mission-events','physical-facts','
    file.with_suffix('.json.gz').write_bytes(compressed);file.unlink();archive_saved+=len(original)-len(compressed)
 from publish_solar_vectors import export as export_solar_vectors
 export_solar_vectors(out,data/'solar',ROOT/'data-seed/solar')
+model_saved=0
+for file in (out/'images/detailed').glob('*.glb'):
+ original=file.read_bytes();compressed=gzip.compress(original,compresslevel=9,mtime=0)
+ file.with_suffix('.glb.gz').write_bytes(compressed);file.unlink();model_saved+=len(original)-len(compressed)
 archive_file=out/'archive-fetch.js'
 archive_file.write_text(archive_file.read_text().replace('const remoteArchives={};','const remoteArchives='+json.dumps(remote_archives,separators=(',',':'))+';'))
 
@@ -127,5 +131,11 @@ for page,title in [('atlas','Atlas — Tous les satellites'),*[(row['id'],row['l
  html=root_html.replace('<base href="./">','<base href="../">').replace('<title>Atlas — Tous les satellites</title>',f'<title>{title}</title>')
  (folder/'index.html').write_text(html)
 size=sum(f.stat().st_size for f in out.rglob('*') if f.is_file())
-if size>950_000_000:raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
-print(json.dumps({'output':str(out),'archive_bytes_saved':archive_saved,'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
+if size>950_000_000:
+ from collections import Counter
+ breakdown=Counter()
+ for file in out.rglob('*'):
+  if file.is_file():breakdown[file.relative_to(out).parts[0]]+=file.stat().st_size
+ print(json.dumps({'largest_directories':breakdown.most_common(12),'archive_bytes_saved':archive_saved,'model_bytes_saved':model_saved}))
+ raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
+print(json.dumps({'output':str(out),'archive_bytes_saved':archive_saved,'model_bytes_saved':model_saved,'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
