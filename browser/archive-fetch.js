@@ -3,6 +3,7 @@
  */
 (function(root){
  'use strict';
+ root.AtlasPublished=true;
  const remoteArchives={};
  const source=typeof document==='undefined'?root.location.href:document.currentScript.src;
  const base=new URL('./',source),nativeFetch=root.fetch.bind(root);

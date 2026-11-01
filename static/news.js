@@ -38,7 +38,7 @@
  }
  async function refresh(background=false){
   const intro=dialog.querySelector?.('.news-intro');if(intro)intro.textContent='Changements signalés depuis le '+new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(Date.now()-7*86400000));
-  if(!request){if(!background)list.replaceChildren(element('p','Consultation des actualités…','news-empty'));request=fetch(new URL(window.AtlasStatic?'news.json':'api/news',base),{cache:'no-store'}).then(response=>{if(!response.ok)throw Error('Actualités indisponibles');return response.json();}).finally(()=>{request=null;});}
+  if(!request){if(!background)list.replaceChildren(element('p','Consultation des actualités…','news-empty'));request=fetch(new URL((window.AtlasStatic||window.AtlasPublished)?'news.json':'api/news',base),{cache:'no-store'}).then(response=>{if(!response.ok)throw Error('Actualités indisponibles');return response.json();}).finally(()=>{request=null;});}
   try{render(await request);}catch{if(!background)list.replaceChildren(element('p','Les actualités sont momentanément indisponibles. Réessayez dans un instant.','news-empty'));request=null;}
  }
  function standaloneDropdown(){return typeof matchMedia==='function'&&matchMedia('(min-width: 901px)').matches&&document.body.classList.contains('lunar-page');}
