@@ -120,7 +120,7 @@ jobs:
           node tests/archive-fetch.cjs public
           node tests/published-retired.cjs public
           node tests/wasm.cjs public
-          node tests/publication-coverage.cjs public
+          node tests/publication-coverage.cjs public --strict --allow-partial=galileo,glonass
       - name: Vérifier le rendu réel des points et modèles 3D
         if: github.event_name != 'schedule'
         run: |

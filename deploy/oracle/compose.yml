@@ -1,0 +1,78 @@
+name: atlas
+services:
+  app:
+    image: atlas-server:local
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    environment:
+      BIND: 0.0.0.0:3000
+      DATA_DIR: /app/data
+      HISTORY_DIR: /app/data/history
+      KEEPTRACK_API_KEY: ${KEEPTRACK_API_KEY:-}
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - observations:/app/data
+      - ephemerides:/app/static/ephemerides
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/api/config',timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      start_period: 120s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  maintenance:
+    image: atlas-server:local
+    restart: unless-stopped
+    init: true
+    command: ["python3", "deploy/oracle/maintenance.py"]
+    environment:
+      DATA_DIR: /app/data
+      HISTORY_DIR: /app/data/history
+    volumes:
+      - observations:/app/data
+      - ephemerides:/app/static/ephemerides
+    depends_on:
+      app:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  web:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      ATLAS_ADDRESS: ${ATLAS_ADDRESS:-:80}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - certificates:/data
+      - caddy_config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  backup:
+    profiles: [tools]
+    image: atlas-server:local
+    command: ["python3", "deploy/oracle/backup.py"]
+    volumes:
+      - observations:/app/data
+      - ephemerides:/app/static/ephemerides
+      - backups:/app/backups
+volumes:
+  observations:
+  ephemerides:
+  backups:
+  certificates:
+  caddy_config:

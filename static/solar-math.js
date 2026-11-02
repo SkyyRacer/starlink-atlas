@@ -1,5 +1,12 @@
 /* JPL state vectors and IAU pole/spin constants. No extrapolation. */
 (function(root){
+ // Fit the physical globe to 43% of the shorter viewport side, matching
+ // the shared planet/moon entry composition regardless of screen or FOV.
+ function bodyRange(radius,width,height,fovy=Math.PI/3,occupancy=.43){
+  width=Math.max(1,Number(width)||1200);height=Math.max(1,Number(height)||800);
+  const diameter=Math.min(width,height)*occupancy;
+  return radius*Math.sqrt(1+(height/(diameter*Math.tan(fovy/2)))**2);
+ }
  function vector(data,at){const r=data?.samples,t=at/1000;if(!r?.length||!Number.isFinite(t)||t<r[0][0]||t>r.at(-1)[0])return null;let l=0,h=r.length-1;while(h-l>1){const m=(l+h)>>1;if(r[m][0]<=t)l=m;else h=m;}const a=r[l],b=r[h],d=b[0]-a[0];if(!d)return a.slice(1,4);if(d>(data.max_interval_seconds||600)+1)return null;const u=(t-a[0])/d,u2=u*u,u3=u2*u;return [1,2,3].map(i=>(2*u3-3*u2+1)*a[i]+(u3-2*u2+u)*d*a[i+3]+(-2*u3+3*u2)*b[i]+(u3-u2)*d*b[i+3]);}
  function axes(body,at){const days=at/86400000+2440587.5-2451545,T=days/36525,r=body.rotation||{},angles=body.nutation_angles||[],deg=Math.PI/180;const poly=(v,t)=>v?.reduce((a,c,i)=>a+c*t**i,0)||0;let ra=poly(r.POLE_RA,T),dec=r.POLE_DEC?poly(r.POLE_DEC,T):90,w=poly(r.PM,days);for(let i=0;i<angles.length/2;i++){const a=(angles[i*2]+angles[i*2+1]*T)*deg;ra+=(r.NUT_PREC_RA?.[i]||0)*Math.sin(a);dec+=(r.NUT_PREC_DEC?.[i]||0)*Math.cos(a);w+=(r.NUT_PREC_PM?.[i]||0)*Math.sin(a);}ra*=deg;dec*=deg;w=(w%360)*deg;const A=Math.cos(ra),B=Math.sin(ra),D=Math.cos(dec),E=Math.sin(dec),U=Math.cos(w),V=Math.sin(w);return [[-B*U-A*E*V,A*U-B*E*V,D*V],[B*V-A*E*U,-A*V-B*E*U,D*U],[A*D,B*D,E]];}
  const AU=149597870.7,MU=132712440041.9394;
@@ -33,5 +40,5 @@
  function visibleLabels(items,padding=5){const accepted=[];for(const item of [...items].sort((a,b)=>b.priority-a.priority||b.distance-a.distance||String(a.key).localeCompare(String(b.key)))){if(accepted.some(other=>item.left<other.right+padding&&item.right+padding>other.left&&item.top<other.bottom+padding&&item.bottom+padding>other.top))continue;accepted.push(item);}return accepted.map(item=>item.key);}
  // Frame-rate-independent damping of user input, in camera space only.
  function dampedMotion(tau=65){const rest={yaw:0,pitch:0,panX:0,panY:0,zoom:0},threshold={};return {push(change){for(const key of Object.keys(rest)){const value=Number(change[key])||0;rest[key]+=value;threshold[key]=Math.max(1e-7,Math.abs(rest[key])*1e-4);}},step(ms){const fraction=1-Math.exp(-Math.max(0,ms)/tau),change={};for(const key of Object.keys(rest)){change[key]=rest[key]*fraction;rest[key]-=change[key];if(Math.abs(rest[key])<(threshold[key]||1e-7))rest[key]=0;}return change;},get active(){return Object.values(rest).some(value=>value!==0);},clear(){for(const key of Object.keys(rest))rest[key]=0;}};}
- const api={vector,state,axes,sunDirection,nearBody,conic,occultation,zoomPan,visibleLabels,blendDirection,safeFollowView,dampedMotion,AU,MU};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasSolarMath=api;
+ const api={bodyRange,vector,state,axes,sunDirection,nearBody,conic,occultation,zoomPan,visibleLabels,blendDirection,safeFollowView,dampedMotion,AU,MU};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasSolarMath=api;
 })(typeof window==='undefined'?globalThis:window);

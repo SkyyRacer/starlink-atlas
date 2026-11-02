@@ -404,6 +404,26 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dir = PathBuf::from(std::env::var("DATA_DIR").unwrap_or("data".into()));
     std::fs::create_dir_all(&dir)?;
     let args: Vec<String> = std::env::args().collect();
+    // Validate a downloaded public secondary catalogue with the same identity
+    // checks and provenance as scheduled collection, without another HTTP call.
+    if args.len()==4 && args[1]=="--import-secondary-cache" {
+        let key=&args[2];
+        if !["keeptrack","satnogs","n2yo"].contains(&key.as_str()) { return Err("Source secondaire inconnue".into()); }
+        let raw:Value=serde_json::from_slice(&std::fs::read(&args[3])?)?;
+        let input=raw.as_array().or_else(||raw["data"].as_array()).ok_or("Catalogue secondaire invalide")?;
+        let mut db=Database::default();
+        if let Ok(bytes)=std::fs::read(dir.join("satcat.json")) { load_cat(&mut db,&bytes).map_err(std::io::Error::other)?; }
+        let (rows,rejected)=secondary::normalize(&db,input,key=="keeptrack").map_err(std::io::Error::other)?;
+        let metadata:Vec<_>=rows.iter().filter_map(|r|r.get("ATLAS_CATALOG").cloned()).collect();
+        if !metadata.is_empty(){load_cat(&mut db,&serde_json::to_vec(&metadata)?).map_err(std::io::Error::other)?;}
+        let bytes=serde_json::to_vec(&rows)?;
+        load_gp(&mut db,&bytes).map_err(std::io::Error::other)?;
+        sources::atomic(&dir,&format!("gp-{key}.json"),&bytes).map_err(std::io::Error::other)?;
+        if !metadata.is_empty(){sources::atomic(&dir,"secondary-catalog.json",&serde_json::to_vec(&metadata)?).map_err(std::io::Error::other)?;}
+        sources::atomic(&dir,&format!("{key}-status.json"),&serde_json::to_vec(&json!({"source":key,"fetched":Utc::now(),"matched":rows.len(),"rejected":rejected,"import":"validated downloaded response"}))?).map_err(std::io::Error::other)?;
+        println!("{} éléments {} validés, {} éléments incorrects exclus",rows.len(),key,rejected);
+        return Ok(());
+    }
     if args.len()==3 && args[1]=="--import-tle-backup"{
         let rows:Vec<Value>=serde_json::from_slice(&std::fs::read(&args[2])?)?;
         let bytes=constellations::parse_backup(&rows).map_err(std::io::Error::other)?;

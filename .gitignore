@@ -7,3 +7,9 @@
 __pycache__/
 *.pyc
 .env
+
+# Downloaded research packages; validated runtime models and orbital archives are versioned.
+/resources/esa-scifleet/
+/resources/ikaros-oem/
+
+/resources/dwarf-planets/*.html

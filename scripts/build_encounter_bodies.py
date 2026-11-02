@@ -25,4 +25,9 @@ raw=struct.pack('<'+'f'*(len(vertices)*3),*[v*1000 for p in vertices for v in p]
 base='https://naif.jpl.nasa.gov/pub/naif/pds/data/nh-j_p_ss-spice-6-v1.0/nhsp_1000/data/pck/'
 a=pck('nh_arrokoth_001.tpc',2486958);p=pck('pck00011.tpc',999)
 manifest={'bodies':{'999':{'key':'pluton','name':'Pluton','id':999,'kind':'dwarf','radii_km':p['RADII'],'rotation':{k:p[k] for k in ['POLE_RA','POLE_DEC','PM']},'surface':'solar/encounters/pluto-color.jpg','texture_offset':.5,'source':'https://science.nasa.gov/resource/pluto-global-color-map/','credit':'NASA/JHUAPL/SwRI','note':'Mosaïque couleur New Horizons ; couverture et résolution variables selon les régions.'},'2486958':{'key':'arrokoth','name':'Arrokoth','id':2486958,'kind':'minor','radii_km':[max(abs(p[i]) for p in vertices) for i in range(3)],'rotation':{k:a[k] for k in ['POLE_RA','POLE_DEC','PM']},'mesh':{'file':'solar/encounters/arrokoth.bin','vertices':len(vertices),'indices':len(faces)*3,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()},'source':'https://pds-smallbodies.astro.umd.edu/holdings/pds4-nh_derived:arrokoth_geophysics-v1.0/','credit':'NASA/PDS · New Horizons · Beyer/Spencer et al.','note':'Modèle scientifique MU69_MERGED, avec zones non observées modélisées par les auteurs ; teinte rouge uniforme illustrative, pas de texture globale inventée.'}},'rotation_source':base}
+# Match the reviewed planet-page surface in cinematic encounters as well.
+reviewed=ROOT/'static/solar/dwarfs/surface-sources.json'
+if reviewed.exists():
+ reference=json.loads(reviewed.read_text()).get('pluton')
+ if reference and (ROOT/'static'/reference['path']).exists():manifest['bodies']['999'].update(surface=reference['path'],source=reference['source'],note=reference.get('note',reference['method']))
 (out/'catalog.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');print(len(vertices),'vertices',len(faces),'facets',len(raw),'bytes');print('Pluto PCK',p);print('Arrokoth PCK',a)

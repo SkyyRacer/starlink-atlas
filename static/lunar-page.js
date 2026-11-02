@@ -47,6 +47,7 @@
   await moon.enter();
   const earthDirection=window.AtlasDeepSpaceView?.create({viewer,C,onEarth:()=>AtlasJourney.goEarth(),targetPosition:()=>moon.position,manageLight:false,showReturn:false});earthDirection?.setEnabled(true);
   viewReady=true;
+  window.addEventListener?.('pageshow',event=>{if(event.persisted&&viewReady)moon.recenter();});
   setInterval(()=>{if(document.hidden)return;const tick=performance.now(),dt=tick-lastTick;lastTick=tick;if(live)at=Date.now();else if(playing){at=Math.min(Date.now(),at+dt*Number($('speed').value));}clock();if(!document.hidden&&playing)update();},250);
  }catch(error){AtlasLoading.fail();$('notice').textContent='Lune indisponible : '+error.message;}
 })();

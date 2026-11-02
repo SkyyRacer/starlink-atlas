@@ -260,6 +260,105 @@
       "longitude_offset": 0.5,
       "longitude_sign": 1,
       "note": "Mosaïque Cassini de référence ; Titan en proche infrarouge, sans observation en direct."
+    },
+    "901": {
+      "path": "solar/dwarfs/charon.webp",
+      "source": "https://science.nasa.gov/pluto/moons/",
+      "width": 1264,
+      "height": 632,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "NASA VTAD / New Horizons",
+      "note": "Carte New Horizons NASA/JHUAPL/SwRI ; couverture partielle.",
+      "sha256": "774320708760d1887bd58a1590630e490d58b4746caf4ae60fe8da6523345448"
+    },
+    "902": {
+      "path": "solar/dwarfs/nix.webp",
+      "source": "https://science.nasa.gov/pluto/moons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Surface illustrative et orientation non mesurée.",
+      "sha256": "f727dad8ce44cf5943b5e5dfcc4cac288bfd3d2e5f7821c1f3422d244e1d612e"
+    },
+    "903": {
+      "path": "solar/dwarfs/hydra.webp",
+      "source": "https://science.nasa.gov/pluto/moons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Surface illustrative et orientation non mesurée.",
+      "sha256": "d14637dab0e4786f98ee33e17bdf04c04f8db416b953fddf1597b9c4628d3d03"
+    },
+    "904": {
+      "path": "solar/dwarfs/kerberos.webp",
+      "source": "https://science.nasa.gov/pluto/moons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Surface illustrative et orientation non mesurée.",
+      "sha256": "26425ef23446fbcce7ed9f3844a214d3767f2e6ae95e0a0c3b0ee56b42910505"
+    },
+    "905": {
+      "path": "solar/dwarfs/styx.webp",
+      "source": "https://science.nasa.gov/pluto/moons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Surface illustrative et orientation non mesurée.",
+      "sha256": "0c13b64f51029bf636e78d1133b982d5d23fe5f22c44f3113d4f661474e71db5"
+    },
+    "120136199": {
+      "path": "solar/dwarfs/dysnomia.webp",
+      "source": "https://ssd.jpl.nasa.gov/horizons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Rayon estimé ; surface illustrative non cartographiée. Position : solution satellitaire JPL Horizons.",
+      "sha256": "941809955e4d323fedeb0453ae0da28d2417b52141988ef5de6baaeafd6278e4"
+    },
+    "120136108": {
+      "path": "solar/dwarfs/hiiaka.webp",
+      "source": "https://ssd.jpl.nasa.gov/horizons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Rayon estimé ; surface illustrative non cartographiée. Position : solution satellitaire JPL Horizons.",
+      "sha256": "0b9f9d9ccf9a3d599cc45e0ccb4a2f03583595d5d6e8eba5ac0651084d41aed7"
+    },
+    "220136108": {
+      "path": "solar/dwarfs/namaka.webp",
+      "source": "https://ssd.jpl.nasa.gov/horizons/",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Rayon estimé ; surface illustrative non cartographiée. Position : solution satellitaire JPL Horizons.",
+      "sha256": "f49d83bb6c556f4eb0338dffc5faf9cf5b7a5ac7adf7113446436a1f36d256bc"
+    },
+    "136472001": {
+      "path": "solar/dwarfs/mk2.webp",
+      "source": "https://arxiv.org/abs/2509.05880",
+      "width": 2048,
+      "height": 1024,
+      "longitude_offset": 0.5,
+      "longitude_sign": 1,
+      "credit": "Atlas · reconstitution illustrative",
+      "note": "Surface et position schématiques. Période et distance : orbite préliminaire ; orientation et phase non déterminées ici.",
+      "sha256": "d877dd52096ed10b9facba9b7d273efec5145de8a52d2fca8907d01390d44fe6"
     }
   }
 }

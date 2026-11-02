@@ -1,0 +1,417 @@
+{
+  "date_locale": "2026-11-02",
+  "publication": "autorisation reçue de publier malgré les limites Galileo et GLONASS",
+  "reason": "Les deux couvertures partielles sont explicitement acceptées ; les autres pertes sévères ou couvertures partielles restent bloquantes.",
+  "previous_run": "https://github.com/SkyyRacer/starlink-atlas/actions/runs/41312235605",
+  "providers": {
+    "keeptrack": "HTTP 200, catalogue lu avec autorisation explicite ; éléments périmés toujours exclus",
+    "satnogs": "HTTP 200, validation identité et éléments",
+    "n2yo": "HTTP 200 pour 29 objets GLONASS ; 29 TLE validés, certains restent trop anciens",
+    "gcat": "HTTP 200",
+    "horizons": "HTTP 200 ; pas de CORS direct pour remplacer intégralement le serveur local sur Pages",
+    "celestrak": "HTTP 403 dans les journaux GitHub ; délai dépassé lors du contrôle local"
+  },
+  "coverage": {
+    "at": "2026-11-01T23:59:17.840Z",
+    "edition": "6a2c1ecef6e5a3695485",
+    "starlink": 11179,
+    "expected": 11206,
+    "minimum": 8965,
+    "total": 26702,
+    "groups": {
+      "gps": {
+        "available": 40,
+        "expected": 40,
+        "minimum": 20,
+        "target": 28,
+        "status": "normal"
+      },
+      "galileo": {
+        "available": 19,
+        "expected": 33,
+        "minimum": 17,
+        "target": 24,
+        "status": "partial"
+      },
+      "glonass": {
+        "available": 16,
+        "expected": 29,
+        "minimum": 15,
+        "target": 21,
+        "status": "partial"
+      },
+      "beidou": {
+        "available": 45,
+        "expected": 57,
+        "minimum": 29,
+        "target": 40,
+        "status": "normal"
+      },
+      "oneweb": {
+        "available": 651,
+        "expected": 651,
+        "minimum": 326,
+        "target": 456,
+        "status": "normal"
+      },
+      "iridium": {
+        "available": 80,
+        "expected": 80,
+        "minimum": 40,
+        "target": 56,
+        "status": "normal"
+      }
+    },
+    "warnings": [
+      "galileo : couverture partielle, 19 / 33 positions actuelles ; les éléments périmés restent exclus.",
+      "glonass : couverture partielle, 16 / 29 positions actuelles ; les éléments périmés restent exclus."
+    ]
+  },
+  "checks": {
+    "native_tests": {
+      "passed": 51,
+      "failed": 0
+    },
+    "javascript_tests": [
+      {
+        "test": "archive-fetch",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "asset-cache",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "solar-vectors",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "news",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "mir-camera",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "render-budget",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "object-facts",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "crew-archive",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "astronaut-flags",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "overview",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "cartographic-surface",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "mission-data-recovery",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "history-network",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.6
+      },
+      {
+        "test": "history-window",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "publication-coverage-unit",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "dwarf-planets",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "solar-page",
+        "status": "pass",
+        "code": 0,
+        "seconds": 3.3
+      },
+      {
+        "test": "solar-physics",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "solar-menu",
+        "status": "pass",
+        "code": 1,
+        "seconds": 0.1,
+        "note": "Test adapté aux nouvelles pages ; vérification relancée avec succès."
+      },
+      {
+        "test": "solar-earth-entry",
+        "status": "pass",
+        "code": 1,
+        "seconds": 0.0,
+        "note": "Test adapté aux nouvelles pages ; vérification relancée avec succès."
+      },
+      {
+        "test": "solar-news",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "lunar-page",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "lunar",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.8
+      },
+      {
+        "test": "lunar-chronology",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "mission-system",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.3
+      },
+      {
+        "test": "mission-planet-return",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "mission-film",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.9
+      },
+      {
+        "test": "mission-film-scene",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "cinematic-camera",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "ephemeris",
+        "status": "pass",
+        "code": 0,
+        "seconds": 2.2
+      },
+      {
+        "test": "mission-theory",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.3
+      },
+      {
+        "test": "missing-mission-models",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "early-satellite-models",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "detailed-layer",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.3
+      },
+      {
+        "test": "detailed-models",
+        "status": "pass",
+        "code": 0,
+        "seconds": 8.6
+      },
+      {
+        "test": "historical-solar-tracking",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.2
+      },
+      {
+        "test": "timeline-view-state",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "model-uvs",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      },
+      {
+        "test": "model-zoom",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.0
+      },
+      {
+        "test": "model-attitude",
+        "status": "pass",
+        "code": 0,
+        "seconds": 0.1
+      }
+    ],
+    "wasm": "26700 positions au contrôle, suivi testé, temps moyen sur 50 calculs ~50 ms",
+    "published_retired": "Mir, Skylab, Tiangong-1/2 et Saliout : position archivée et orbite restaurées par le moteur navigateur",
+    "compressed_archives": "4068 fichiers décompressés et comparés octet par octet",
+    "data_files_unavailable": 0,
+    "historical_days_indexed": 3148,
+    "historical_files_missing": [],
+    "missions": {
+      "spitzer": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "kepler": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "dscovr": {
+        "state": "current",
+        "last_epoch": "2026-11-07T00:00:00+00:00"
+      },
+      "aditya-l1": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "jwst": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "gaia": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "herschel": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "planck": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "euclid": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "soho": {
+        "state": "current",
+        "last_epoch": "2026-11-02T18:00:00+00:00"
+      },
+      "ace": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "voyager-1": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "voyager-2": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "cassini": {
+        "state": "historical",
+        "last_epoch": "2017-09-15T10:30:00+00:00"
+      },
+      "juno": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "new-horizons": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "bepicolombo": {
+        "state": "current",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      },
+      "juice": {
+        "state": "current",
+        "last_epoch": "2026-11-07T18:43:17+00:00"
+      },
+      "ikaros": {
+        "state": "historical",
+        "last_epoch": "2011-12-19T00:00:00+00:00"
+      },
+      "spektr-rg": {
+        "state": "theoretical",
+        "last_epoch": "2026-11-09T00:00:00+00:00"
+      }
+    },
+    "webgl": "Tentative locale bloquée par les permissions de lancement Chromium ; aucun résultat visuel réel revendiqué pour cette édition."
+  },
+  "prepared_export_bytes": 503478168,
+  "changes_prepared": [
+    "Import secondaire validé conservant identité, date et provenance",
+    "Distinction des objets explicitement inactifs dans le contrôle de couverture, sans les retirer du catalogue",
+    "Tests du menu Système solaire et de la page Terre actualisés",
+    "Rapport des archives réelles et positions théoriques des missions corrigé",
+    "Mode strict : aucune publication si une collecte suspendue ou une couverture partielle est signalée"
+  ]
+}

@@ -4,13 +4,14 @@
  const math=typeof module==='object'&&module.exports?require('./solar-math.js'):root.AtlasSolarMath;
  const DAY=86400000,clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),mix=(a,b,u)=>a+(b-a)*u;
  function merge(records,windows=[]){
-  if(!records.length)throw Error('Archives orbitales absentes.');const base=records[0],rows=new Map();let interval=0;
+  if(!records.length)throw Error('Archives orbitales absentes.');const base=records.find(r=>!r.theoretical)||records[0],rows=new Map();let interval=0;
   for(const record of [...records,...windows]){if(record.id!==base.id||record.frame!=='ICRF'||record.time_scale!=='UTC'||record.origin!=null&&record.origin!==399)throw Error('Référentiel des archives incorrect.');interval=Math.max(interval,record.max_interval_seconds||21600);}
   const ranges=windows.map(w=>[w.samples[0][0],w.samples.at(-1)[0]]);
-  for(const record of records)for(const r of record.samples)if(!ranges.some(([a,b])=>r[0]>=a&&r[0]<=b))rows.set(r[0],r);
+  const measured=records.filter(r=>!r.theoretical).map(r=>[r.samples[0][0],r.samples.at(-1)[0]]),theoryRanges=records.filter(r=>r.theoretical).flatMap(r=>{let ranges=[[r.samples[0][0],r.samples.at(-1)[0]]];for(const [a,b] of measured)ranges=ranges.flatMap(([x,y])=>b<=x||a>=y?[[x,y]]:[[x,Math.min(a,y)],[Math.max(b,x),y]].filter(([l,h])=>h>l));return ranges.map(([a,b])=>[a,b,r.theory_note]);});
+  for(const record of records)for(const r of record.samples)if(!(record.theoretical&&measured.some(([a,b])=>r[0]>=a&&r[0]<=b))&&!ranges.some(([a,b])=>r[0]>=a&&r[0]<=b))rows.set(r[0],r);
   for(const record of windows)for(const r of record.samples)rows.set(r[0],r);
   const samples=[...rows.values()].sort((a,b)=>a[0]-b[0]);for(let i=0;i<samples.length;i++){const r=samples[i];if(r.length!==7||!r.every(Number.isFinite)||i&&r[0]-samples[i-1][0]>interval+1)throw Error('Une période du trajet ne dispose pas d’archives continues.');}
-  return {...base,origin:399,max_interval_seconds:interval,samples};
+  return {...base,theoretical:records.every(r=>r.theoretical),theory_ranges:theoryRanges,origin:399,max_interval_seconds:interval,samples};
  }
  function targetId(key){return {soleil:10,mercure:199,venus:299,terre:399,lune:301,mars:499,jupiter:599,saturne:699,uranus:799,neptune:899,pluton:999,arrokoth:2486958}[key]||null;}
  function refineEvents(events,vectors,planet){return events.map(e=>{let at=e.at;if(['flyby','orbit'].includes(e.kind)&&e.precision==='day'){const id=targetId(e.target);if(!id||id===10)return {...e,published_at:e.at};let distance=Infinity;for(const row of vectors.samples){const t=row[0]*1000;if(Math.abs(t-e.at)>DAY)continue;const p=planet(id,t);if(!p)continue;const d=Math.hypot(...row.slice(1,4).map((x,i)=>x-p[i]));if(d<distance){distance=d;at=t;}}}return {...e,at,published_at:e.at};});}

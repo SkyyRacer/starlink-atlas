@@ -2,7 +2,18 @@ target
 data
 .git
 
-data-seed
 data-runtime
 public
 web-core/target
+data-seed/history-updates
+data-seed/history-versions
+data-seed/orbital-news.json
+**/__pycache__
+**/*.pyc
+**/.env
+**/.env.*
+!**/.env.example
+deploy/oracle/backups
+*.pem
+*.key
+**/*api-key*.txt

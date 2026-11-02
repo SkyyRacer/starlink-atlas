@@ -18,3 +18,12 @@ const partial=coverage(withGps,partialPoints,now);assert.equal(partial.groups.gp
 assert.throws(()=>coverage(withGps,[...points,...gps.slice(0,14).map(s=>({id:s.id}))],now),/gps/,'A severe loss remains blocking');
 assert.equal(coverage(withGps,[...points,...gps.slice(0,21).map(s=>({id:s.id}))],now).warnings.length,0);
 console.log('Publication distinguishes partial coverage (reported) from severe constellation loss (blocked), without extending orbit validity.');
+
+// An abandoned GLONASS craft still in orbit belongs in the catalogue and
+// historical view, but must not masquerade as a missing operational satellite.
+const retired=Array.from({length:100},(_,i)=>({id:40000+i,name:'OLD GLONASS '+i,family:'glonass',ops:'-',launch:'1985-01-01'}));
+const operational=Array.from({length:25},(_,i)=>({id:41000+i,name:'GLONASS '+i,family:'glonass',ops:'+',launch:'2020-01-01'}));
+const checked=coverage({satellites:[...satellites,...retired,...operational]},[...points,...operational.map(s=>({id:s.id}))],now);
+assert.equal(checked.groups.glonass.expected,25);assert.equal(checked.groups.glonass.available,25);assert.equal(checked.warnings.length,0);
+assert.throws(()=>coverage({satellites:[...satellites,...retired,...operational]},points,now),/glonass/,'Operational losses remain blocking');
+console.log('Publication distinguishes inactive archived spacecraft from missing operational positions without extending orbital validity.');

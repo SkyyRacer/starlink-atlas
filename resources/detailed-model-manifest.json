@@ -13473,5 +13473,862 @@
     "triangles": 28572,
     "textures": 10,
     "materials": 17
+  },
+  {
+    "docked_visitors": [],
+    "key": "sputnik-1",
+    "ids": [
+      2
+    ],
+    "url": "images/detailed/sputnik-1.glb?v=e4d0aaad36a3",
+    "bytes": 460076,
+    "source": "https://airandspace.si.edu/stories/editorial/sputnik-and-space-age",
+    "download": "https://airandspace.si.edu/stories/editorial/sputnik-and-space-age",
+    "sha256": "59ce8018bc2e88a7c5eeac2989ff983a01caa1caec9e724a8488aa39e25af7aa",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/sputnik-1-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 12528,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "sputnik-2",
+    "ids": [
+      3
+    ],
+    "url": "images/detailed/sputnik-2.glb?v=4af5317e3e7f",
+    "bytes": 961008,
+    "source": "https://www.lib.cas.cz/space.40/1957/002A.HTM",
+    "download": "https://www.lib.cas.cz/space.40/1957/002A.HTM",
+    "sha256": "4637b39853c1f14fa8b7fecdedcb5078e4d760c8ba689e4659cde0313c432acc",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Charge instrumentale représentée, sans le corps de fusée R-7 resté attaché.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/sputnik-2-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 22912,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "sputnik-3",
+    "ids": [
+      8
+    ],
+    "url": "images/detailed/sputnik-3.glb?v=1450e6981d56",
+    "bytes": 1038004,
+    "source": "https://www.nasa.gov/history/60-years-ago-soviets-launch-sputnik-3/",
+    "download": "https://www.nasa.gov/history/60-years-ago-soviets-launch-sputnik-3/",
+    "sha256": "76b0134df0c2bcbc356132b02e3fe5c6478847cda15e37e0acf7071f58bb5819",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/sputnik-3-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 18352,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "explorer-1",
+    "ids": [
+      4
+    ],
+    "url": "images/detailed/explorer-1.glb?v=a6ac035b6235",
+    "bytes": 847160,
+    "source": "https://science.nasa.gov/resource/explorer-1-3d-model/",
+    "download": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/e/Explorer_1.glb",
+    "sha256": "813ed33723aa583cd238d4fc94e1e29c5695ad556c6a4bb2eeeb313c5a37afb8",
+    "uv_repairs": [
+      {
+        "mesh": 2,
+        "primitive": 0,
+        "texcoord": 0,
+        "reason": "clear.png.001 is uniformly transparent RGBA (255,255,255,0); constant UVs preserve full transparency.",
+        "count": 24
+      }
+    ],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {
+      "tex_01": {
+        "roughnessFactor": 0.3
+      }
+    },
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "note": "Modèle officiel NASA VTAD, géométrie et textures conservées.",
+    "credit": "NASA VTAD",
+    "original_file": "resources/detailed-originals/explorer-1-nasa.glb",
+    "version": "NASA VTAD texturé",
+    "triangles": 5392,
+    "textures": 3,
+    "materials": 3
+  },
+  {
+    "docked_visitors": [],
+    "key": "vanguard-1",
+    "ids": [
+      5
+    ],
+    "url": "images/detailed/vanguard-1.glb?v=7543c2f139bd",
+    "bytes": 358268,
+    "source": "https://ntrs.nasa.gov/citations/19980228199",
+    "download": "https://ntrs.nasa.gov/citations/19980228199",
+    "sha256": "3da80647ba63b2d9c5cbdd5589a152d289949322bbd110c545a320fceb7390dd",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/vanguard-1-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 9728,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "explorer-3",
+    "ids": [
+      6
+    ],
+    "url": "images/detailed/explorer-3.glb?v=656fc570bd43",
+    "bytes": 582296,
+    "source": "https://www.jpl.nasa.gov/missions/explorer-3/",
+    "download": "https://www.jpl.nasa.gov/missions/explorer-3/",
+    "sha256": "8fec576dbb5ff2e1e00457e8f92c7c8d0697756104c0413decd5d44023eba76b",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Assemblage charge utile et dernier étage Sergeant ; finitions et petites pièces interprétées.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/explorer-3-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 9792,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "explorer-4",
+    "ids": [
+      9
+    ],
+    "url": "images/detailed/explorer-4.glb?v=bd362a25b0d0",
+    "bytes": 588984,
+    "source": "https://www.si.edu/object/satellite-explorer-4%3Anasm_A19731030000",
+    "download": "https://www.si.edu/object/satellite-explorer-4%3Anasm_A19731030000",
+    "sha256": "75329762d5d67bb08881ffb330fddf2250c3b0f5a20279fc44735ea6bac75239",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Assemblage charge utile et dernier étage Sergeant ; bandes thermiques et détecteurs distincts.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/explorer-4-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 9952,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "explorer-6",
+    "ids": [
+      15
+    ],
+    "url": "images/detailed/explorer-6.glb?v=d6030072dfd8",
+    "bytes": 308436,
+    "source": "https://ntrs.nasa.gov/citations/19880016045",
+    "download": "https://ntrs.nasa.gov/citations/19880016045",
+    "sha256": "da1216268142718a99f23496b6f35e02e7fb30bdbb72031942e069f988885c6b",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Trois palettes déployées et une partiellement repliée : échec de déploiement documenté. Palette concernée et angle résiduel illustratifs ; aucun suivi solaire motorisé.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/explorer-6-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 5888,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "explorer-7",
+    "ids": [
+      22
+    ],
+    "url": "images/detailed/explorer-7.glb?v=e9be4ac43be8",
+    "bytes": 483516,
+    "source": "https://airandspace.si.edu/collection-objects/satellite-explorer-7-replica/nasm_A19761109000",
+    "download": "https://airandspace.si.edu/collection-objects/satellite-explorer-7-replica/nasm_A19761109000",
+    "sha256": "3b52cd8ad19ad4501aadb5a6593a9155a59096d6ee2582256626755c04422c1e",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Cellules fixées aux deux coques tronconiques ; capteurs thermiques et dipôles centraux. Aucun panneau orientable.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/explorer-7-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 9168,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "vanguard-2",
+    "ids": [
+      11
+    ],
+    "url": "images/detailed/vanguard-2.glb?v=7ade8e15f1be",
+    "bytes": 420056,
+    "source": "https://ntrs.nasa.gov/citations/19740012427",
+    "download": "https://ntrs.nasa.gov/citations/19740012427",
+    "sha256": "eb002c6fc21b5bc98ef2729e7ca2cb9d6a7111ebbcc79db068abe74023223ed5",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Sphère de 50,8 cm, deux télescopes optiques ; alimentation par piles, sans panneaux solaires.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/vanguard-2-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 11520,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "docked_visitors": [],
+    "key": "vanguard-3",
+    "ids": [
+      20
+    ],
+    "url": "images/detailed/vanguard-3.glb?v=9713a91ca35f",
+    "bytes": 398912,
+    "source": "https://airandspace.si.edu/collection-objects/satellite-vanguard-3-magne-ray-replica/nasm_A19751412000",
+    "download": "https://airandspace.si.edu/collection-objects/satellite-vanguard-3-magne-ray-replica/nasm_A19751412000",
+    "sha256": "7655b3fecb539428c96fc270db2239fea0e37421cc456ea3ebb0145bbcb01655",
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "render_lighting": {
+      "light_color": [
+        1.1,
+        1.1,
+        1.1
+      ],
+      "ibl_factor": [
+        0.55,
+        0.8
+      ]
+    },
+    "presentation_focus_node": null,
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "note": "Reconstitution extérieure documentée ; détails secondaires et finitions interprétés. Attitude historique non mesurée. Sphère de 50,8 cm et extension magnétométrique de 66 cm. Charge utile seule, sans le troisième étage resté attaché.",
+    "credit": "Atlas · reconstitution documentée",
+    "original_file": "resources/detailed-originals/vanguard-3-atlas.glb",
+    "version": "Atlas historical reconstruction · PBR",
+    "triangles": 10688,
+    "textures": 1,
+    "materials": 9
+  },
+  {
+    "key": "bepicolombo",
+    "ids": [
+      43653
+    ],
+    "url": "images/detailed/bepicolombo.glb?v=096f0bf79116",
+    "bytes": 16525404,
+    "source": "https://scifleet.esa.int/model-downloads",
+    "download": "https://scifleet.esa.int/downloads/bepi_mcs/bepi_mcs.obj",
+    "sha256": "fd1b5ab65181bd4218bcb83d26b47251b7df52197428fa2741003b5d21f5b1b2",
+    "original_file": "resources/detailed-originals/bepicolombo-source.glb",
+    "credit": "ESA · Scifleet · conversion Atlas",
+    "version": "ESA Scifleet texturé",
+    "note": "Géométrie et UV ESA ; assistants caméra exclus ; textures limitées à 2048 px, finitions PBR Atlas.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 111002,
+    "textures": 5,
+    "materials": 5
+  },
+  {
+    "key": "gaia",
+    "ids": [
+      39479
+    ],
+    "url": "images/detailed/gaia.glb?v=cc166fe9bce9",
+    "bytes": 2387536,
+    "source": "https://scifleet.esa.int/model-downloads",
+    "download": "https://scifleet.esa.int/downloads/gaia/gaia.obj",
+    "sha256": "1ca87e2bc9d30346307476df0b6c2cb96c8d1202fd4463fc3d87f3c0f5122b01",
+    "original_file": "resources/detailed-originals/gaia-source.glb",
+    "credit": "ESA · Scifleet · conversion Atlas",
+    "version": "ESA Scifleet texturé",
+    "note": "Géométrie et UV ESA ; assistants caméra exclus ; textures limitées à 2048 px, finitions PBR Atlas.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 45634,
+    "textures": 2,
+    "materials": 2
+  },
+  {
+    "key": "herschel",
+    "ids": [
+      34937
+    ],
+    "url": "images/detailed/herschel.glb?v=2a74a63467f0",
+    "bytes": 7034836,
+    "source": "https://scifleet.esa.int/model-downloads",
+    "download": "https://scifleet.esa.int/downloads/herschel/herschel.obj",
+    "sha256": "15ced1cc4d53d20489b4453b7d99fa8b9e676f0dd1b3d2afc460eac2e19dc606",
+    "original_file": "resources/detailed-originals/herschel-source.glb",
+    "credit": "ESA · Scifleet · conversion Atlas",
+    "version": "ESA Scifleet texturé",
+    "note": "Géométrie et UV ESA ; assistants caméra exclus ; textures limitées à 2048 px, finitions PBR Atlas.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 8759,
+    "textures": 2,
+    "materials": 2
+  },
+  {
+    "key": "planck",
+    "ids": [
+      34938
+    ],
+    "url": "images/detailed/planck.glb?v=0b427a2983c0",
+    "bytes": 2214620,
+    "source": "https://scifleet.esa.int/model-downloads",
+    "download": "https://scifleet.esa.int/downloads/planck/planck.obj",
+    "sha256": "f7d38c2ac2a2a67227c73478d06a97d99489eea9383d116526007eca3af6ee08",
+    "original_file": "resources/detailed-originals/planck-source.glb",
+    "credit": "ESA · Scifleet · conversion Atlas",
+    "version": "ESA Scifleet texturé",
+    "note": "Géométrie et UV ESA ; assistants caméra exclus ; textures limitées à 2048 px, finitions PBR Atlas.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 9960,
+    "textures": 1,
+    "materials": 1
+  },
+  {
+    "key": "spektr-rg",
+    "ids": [
+      44432
+    ],
+    "url": "images/detailed/spektr-rg.glb?v=540593b6d83b",
+    "bytes": 349896,
+    "source": "https://www.laspace.ru/en/activities/projects/spectrum-x/",
+    "download": "https://www.laspace.ru/en/activities/projects/spectrum-x/",
+    "sha256": "578a3c132e464ab8c844cf1b5cf9420f0246d8dfa36c7bcaa2df7fc77b94d895",
+    "original_file": "resources/detailed-originals/spektr-rg-source.glb",
+    "credit": "Atlas · reconstitution documentée",
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution extérieure Atlas ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 4312,
+    "textures": 2,
+    "materials": 9
+  },
+  {
+    "key": "aditya-l1",
+    "ids": [
+      57754
+    ],
+    "url": "images/detailed/aditya-l1.glb?v=096d853f049e",
+    "bytes": 265292,
+    "source": "https://www.isro.gov.in/media_isro/pdf/AdityaL1_Mission_Brochure.pdf",
+    "download": "https://www.isro.gov.in/media_isro/pdf/AdityaL1_Mission_Brochure.pdf",
+    "sha256": "127e101456aeb6aa97017da2c2c0c8cf43682873917a54dabd179f9f313578bd",
+    "original_file": "resources/detailed-originals/aditya-l1-source.glb",
+    "credit": "Atlas · reconstitution documentée",
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution extérieure Atlas ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 2220,
+    "textures": 2,
+    "materials": 9
+  },
+  {
+    "key": "ikaros",
+    "ids": [
+      36577
+    ],
+    "url": "images/detailed/ikaros.glb?v=532dbf99c42c",
+    "bytes": 237476,
+    "source": "https://www.isas.jaxa.jp/en/missions/spacecraft/past/ikaros.html",
+    "download": "https://www.isas.jaxa.jp/en/missions/spacecraft/past/ikaros.html",
+    "sha256": "8870a80606dc253e19f7aa0d6abc64031eb287a5e14e2c08f4f8c08c1e4a487f",
+    "original_file": "resources/detailed-originals/ikaros-source.glb",
+    "credit": "Atlas · reconstitution documentée",
+    "version": "Atlas historical reconstruction · PBR",
+    "note": "Reconstitution extérieure Atlas ; détails secondaires et finitions interprétés. Attitude historique non mesurée.",
+    "body_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "uv_repairs": [],
+    "compatibility": {},
+    "solar_rig": [],
+    "material_finishes": {},
+    "triangles": 1916,
+    "textures": 2,
+    "materials": 9
   }
 ]

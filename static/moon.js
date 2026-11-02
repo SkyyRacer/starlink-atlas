@@ -1,5 +1,9 @@
 'use strict';
 window.AtlasMoon={
+ entryRange(radius,width,height,fovy=Math.PI/3){
+  width=Math.max(1,Number(width)||1200);height=Math.max(1,Number(height)||800);
+  return radius*Math.sqrt(1+(height/(.43*Math.min(width,height)*Math.tan(fovy/2)))**2);
+ },
  async load(){if(this.loading)return this.loading;const base=new URL("./",this.base);return this.loading=(async()=>{for(const file of ["vendor/astronomy.browser.min.js","lunar-math.js?v=5894270f4de7"]){await new Promise((resolve,reject)=>{const script=document.createElement("script");script.src=new URL(file,base);script.onload=resolve;script.onerror=()=>reject(Error("Données lunaires indisponibles"));document.head.append(script);});}})();},
  base:document.currentScript?.src||new URL("moon.js",document.baseURI).href,
  // Text patches use local tangent coordinates, never global longitude UVs.
@@ -165,7 +169,8 @@ window.AtlasMoon={
    catch(error){progress?.fail();console.warn(error.message);}finally{travelling=false;}
   }
   function recenter(){if(!active||!center)return;drag=null;
-   const distance=R/Math.sin(viewer.camera.frustum.fovy*.32);
+   const canvas=viewer.canvas||viewer.scene.canvas||viewer.container;
+   const distance=window.AtlasMoon.entryRange(R,canvas?.clientWidth,canvas?.clientHeight,viewer.camera.frustum.fovy||Math.PI/3);
    // Earth is the world origin: start on the Earth-facing side at this date.
    // Move the camera, keeping the Moon's physical pole and libration unchanged.
    const towardEarth=C.Cartesian3.normalize(C.Cartesian3.negate(center,new C.Cartesian3()),new C.Cartesian3());

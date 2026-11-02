@@ -1,7 +1,8 @@
 /* Refuse to replace a usable public edition with a severely incomplete live catalogue. */
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib'),assert=require('node:assert/strict');
 function coverage(catalog,points,now){
- const active=s=>(!s.launch||Date.parse(s.launch)<=now)&&(!s.decay||Date.parse(s.decay)>now);
+ const operational=s=>!['-','D'].includes(s.ops);
+ const active=s=>operational(s)&&(!s.launch||Date.parse(s.launch)<=now)&&(!s.decay||Date.parse(s.decay)>now);
  const expected=catalog.satellites.filter(s=>(s.name||'').startsWith('STARLINK')&&active(s));
  const available=new Set(points.map(p=>p.id)),count=expected.filter(s=>available.has(s.id)).length;
  const minimum=expected.length>=1000?Math.ceil(expected.length*.8):0;
@@ -31,5 +32,5 @@ if(require.main===module)(async()=>{
  for(let i=0;i<data.raw_catalog.length;i+=256)call({op:'catalog-add',rows:data.raw_catalog.slice(i,i+256)});
  const gcat=Object.entries(data.gcat||{});for(let i=0;i<gcat.length;i+=256)call({op:'catalog-add',rows:[],gcat:Object.fromEntries(gcat.slice(i,i+256))});
  for(const [field,target] of [['packed_live','live'],['packed_orbits','current']])for(let i=0;i<(data[field]||[]).length;i+=256)call({op:'orbits-add',target,data:{orbit_fields:data.orbit_fields,orbit_sources:data.orbit_sources,packed_orbits:data[field].slice(i,i+256)}});
- const now=new Date().toISOString(),result=call({op:'positions',at:now,now});assert.ok(result.points.length,'No current positions: never publish an empty edition');const report=coverage(catalog,result.points,Date.parse(now));console.log('Publication coverage:',report);for(const message of report.warnings)console.log('::warning::'+message);fs.writeFileSync(path.join(root,'data-coverage.json'),JSON.stringify({at:now,edition:edition.edition,...report},null,2)+'\n');
+ const now=new Date().toISOString(),result=call({op:'positions',at:now,now});assert.ok(result.points.length,'No current positions: never publish an empty edition');const report=coverage(catalog,result.points,Date.parse(now));console.log('Publication coverage:',report);for(const message of report.warnings)console.log('::warning::'+message);fs.writeFileSync(path.join(root,'data-coverage.json'),JSON.stringify({at:now,edition:edition.edition,...report},null,2)+'\n');const allowed=new Set((process.argv.find(arg=>arg.startsWith('--allow-partial='))||'').slice('--allow-partial='.length).split(',').filter(Boolean));const blocked=Object.entries(report.groups).filter(([family,state])=>state.status==='partial'&&!allowed.has(family));if(process.argv.includes('--strict')&&blocked.length)throw Error('Publication suspendue : couverture partielle non autorisée ('+blocked.map(([family])=>family).join(', ')+').');
 })().catch(error=>{console.error(error.message);process.exitCode=1;});

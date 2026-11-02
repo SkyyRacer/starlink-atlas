@@ -127,7 +127,16 @@ def mission_report(static,now):
    output[mission['key']]={'state':'current' if current else 'historical' if ended else 'expired','last_epoch':dt.datetime.fromtimestamp(last,dt.timezone.utc).isoformat()}
   except (OSError,ValueError,KeyError,TypeError):output[mission['key']]={'state':'unavailable'}
  for definition in json.loads((ROOT/'resources/constellations.json').read_text()):
-  if definition.get('trajectory') and definition['id'] not in output:output[definition['id']]={'state':'no_verified_source'}
+  if definition.get('trajectory') and definition['id'] not in output:
+   key=definition['id'];found=None
+   for relative,theoretical in [(f'ephemerides/{key}-index.json',False),(f'ephemerides/theoretical/{key}-index.json',True)]:
+    try:
+     index=json.loads((static/relative).read_text());entries=list(index['years'].values());last=max(row['last_epoch'] for row in entries)
+     covered=any(row['first_epoch']<=now.timestamp()<=row['last_epoch'] and (static/row['file']).is_file() for row in entries)
+     if covered:found={'state':'theoretical' if theoretical else 'current','last_epoch':dt.datetime.fromtimestamp(last,dt.timezone.utc).isoformat()};break
+     if not theoretical and any((static/row['file']).is_file() for row in entries):found={'state':'historical','last_epoch':dt.datetime.fromtimestamp(last,dt.timezone.utc).isoformat()}
+    except (OSError,ValueError,KeyError,TypeError):continue
+   output[key]=found or {'state':'no_verified_source'}
  return output
 
 def main():

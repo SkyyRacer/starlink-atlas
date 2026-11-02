@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{parseHTML}=require('linkedom');
+const {window}=parseHTML('<html><body><div class="globe-tools"></div><section id="missing"></section></body></html>'),document=window.document;
+vm.runInNewContext(fs.readFileSync('static/historical-theory.js','utf8'),{window,document,URL,Date,Math,Number,Map,Infinity});const A=window.AtlasTheory;let refreshes=0,visits=[];const ui=A.create(document.querySelector('.globe-tools'),()=>refreshes++,(id,time)=>visits.push({id,time}));const rows=[{id:2,name:'SPUTNIK 1'}],now=Date.now(),at=Date.parse('1957-11-01T12:00Z'),toggle=document.getElementById('historical-theory-toggle');
+ui.update(rows,now,null,[],'sputnik-1');assert.equal(document.querySelector('.historical-theory-control').hidden,false);assert.equal(A.enabled,false);
+toggle.checked=true;toggle.onchange();assert.equal(A.enabled,true);assert.equal(refreshes,1);
+ui.update(rows,at,2,[A.point(2,at)],'sputnik-1');assert.match(document.querySelector('[role=status]').textContent,/Estimation théorique affichée/);assert.match(document.querySelector('.historical-theory-control').textContent,/orientation et phase initiales conventionnelles/);assert.ok(document.querySelector('.historical-theory-sources a').href.startsWith('https://www.lib.cas.cz/'));
+toggle.checked=false;toggle.onchange();assert.equal(A.enabled,false);
+assert.equal(A.offer(document.getElementById('missing'),rows,now),true);document.querySelector('.historical-theory-action').onclick();assert.equal(A.enabled,true);assert.equal(visits[0].id,2);assert.ok(A.point(2,visits[0].time),'The theoretical action moves the chronology to the documented orbital interval');
+ui.update(rows,at,null,[],'all');assert.equal(document.querySelector('.historical-theory-control').hidden,true,'The Atlas overview has no historical reconstruction toggle without a selected object');ui.update(rows,at,2,[],'all');assert.equal(document.querySelector('.historical-theory-control').hidden,false);
+assert.equal(A.offer(document.getElementById('missing'),[{id:25544}],now),false);ui.update([{id:25544}],at,25544,[],'iss');assert.equal(document.querySelector('.historical-theory-control').hidden,true);
+console.log('Historical reconstruction UI: opt-in checkbox, explanatory label, source links, date recovery and no unrelated-object controls OK');

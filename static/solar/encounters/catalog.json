@@ -27,11 +27,11 @@
           0.0
         ]
       },
-      "surface": "solar/encounters/pluto-color.jpg",
+      "surface": "solar/dwarfs/pluton-balanced.webp",
       "texture_offset": 0.5,
-      "source": "https://science.nasa.gov/resource/pluto-global-color-map/",
+      "source": "https://science.nasa.gov/resource/pluto-3d-model/",
       "credit": "NASA/JHUAPL/SwRI",
-      "note": "Mosaïque couleur New Horizons ; couverture et résolution variables selon les régions."
+      "note": "Carte New Horizons NASA/JHUAPL/SwRI : écarts de netteté atténués ; les régions peu observées restent moins définies."
     },
     "2486958": {
       "key": "arrokoth",

@@ -17,4 +17,5 @@ def report(directory):
     return result
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--data-dir',type=pathlib.Path,required=True);a=p.parse_args();report(a.data_dir)
+    p=argparse.ArgumentParser();p.add_argument('--data-dir',type=pathlib.Path,required=True);p.add_argument('--strict',action='store_true');a=p.parse_args();result=report(a.data_dir)
+    if a.strict and result['stopped']:raise SystemExit('Publication bloquée : une ou plusieurs collectes restent suspendues. Les avertissements ne sont pas masqués.')

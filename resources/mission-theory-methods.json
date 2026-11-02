@@ -1,0 +1,60 @@
+{
+  "srg_epoch": 1569888000,
+  "srg_period_days": 180,
+  "srg_halo_coefficients_km": [
+    [
+      1294031.171518358,
+      -61164.763413780034,
+      85024.42929073783
+    ],
+    [
+      -82725.36846719933,
+      -825189.6768374076,
+      -336603.48267362703
+    ],
+    [
+      -158715.66291908827,
+      327350.48406225286,
+      -216078.18807378583
+    ]
+  ],
+  "srg_fit_rms_km": 13340.763855606456,
+  "notes": [
+    {
+      "mission": "ikaros",
+      "first_epoch": 1274392702.0,
+      "last_epoch": 1274400000,
+      "method": "Liaison th\u00e9orique entre le site de lancement et le premier \u00e9tat JAXA ; pas une simulation du lanceur."
+    },
+    {
+      "mission": "ikaros",
+      "first_epoch": 1324252800,
+      "last_epoch": 1747267200.0,
+      "method": "Propagation k\u00e9pl\u00e9rienne h\u00e9liocentrique depuis le dernier \u00e9tat JAXA, sans pression solaire ni perturbations plan\u00e9taires. Incertitude croissante, position historique non valid\u00e9e."
+    },
+    {
+      "mission": "spektr-rg",
+      "first_epoch": 1563021057.0,
+      "last_epoch": 1569888000,
+      "method": "Transfert indicatif vers le premier \u00e9tat MPE ; courbe de raccordement, sans reconstruction des man\u0153uvres."
+    },
+    {
+      "mission": "spektr-rg",
+      "first_epoch": 1577836800,
+      "last_epoch": 1794182400.0,
+      "method": "Halo nominal de 180 jours ajust\u00e9 aux \u00e9tats MPE de 2019 ; extrapolation p\u00e9riodique sans man\u0153uvres historiques, non observation."
+    },
+    {
+      "mission": "cassini",
+      "first_epoch": 876904980.0,
+      "last_epoch": 876907628,
+      "method": "Raccordement th\u00e9orique du site de lancement au premier \u00e9tat Horizons ; pas une reconstruction de la phase propuls\u00e9e."
+    },
+    {
+      "mission": "cassini",
+      "first_epoch": 1505471400,
+      "last_epoch": 1505471460.0,
+      "method": "Propagation balistique courte depuis le dernier \u00e9tat Horizons, born\u00e9e au d\u00e9but de rentr\u00e9e vers 10:31 UTC ; frottement atmosph\u00e9rique non mod\u00e9lis\u00e9."
+    }
+  ]
+}

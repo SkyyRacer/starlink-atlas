@@ -43,6 +43,11 @@ hover.clientX=400;hover.clientY=300;canvas.dispatchEvent(hover);hover.clientX=10
 window.document.getElementById('lunar-jump').click();await settle();assert.equal(card.hidden,false);
 function assertEarthFacing(){const earthDirection=C.Cartesian3.normalize(C.Cartesian3.negate(moon.position,new C.Cartesian3()),new C.Cartesian3()),offset=C.Cartesian3.normalize(camera.position,new C.Cartesian3());assert.ok(C.Cartesian3.dot(earthDirection,offset)>1-1e-12,'Arrival/recenter shows the hemisphere visible from Earth');}
 assertEarthFacing();
+const solarMath=require('../static/solar-math.js');
+for(const [width,height] of [[2048,989],[1366,680],[900,900],[3840,1600]])for(const fovy of [.7,Math.PI/3]){
+ const radius=C.Ellipsoid.MOON.maximumRadius,d=ctx.window.AtlasMoon.entryRange(radius,width,height,fovy),diameter=height*Math.tan(Math.asin(radius/d))/Math.tan(fovy/2);
+ assert.ok(Math.abs(diameter/Math.min(width,height)-.43)<1e-12,'Moon fits reference composition on every desktop viewport');assert.ok(Math.abs(d-solarMath.bodyRange(radius,width,height,fovy))<1e-7,'Planets and Moon share the same entry proportion');
+}
 for(const date of ['1969-07-20T20:17:00Z','2000-01-01T12:00:00Z','2026-10-27T12:00:00Z']){moon.update(Date.parse(date));moon.recenter();assertEarthFacing();}
 moon.update(at);moon.recenter();
 assert.deepEqual(tasks.at(-1).done,['textures','scene']);assert.match(card.querySelector('[data-lunar=distance]').textContent,/km/);assert.equal(destination.textContent,'Retour à la Terre');assert.equal(names.hidden,false);names.querySelector('input').checked=true;names.querySelector('input').dispatchEvent(new window.Event('change'));await new Promise(r=>setImmediate(r));assert.equal(nameRequests,1);const nameSurface=collections.at(-1),nameUniforms=nameSurface.appearance.material.uniforms;

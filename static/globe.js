@@ -1,20 +1,17 @@
 'use strict';
 /* Cesium stays lazy and local. No access token, terrain service, or geolocation. */
 window.AtlasGlobe={
-  followTransform(C,id,position,reference){
-    // Mir's inspection camera follows translation without cancelling body rotation.
-    return id===16609&&reference?C.Matrix4.setTranslation(reference,position,new C.Matrix4()):C.Transforms.eastNorthUpToFixedFrame(position);
+  followTransform(C,id,position){
+    // Use the local Earth vertical, as for ISS. Frozen world axes make the
+    // horizon roll as Mir moves; the camera must never inherit the model attitude.
+    return C.Transforms.eastNorthUpToFixedFrame(position);
   },
-  followPose(C,camera,id,position,offset,reference=null){
-    if(id===16609){
-      const frame=this.followTransform(C,id,position,reference||C.Transforms.eastNorthUpToFixedFrame(position));
-      camera.lookAtTransform(frame,offset);return C.Matrix4.clone(frame);
-    }
-    camera.lookAt(position,offset);return null;
+  followPose(C,camera,id,position,offset){
+    camera.lookAt(position,offset);
   },
-  followStep(C,camera,id,position,reference=null){
+  followStep(C,camera,id,position){
     const axes=['position','direction','up','right'],local=axes.map(axis=>C.Cartesian3.clone(camera[axis]));
-    const frame=this.followTransform(C,id,position,reference);
+    const frame=this.followTransform(C,id,position);
     camera.lookAtTransform(frame);
     axes.forEach((axis,i)=>C.Cartesian3.clone(local[i],camera[axis]));
     return frame;
@@ -284,11 +281,10 @@ window.AtlasGlobe={
       const chosen=lastData.points.find(p=>p.id===id);if(!chosen)return;
       // Loading the detailed Mir asset must not reset an already framed camera.
       if(fromReady&&id===16609&&following&&followReady){viewer.scene.requestRender();return;}
-      const retainedMirFrame=id===16609?mirFollowFrame:null;
       idleController?.cancel();stopJoystick();pendingX=0;pendingY=0;stopModelDrag();releaseFollow();
       following=true;followPitch=-.5;viewer.camera.cancelFlight();
       const radius=Math.max(1,model.boundingSphere?.radius||AtlasScience.model(id)?.radius||75);
-      mirFollowFrame=AtlasGlobe.followPose(C,viewer.camera,id,position(chosen),new C.HeadingPitchRange(0,followPitch,AtlasGlobe.detailedRange(radius,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy)),retainedMirFrame);
+      AtlasGlobe.followPose(C,viewer.camera,id,position(chosen),new C.HeadingPitchRange(0,followPitch,AtlasGlobe.detailedRange(radius,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy)));
       followReady=true;updateFollowControl(chosen);viewer.scene.requestRender();
     }
     // Resolve visibility after both layers' animation callbacks, including models
@@ -306,10 +302,10 @@ window.AtlasGlobe={
     });
     const items=new Map(),lime=C.Color.fromCssColorString('#c8efff'),white=C.Color.WHITE;let active=true,lastSelection=null,lastData=null,paletteKey='',pointColors=new WeakMap(),palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,white]));let firstOverview=true;
     let modelZoomTarget=null,overviewZoomTarget=null,modelZoomAnchor=null,zoomPointer=null,zoomPointerAt=-Infinity,inspectionState=null,inspectionModel=null,inspectionFrame=null;
-    let followPitch=-.8,following=false,followReady=false,followCurrent=null,lastSelectionRequest=null,mirFollowFrame=null;
+    let followPitch=-.8,following=false,followReady=false,followCurrent=null,lastSelectionRequest=null;
     let idleController=null,idleFlight=false,ignoreOverviewClick=false,overviewPosition=null;
         const followButton=document.getElementById('globe-follow');
-    const releaseFollow=()=>{mirFollowFrame=null;inspectionState=null;inspectionModel=null;modelZoomTarget=null;modelZoomAnchor=null;zoomPointer=null;overviewZoomTarget=null;if(followReady)viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);followReady=false;};
+    const releaseFollow=()=>{inspectionState=null;inspectionModel=null;modelZoomTarget=null;modelZoomAnchor=null;zoomPointer=null;overviewZoomTarget=null;if(followReady)viewer.camera.lookAtTransform(C.Matrix4.IDENTITY);followReady=false;};
     const distantView=()=>Boolean(AtlasPages.definition(lastData?.collection||document.body.dataset.collection)?.trajectory||AtlasPages.definition(AtlasPages.family(lastData?.catalog.get(lastData?.selected)||{}))?.trajectory);
     const measurementTitle=()=>distantView()?'Distance de la Terre':'Altitude estimée';
     const measurementValue=point=>distantView()&&point?.icrf_km?Math.hypot(...point.icrf_km):point?.altitude_km;
@@ -490,12 +486,19 @@ window.AtlasGlobe={
       if(Number.isFinite(anchor?.altitude_km))radius=Math.max(radius,(6378137+anchor.altitude_km*1000)*1.08);
       const aspect=Math.max(.1,viewer.canvas.clientWidth/viewer.canvas.clientHeight);
       const fovy=viewer.camera.frustum.fovy||Math.PI/3;
-      const halfAngle=Math.atan(.74*Math.tan(fovy/2)*Math.min(1,aspect));
+      const earthEntry=collection==='all'&&document.body.dataset.solarEarthEntry==='true';
+      if(earthEntry)radius=6378137;
+      const halfAngle=Math.atan((earthEntry?.43:.74)*Math.tan(fovy/2)*Math.min(1,aspect));
+      if(earthEntry&&window.AtlasCelestialFrame?.sun){
+        const toSun=C.Cartesian3.normalize(window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),new C.Cartesian3());
+        const direction=C.Cartesian3.negate(toSun,new C.Cartesian3()),right=C.Cartesian3.normalize(C.Cartesian3.cross(direction,C.Cartesian3.UNIT_Z,new C.Cartesian3()),new C.Cartesian3()),up=C.Cartesian3.normalize(C.Cartesian3.cross(right,direction,new C.Cartesian3()),new C.Cartesian3());
+        return {destination:C.Cartesian3.multiplyByScalar(toSun,radius/Math.sin(halfAngle),new C.Cartesian3()),orientation:{direction,up}};
+      }
       const centre=station||(AtlasPages.isStation(lastData?.collection)?lastData.points.find(p=>p.id===AtlasPages.station(lastData.collection)):null)||anchor;
       return {destination:C.Cartesian3.fromDegrees(centre?.lon??0,centre?.lat??20,radius/Math.sin(halfAngle)-6378137),orientation:{heading:0,pitch:-Math.PI/2,roll:0}};
     };
     const resetButton=document.getElementById('globe-home');
-    let homePose=null,returningHome=false;
+    let homePose=null,returningHome=false,earthEntryOriented=false;
     const rememberHome=()=>{homePose={position:C.Cartesian3.clone(viewer.camera.positionWC),direction:C.Cartesian3.clone(viewer.camera.directionWC),up:C.Cartesian3.clone(viewer.camera.upWC)};};
     const updateHomeState=()=>{
       const camera=viewer.camera;
@@ -575,8 +578,7 @@ window.AtlasGlobe={
       // Changing transforms alone preserves the world camera. Retain its local
       // offset and orientation instead so the reference frame follows the target.
       const camera=viewer.camera;
-      if(lastData.selected===16609&&!mirFollowFrame)mirFollowFrame=C.Matrix4.clone(camera.transform);
-      AtlasGlobe.followStep(C,camera,lastData.selected,followCurrent,mirFollowFrame);
+      AtlasGlobe.followStep(C,camera,lastData.selected,followCurrent);
     });
     const labelMeasure=document.createElement('canvas').getContext('2d');labelMeasure.font='14px Arial, sans-serif';
     let labelTextKey=null,labelMetrics=null;
@@ -696,7 +698,7 @@ window.AtlasGlobe={
         }else if(data.selected!==null&&!motion.get(data.selected)){
           const point=data.points.find(p=>p.id===data.selected);if(point)motion.set([...motion.source,point],performance.now(),false);
         }
-        viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));deepView?.setTarget(data.points.find(p=>p.id===data.selected)||(AtlasPages.definition(data.collection)?.trajectory?data.points[0]:null));deepView?.setEnabled(Boolean(AtlasPages.definition(data.collection)?.trajectory||(data.selected!==null&&AtlasPages.definition(AtlasPages.family(data.catalog.get(data.selected)||{}))?.trajectory)));if(deepView?.enabled){controls.maximumZoomDistance=1e15;viewer.camera.frustum.far=Math.max(viewer.camera.frustum.far||0,2e15);}earthLayer.update(data);moonLayer?.update(data.at);if(moonLayer?.active){viewer.scene.requestRender();return;}
+        viewer.clock.currentTime=C.JulianDate.fromDate(new Date(data.at));if(!earthEntryOriented&&document.body.dataset.solarEarthEntry==='true'&&data.collection==='all'){earthEntryOriented=true;viewer.camera.setView(homeView());rememberHome();updateHomeState();}deepView?.setTarget(data.points.find(p=>p.id===data.selected)||(AtlasPages.definition(data.collection)?.trajectory?data.points[0]:null));deepView?.setEnabled(Boolean(AtlasPages.definition(data.collection)?.trajectory||(data.selected!==null&&AtlasPages.definition(AtlasPages.family(data.catalog.get(data.selected)||{}))?.trajectory)));if(deepView?.enabled){controls.maximumZoomDistance=1e15;viewer.camera.frustum.far=Math.max(viewer.camera.frustum.far||0,2e15);}earthLayer.update(data);moonLayer?.update(data.at);if(moonLayer?.active){viewer.scene.requestRender();return;}
         const nextPalette=data.collection==='all'?data.colors:null,key=JSON.stringify(nextPalette)+'|'+[...(data.groups||[])].join(',');if(key!==paletteKey){paletteKey=key;pointColors=new WeakMap();palette=Object.fromEntries(AtlasPages.definitions.map(row=>[row.id,nextPalette?C.Color.fromCssColorString(nextPalette[row.id]||'#c8efff'):row.id==='debris'?C.Color.fromCssColorString('#d9a15f'):['stations','science'].includes(row.category)?white:lime]));}
         issFallback.color=palette.iss;if(issModel)issModel.color=palette.iss;tiangongFallback.color=palette.tiangong;if(tiangongModel)tiangongModel.color=palette.tiangong;
         animatedPoints=motion.rows.filter(p=>{const satellite=data.catalog.get(p.id);return satellite&&data.visible(satellite,p.id)&&(!satellites.commit||p.id===data.selected||p.id===25544||p.id===48274||AtlasScience.has(p.id));});
@@ -743,9 +745,10 @@ window.AtlasGlobe={
         document.getElementById('satellite-views').hidden=data.selected===null;
         document.getElementById('view-above').disabled=!chosen;document.getElementById('view-side').disabled=!chosen;
         updateFollowControl(chosen);
-        if(!chosen&&!(data.selected===16609&&following&&followReady))releaseFollow();
+        // Missing historical positions hide the object but retain the inspection pose.
+        if(!chosen&&data.selected===null)releaseFollow();
         document.getElementById('globe-measure').textContent=measurementTitle()+(lastData?.selected!==null?' : indisponible':debrisTarget()?' : sélectionnez un objet':' : sélectionnez un satellite');
-        if(chosen){const xyz=position(chosen);heightLine.positions=data.groundLink!==false?[C.Cartesian3.fromDegrees(chosen.lon,chosen.lat,0),xyz]:[];label.position=xyz;label.text=`${data.catalog.get(chosen.id)?.name||chosen.id} · ${measurementValue(chosen).toFixed(1)} km`;
+        if(chosen){const xyz=position(chosen);heightLine.positions=data.groundLink!==false?[C.Cartesian3.fromDegrees(chosen.lon,chosen.lat,0),xyz]:[];label.position=xyz;label.text=`${data.catalog.get(chosen.id)?.name||chosen.id}${chosen.theoretical?' · théorique':''} · ${measurementValue(chosen).toFixed(1)} km`;
           document.getElementById('globe-measure').textContent=`${measurementTitle()} : ${measurementValue(chosen).toLocaleString(navigator.language,{maximumFractionDigits:1})} km`;
           if(following){
             const preserveMirView=data.selected===16609&&data.selected===lastSelection&&followReady;
@@ -758,7 +761,7 @@ window.AtlasGlobe={
                 range=(model||visual)?AtlasGlobe.detailedRange(Math.max(1,model?.boundingSphere?.radius||visual?.radius||75),viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy):250000;
                 followPitch=-.5;
               }
-              viewer.camera.cancelFlight();mirFollowFrame=AtlasGlobe.followPose(C,viewer.camera,data.selected,xyz,new C.HeadingPitchRange(0,followPitch,range),mirFollowFrame);followReady=true;
+              viewer.camera.cancelFlight();AtlasGlobe.followPose(C,viewer.camera,data.selected,xyz,new C.HeadingPitchRange(0,followPitch,range));followReady=true;
             }
           }else if(data.focus||data.selected!==lastSelection)viewer.camera.flyToBoundingSphere(new C.BoundingSphere(xyz,1000000),{duration:.6,offset:new C.HeadingPitchRange(viewer.camera.heading,-.8,AtlasGlobe.satelliteRange(chosen.altitude_km,viewer.canvas.clientWidth,viewer.canvas.clientHeight,viewer.camera.frustum.fovy))});
         }

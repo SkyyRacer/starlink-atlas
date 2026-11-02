@@ -33,7 +33,7 @@ pub fn normalize(db:&Database,rows:&[Value],keeptrack:bool)->Result<(Vec<Value>,
     let date=|keys:&[&str]|value(row,keys).and_then(|v|v.get(..10)).filter(|v|chrono::NaiveDate::parse_from_str(v,"%Y-%m-%d").is_ok());
     result["ATLAS_CATALOG"]=json!({"NORAD_CAT_ID":result["NORAD_CAT_ID"],"OBJECT_NAME":name,"OBJECT_ID":result["OBJECT_ID"],"ORBIT_CENTER":"EA","OBJECT_TYPE":match kind{Some(2)=>"R/B",Some(3)=>"DEB",_=>"PAY"},"LAUNCH_DATE":date(&["launchDate","LAUNCH_DATE"]),"DECAY_DATE":date(&["decayDate","DECAY_DATE"]),"OWNER":value(row,&["country","COUNTRY"])});
    }
-   result["OBJECT_NAME"]=json!(name);result["ATLAS_SOURCE"]=json!(if keeptrack{KEEPTRACK}else if upstream.to_lowercase().contains("celestrak"){SATNOGS_CELESTRAK}else if upstream=="Space-Track.org"{SATNOGS}else{SATNOGS_OTHER});result["ATLAS_UPSTREAM"]=json!(upstream);
+   result["OBJECT_NAME"]=json!(name);result["ATLAS_SOURCE"]=json!(if keeptrack{KEEPTRACK}else if upstream=="N2YO"{constellations::TRACKER_SOURCE}else if upstream.to_lowercase().contains("celestrak"){SATNOGS_CELESTRAK}else if upstream=="Space-Track.org"{SATNOGS}else{SATNOGS_OTHER});result["ATLAS_UPSTREAM"]=json!(upstream);
    Ok(Some(result))
   })();
   match normalized {Ok(Some(v))=>output.push(v),Ok(None)=>{},Err(_)=>rejected+=1}

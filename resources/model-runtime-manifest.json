@@ -277,5 +277,167 @@
     "triangles": 28572,
     "original_triangles": 29980,
     "compression": "original"
+  },
+  {
+    "key": "sputnik-1",
+    "runtime_url": "images/detailed/sputnik-1.glb?v=e4d0aaad36a3",
+    "runtime_bytes": 460076,
+    "original_bytes": 459500,
+    "triangles": 12528,
+    "original_triangles": 12528,
+    "compression": "original"
+  },
+  {
+    "key": "sputnik-2",
+    "runtime_url": "images/detailed/sputnik-2.glb?v=4af5317e3e7f",
+    "runtime_bytes": 961008,
+    "original_bytes": 960484,
+    "triangles": 22912,
+    "original_triangles": 22912,
+    "compression": "original"
+  },
+  {
+    "key": "sputnik-3",
+    "runtime_url": "images/detailed/sputnik-3.glb?v=1450e6981d56",
+    "runtime_bytes": 1038004,
+    "original_bytes": 1037460,
+    "triangles": 18352,
+    "original_triangles": 18352,
+    "compression": "original"
+  },
+  {
+    "key": "explorer-1",
+    "runtime_url": "images/detailed/explorer-1.glb?v=a6ac035b6235",
+    "runtime_bytes": 847160,
+    "original_bytes": 846292,
+    "triangles": 5392,
+    "original_triangles": 5392,
+    "compression": "original"
+  },
+  {
+    "key": "vanguard-1",
+    "runtime_url": "images/detailed/vanguard-1.glb?v=7543c2f139bd",
+    "runtime_bytes": 358268,
+    "original_bytes": 357756,
+    "triangles": 9728,
+    "original_triangles": 9728,
+    "compression": "original"
+  },
+  {
+    "key": "explorer-3",
+    "runtime_url": "images/detailed/explorer-3.glb?v=656fc570bd43",
+    "runtime_bytes": 582296,
+    "original_bytes": 581780,
+    "triangles": 9792,
+    "original_triangles": 9792,
+    "compression": "original"
+  },
+  {
+    "key": "explorer-4",
+    "runtime_url": "images/detailed/explorer-4.glb?v=bd362a25b0d0",
+    "runtime_bytes": 588984,
+    "original_bytes": 588448,
+    "triangles": 9952,
+    "original_triangles": 9952,
+    "compression": "original"
+  },
+  {
+    "key": "explorer-6",
+    "runtime_url": "images/detailed/explorer-6.glb?v=d6030072dfd8",
+    "runtime_bytes": 308436,
+    "original_bytes": 307872,
+    "triangles": 5888,
+    "original_triangles": 5888,
+    "compression": "original"
+  },
+  {
+    "key": "explorer-7",
+    "runtime_url": "images/detailed/explorer-7.glb?v=e9be4ac43be8",
+    "runtime_bytes": 483516,
+    "original_bytes": 482920,
+    "triangles": 9168,
+    "original_triangles": 9168,
+    "compression": "original"
+  },
+  {
+    "key": "vanguard-2",
+    "runtime_url": "images/detailed/vanguard-2.glb?v=7ade8e15f1be",
+    "runtime_bytes": 420056,
+    "original_bytes": 419500,
+    "triangles": 11520,
+    "original_triangles": 11520,
+    "compression": "original"
+  },
+  {
+    "key": "vanguard-3",
+    "runtime_url": "images/detailed/vanguard-3.glb?v=9713a91ca35f",
+    "runtime_bytes": 398912,
+    "original_bytes": 398288,
+    "triangles": 10688,
+    "original_triangles": 10688,
+    "compression": "original"
+  },
+  {
+    "key": "bepicolombo",
+    "runtime_url": "images/detailed/bepicolombo.glb?v=096f0bf79116",
+    "runtime_bytes": 16525404,
+    "original_bytes": 16525188,
+    "triangles": 111002,
+    "original_triangles": 111002,
+    "compression": "original"
+  },
+  {
+    "key": "gaia",
+    "runtime_url": "images/detailed/gaia.glb?v=cc166fe9bce9",
+    "runtime_bytes": 2387536,
+    "original_bytes": 2387348,
+    "triangles": 45634,
+    "original_triangles": 45634,
+    "compression": "original"
+  },
+  {
+    "key": "herschel",
+    "runtime_url": "images/detailed/herschel.glb?v=2a74a63467f0",
+    "runtime_bytes": 7034836,
+    "original_bytes": 7034632,
+    "triangles": 8759,
+    "original_triangles": 8759,
+    "compression": "original"
+  },
+  {
+    "key": "planck",
+    "runtime_url": "images/detailed/planck.glb?v=0b427a2983c0",
+    "runtime_bytes": 2214620,
+    "original_bytes": 2214440,
+    "triangles": 9960,
+    "original_triangles": 9960,
+    "compression": "original"
+  },
+  {
+    "key": "spektr-rg",
+    "runtime_url": "images/detailed/spektr-rg.glb?v=540593b6d83b",
+    "runtime_bytes": 349896,
+    "original_bytes": 349708,
+    "triangles": 4312,
+    "original_triangles": 4312,
+    "compression": "original"
+  },
+  {
+    "key": "aditya-l1",
+    "runtime_url": "images/detailed/aditya-l1.glb?v=096d853f049e",
+    "runtime_bytes": 265292,
+    "original_bytes": 265104,
+    "triangles": 2220,
+    "original_triangles": 2220,
+    "compression": "original"
+  },
+  {
+    "key": "ikaros",
+    "runtime_url": "images/detailed/ikaros.glb?v=532dbf99c42c",
+    "runtime_bytes": 237476,
+    "original_bytes": 237304,
+    "triangles": 1916,
+    "original_triangles": 1916,
+    "compression": "original"
   }
 ]

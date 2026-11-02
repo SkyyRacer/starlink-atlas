@@ -1,0 +1,9 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('static/app.js','utf8'),fields=new Map(),field=id=>{if(!fields.has(id))fields.set(id,{value:'2000-01-01T12:00',textContent:''});return fields.get(id);};
+const snapshot=[{id:16609,lon:15,lat:43,altitude_km:400}],calls=[];
+const context={$:field,window:{dispatchEvent(){}},Event,Date,Number,AtlasTime:{parseInput:()=>({time:Date.parse('2000-01-01T12:00Z')}),zoneLabel:()=>''},clock(){},list(){},draw(){throw Error('A chronology edit must not draw an empty intermediate scene');},loadPositions:force=>calls.push(force),points:snapshot,track:[1],futureTrack:[2],track3d:[3],future3d:[4],at:Date.now(),selected:16609,selectionRequest:7,focusSelected:false,live:true,playing:true,archivePlayback:{},filmClock:false,eventSequenceEnd:null,suggestedAt:'1999-03-23T06:05:00Z'};
+context.globalThis=context;vm.createContext(context);
+for(const marker of ["$('date').onchange=", "$('available').onclick="]){const start=source.indexOf(marker),end=source.indexOf('\n',start);vm.runInContext(source.slice(start,end),context);}
+field('date').onchange();assert.equal(context.selectionRequest,7,'A date edit is not a new selection/focus request');assert.equal(context.focusSelected,false);assert.equal(context.points,snapshot,'Keep the current view until the requested data arrives');assert.equal(context.selected,16609);assert.equal(context.playing,false);assert.equal(calls.at(-1),true);
+field('available').onclick();assert.equal(context.selectionRequest,7);assert.equal(context.focusSelected,false);assert.equal(context.points,snapshot);assert.equal(context.at,Date.parse(context.suggestedAt));assert.equal(calls.length,2);
+console.log('Chronology/date recovery preserve selection, camera intent and current scene until refreshed positions arrive');

@@ -878,5 +878,82 @@
     "detailed_outline": "salyut-7",
     "license": "CC BY 4.0 · original Atlas geometry",
     "geometry_note": "Contours de l’assemblage détaillé propre à chaque Saliout ; Soyouz illustratif toujours présent comme sur le modèle détaillé, orientation orbitale nominale non mesurée."
+  },
+  "sputnik-1": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://airandspace.si.edu/stories/editorial/sputnik-and-space-age",
+    "detailed_outline": "sputnik-1"
+  },
+  "sputnik-2": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://www.lib.cas.cz/space.40/1957/002A.HTM",
+    "detailed_outline": "sputnik-2"
+  },
+  "sputnik-3": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://www.nasa.gov/history/60-years-ago-soviets-launch-sputnik-3/",
+    "detailed_outline": "sputnik-3"
+  },
+  "explorer-1": {
+    "enabled": true,
+    "kind": "documented-detailed-outline",
+    "credit": "NASA VTAD · modèle blanc Atlas",
+    "page": "https://science.nasa.gov/resource/explorer-1-3d-model/",
+    "detailed_outline": "explorer-1"
+  },
+  "vanguard-1": {
+    "enabled": true,
+    "kind": "documented-detailed-outline",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://ntrs.nasa.gov/citations/19980228199",
+    "detailed_outline": "vanguard-1"
+  },
+  "explorer-3": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://www.jpl.nasa.gov/missions/explorer-3/",
+    "detailed_outline": "explorer-3"
+  },
+  "explorer-4": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://www.si.edu/object/satellite-explorer-4%3Anasm_A19731030000",
+    "detailed_outline": "explorer-4"
+  },
+  "explorer-6": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://ntrs.nasa.gov/citations/19880016045",
+    "detailed_outline": "explorer-6"
+  },
+  "explorer-7": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://airandspace.si.edu/collection-objects/satellite-explorer-7-replica/nasm_A19761109000",
+    "detailed_outline": "explorer-7"
+  },
+  "vanguard-2": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://ntrs.nasa.gov/citations/19740012427",
+    "detailed_outline": "vanguard-2"
+  },
+  "vanguard-3": {
+    "enabled": true,
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "page": "https://airandspace.si.edu/collection-objects/satellite-vanguard-3-magne-ray-replica/nasm_A19751412000",
+    "detailed_outline": "vanguard-3"
   }
 }

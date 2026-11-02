@@ -538,5 +538,203 @@
     "line_segments": 9696,
     "bytes": 288229,
     "body_axes": true
+  },
+  {
+    "key": "sputnik-1",
+    "page_id": "sputnik-1",
+    "ids": [
+      2
+    ],
+    "name": "Spoutnik 1",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://airandspace.si.edu/stories/editorial/sputnik-and-space-age",
+    "glb": "images/science/sputnik-1.glb?v=7da3492e1f93",
+    "drawing": "images/science/sputnik-1.json?v=5906d299cca1",
+    "radius": 66.136,
+    "segments": 1800,
+    "line_segments": 7936,
+    "bytes": 521683,
+    "body_axes": true
+  },
+  {
+    "key": "sputnik-2",
+    "page_id": "sputnik-2",
+    "ids": [
+      3
+    ],
+    "name": "Spoutnik 2",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://www.lib.cas.cz/space.40/1957/002A.HTM",
+    "glb": "images/science/sputnik-2.glb?v=b359e825f2c8",
+    "drawing": "images/science/sputnik-2.json?v=68382dc25927",
+    "radius": 56.5,
+    "segments": 1800,
+    "line_segments": 8084,
+    "bytes": 1023429,
+    "body_axes": true
+  },
+  {
+    "key": "sputnik-3",
+    "page_id": "sputnik-3",
+    "ids": [
+      8
+    ],
+    "name": "Spoutnik 3",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://www.nasa.gov/history/60-years-ago-soviets-launch-sputnik-3/",
+    "glb": "images/science/sputnik-3.glb?v=4f5b4e8172ec",
+    "drawing": "images/science/sputnik-3.json?v=3d11d5972d80",
+    "radius": 51.173,
+    "segments": 1800,
+    "line_segments": 15416,
+    "bytes": 1099158,
+    "body_axes": true
+  },
+  {
+    "key": "explorer-1",
+    "page_id": "explorer-early",
+    "ids": [
+      4
+    ],
+    "name": "Explorer 1",
+    "kind": "documented-detailed-outline",
+    "credit": "NASA VTAD · modèle blanc Atlas",
+    "source": "https://science.nasa.gov/resource/explorer-1-3d-model/",
+    "glb": "images/science/explorer-1.glb?v=607c9a7e5e8a",
+    "drawing": "images/science/explorer-1.json?v=feb2f53a2256",
+    "radius": 50.107,
+    "segments": 1647,
+    "line_segments": 1647,
+    "bytes": 95416,
+    "body_axes": true
+  },
+  {
+    "key": "vanguard-1",
+    "page_id": "vanguard",
+    "ids": [
+      5
+    ],
+    "name": "Vanguard 1",
+    "kind": "documented-detailed-outline",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://ntrs.nasa.gov/citations/19980228199",
+    "glb": "images/science/vanguard-1.glb?v=deb4135a70a5",
+    "drawing": "images/science/vanguard-1.json?v=ed75aac87d65",
+    "radius": 61.955,
+    "segments": 888,
+    "line_segments": 888,
+    "bytes": 50835,
+    "body_axes": true
+  },
+  {
+    "key": "explorer-3",
+    "page_id": "explorer-early",
+    "ids": [
+      6
+    ],
+    "name": "Explorer 3",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://www.jpl.nasa.gov/missions/explorer-3/",
+    "glb": "images/science/explorer-3.glb?v=8be2cbfaef94",
+    "drawing": "images/science/explorer-3.json?v=13eb7e68c93c",
+    "radius": 50.196,
+    "segments": 1800,
+    "line_segments": 2656,
+    "bytes": 641131,
+    "body_axes": true
+  },
+  {
+    "key": "explorer-4",
+    "page_id": "explorer-early",
+    "ids": [
+      9
+    ],
+    "name": "Explorer 4",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://www.si.edu/object/satellite-explorer-4%3Anasm_A19731030000",
+    "glb": "images/science/explorer-4.glb?v=aebd4c25e577",
+    "drawing": "images/science/explorer-4.json?v=13eb7e68c93c",
+    "radius": 50.196,
+    "segments": 1800,
+    "line_segments": 2736,
+    "bytes": 647823,
+    "body_axes": true
+  },
+  {
+    "key": "explorer-6",
+    "page_id": "explorer-early",
+    "ids": [
+      15
+    ],
+    "name": "Explorer 6",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://ntrs.nasa.gov/citations/19880016045",
+    "glb": "images/science/explorer-6.glb?v=0bf528e6b875",
+    "drawing": "images/science/explorer-6.json?v=9b5f15db67f9",
+    "radius": 57.604,
+    "segments": 1800,
+    "line_segments": 3092,
+    "bytes": 367391,
+    "body_axes": true
+  },
+  {
+    "key": "explorer-7",
+    "page_id": "explorer-early",
+    "ids": [
+      22
+    ],
+    "name": "Explorer 7",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://airandspace.si.edu/collection-objects/satellite-explorer-7-replica/nasm_A19761109000",
+    "glb": "images/science/explorer-7.glb?v=06292b464af3",
+    "drawing": "images/science/explorer-7.json?v=f940cebbe77e",
+    "radius": 55.154,
+    "segments": 1800,
+    "line_segments": 5524,
+    "bytes": 542905,
+    "body_axes": true
+  },
+  {
+    "key": "vanguard-2",
+    "page_id": "vanguard",
+    "ids": [
+      11
+    ],
+    "name": "Vanguard 2",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://ntrs.nasa.gov/citations/19740012427",
+    "glb": "images/science/vanguard-2.glb?v=66d38e59785a",
+    "drawing": "images/science/vanguard-2.json?v=c042adacd1cc",
+    "radius": 72.401,
+    "segments": 1800,
+    "line_segments": 5264,
+    "bytes": 479013,
+    "body_axes": true
+  },
+  {
+    "key": "vanguard-3",
+    "page_id": "vanguard",
+    "ids": [
+      20
+    ],
+    "name": "Vanguard 3",
+    "kind": "documented-solid-white",
+    "credit": "Atlas · reconstitution documentée · modèle blanc Atlas",
+    "source": "https://airandspace.si.edu/collection-objects/satellite-vanguard-3-magne-ray-replica/nasm_A19751412000",
+    "glb": "images/science/vanguard-3.glb?v=606bcf6713f7",
+    "drawing": "images/science/vanguard-3.json?v=41382eeb4313",
+    "radius": 75.734,
+    "segments": 1440,
+    "line_segments": 1440,
+    "bytes": 445996,
+    "body_axes": true
   }
 ]

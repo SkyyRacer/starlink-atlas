@@ -24,7 +24,7 @@
   const speed=before&&after&&elapsed>0?Math.hypot(...after.map((v,i)=>v-before[i]))/(elapsed/1000):Math.hypot(...data.samples.find(row=>row[0]===at/1000).slice(4,7));
   let geodetic=null;
   if(root.Cesium&&root.AtlasCelestialFrame){const C=root.Cesium;geodetic=C.Cartographic.fromCartesian(root.AtlasCelestialFrame.position(C,C.JulianDate.fromDate(new Date(referenceAt)),xyz));}
-  return {id:data.id,lat:(geodetic?.latitude??lat)*180/Math.PI,lon:geodetic?geodetic.longitude*180/Math.PI:((Math.atan2(py,px)-gmst)*180/Math.PI%360+540)%360-180,altitude_km:geodetic?geodetic.height/1000:alt,speed_km_s:speed,epoch:data.epoch||data.fetched,age_hours:(at-Date.parse(data.epoch||data.fetched))/3600000,source:data.source,icrf_km:xyz};
+  return {id:data.id,lat:(geodetic?.latitude??lat)*180/Math.PI,lon:geodetic?geodetic.longitude*180/Math.PI:((Math.atan2(py,px)-gmst)*180/Math.PI%360+540)%360-180,altitude_km:geodetic?geodetic.height/1000:alt,speed_km_s:speed,epoch:data.epoch||data.fetched,age_hours:(at-Date.parse(data.epoch||data.fetched))/3600000,source:(data.theoretical||data.theory_ranges?.some(([a,b])=>at/1000>=a&&at/1000<=b))?'Théorique · Atlas · archives prioritaires':data.source,icrf_km:xyz,...((data.theoretical||data.theory_ranges?.some(([a,b])=>at/1000>=a&&at/1000<=b))?{theoretical:true,theory_note:data.theory_note||data.theory_ranges?.find(([a,b])=>at/1000>=a&&at/1000<=b)?.[2]}:{})};
  }
  function augment(result,data,at,id){
   const p=point(data,at);if(!p)return result;
@@ -54,12 +54,12 @@
   }
   return data;
  }
- const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653,"juice":56176,"spektr-rg":44432},missionIndexes=new Map(),missionIndexTimes=new Map(),missionFailures=new Map();
+ const missionIds={"spitzer":27871,"kepler":34380,"dscovr":40390,"aditya-l1":57754,"jwst":50463,"gaia":39479,"herschel":34937,"planck":34938,"euclid":57209,"soho":23726,"ace":24912,"voyager-1":10321,"voyager-2":10271,"cassini":25008,"juno":37773,"new-horizons":28928,"bepicolombo":43653,"juice":56176,"spektr-rg":44432,"ikaros":36577},missionIndexes=new Map(),missionIndexTimes=new Map(),missionFailures=new Map();
  let eyesIndex=null;const eyesFiles=new Map();
  async function eyesBackup(key,at){try{eyesIndex??=fetch(new URL('ephemerides/nasa-eyes/index.json',base),{cache:'no-cache'}).then(r=>r.ok?r.json():null);const index=await eyesIndex;if(!index){eyesIndex=null;return null;}const entry=index?.missions?.find(row=>row.mission===key&&row.status==='enabled'&&at/1000>=row.first_epoch&&at/1000<=row.last_epoch);if(!entry)return null;
   if(!eyesFiles.has(entry.file))eyesFiles.set(entry.file,fetch(new URL(entry.file+'?v='+entry.last_epoch,base)).then(r=>r.ok?r.json():null));const data=await eyesFiles.get(entry.file);return data?.id===missionIds[key]&&data.frame==='ICRF'&&data.time_scale==='UTC'&&vector(data,at)?data:null;
  }catch{eyesIndex=null;return null;}}
- async function loadMission(key,at){
+ async function loadOfficialMission(key,at){
   const readIndex=()=>{
    missionIndexTimes.set(key,Date.now());
    const request=fetch(new URL('ephemerides/'+key+'-index.json',base),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
@@ -82,13 +82,29 @@
   missionFailures.delete(path);return data;
  }
 
+ const theoryIndexes=new Map(),theoryFiles=new Map();
+ async function theoryIndex(key){
+  if(!['cassini','ikaros','spektr-rg'].includes(key))return null;
+  if(!theoryIndexes.has(key))theoryIndexes.set(key,fetch(new URL('ephemerides/theoretical/'+key+'-index.json',base),{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null));
+  return theoryIndexes.get(key);
+ }
+ async function loadTheory(key,at){
+  const index=await theoryIndex(key),entry=Object.values(index?.years||{}).find(e=>at>=e.first_epoch*1000&&at<=e.last_epoch*1000);if(!entry)return null;
+  if(!theoryFiles.has(entry.file))theoryFiles.set(entry.file,fetch(new URL(entry.file+'?v='+entry.sha256,base)).then(r=>r.ok?r.json():null).catch(()=>null));
+  const data=await theoryFiles.get(entry.file);return data?.id===missionIds[key]&&data.frame==='ICRF'&&data.time_scale==='UTC'&&data.theoretical===true&&vector(data,at)?data:null;
+ }
+ async function loadMission(key,at){const data=await loadOfficialMission(key,at);return data&&vector(data,at)?data:loadTheory(key,at);}
+ async function combinedIndex(key){
+  if(!missionIndexes.has(key))await loadOfficialMission(key,Date.now());const primary=await missionIndexes.get(key),theory=await theoryIndex(key);
+  return primary||theory?{...(primary||theory),years:{...(primary?.years||{}),...Object.fromEntries(Object.entries(theory?.years||{}).map(([k,v])=>['theory-'+k,v]))}}:null;
+ }
+
  async function apply(url,result){
   const parsed=new URL(url,base),collection=parsed.searchParams.get('collection');if(!parsed.pathname.endsWith('/api/positions')||!['all','tess',...Object.keys(missionIds),'spektr-rg','ikaros'].includes(collection))return result;
   const at=Date.parse(parsed.searchParams.get('at')),id=Number(parsed.searchParams.get('id'));
-  if(collection==='spektr-rg'||collection==='ikaros')return result;
   if(missionIds[collection]){
    const data=await loadMission(collection,at);if(data)return augment(result,data,at,id);
-   const index=await missionIndexes.get(collection),epochs=Object.values(index?.years||{}).flatMap(row=>[row.first_epoch,row.last_epoch]).filter(Number.isFinite);
+   const index=await combinedIndex(collection),epochs=Object.values(index?.years||{}).flatMap(row=>[row.first_epoch,row.last_epoch]).filter(Number.isFinite);
    if(epochs.length){const nearest=epochs.sort((a,b)=>Math.abs(a-at/1000)-Math.abs(b-at/1000))[0];result.suggested_at=new Date(nearest*1000).toISOString();}
    return result;
   }
@@ -106,5 +122,5 @@
   if(recent&&vector(recent,at))return augment(result,recent,at,id);
   const data=await load(at);if(!data)return result;recent=data;return augment(result,data,at,id);
  }
- const api={vector,point,augment,apply,loadMission,eyesBackup,missionIds,async index(key){if(!missionIndexes.has(key))await loadMission(key,Date.now());return missionIndexes.has(key)?await missionIndexes.get(key):null;}};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
+ const api={vector,point,augment,apply,loadMission,eyesBackup,missionIds,async index(key){return combinedIndex(key);}};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AtlasEphemeris=api;
 })(typeof window==='undefined'?globalThis:window);

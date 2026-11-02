@@ -1,7 +1,7 @@
 'use strict';
 /* Shared celestial and terrestrial projection for consistent apparent positions. */
 window.AtlasSky={
- create(viewer,C,{solarFlare=true,sunPosition=null,earthPosition=null}={}){
+ create(viewer,C,{solarFlare=true,sunPosition=null,earthPosition=null,occluderRadius=6371000}={}){
   let enabled=false,texture=null,command=null,pending=null,destroyed=false;
   const credit=new C.Credit('Ciel : NASA SVS · texture satellitemap.space',true);
   const primitive={
@@ -19,6 +19,7 @@ window.AtlasSky={
        uniform mat3 u_fixedToIcrf;
        uniform vec3 u_sunPosition;
        uniform vec3 u_earthPosition;
+       uniform float u_occluderRadius;
        uniform float u_aspect;
        uniform float u_mood;
        uniform float u_solarFlare;
@@ -50,13 +51,13 @@ window.AtlasSky={
         float outerHalo=0.10*exp(-angle*angle/0.006);
         vec3 rayTint=mix(vec3(1.0,0.93,0.79),vec3(0.60,0.77,1.0),smoothstep(0.015,0.10,angle));
         // Match the Sun's independent sky projection to the globe's projection
-        // before testing Earth occultation. Flare vanishes behind the limb.
+        // before testing the current body's occultation. Flare vanishes behind its limb.
         vec4 solarClip=czm_projection*vec4(sunDirection,0.0);
         vec2 sunScreen=solarClip.xy/max(0.0001,solarClip.w);
         vec4 cameraRay=czm_inverseProjection*vec4(sunScreen,-1.0,1.0);
         vec3 towardSun=normalize(transpose(czm_viewRotation)*cameraRay.xyz);
-        float cameraDistance=max(length(czm_viewerPositionWC-u_earthPosition),6371001.0);
-        float earthRadius=asin(clamp(6371000.0/cameraDistance,0.0,1.0));
+        float cameraDistance=max(length(czm_viewerPositionWC-u_earthPosition),u_occluderRadius+1.0);
+        float earthRadius=asin(clamp(u_occluderRadius/cameraDistance,0.0,1.0));
         float earthSeparation=acos(clamp(dot(towardSun,normalize(u_earthPosition-czm_viewerPositionWC)),-1.0,1.0));
         float visible=smoothstep(-0.006,0.006,earthSeparation-earthRadius);
         visible*=1.0-smoothstep(0.95,1.25,max(abs(sunScreen.x),abs(sunScreen.y)));
@@ -77,7 +78,7 @@ window.AtlasSky={
         color+=((solar+flare)*warmTint+haze)*visible*u_solarFlare;
         out_FragColor=vec4(color,1.0);
        }`});
-     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_solarFlare:()=>typeof solarFlare==='function'?Math.max(0,Math.min(1,solarFlare())):solarFlare?1:0,u_fixedToIcrf:()=>window.AtlasCelestialFrame.fixedToIcrf(C,viewer.clock.currentTime),u_sunPosition:()=>sunPosition?sunPosition():window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),u_earthPosition:()=>earthPosition?earthPosition():{x:0,y:0,z:0},u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
+     command=new C.DrawCommand({vertexArray,shaderProgram,uniformMap:{u_solarFlare:()=>typeof solarFlare==='function'?Math.max(0,Math.min(1,solarFlare())):solarFlare?1:0,u_fixedToIcrf:()=>window.AtlasCelestialFrame.fixedToIcrf(C,viewer.clock.currentTime),u_sunPosition:()=>sunPosition?sunPosition():window.AtlasCelestialFrame.sun(C,viewer.clock.currentTime),u_earthPosition:()=>earthPosition?earthPosition():{x:0,y:0,z:0},u_occluderRadius:()=>Math.max(0,Number(typeof occluderRadius==='function'?occluderRadius():occluderRadius)||0),u_mood:()=>document.getElementById('earth-realistic-toggle')?.getAttribute('aria-checked')==='true'?1:0,u_stars:()=>texture,u_aspect:()=>viewer.canvas.clientWidth/Math.max(1,viewer.canvas.clientHeight)},renderState:C.RenderState.fromCache({depthTest:{enabled:false},depthMask:false}),pass:C.Pass.ENVIRONMENT,owner:primitive});
     }
     return command;
    },

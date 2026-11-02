@@ -205,13 +205,7 @@
       "deep_category": "Exploration planétaire"
     }
   ],
-  "unavailable": [
-    {
-      "key": "ikaros",
-      "reason": "Aucune éphéméride officielle identifiée dans Horizons ; aucune trajectoire héliocentrique n’est reconstruite à partir d’un TLE terrestre.",
-      "deep_category": "Technologies spatiales"
-    }
-  ],
+  "unavailable": [],
   "external_missions": [
     {
       "key": "spektr-rg",
@@ -219,6 +213,14 @@
       "source": "MPE/eROSITA EDR · NPOL",
       "url": "https://erosita.mpe.mpg.de/edr/eROSITAObservations/OrbitFiles/",
       "coverage": "2019-10-01/2020-01-01"
+    },
+    {
+      "key": "ikaros",
+      "id": 36577,
+      "source": "JAXA/ISAS DARTS OEM",
+      "url": "https://data.darts.isas.jaxa.jp/pub/orbits/ikaros/ver1.0/OEM/",
+      "coverage": "2010-05-21/2011-12-19",
+      "theoretical_extension": "2010-05-20/2025-05-15 (separate approximate fallback)"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "makemake": {
+    "source": "https://science.nasa.gov/resource/makemake-3d-model/",
+    "reference": "https://commons.wikimedia.org/wiki/File:Makemake_Animation.gif",
+    "credit": "NASA VTAD · animation Charlestpt, domaine public",
+    "method": "Reprojection des coordonnées UV du modèle NASA original ; surface illustrative, non cartographiée.",
+    "note": "Surface illustrative adaptée de la référence · NASA VTAD · animation Charlestpt, domaine public. Aucune carte résolue disponible.",
+    "path": "solar/dwarfs/makemake-reference.webp",
+    "sha256": "ffc779703a6964dc78862c317f6620bd2dba67ce32d537a185d9416364a21b2e"
+  },
+  "pluton": {
+    "source": "https://science.nasa.gov/resource/pluto-3d-model/",
+    "credit": "NASA/JHUAPL/SwRI / VTAD",
+    "method": "Atténuation douce des écarts de contraste haute fréquence ; aucune texture ajoutée aux zones non résolues. La carte source reste conservée.",
+    "note": "Carte New Horizons : écarts de netteté atténués ; les régions peu observées restent moins définies.",
+    "path": "solar/dwarfs/pluton-balanced.webp",
+    "sha256": "6381308b676912ac7bbb2ce581827c743e8bd1298830abfb37e440ec9baf581a"
+  }
+}

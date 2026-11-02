@@ -70,6 +70,8 @@ def build(source):
   if ident is None:missing.append({'name':label,'parent':parent,'designation':designation})
   bodies.append({'key':'moon-'+str(ident) if ident else parent+'-'+normalize(label),'name':label,'id':ident,'kind':'moon','parent':parent,'designation':designation or None,'discovered':year,'reference':reference,**(geometry(ident) if ident else {'radii_km':None,'rotation':{},'nutation_angles':[]})})
  bodies.append({'key':'lune','name':'Lune','id':301,'kind':'moon','parent':'terre',**geometry(301)})
+ extension=ROOT/'static/solar/dwarfs/catalog.json'
+ if extension.exists():bodies.extend(json.loads(extension.read_text()))
  result={'frame':'ICRF','origin':'Earth center (399)','time_scale':'UTC','sources':sources,'bodies':bodies,'unresolved':missing}
  output=ROOT/'static/solar/catalog.json';output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(result,ensure_ascii=False,separators=(',',':')))
  print(json.dumps({'bodies':len(bodies),'moons_by_parent':{p:sum(b['kind']=='moon' and b['parent']==p for b in bodies) for p in ['terre',*PARENTS.values()]},'unknown_identity':missing,'radii':sum(bool(b['radii_km']) for b in bodies)},indent=2,ensure_ascii=False))

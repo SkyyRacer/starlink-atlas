@@ -26,13 +26,14 @@ def vectors(body,at):
   if ident==399:
    data={'id':ident,'samples':[[start,0,0,0,0,0,0],[stop,0,0,0,0,0,0]],'max_interval_seconds':block}
   else:
-   params={'format':'json','COMMAND':f"'{ident}'",'EPHEM_TYPE':"'VECTORS'",'CENTER':"'500@399'",'START_TIME':"'"+dt.datetime.fromtimestamp(start,dt.timezone.utc).strftime('%Y-%m-%d %H:%M')+"'",'STOP_TIME':"'"+dt.datetime.fromtimestamp(stop,dt.timezone.utc).strftime('%Y-%m-%d %H:%M')+"'",'STEP_SIZE':f"'{step//60} m'",'VEC_TABLE':"'2'",'REF_PLANE':"'FRAME'",'OUT_UNITS':"'KM-S'",'TIME_TYPE':"'UT'",'CSV_FORMAT':"'YES'"}
+   params={'format':'json','COMMAND':"'"+str(body.get('horizons_command',ident))+"'",'EPHEM_TYPE':"'VECTORS'",'CENTER':"'500@399'",'START_TIME':"'"+dt.datetime.fromtimestamp(start,dt.timezone.utc).strftime('%Y-%m-%d %H:%M')+"'",'STOP_TIME':"'"+dt.datetime.fromtimestamp(stop,dt.timezone.utc).strftime('%Y-%m-%d %H:%M')+"'",'STEP_SIZE':f"'{step//60} m'",'VEC_TABLE':"'2'",'REF_PLANE':"'FRAME'",'OUT_UNITS':"'KM-S'",'TIME_TYPE':"'UT'",'CSV_FORMAT':"'YES'"}
    url='https://ssd.jpl.nasa.gov/api/horizons.api?'+urllib.parse.urlencode(params)
    try:
     request=urllib.request.Request(url,headers={'User-Agent':'StarlinkAtlas/0.1 (https://github.com/SkyyRacer/starlink-atlas)'})
     with urllib.request.urlopen(request,timeout=50) as response: raw=json.load(response)
     text=raw.get('result','')
-    if not all(x in text for x in ['Earth (399)','ICRF','JDUT','KM-S',f'({ident})','$$SOE','$$EOE']):raise ValueError('Trajectoire indisponible pour cette date dans Horizons')
+    identity_ok=(f'({ident})' in text if not body.get('horizons_command') else bool(re.search(r'^Target body name:\s*'+re.escape(body['horizons_command'].rstrip(';'))+r'\s',text,re.M)))
+    if not identity_ok or not all(x in text for x in ['Earth (399)','ICRF','JDUT','KM-S','$$SOE','$$EOE']):raise ValueError('Trajectoire indisponible pour cette date dans Horizons')
     rows=[]
     for line in text.split('$$SOE')[1].split('$$EOE')[0].splitlines():
      if not line.strip():continue

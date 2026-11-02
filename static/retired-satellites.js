@@ -25,6 +25,7 @@
     const time=Date.parse(availability.suggestedAt);
     panel.append(node('p',beforeLaunch?'La date consultée précède le lancement. Cet objet ne peut pas encore être affiché en orbite.':Number.isFinite(time)?'Aucune observation exploitable ne permet d’afficher la position à la date consultée. Une autre date est disponible dans la chronologie.':'Les données orbitales disponibles dans ATLAS ne permettent pas de reconstituer la position à cette date. La fiche reste consultable, mais aucune position ne peut être affichée.'));
     if(Number.isFinite(time)){const button=node('button',distant?'Voir la dernière position disponible':'Voir une date disponible');button.type='button';button.addEventListener('click',()=>{hide();onVisit(selectedId??relevant[0]?.id??null,time,distant);});panel.append(button);}
+    root.AtlasTheory?.offer(panel,relevant,at);
     return;
    }
    const target=rows.find(s=>s.id===selectedId),focused=target&&allDecayed([target],at,'selected');
@@ -44,6 +45,7 @@
      row.append(node('p','Dernière observation exploitable : '+root.AtlasTime.instant(entry.at)));
      const button=node('button','Voir la dernière position archivée');button.type='button';button.addEventListener('click',()=>{hide();onVisit(satellite.id,time);});row.append(button);
     }else row.append(node('p',data?'Position archivée indisponible pour cet objet.':'Index indisponible. Réessayez en rechargeant cette page.'));
+    root.AtlasTheory?.offer(row,[satellite],at);
     container.append(row);
    }
   }

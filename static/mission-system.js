@@ -21,6 +21,11 @@
   if(event.data?.type==='atlas:system-film-progress')window.dispatchEvent(new CustomEvent('atlas:film-progress',{detail:event.data}));
   if(event.data?.type==='atlas:system-events-toggle')window.dispatchEvent(new Event('atlas:mission-events-toggle'));
   if(event.data?.type==='atlas:system-isolate')isolated.click();
+  if(event.data?.type==='atlas:system-planet'&&['mercure','venus','terre','mars','jupiter','saturne','uranus','neptune','pluton','ceres','eris','haumea','makemake'].includes(event.data.body)){
+   const url=new URL((event.data.body==='ceres'?'ceres-naine':event.data.body)+'/',base);url.searchParams.set('returnMission',key);
+   const at=Number(event.data.at);if(Number.isFinite(at)&&at>0&&at<=Date.now())url.searchParams.set('at',new Date(at).toISOString());
+   location.assign(url.href);
+  }
   if(event.data?.type==='atlas:system-earth')location.assign(new URL('atlas?view=earth',base).href);
   if(event.data?.type==='atlas:system-pause'){window.AtlasTimeline?.setPlaying(false);window.dispatchEvent(new Event('atlas:film-paused'));}
   if(event.data?.type==='atlas:system-toggle-play')document.getElementById('play').click();
@@ -30,6 +35,7 @@
  window.addEventListener('atlas:film-state',event=>post({type:'atlas:system-film-state',...event.detail}));
  window.addEventListener('atlas:film-frame',event=>post({type:'atlas:system-film-frame',...event.detail}));
  window.addEventListener('atlas:film-clear',()=>{pendingFilm=null;post({type:'atlas:system-film-clear'});});
+ if(new URL(location.href||base.href).searchParams.get('system')==='1')show(true);
  if(typeof ResizeObserver!=='undefined')new ResizeObserver(refreshLayout).observe(view);
  window.addEventListener('resize',refreshLayout);window.addEventListener('atlas:time',sync);setInterval(sync,250);
 })();

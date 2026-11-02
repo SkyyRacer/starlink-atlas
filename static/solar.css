@@ -53,3 +53,10 @@ body[data-film-active=true] .globe-tools{visibility:hidden;pointer-events:none}
 .solar-page #detail.solar-body-card .solar-card-header>.close{position:absolute;top:16px;right:16px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;min-height:32px;padding:0;float:none;background:#0c0c0c;border:1px solid #777;border-radius:2px;color:#eee;cursor:pointer}
 .solar-page #detail.solar-body-card .solar-card-content{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:0 20px 20px;scrollbar-gutter:stable}
 .solar-page #detail.solar-body-card .solar-card-header h2{margin-bottom:18px}
+
+/* Mission return stays with the Earth-direction instrument, below its status. */
+.solar-page #solar-mission-return{display:block;box-sizing:border-box;width:100%;min-height:38px;margin:12px 0 0;padding:10px 12px;border:1px solid #94e8da;border-radius:3px;background:#143c38;color:#d8fff6;font:600 12px/1.45 Arial,sans-serif;text-align:center;white-space:normal;overflow-wrap:anywhere;cursor:pointer;box-shadow:0 0 14px #64dcb51c}
+.solar-page #solar-mission-return:hover{background:#215b51;border-color:#c3fff0;color:#fff}
+.solar-page #solar-mission-return:focus-visible{outline:2px solid #c3fff0;outline-offset:3px}
+
+#solar-dwarf-planets{border-top:1px solid #383838}#solar-dwarf-planets summary{padding:12px 14px;cursor:pointer;font:inherit;color:#ddd;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}#solar-dwarf-planets summary::-webkit-details-marker{display:none}#solar-dwarf-planets summary::after{content:"";width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg);transition:transform .18s}#solar-dwarf-planets[open] summary::after{transform:rotate(225deg)}#solar-dwarf-planets summary:hover,#solar-dwarf-planets summary:focus-visible{background:#242424}#solar-dwarf-planets a{padding-left:26px}
