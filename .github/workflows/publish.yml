@@ -90,6 +90,7 @@ jobs:
           node tests/overview.cjs
           node tests/cartographic-surface.cjs
           python3 tests/data_health.py
+          python3 tests/compact_web_data.py
           node tests/mission-data-recovery.cjs
           node tests/history-network.cjs
           node tests/history-window.cjs

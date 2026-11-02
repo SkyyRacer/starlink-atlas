@@ -25,3 +25,19 @@ def compact(bundle,data_dir,prune=False):
         if prune:
             for file in files[2:]:file.unlink()
     return directory
+
+
+def export_history_versions(versions,destination,current):
+    """Ship every version referenced by this edition, not retired cache versions.
+    Unused versions remain in the collection cache for recovery; no current
+    archive or observation is removed from the edition's manifests.
+    """
+    import shutil
+    versions=pathlib.Path(versions);destination=pathlib.Path(destination)
+    destination.mkdir(parents=True,exist_ok=True)
+    for name in sorted(current):
+        if pathlib.Path(name).name!=name:raise ValueError('Nom de version incorrect')
+        source=versions/name
+        if not source.is_file():raise FileNotFoundError('Archive référencée absente : '+name)
+        shutil.copyfile(source,destination/name)
+    return sum(file.stat().st_size for file in versions.glob('*.json.gz') if file.name not in current)

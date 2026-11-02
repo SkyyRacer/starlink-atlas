@@ -21,7 +21,7 @@ with tempfile.TemporaryDirectory() as tmp:
  for row in bundle['orbits']:
   e=row['elements'];rows[(e['NORAD_CAT_ID'],e['EPOCH'],row['source'])]=row
  bundle['orbits']=list(rows.values())
- from compact_web_data import compact
+ from compact_web_data import compact,export_history_versions
  updates=compact(bundle,data,prune=a.compact_cache)
  manifest=bundle['catalog_response'].get('history') or {'days':{},'observations':0}
  manifest['remote_base']=a.remote_history
@@ -50,10 +50,9 @@ with tempfile.TemporaryDirectory() as tmp:
  (out/'edition.json').write_text(json.dumps({'bundle':filename,'edition':stamp,'resources':resources,'collections':collections}))
 if history.exists() and not a.remote_history:shutil.copytree(history,out/'data/history')
 shutil.copyfile(ROOT/'resources/model-runtime-manifest.json',out/'model-runtime-manifest.json')
-(out/'data/observations').mkdir(exist_ok=True)
+unused_history_version_bytes=export_history_versions(versions,out/'data/observations',current_versions)
 for file in versions.glob('*.json.gz'):
  if file.name not in current_versions and time.time()-file.stat().st_mtime>7*86400:file.unlink()
- else:shutil.copyfile(file,out/'data/observations'/file.name)
 for file in (ROOT/'browser').glob('*.js'):shutil.copyfile(file,out/file.name)
 # Historical source files already in this immutable commit need not consume the
 # Pages quota twice. Never redirect a freshly collected or changed observation.
@@ -138,4 +137,4 @@ if size>950_000_000:
   if file.is_file():breakdown[file.relative_to(out).parts[0]]+=file.stat().st_size
  print(json.dumps({'largest_directories':breakdown.most_common(12),'archive_bytes_saved':archive_saved,'model_bytes_saved':model_saved}))
  raise SystemExit(f'Site trop proche de la limite GitHub Pages : {size} octets. Déplacer les archives historiques avant publication.')
-print(json.dumps({'output':str(out),'archive_bytes_saved':archive_saved,'model_bytes_saved':model_saved,'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))
+print(json.dumps({'output':str(out),'archive_bytes_saved':archive_saved,'model_bytes_saved':model_saved,'unused_history_version_bytes_omitted':unused_history_version_bytes,'bytes':size,'edition':stamp,'catalogue':len(bundle['catalog_response']['satellites']),'orbits':len(bundle['orbits'])},indent=2))

@@ -18,3 +18,20 @@ with tempfile.TemporaryDirectory() as temp:
  assert len(list(root.glob('gp-*.json')))==2
  assert len(json.loads(gzip.decompress((directory/'2026-01-01.json.gz').read_bytes())))==2
 print('Archives quotidiennes, validité des sources et conservation des fichiers locaux : OK')
+
+# A warm CI cache may hold many obsolete versions of the same day. The export
+# must keep all referenced bytes and avoid uploading those unreferenced copies.
+from compact_web_data import export_history_versions
+with tempfile.TemporaryDirectory() as temp:
+ root=pathlib.Path(temp);versions=root/'versions';versions.mkdir();published=root/'published'
+ current=versions/'current.json.gz';current.write_bytes(gzip.compress(b'[{"epoch":"2026-11-02"}]'))
+ obsolete=versions/'older.json.gz';obsolete.write_bytes(gzip.compress(b'[{"epoch":"2026-11-01"}]'))
+ omitted=export_history_versions(versions,published,{current.name})
+ assert (published/current.name).read_bytes()==current.read_bytes(),'Referenced observations remain byte-for-byte identical'
+ assert not (published/obsolete.name).exists(),'Unused copies do not consume the Pages quota'
+ assert obsolete.exists(),'The recovery cache is retained'
+ assert omitted==obsolete.stat().st_size
+ try:export_history_versions(versions,root/'broken',{'absent.json.gz'})
+ except FileNotFoundError:pass
+ else:raise AssertionError('A missing referenced archive must block publication')
+print('Publication: all referenced archive bytes retained; retired cache versions omitted, missing references rejected.')
